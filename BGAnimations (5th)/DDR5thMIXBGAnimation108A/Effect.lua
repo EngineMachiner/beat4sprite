@@ -1,0 +1,40 @@
+local t = Def.ActorFrame{
+	LoadActor("2.png")..{
+		OnCommand=cmd(zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT-70;y,SCREEN_TOP-100;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,0.2;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT+70;y,SCREEN_TOP-70;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,0.4;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT+70;y,SCREEN_TOP+70;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,0.6;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT;y,SCREEN_TOP+100;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,0.8;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT-70;y,SCREEN_TOP+70;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,1;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT-70;y,SCREEN_TOP-100;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,1.2;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT-70;y,SCREEN_TOP-100;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,1.4;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT+70;y,SCREEN_TOP-70;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,1.6;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT+70;y,SCREEN_TOP+70;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,1.8;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT+70;y,SCREEN_TOP+100;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,2;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT-70;y,SCREEN_TOP+70;zoom,0;smooth,1;queuecommand,"On");
+	};
+	LoadActor("2.png")..{
+		OnCommand=cmd(hibernate,2.2;zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;linear,1;zoom,0.5;x,SCREEN_LEFT+70;y,SCREEN_TOP-100;zoom,0;smooth,1;queuecommand,"On");
+	};
+};
+
+return t;

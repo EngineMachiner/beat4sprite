@@ -1,0 +1,42 @@
+return Def.ActorFrame{
+	LoseFocusCommand=function(self)
+		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
+	end,
+	
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,80;y,80;effectclock,'music';rainbow;effectoffset,0.1)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,240;y,80;effectclock,'music';rainbow;effectoffset,0.2)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,400;y,80;effectclock,'music';rainbow;effectoffset,0.3)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,560;y,80;effectclock,'music';rainbow;effectoffset,0.4)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,80;y,240;effectclock,'music';rainbow;effectoffset,0.5)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,240;y,240;effectclock,'music';rainbow;effectoffset,0.6)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,400;y,240;effectclock,'music';rainbow;effectoffset,0.7)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,560;y,240;effectclock,'music';rainbow;effectoffset,0.8)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,80;y,400;effectclock,'music';rainbow;effectoffset,0.9)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,240;y,400;effectclock,'music';rainbow)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,400;y,400;effectclock,'music';rainbow;effectoffset,0.15)
+	};
+	LoadActor("SpriteBeat")..{
+		OnCommand=cmd(x,560;y,400;effectclock,'music';rainbow;effectoffset,0.25)
+	};
+}
