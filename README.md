@@ -11,7 +11,7 @@ Still need to do:
 
 -Try to make them look good.
 
--Try to do some linear "syncing".
+-Try to do some linear "syncing" again or wait until SM5 developers update some way to sync it :/ (Delayed).
 
 -Fix the Glitchy Kaleidoscope Effect.
 
