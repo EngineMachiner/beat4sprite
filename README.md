@@ -1,12 +1,12 @@
-# BGAnimations Project
-PSX Backgrounds Project
+# PSX BGAnimations Project
 
-Made by Engine_Machiner
+Credits:
+RenTheHumanCat
+Engine_Machiner
 
-Still need to do:
+Available:
+-DDR 5th
+-DDR Konamix (4th style sprites)
 
--Try to make them look good and classy.
+The sprites will be classified through 32bit (PSX pixelated style) or HD version (Retexture and Redesigned)
 
--Fix the Glitchy Kaleidoscope Effect.
-
-Any advices will be received.
