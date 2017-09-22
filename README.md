@@ -14,3 +14,5 @@ Available:
 
 The sprites will be classified through 32bit (PSX pixelated style) or HD version (Retexture and Redesigned)
 
+Now with guide included for BGScripts.
+
