@@ -10,6 +10,7 @@ W-WallBumpEffect
 Li-Sprites that go through horizontal and vertical directions
 Out-It can refer to when the sprites are having a 3D Effect, they zoom out.
 Wh-Whirl
+InSpin-Particles circle and zoom in.
 
 FlipX-Sprites flip crossing the X axis.
 FlipY-Sprites flip crossing the Y axis.
