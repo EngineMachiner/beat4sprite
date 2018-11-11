@@ -27,7 +27,7 @@ return Def.ActorFrame{
 					:texcoordvelocity(0,texcoordvelocity_y*_rev*textcoordsense):effectclock('beat'):set_use_effect_clock_for_texcoords(true)
 					:rotationx(rotationx_val) 
 					:rotationz(rotationz_val)
-				    :linear(42/2):rotationz(sprite:GetRotationZ()+720*_rev*spin_sense):queuecommand("On"):set_tween_uses_effect_delta(true)
+				    :linear(42/2):rotationz(sprite:GetRotationZ()+720*0.875*_rev*spin_sense):queuecommand("On"):set_tween_uses_effect_delta(true)
 					if mirror == 2 then 
 						sprite:customtexturerect(0,0,mirror_val/8,-mirror_val/8)
 						:addimagecoords(add_coord_x2,0)

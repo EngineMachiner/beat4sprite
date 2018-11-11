@@ -1,4 +1,4 @@
-local tool_sprite, rotationz_allow, rotationx_allow = ...
+local tool_sprite, rotationz_allow, rotationx_allow, i = ...
 local ScaleVar = _screen.h/480
 local t = Def.ActorFrame{
  
@@ -14,7 +14,9 @@ k = Def.ActorFrame{};
 
 t[1] = k
 
-for i=-math.random(-2,2),math.random(-2,2) do
+local num_tool = math.random(-2,2)
+
+for i=-num_tool,num_tool do
 
 k[-i+3] = Def.Sprite{
             Texture=tool_sprite,
@@ -31,7 +33,7 @@ k[-i+3] = Def.Sprite{
                                 self:rotationx(90):zoom(ScaleVar/4)
                         end
 
-                        self:draworder(-(i-3))
+                        self:draworder(-1)
                         self:z(i*-100*ScaleVar)
                         self:zoom(ScaleVar)
                         self:xy(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*i,SCREEN_CENTER_Y+self:GetHeight()*ScaleVar*i)

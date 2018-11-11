@@ -16,10 +16,10 @@ t[1] = a
 
 for m=0,BGA_SongLimit_IE do
 
-            a[m]  =  LoadActor("TestStair", tool_sprite, rotationz_allow, rotationx_allow)..{
+            a[10+m]  =  LoadActor("TestStair", tool_sprite, rotationz_allow, rotationx_allow)..{
                         GainFocusCommand=function(self)
-                        self:finishtweening():diffusealpha(0):xy(math.random(-SCREEN_WIDTH*ScaleVar/3,SCREEN_WIDTH*ScaleVar/3),math.random(-SCREEN_HEIGHT*ScaleVar/3,SCREEN_HEIGHT*ScaleVar/3))
-                        :sleep(m/0.75):diffuse(Color.White):diffusealpha(1):z(125*ScaleVar/3)
+                        self:finishtweening():sleep(0.01):diffusealpha(0):xy(math.random(-SCREEN_WIDTH*ScaleVar/3,SCREEN_WIDTH*ScaleVar/3),math.random(-SCREEN_HEIGHT*ScaleVar/3,SCREEN_HEIGHT*ScaleVar/3))
+                        :sleep(m):diffuse(Color.White):diffusealpha(1):z(125*ScaleVar/3)
                         :linear(9)
                         :z(-1000*2*ScaleVar)
                         :diffuse(color("0,0,0,255/9"))

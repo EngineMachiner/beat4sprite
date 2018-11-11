@@ -11,9 +11,18 @@ Li-Sprites that go through horizontal and vertical directions
 Out-It can refer to when the sprites are having a 3D Effect, they zoom out.
 Wh-Whirl
 InSpin-Particles circle and zoom in.
+Circle-Zooming effect shaping a circle
+
 
 FlipX-Sprites flip crossing the X axis.
 FlipY-Sprites flip crossing the Y axis.
 
 ZoomOutIn-When the order of zooming goes from the corner to the center.
 ZoomInOut-When the order of zooming goes from the center to the corner. --Similar to a snake movement.
+
+Folders:
+
+K-It's mean't for Kaleidoscope. (Ex: K0A)
+BG-References the background of the song (Ex: 5thBG001A)
+R-References only special rainbow effects (Ex: 5thR001A)
+Backgrounds-Places the background of the song

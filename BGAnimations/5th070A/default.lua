@@ -7,5 +7,5 @@ return Def.ActorFrame{
 	LoadActor("../Backgrounds/63 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,6*ScaleVar;customtexturerect,0,0,5,5)
 	};
-	LoadActor("../ParticleEffects/InnerEffect/CircleOut","/BGAnimations/Sprites/mushroom.png",0)..{},
+	LoadActor("../ParticleEffects/InnerEffect/CircleIn","/BGAnimations/Sprites/mushroom.png",0)..{},
 }
