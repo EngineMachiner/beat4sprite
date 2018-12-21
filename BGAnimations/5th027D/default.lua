@@ -6,5 +6,5 @@ return Def.ActorFrame{
 	end,
 	LoadActor("B.lua")..{};
 	LoadActor("../ParticleEffects/SpiralSpriteZoomIn", "/BGAnimations/Sprites/plates 4x1.png", 1/4)..{ OnCommand=function(self) 
-	self:x(((SCREEN_WIDTH-640)/4)) end },
+	self:x(100*ScaleVar) end },
 }

@@ -20,7 +20,7 @@ t[#t+1] = Def.Sprite{
 			 OnCommand=function(self)
 			 	self:zoom(ScaleVar)
 			 		:xy(SCREEN_CENTER_X+self:GetWidth()*i*ScaleVar,SCREEN_CENTER_Y+self:GetHeight()*k*ScaleVar)
-			 		:SetAllStateDelays(tool_delay):effectclock("beat")
+			 		:SetAllStateDelays(tool_delay*5):effectclock("beat")
 			 end,
 			 SpinYCommand=function(self)
 			 	self:rotationx(0):linear(2):rotationx(90):linear(2):rotationx(0)
@@ -38,6 +38,15 @@ t[#t+1] = Def.Sprite{
 			 	if i == -3 or i == -1 or i == 1 then selected_state = 0 end
 			 	if i == -2 or i == 0 or i == 2 then selected_state = 1 end
 			 	self:setstate(selected_state)
+			 end,
+			 StairsCommand=function(self)	
+			 	local x_sprites = i+4
+			 	local y_sprites = k+4
+			 	local s_state = self:GetNumStates()-1
+			 		if x_sprites + y_sprites == 8 then 
+			 			self:setstate(0)
+			 			self:diffusealpha(0.5)
+			 		end
 			 end
 	}
 

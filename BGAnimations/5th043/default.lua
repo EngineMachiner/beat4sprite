@@ -4,9 +4,9 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 	LoadActor("../Sprites/ClothesSprites/BG.png")..{ OnCommand=cmd(Center;zoom,ScaleVar) };
-	LoadActor("../Sprites/ClothesSprites/BG.png")..{ OnCommand=cmd(Center;zoom,ScaleVar;xy,self:GetX()+self:GetWidth()*ScaleVar,self:GetY()) };
-	LoadActor("../Sprites/ClothesSprites/BG.png")..{ OnCommand=cmd(Center;zoom,ScaleVar;xy,self:GetX()-self:GetWidth()*ScaleVar,self:GetY()) };
-	LoadActor("A.lua")..{ OnCommand=cmd(rainbow;effectperiod,8;effectclock,"beat") };
-	LoadActor("A.lua")..{ OnCommand=cmd(rainbow;effectperiod,8;effectclock,"beat";x,640*ScaleVar) };
-	LoadActor("A.lua")..{ OnCommand=cmd(rainbow;effectperiod,8;effectclock,"beat";x,-640*ScaleVar) };
+	LoadActor("../Sprites/ClothesSprites/BG.png")..{ OnCommand=cmd(Center;zoom,ScaleVar;rotationy,180;x,self:GetX()+self:GetWidth()) };
+	LoadActor("../Sprites/ClothesSprites/BG.png")..{ OnCommand=cmd(Center;zoom,ScaleVar;rotationy,180;x,self:GetX()-self:GetWidth()) };
+	LoadActor("A.lua")..{};
+	LoadActor("A.lua")..{ OnCommand=cmd(x,1495;rotationy,180) };
+	LoadActor("A.lua")..{ OnCommand=cmd(x,215*ScaleVar;rotationy,180) };
 }

@@ -13,4 +13,5 @@ return Def.ActorFrame{
     		self:xy(SCREEN_WIDTH*(1/2)*(-n+1), SCREEN_HEIGHT*(1/2)*(-n+1))
 		end
 	};
+
 }

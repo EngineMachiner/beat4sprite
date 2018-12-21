@@ -21,7 +21,7 @@ return Def.ActorFrame{
 
 	Def.ActorFrame{
 
-		OnCommand=cmd(x,160;linear,self:GetChild(""):GetWidth()*2;x,0;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On");
+		OnCommand=cmd(x,0;linear,self:GetChild(""):GetWidth()*2;x,-160;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On");
 
 			LoadActor("../Backgrounds/Tool.lua", "../Sprites/4 4x1.png", 1/4, ScaleVar, true )..{ 
 

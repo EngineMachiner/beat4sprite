@@ -16,11 +16,11 @@ return Def.ActorFrame{
 	LoadActor(GAMESTATE:GetCurrentSong():GetBackgroundPath())..{
 		OnCommand=function(self)
 		self:Center()
-			:x(self:GetX()+self:GetWidth()*ScaleVar)
 			:zoom(ScaleVar)
 			:zoomx(-1)
 			:SetSize(640,480)
 			:faderight(0.025)
+			:x(self:GetX()+self:GetWidth()*ScaleVar)
 			
 		end
 	};
@@ -28,11 +28,11 @@ return Def.ActorFrame{
 	LoadActor(GAMESTATE:GetCurrentSong():GetBackgroundPath())..{
 		OnCommand=function(self)
 		self:Center()
-			:x(self:GetX()-self:GetWidth()*ScaleVar)
 			:zoom(ScaleVar)
 			:zoomx(-1)
 			:SetSize(640,480)
 			:fadeleft(0.025)
+			:x(self:GetX()-self:GetWidth()*ScaleVar)
 		end
 	};
 }

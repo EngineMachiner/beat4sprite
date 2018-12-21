@@ -23,9 +23,9 @@ return Def.ActorFrame{
 
 			local child_h = self:GetChild(""):GetChild("template"):GetHeight()
 
-			self:y(0)
-			:linear(1.5*SCREEN_HEIGHT/child_h) --using Tool.lua in B.lua
-			:y(-child_h*6*ScaleVar)
+			self:y(0+child_h*0.25)
+			:linear(1.5*2.5*SCREEN_HEIGHT/child_h) --using Tool.lua in B.lua
+			:y(-child_h*5+child_h*0.25)
 			:set_tween_uses_effect_delta(true)
 			:effectclock("beat")
 			:queuecommand("On")
@@ -36,9 +36,9 @@ return Def.ActorFrame{
 
 			local child_h = self:GetChild(""):GetChild("template"):GetHeight()
 
-			self:y(child_h*6*ScaleVar)
-			:linear(1.5*SCREEN_HEIGHT/child_h) --using Tool.lua in B.lua
-			:y(0)
+			self:y(child_h*6+child_h*0.25)
+			:linear(1.5*2.5*SCREEN_HEIGHT/child_h) --using Tool.lua in B.lua
+			:y(child_h+child_h*0.25)
 			:set_tween_uses_effect_delta(true)
 			:effectclock("beat")
 			:queuecommand("On")

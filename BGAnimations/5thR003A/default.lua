@@ -1,56 +1,42 @@
 local ScaleVar = _screen.h/480
 return Def.ActorFrame{
+
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-Def.Quad{
+
+	Def.Quad{
 		OnCommand=function(self)
 			self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y):zoomto(SCREEN_WIDTH,SCREEN_HEIGHT):diffuse(Color.Black)
 		end,
 	},
-		LoadActor("../Backgrounds/Rainbow/4.png")..{
-			OnCommand=function(self)
-			self:Center():zoom((0.25+0.125*1.5*7)*ScaleVar):diffuseshift():effectcolor1(Color.HoloGreen):effectperiod(8):effectcolor2(color("#ef40e5")):effectclock("beat")
-			end
-		},
-		LoadActor("../Backgrounds/Rainbow/4.png")..{
-			OnCommand=function(self)
-			self:Center():zoom((0.25+0.125*1.5*6)*ScaleVar):diffuseshift():effectcolor1(Color.Blue):effectperiod(8):effectcolor2(Color.Yellow):effectclock("beat")
-			end
-		},
-		LoadActor("../Backgrounds/Rainbow/4.png")..{
-			OnCommand=function(self)
-			self:Center():zoom((0.25+0.125*1.5*5)*ScaleVar):diffuseshift():effectcolor1(Color.Orange):effectperiod(8):effectcolor2(Color.Red):effectclock("beat")
-			end
-		},
-		LoadActor("../Backgrounds/Rainbow/4.png")..{
-			OnCommand=function(self)
-			self:Center():zoom((0.25+0.125*1.5*4)*ScaleVar):diffuseshift():effectcolor1(Color.Green):effectperiod(8):effectcolor2(Color.Purple):effectclock("beat")
-			end
-		},
-		LoadActor("../Backgrounds/Rainbow/4.png")..{
-			OnCommand=function(self)
-			self:Center():zoom((0.25+0.125*1.5*3)*ScaleVar):diffuseshift():effectcolor1(Color.Yellow):effectperiod(8):effectcolor2(Color.Green):effectclock("beat")
-			end
-		},
-		LoadActor("../Backgrounds/Rainbow/4.png")..{
-			OnCommand=function(self)
-			self:Center():zoom((0.25+0.125*1.5*2)*ScaleVar):diffuseshift():effectcolor1(Color.Red):effectperiod(8):effectcolor2(Color.Blue):effectclock("beat")
-			end
-		},
-		LoadActor("../Backgrounds/Rainbow/4.png")..{
-			OnCommand=function(self)
-			self:Center():zoom((0.25+0.125*1.5)*ScaleVar):diffuseshift():effectcolor1(Color.Green):effectperiod(8):effectcolor2(color("#ef40e5")):effectclock("beat")
-			end
-		},
-		LoadActor("../Backgrounds/Rainbow/4.png")..{
-			OnCommand=function(self)
-			self:Center():zoom(0.25*ScaleVar):diffuseshift():effectcolor1(color("#ef40e5")):effectperiod(8):effectcolor2(Color.Green):effectclock("beat")
-			end
-		},
-	Def.Quad{
+	LoadActor("../Backgrounds/Rainbow/6A.png")..{
 		OnCommand=function(self)
-			self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y):zoomto(SCREEN_WIDTH,SCREEN_HEIGHT):diffuse(Color.White):rainbow():effectperiod(8):diffusealpha(0.25):blend("BlendMode_Modulate"):effectclock("beat")
-		end,
+			self:zoom(0.75*3*ScaleVar)
+			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
+		end
+	},
+	LoadActor("../Backgrounds/Rainbow/6A.png")..{
+		OnCommand=function(self)
+			self:zoom(0.75*2*ScaleVar)
+			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
+		end
+	},
+	LoadActor("../Backgrounds/Rainbow/6A.png")..{
+		OnCommand=function(self)
+			self:zoom(0.75*ScaleVar)
+			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
+		end
+	},
+	LoadActor("../Backgrounds/Rainbow/6B.png")..{
+		OnCommand=function(self)
+			self:zoom(0.25*ScaleVar)
+			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
+		end
+	},
+	LoadActor("../Backgrounds/Rainbow/Color.png")..{
+		OnCommand=function(self)
+			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):blend("BlendMode_Add"):effectclock("beat"):set_tween_uses_effect_delta(true)
+		end
 	},
 }
