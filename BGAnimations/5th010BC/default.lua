@@ -10,5 +10,5 @@ return Def.ActorFrame{
 
 	},
 
-	LoadActor("../ParticleEffects/RainbowSquares/default.lua", 160, 120 )..{ OnCommand=function(self) self:x(-(SCREEN_WIDTH-640)/2) end },
+	LoadActor("../ParticleEffects/RainbowSquares/default.lua", 160, 120 )..{ OnCommand=function(self) self:x(-55*ScaleVar) end },
 }

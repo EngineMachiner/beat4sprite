@@ -1,26 +1,24 @@
-local tool_sprite, tool_delay, ScaleVar, RState = ...
+local tool_sprite, tool_delay, ScaleVar, RandomState, StairsDir = ...
 
 local t = Def.ActorFrame{ 
 
 	OnCommand=function(self)
-		local random_states if RState == true then
+		local random_states if RandomState == true then
 			self:RunCommandsOnChildren( function(child) child:setstate(math.random(0,child:GetNumStates()-1)) end )
 		end
 	end,
 
 }
 
-local sprt_bg for i=-3,3 do
-
-local sprt2_bg for k=-3,2 do
-
-t[#t+1] = Def.Sprite{
+for i=-3,3 do
+	for k=-3,2 do
+		t[#t+1] = Def.Sprite{
 			 Name = "template",
 			 Texture = tool_sprite, 
 			 OnCommand=function(self)
 			 	self:zoom(ScaleVar)
-			 		:xy(SCREEN_CENTER_X+self:GetWidth()*i*ScaleVar,SCREEN_CENTER_Y+self:GetHeight()*k*ScaleVar)
-			 		:SetAllStateDelays(tool_delay*5):effectclock("beat")
+			 	:xy(SCREEN_CENTER_X+self:GetWidth()*i*ScaleVar,SCREEN_CENTER_Y+self:GetHeight()*k*ScaleVar)
+			 	:SetAllStateDelays(tool_delay):effectclock("beat")
 			 end,
 			 SpinYCommand=function(self)
 			 	self:rotationx(0):linear(2):rotationx(90):linear(2):rotationx(0)
@@ -34,26 +32,35 @@ t[#t+1] = Def.Sprite{
 				:effectclock('beat')
 				:set_tween_uses_effect_delta(true)
 			 end,
-			 OneTwoStatesCommand=function(self)
-			 	if i == -3 or i == -1 or i == 1 then selected_state = 0 end
-			 	if i == -2 or i == 0 or i == 2 then selected_state = 1 end
-			 	self:setstate(selected_state)
-			 end,
-			 StairsCommand=function(self)	
+			 StairsCommand=function(self)
+
 			 	local x_sprites = i+4
 			 	local y_sprites = k+4
-			 	local s_state = self:GetNumStates()-1
-			 		if x_sprites + y_sprites == 8 then 
-			 			self:setstate(0)
-			 			self:diffusealpha(0.5)
-			 		end
-			 end
-	}
+			 	
 
+			 	if StairsDir == "Left" then 
+			 		for a=0,10,1 do	
+		    			if x_sprites - y_sprites == a-5 then
+		    				self:setstate(a % self:GetNumStates())
+			    		end
+		    		end
+		    	elseif StairsDir == "Right" then
+		    		local tbl = {}
+		    		for a=0,10,1 do
+		    			for _i=self:GetNumStates()-1,0,-1 do
+		    				table.insert( tbl, _i )
+		    			end
+		    			if x_sprites - y_sprites == a-5 then
+		    				self:setstate(tbl[a+1])
+			    		end
+		    		end
+		    	else
+		    		self:animate(false)
+		    	end
 
-
-end
-
+			end
+		}
+	end
 end
 
 return t

@@ -5,14 +5,17 @@ L-Left
 R-Right
 D-Down
 
+Q-Beat each 1/4 note
+H-Beat each 1/2 note
+
 RB-Rainbow
 W-WallBumpEffect
 Li-Sprites that go through horizontal and vertical directions
+In-It can refer to when the sprites are having a 3D Effect, they zoom in.
 Out-It can refer to when the sprites are having a 3D Effect, they zoom out.
 Wh-Whirl
 InSpin-Particles circle and zoom in.
 Circle-Zooming effect shaping a circle
-
 
 FlipX-Sprites flip crossing the X axis.
 FlipY-Sprites flip crossing the Y axis.
