@@ -1,6 +1,13 @@
 # PSX BGAnimations Project
 
-To contribute to this project, make a fork and merge your BGAs so I can check them and add them properly.
+-- Installation --
+
+  1. Clone or download this branch and choose the version you want.
+  2. Unzip / Copy the contents of the version you selected into your SM root folder.
+  3. Do the same but with the Graphics.
+
+-- For helpers --
+
 If anyone needs help with the structure on how the scripts are called, it goes like this:
 
   FolderName(default.lua) loads an actor in the frame that can be a ParticleEffects lua file or a custom (Tool.lua, loading an actual image with functions), it's structure has arguments that can be useful to call the sprite that we're going to use.
@@ -19,7 +26,4 @@ Credits:
 
 -Engine_Machiner
 -RenTheHumanCat
-
-The sprites will be classified through 32bit (PSX pixelated style) or HD version (Retexture and Redesigned)
-Now with guide included for BGScripts.
-
+-MadkaT
