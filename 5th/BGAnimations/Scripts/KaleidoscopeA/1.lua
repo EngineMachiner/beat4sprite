@@ -17,12 +17,12 @@ function Petal(sprite, _rev, rotationx_val, rotationz_val, mirror_val, spin_sens
 					local relative_posy = (sprite:GetHeight()/2)/sprite:GetHeight()
 					local texcoordvelocity_y = relative_posy/4
 					local width = sprite:GetWidth()
-					SCREENMAN:SystemMessage(tostring(width))
+
         			sprite:Center()
 					:SetCustomPosCoords(0,SCREEN_HEIGHT*0.5,0,-SCREEN_HEIGHT/4.5,-640*ScaleVar*0.5,-SCREEN_HEIGHT*0.5,0,SCREEN_HEIGHT*0.5) --This one is special because it's the center. The rest have the shape of a ring.
 					:SetSize(640*ScaleVar,480*ScaleVar)
 					:customtexturerect(0,0,mirror_val/(4*width/320),mirror_val/(4*width/320))
-					:texcoordvelocity(0,texcoordvelocity_y*_rev):effectclock('beat'):set_use_effect_clock_for_texcoords(true)
+					:texcoordvelocity(0,texcoordvelocity_y*_rev*0.25):effectclock('beat'):set_use_effect_clock_for_texcoords(true)
 					:rotationx(rotationx_val) 
 					:rotationz(rotationz_val)
 					:addimagecoords(width*0.5,0)
@@ -30,7 +30,7 @@ function Petal(sprite, _rev, rotationx_val, rotationz_val, mirror_val, spin_sens
 					if mirror_val == 2 then
 						sprite:customtexturerect(0,0,mirror_val/(8*width/320),-mirror_val/(8*width/320))
 						:zoom(0.5)
-						:addimagecoords(width*0.1,0)
+						:addimagecoords(width*0.1*width/320,0)
 						:SetCustomPosCoords(0,SCREEN_HEIGHT*0.5,0,-SCREEN_HEIGHT/4.475,-640*ScaleVar/1.3375,-SCREEN_HEIGHT*0.3625,-640*ScaleVar/1.3375,SCREEN_HEIGHT*0.5)
 					elseif mirror_val == -4 then
 						sprite:customtexturerect(0,0,mirror_val/(16*width/320),mirror_val/(16*width/320))
@@ -40,7 +40,7 @@ function Petal(sprite, _rev, rotationx_val, rotationz_val, mirror_val, spin_sens
 					elseif mirror_val == 8 then 
 						sprite:customtexturerect(0,0,mirror_val/(32*width/320),-mirror_val/(32*width/320))
 						:zoom(2)
-						:addimagecoords(width*0.1,0)
+						:addimagecoords(width*0.1*width/320,0)
 						:SetCustomPosCoords(0,SCREEN_HEIGHT*0.5,0,-SCREEN_HEIGHT/4.475,-640*ScaleVar/1.3375,-SCREEN_HEIGHT*0.3625,-640*ScaleVar/1.3375,SCREEN_HEIGHT*0.5)
 					else
 						sprite:zoom(0.25)
