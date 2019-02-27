@@ -4,7 +4,7 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/51 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/51 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posx = (self:GetWidth()/2)/self:GetWidth()
@@ -23,7 +23,7 @@ return Def.ActorFrame{
 			:effectclock('beat')
 		end
 	};
-	LoadActor("../Backgrounds/51 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/51 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posx = (self:GetWidth()/2)/self:GetWidth()
@@ -42,5 +42,5 @@ return Def.ActorFrame{
 			:effectclock('beat')
 		end
 	};
-		LoadActor("../ParticleEffects/Line/001", "/BGAnimations/Sprites/Cake.png", "/BGAnimations/Sprites/Burger.png", 0, ScaleVar)..{},
+		LoadActor("../Scripts/Line/001", "/BGAnimations/Sprites/5th/Cake.png", "/BGAnimations/Sprites/5th/Burger.png", 0, ScaleVar)..{},
 }

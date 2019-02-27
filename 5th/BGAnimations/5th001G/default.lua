@@ -1,5 +1,5 @@
-local file = "../Backgrounds/39 (stretch).png"
-local file2 = "../Backgrounds/5 (stretch).png"
+local file = "../Backgrounds/5th/39 (stretch).png"
+local file2 = "../Backgrounds/5th/5 (stretch).png"
 
 local ScaleVar = _screen.h/480
 
@@ -12,10 +12,10 @@ return Def.ActorFrame{
 		OnCommand=cmd(Center;zoom,ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;zoom,ScaleVar;zoomx,-1;x,self:GetX()+self:GetWidth()*ScaleVar)
+		OnCommand=cmd(Center;zoom,ScaleVar;zoomx,-ScaleVar;x,self:GetX()+self:GetWidth()*ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;zoom,ScaleVar;zoomx,-1;x,self:GetX()-self:GetWidth()*ScaleVar)
+		OnCommand=cmd(Center;zoom,ScaleVar;zoomx,-ScaleVar;x,self:GetX()-self:GetWidth()*ScaleVar)
 	};
 	LoadActor(file2)..{
 		OnCommand=function(self)

@@ -1,5 +1,5 @@
 local ScaleVar = _screen.h/480
-local file = "/BGAnimations/Backgrounds/Kaleidoscopes/2 (stretch).png"
+local file = "/BGAnimations/Backgrounds/5th/Kaleidoscopes/2 (stretch).png"
 
 return Def.ActorFrame{
 
@@ -7,6 +7,6 @@ return Def.ActorFrame{
         self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
     end, 
 	
-    LoadActor("../ParticleEffects/KaleidoscopeA/default.lua", ScaleVar, file)..{};
+    LoadActor("../Scripts/KaleidoscopeA/default.lua", ScaleVar, file)..{}
     
 }

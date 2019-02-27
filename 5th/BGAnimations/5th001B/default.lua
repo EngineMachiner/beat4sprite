@@ -5,9 +5,9 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Backgrounds/Tool.lua", "../Sprites/1 4x1.png", 1/(4), ScaleVar )..{},
+	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/1 4x1.png", 1/(4), ScaleVar )..{},
 
-	LoadActor("../Backgrounds/5 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/5 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posx = (self:GetWidth()/2)/self:GetWidth()

@@ -5,7 +5,7 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Backgrounds/26 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/26 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posy = (self:GetHeight()/2)/self:GetHeight()
@@ -21,5 +21,5 @@ return Def.ActorFrame{
 		end
 	},
 
-	LoadActor("../ParticleEffects/WallBumpEffect1stCycle/default.lua", "/BGAnimations/Sprites/2 4x1 Bomb.png", ScaleVar)..{},
+	LoadActor("../Scripts/WallBumpEffect1stCycle/default.lua", "/BGAnimations/Sprites/5th/2 4x1 Bomb.png", ScaleVar)..{},
 }

@@ -13,5 +13,5 @@ return Def.ActorFrame{
 		end
 	};
 	
-		LoadActor("../ParticleEffects/InnerEffect/CircleIn", "/BGAnimations/Sprites/Star 12x1.png")..{},
+		LoadActor("../Scripts/InnerEffect/CircleIn", "/BGAnimations/Sprites/5th/Star 12x1.png")..{},
 }

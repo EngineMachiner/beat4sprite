@@ -9,12 +9,12 @@ return Def.ActorFrame{
 			self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y):zoomto(SCREEN_WIDTH,SCREEN_HEIGHT):diffuse(Color.Black)
 		end,
 	},
-		LoadActor("../Backgrounds/Rainbow/Full1.png")..{
+		LoadActor("../Backgrounds/5th/Rainbow/Full1.png")..{
 			OnCommand=function(self)
 			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
 			end
 		},	
-		LoadActor("../Backgrounds/Rainbow/Color.png")..{
+		LoadActor("../Backgrounds/5th/Rainbow/Color.png")..{
 			OnCommand=function(self)
 			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):blend("BlendMode_Add"):effectclock("beat"):set_tween_uses_effect_delta(true)
 			end

@@ -1,4 +1,4 @@
-local file = "../Sprites/3 4x1.png"
+local file = "/BGAnimations/Sprites/5th/3 4x1.png"
 local ScaleVar = _screen.h/480
 
 return Def.ActorFrame{

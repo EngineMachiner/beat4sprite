@@ -10,5 +10,5 @@ return Def.ActorFrame{
 	LoadActor("B.lua", ScaleVar)..{
 		OnCommand=cmd(y,0;linear,(35/3)/(8);y,320*ScaleVar;queuecommand,"On";set_tween_uses_effect_delta,true)
 	};
-	LoadActor("../ParticleEffects/WallBumpEffect1stCycle/default.lua","/BGAnimations/Sprites/Burn 2x1.png", ScaleVar)..{};
+	LoadActor("../Scripts/WallBumpEffect1stCycle/default.lua","/BGAnimations/Sprites/5th/Burn 2x1.png", ScaleVar)..{};
 }

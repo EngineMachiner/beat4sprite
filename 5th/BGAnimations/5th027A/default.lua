@@ -1,4 +1,4 @@
-local tool_sprite = "../Sprites/plates 4x1.png"
+local tool_sprite = "/BGAnimations/Sprites/5th/plates 4x1.png"
 local ScaleVar = _screen.h/480
 return Def.ActorFrame{
 	LoseFocusCommand=function(self)
@@ -7,5 +7,5 @@ return Def.ActorFrame{
 	LoadActor("B.lua")..{
 		OnCommand=cmd()
 	};
-	LoadActor("../Backgrounds/Tool.lua", tool_sprite, 1/4, ScaleVar, false )..{ OnCommand=cmd(y,self:GetChild("template"):GetHeight()*ScaleVar/1.75;x,self:GetChild("template"):GetWidth()*ScaleVar/2); },
+	LoadActor("../Scripts/TileTool", tool_sprite, 1/4, ScaleVar, false )..{ OnCommand=cmd(y,self:GetChild("template"):GetHeight()*ScaleVar/1.75;x,self:GetChild("template"):GetWidth()*ScaleVar/2); },
 }

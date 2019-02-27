@@ -32,7 +32,7 @@ return Def.ActorFrame{
 	};
 
 --[[ Testing sync with texcoord...
-	LoadActor("../Backgrounds/5 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/5 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posx = (self:GetWidth()/2)/self:GetWidth()

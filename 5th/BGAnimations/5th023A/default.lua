@@ -1,4 +1,4 @@
-local file = "../Backgrounds/30 (stretch).png"
+local file = "../Backgrounds/5th/30 (stretch).png"
 local ScaleVar = _screen.h/480
 
 return Def.ActorFrame{
@@ -24,5 +24,5 @@ return Def.ActorFrame{
 		end
 	},
 
-	LoadActor("../ParticleEffects/ParticlesDown", "Volt 2x1.png")..{},
+	LoadActor("../Scripts/ParticlesDown", "Volt 2x1.png")..{},
 }

@@ -1,4 +1,4 @@
-local file = "../Sprites/3 4x1.png"
+local file = "/BGAnimations/Sprites/5th/3 4x1.png"
 local ScaleVar = _screen.h/480
 
 return Def.ActorFrame{
@@ -14,5 +14,5 @@ return Def.ActorFrame{
 	LoadActor(file)..{
 		OnCommand=cmd(x,SCREEN_CENTER_X+self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-1;SetAllStateDelays,1/4;zoom,ScaleVar)
 	};
-	LoadActor("../ParticleEffects/Line", "/BGAnimations/Sprites/Star 12x1.png", 1/12, ScaleVar)..{},
+	LoadActor("../Scripts/Line", "/BGAnimations/Sprites/5th/Star 12x1.png", 1/12, ScaleVar)..{},
 }

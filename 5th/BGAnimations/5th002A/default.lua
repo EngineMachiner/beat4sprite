@@ -5,7 +5,7 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/7 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/7 (stretch).png")..{
 		OnCommand=function(self)
 
 -- The next variables define an accurate velocity (almost like the PSX emulation) according to the sizes of the sprites.

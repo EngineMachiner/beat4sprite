@@ -1,38 +1,38 @@
-local ScaleVar = _screen.h/480
-return Def.ActorFrame{
-	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
-	end,
-	LoadActor(GAMESTATE:GetCurrentSong():GetBackgroundPath())..{
-		OnCommand=function(self)
-		self:Center()
-			:zoom(ScaleVar)
-			:SetSize(640,480)
-			:faderight(0.025)
-			:fadeleft(0.025)
-			
-		end
-	};
-	LoadActor(GAMESTATE:GetCurrentSong():GetBackgroundPath())..{
-		OnCommand=function(self)
-		self:Center()
-			:zoom(ScaleVar)
-			:zoomx(-1)
-			:SetSize(640,480)
-			:faderight(0.025)
-			:x(self:GetX()+self:GetWidth()*ScaleVar)
-			
-		end
-	};
-	
-	LoadActor(GAMESTATE:GetCurrentSong():GetBackgroundPath())..{
-		OnCommand=function(self)
-		self:Center()
-			:zoom(ScaleVar)
-			:zoomx(-1)
-			:SetSize(640,480)
-			:fadeleft(0.025)
-			:x(self:GetX()-self:GetWidth()*ScaleVar)
-		end
-	};
+local BGA_dirs = FILEMAN:GetDirListing( "//BGAnimations/", true, true )
+
+return Def.ActorFrame{	
+	LoadActor( BGA_dirs[ math.random( 1, #BGA_dirs ) ] )..{}
 }
+
+function PTable( tbl, used, i )
+
+	if used == nil then used = {} end
+
+	local tbl_s = {}
+
+	if not tbl_s["s"] then
+		tbl_s["s"] = ""
+	end
+
+	if not i then
+		tbl_s["i"] = 0
+	else
+		tbl_s["i"] = i
+	end
+
+	for k,v in pairs( tbl ) do
+
+		if used[ v ] ~= true then
+			tbl_s["s"] = tbl_s["s"] .. tostring( v ) .. " \n"
+		end
+
+		if type( v ) == "table" and used[ v ] ~= true then
+			used[ tbl ] = true
+			tbl_s["s"] = tbl_s["s"] .. PTable( tbl, used ) .. " \n"
+		end
+
+	end
+
+	return tbl_s["s"]
+	
+end

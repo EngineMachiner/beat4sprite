@@ -4,9 +4,9 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Backgrounds/6 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/6 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,7*ScaleVar;customtexturerect,0,0,7,7)
 	};
 	
-	LoadActor("../ParticleEffects/WallBumpEffect1stCycle/default.lua","/BGAnimations/Sprites/Burger.png", ScaleVar)..{};	
+	LoadActor("../Scripts/WallBumpEffect1stCycle/default.lua","/BGAnimations/Sprites/5th/Burger.png", ScaleVar)..{};	
 }

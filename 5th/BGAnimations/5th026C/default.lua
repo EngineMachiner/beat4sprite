@@ -10,5 +10,5 @@ return Def.ActorFrame{
 	LoadActor("B.lua", ScaleVar)..{
 		OnCommand=cmd(y,0;linear,(35/3)/(8);y,320*ScaleVar;queuecommand,"On";set_tween_uses_effect_delta,true)
 	};
-	LoadActor("../ParticleEffects/ParticlesUp", "Burn 2x1.png")..{},
+	LoadActor("../Scripts/ParticlesUp", "Burn 2x1.png")..{},
 }

@@ -4,7 +4,7 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 	
-	LoadActor("../Backgrounds/28 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/28 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,7*ScaleVar;customtexturerect,0,0,7,7)
 	};
 	LoadActor("B.lua")..{

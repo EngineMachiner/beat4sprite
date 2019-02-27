@@ -1,6 +1,6 @@
 local IsThereBG if GAMESTATE:GetCurrentSong():HasBackground() == true then 
 	file = GAMESTATE:GetCurrentSong():GetBackgroundPath() 
-		else file = "../Backgrounds/fallback.png"
+		else file = "/BGAnimations/Backgrounds/fallback.png"
 		end;
 
 local ScaleVar = ...
@@ -36,6 +36,6 @@ return Def.ActorFrame{
 	LoadActor(file)..{
 		OnCommand=cmd(Center;zoom,ScaleVar;SetSize,640,480;croptop,0.5;cropright,0.5;pulse;effectperiod,2;effectmagnitude,1.0625,1,0;effectperiod,2;effectclock,'beat';effectoffset,0.5;diffusealpha,0.25;faderight,0.0625;fadetop,0.0625)
 	};
-	LoadActor("../ParticleEffects/WallBumpEffect1stCycle/default.lua", "/BGAnimations/Sprites/2 Sun 2x1.png", ScaleVar)..{};
+	LoadActor("../Scripts/WallBumpEffect1stCycle/default.lua", "/BGAnimations/Sprites/5th/2 Sun 2x1.png", ScaleVar)..{};
 
 }

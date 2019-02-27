@@ -3,7 +3,7 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,	
 	
-	LoadActor("../ParticleEffects/BumpEffect","Star.png")..{
+	LoadActor("../Scripts/BumpEffect","Star.png")..{
 		OnCommand=function(self) 
 			self:x(0)
 		end

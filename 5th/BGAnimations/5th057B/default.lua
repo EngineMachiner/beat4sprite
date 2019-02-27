@@ -1,4 +1,4 @@
-local file = "../Backgrounds/1 (stretch).png"
+local file = "../Backgrounds/5th/1 (stretch).png"
 local ScaleVar = _screen.h/480
 return Def.ActorFrame{
 	LoseFocusCommand=function(self)
@@ -13,5 +13,5 @@ return Def.ActorFrame{
 	LoadActor(file)..{
 		OnCommand=cmd(Center;addx,-320*ScaleVar;customtexturerect,0,0,2,2;zoom,2*ScaleVar)
 	};
-	LoadActor("../ParticleEffects/ParticlesRight", "Flower.png")..{},
+	LoadActor("../Scripts/ParticlesRight", "Flower.png")..{},
 }

@@ -4,7 +4,7 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/38 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/38 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posy = (self:GetHeight()/2)/self:GetHeight()
@@ -21,7 +21,7 @@ return Def.ActorFrame{
 		end
 	};
 
-	LoadActor("../ParticleEffects/InnerEffect/Whirl/001", "//BGAnimations/Sprites/Jewel.png", "//BGAnimations/Sprites/Ring.png")..{};
-	LoadActor("../ParticleEffects/InnerEffect/Whirl/001", "//BGAnimations/Sprites/Jewel.png", "//BGAnimations/Sprites/Ring.png")..{ OnCommand=function(self) self:hibernate(6) end };
-	LoadActor("../ParticleEffects/InnerEffect/Whirl/001", "//BGAnimations/Sprites/Jewel.png", "//BGAnimations/Sprites/Ring.png")..{ OnCommand=function(self) self:hibernate(6*2) end };
+	LoadActor("../Scripts/InnerEffect/Whirl/001", "//BGAnimations/Sprites/5th/Jewel.png", "//BGAnimations/Sprites/5th/Ring.png")..{};
+	LoadActor("../Scripts/InnerEffect/Whirl/001", "//BGAnimations/Sprites/5th/Jewel.png", "//BGAnimations/Sprites/5th/Ring.png")..{ OnCommand=function(self) self:hibernate(6) end };
+	LoadActor("../Scripts/InnerEffect/Whirl/001", "//BGAnimations/Sprites/5th/Jewel.png", "//BGAnimations/Sprites/5th/Ring.png")..{ OnCommand=function(self) self:hibernate(6*2) end };
 }

@@ -6,7 +6,7 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 	Def.Sprite{ 
-		Texture="../Backgrounds/6 (stretch).png";	
+		Texture="../Backgrounds/5th/6 (stretch).png";	
 		OnCommand=function(self)
 			self:Center()
 			:zoom(7*ScaleVar)
@@ -16,7 +16,7 @@ return Def.ActorFrame{
 		end
 	},
 	Def.Sprite{ 
-		Texture="../Backgrounds/6 (stretch).png";	
+		Texture="../Backgrounds/5th/6 (stretch).png";	
 		OnCommand=function(self)
 			self:Center()
 			:zoom(7*ScaleVar)
@@ -26,7 +26,7 @@ return Def.ActorFrame{
 		end
 	},
 	Def.Sprite{ 
-		Texture="../Backgrounds/6 (stretch).png";	
+		Texture="../Backgrounds/5th/6 (stretch).png";	
 		OnCommand=function(self)
 			self:Center()
 			:zoom(7*ScaleVar)
@@ -36,7 +36,7 @@ return Def.ActorFrame{
 		end
 	},
 	Def.Sprite{ 
-		Texture="../Backgrounds/6 (stretch).png";	
+		Texture="../Backgrounds/5th/6 (stretch).png";	
 		OnCommand=function(self)
 			self:Center()
 			:zoom(7*ScaleVar)
@@ -58,6 +58,6 @@ return Def.ActorFrame{
 		end
 	},
 
-		LoadActor("../ParticleEffects/Line", "/BGAnimations/Sprites/2 Sun 2x1.png", 1/2, ScaleVar)..{},
+		LoadActor("../Scripts/Line", "/BGAnimations/Sprites/5th/2 Sun 2x1.png", 1/2, ScaleVar)..{},
 
 }

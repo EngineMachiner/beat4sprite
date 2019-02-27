@@ -1,6 +1,6 @@
 local IsThereBG if GAMESTATE:GetCurrentSong():HasBackground() == true then 
 	file = GAMESTATE:GetCurrentSong():GetBackgroundPath() 
-		else file = "../Backgrounds/fallback.png"
+		else file = "/BGAnimations/Backgrounds/fallback.png"
 		end;
 		
 local ScaleVar = _screen.h/480

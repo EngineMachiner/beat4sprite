@@ -11,5 +11,5 @@ return Def.ActorFrame{
 	LoadActor("B.lua")..{
 		OnCommand=cmd(x,320;linear,self:GetChild(""):GetChild("sprt_1"):GetWidth()/(260/(9*2));x,320*-2;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
 	};
-		LoadActor("../ParticleEffects/Line", "/BGAnimations/Sprites/2 Scissors 2x1.png", 1/2, ScaleVar)..{},
+		LoadActor("../Scripts/Line", "/BGAnimations/Sprites/5th/2 Scissors 2x1.png", 1/2, ScaleVar)..{},
 }

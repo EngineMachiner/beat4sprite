@@ -1,7 +1,7 @@
 local WDX2 if SCREEN_WIDTH > 640 then WDX2 = -58/8 else WDX2 = 0 end
 local ScaleVar = _screen.h/480
-local file = "../Sprites/3 5x1.png"
-local file2 = "../Sprites/2 5x1.png"
+local file = "/BGAnimations/Sprites/5th/3 5x1.png"
+local file2 = "/BGAnimations/Sprites/5th/2 5x1.png"
 return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})

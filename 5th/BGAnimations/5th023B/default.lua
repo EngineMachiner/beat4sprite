@@ -3,8 +3,8 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/30 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/30 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,7*ScaleVar;customtexturerect,0,0,7,7)
 	},
-		LoadActor("../ParticleEffects/Line/001", "/BGAnimations/Sprites/Snake.png", "/BGAnimations/Sprites/Symbol2.png", 0, ScaleVar)..{},
+		LoadActor("../Scripts/Line/001", "/BGAnimations/Sprites/5th/Snake.png", "/BGAnimations/Sprites/5th/Symbol2.png", 0, ScaleVar)..{},
 }

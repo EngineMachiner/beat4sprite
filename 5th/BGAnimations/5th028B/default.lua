@@ -5,7 +5,7 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/38 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/38 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posy = (self:GetHeight()/2)/self:GetHeight()
@@ -21,5 +21,5 @@ return Def.ActorFrame{
 			:effectclock('beat')
 		end
 	};
-	LoadActor("../ParticleEffects/SpiralSpriteZoomIn/001", "/BGAnimations/Sprites/Jewel.png", "/BGAnimations/Sprites/Ring.png", 0)..{ OnCommand=function(self) self:addx(WDX3) end },
+	LoadActor("../Scripts/SpiralSpriteZoomIn/001", "/BGAnimations/Sprites/5th/Jewel.png", "/BGAnimations/Sprites/5th/Ring.png", 0)..{ OnCommand=function(self) self:addx(WDX3) end },
 }

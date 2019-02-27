@@ -1,5 +1,5 @@
 local ScaleVar = _screen.h/480
-local file = "../Sprites/2 1x4.png"
+local file = "/BGAnimations/Sprites/5th/2 1x4.png"
 return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})

@@ -7,5 +7,5 @@ return Def.ActorFrame{
 		LoadActor("A.lua")..{
 		OnCommand=cmd(x,0;y,self:GetChild(""):GetHeight()/2;sleep,1/2;addx,-40*ScaleVar;addy,-40*ScaleVar;sleep,1/2;addx,-40*ScaleVar;addy,-40*ScaleVar;sleep,1/2;addx,-40*ScaleVar;addy,-40*ScaleVar;sleep,1/2;addx,-40*ScaleVar;addy,-40*ScaleVar;effectclock,"beat";queuecommand,"On")
 	};
-		LoadActor("../ParticleEffects/InnerEffect/CircleOut", "/BGAnimations/Sprites/Orange 2x1.png")..{},
+		LoadActor("../Scripts/InnerEffect/CircleOut", "/BGAnimations/Sprites/5th/Orange 2x1.png")..{},
 }

@@ -1,5 +1,5 @@
-local file = "../Backgrounds/39 (stretch).png"
-local file2 = "../Backgrounds/5 (stretch).png"
+local file = "../Backgrounds/5th/39 (stretch).png"
+local file2 = "../Backgrounds/5th/5 (stretch).png"
 
 local ScaleVar = _screen.h/480
 

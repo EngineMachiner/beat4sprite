@@ -7,7 +7,7 @@ return Def.ActorFrame{
 	
 	Def.ActorFrame{
 		
-     	LoadActor("../ParticleEffects/KaleidoscopeA/default.lua", ScaleVar, file)..{};
+     	LoadActor("../Scripts/KaleidoscopeA/default.lua", ScaleVar, file)..{};
 		
-	};
+	}
 }

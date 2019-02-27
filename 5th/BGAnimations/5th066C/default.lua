@@ -7,7 +7,7 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Backgrounds/22 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/22 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posx = (self:GetWidth()/2)/self:GetWidth()
@@ -22,7 +22,7 @@ return Def.ActorFrame{
 				:effectclock("beat")
 		end
 	};
-	LoadActor("../Backgrounds/59 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/59 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posx = (self:GetWidth()/2)/self:GetWidth()

@@ -1,6 +1,6 @@
 local IsThereBG if GAMESTATE:GetCurrentSong():HasBackground() == true then 
 	file = GAMESTATE:GetCurrentSong():GetBackgroundPath() 
-		else file = "../Backgrounds/fallback.png"
+		else file = "/BGAnimations/Backgrounds/fallback.png"
 		end;
 local ScaleVar = _screen.h/480
 
@@ -12,7 +12,7 @@ return Def.ActorFrame{
 		OnCommand=function(self)
 		self:Center()
 			:zoom(ScaleVar)
-			:zoomx(-1)
+			:zoomx(-ScaleVar)
 			:SetSize(640,480)
 			:x(self:GetX()+640*ScaleVar)
 			:faderight(0.025)
@@ -23,7 +23,7 @@ return Def.ActorFrame{
 		OnCommand=function(self)
 		self:Center()
 			:zoom(ScaleVar)
-			:zoomx(-1)
+			:zoomx(-ScaleVar)
 			:SetSize(640,480)
 			:x(self:GetX()-640*ScaleVar)
 			:fadeleft(0.025)
@@ -36,7 +36,7 @@ return Def.ActorFrame{
 		end
 	};
 	
-	LoadActor("../ParticleEffects/RandomPosSprite/RainbowRotation", "2 Scissors 2x1.png")..{
+	LoadActor("../Scripts/RandomPosSprite/RainbowRotation", "2 Scissors 2x1.png")..{
 		OnCommand=function(self)
 		self:effectclock('beat')
 		end

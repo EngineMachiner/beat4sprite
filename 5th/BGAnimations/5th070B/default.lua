@@ -4,8 +4,8 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/63 (stretch).png")..{
+	LoadActor("../Backgrounds/5th/63 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,6*ScaleVar;customtexturerect,0,0,5,5)
 	};
-	LoadActor("../ParticleEffects/InnerEffect/CircleOut","/BGAnimations/Sprites/mushroom.png",0)..{},
+	LoadActor("../Scripts/InnerEffect/CircleOut","/BGAnimations/Sprites/5th/mushroom.png",0)..{},
 }

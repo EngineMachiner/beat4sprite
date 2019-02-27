@@ -1,5 +1,5 @@
 local ScaleVar = _screen.h/480
-local file = "../Backgrounds/8 (stretch).png"
+local file = "../Backgrounds/5th/8 (stretch).png"
 return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
