@@ -1,5 +1,5 @@
 local ScaleVar = _screen.h/480
-local file = "../Backgrounds/5th/32 (stretch).png"
+local file = "/BGAnimations/Backgrounds/5th/32 (stretch).png"
 local tool_sprite = "/BGAnimations/Sprites/5th/hearts 2x1.png"
 return Def.ActorFrame{
 	LoseFocusCommand=function(self)

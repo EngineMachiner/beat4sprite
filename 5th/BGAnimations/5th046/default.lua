@@ -4,7 +4,7 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/5th/6 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/6 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,6*ScaleVar;customtexturerect,0,0,6,6)
 	};
 		Def.Sprite{
@@ -47,7 +47,7 @@ return Def.ActorFrame{
 		Texture = file, 
 		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*960;y,540*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
 	};
-	LoadActor("../Backgrounds/5th/47 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/47 (stretch).png")..{
 		OnCommand=function(self)
 
 		local relative_posy = (self:GetHeight()/2)/self:GetHeight()

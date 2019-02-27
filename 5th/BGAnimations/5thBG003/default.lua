@@ -15,7 +15,7 @@ local t = Def.ActorFrame{
 
 }
 
-    t[#t+1]  = LoadActor("../Backgrounds/5th/27 (stretch).png")..{
+    t[#t+1]  = LoadActor("/BGAnimations/Backgrounds/5th/27 (stretch).png")..{
 			    OnCommand=function(self)
 				self:Center():SetSize(640*ScaleVar,480*ScaleVar)
 			    end
@@ -24,8 +24,8 @@ local t = Def.ActorFrame{
     local the_dirs = {
 
     file,
-    "../Backgrounds/5th/27 (stretch).png",
-    "../Backgrounds/5th/8 (stretch).png",
+    "/BGAnimations/Backgrounds/5th/27 (stretch).png",
+    "/BGAnimations/Backgrounds/5th/8 (stretch).png",
 
     }
 
@@ -72,13 +72,13 @@ local limit = (BGA_SongLimit_Corners+1) - m
 
 end
 
-    t[#t+1]  = LoadActor("../Backgrounds/5th/27 (stretch).png")..{
+    t[#t+1]  = LoadActor("/BGAnimations/Backgrounds/5th/27 (stretch).png")..{
 			    OnCommand=function(self)
 				self:Center():SetSize(640*ScaleVar,480*ScaleVar):x(self:GetX()+640*ScaleVar):zoomx(-ScaleVar)
 			    end
 			}
 
-    t[#t+1]  =  LoadActor("../Backgrounds/5th/27 (stretch).png")..{
+    t[#t+1]  =  LoadActor("/BGAnimations/Backgrounds/5th/27 (stretch).png")..{
 			    OnCommand=function(self)
 				self:Center():SetSize(640*ScaleVar,480*ScaleVar):x(self:GetX()-640*ScaleVar):zoomx(-ScaleVar)
 			    end

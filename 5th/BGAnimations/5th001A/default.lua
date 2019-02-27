@@ -7,7 +7,7 @@ return Def.ActorFrame{
 
 	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/1 4x1.png", 1/(4), ScaleVar, OffsetY )..{},
 
-	LoadActor("../Backgrounds/5th/5 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/5 (stretch).png")..{
 		OnCommand=function(self)
 
 -- The next variables define an accurate velocity (almost like the PSX emulation) according to the sizes of the sprites.

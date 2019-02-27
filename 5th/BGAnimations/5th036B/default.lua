@@ -3,10 +3,10 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/5th/43 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/43 (stretch).png")..{
 		OnCommand=cmd(Center;customtexturerect,0,0,7,7;zoom,7*ScaleVar)
 	};
-	LoadActor("../Backgrounds/5th/44 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/44 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posx = (self:GetWidth()/2)/self:GetWidth()

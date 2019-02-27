@@ -4,7 +4,7 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("../Backgrounds/5th/37 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/37 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,8*ScaleVar;customtexturerect,0,0,8,8)
 	};
 	LoadActor("../Scripts/TileTool", tool_sprite, 1/4, ScaleVar, false )..{ 

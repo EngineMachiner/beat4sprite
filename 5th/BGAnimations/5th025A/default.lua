@@ -6,7 +6,7 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Backgrounds/5th/6 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/6 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posy = (self:GetHeight()/2)/self:GetHeight()

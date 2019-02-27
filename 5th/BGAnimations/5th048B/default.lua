@@ -8,10 +8,10 @@ return Def.ActorFrame{
 	Def.Quad{
 		OnCommand=cmd(Center;SetSize,SCREEN_WIDTH,SCREEN_HEIGHT;diffuseramp;effectcolor1,color("#00ffff");effectcolor2,color("#008b8b");effectclock,'beat';effectperiod,0.5;set_tween_uses_effect_delta,true)
 	};
-	LoadActor("../Backgrounds/5th/52 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/52 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,8*ScaleVar;customtexturerect,0,0,8,8;zwrite,true;blend,'BlendMode_NoEffect')
 	};
-	LoadActor("../Backgrounds/5th/53 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/53 (stretch).png")..{
 		OnCommand=function(self)
 
 			local relative_posy = (self:GetHeight()/2)/self:GetHeight()

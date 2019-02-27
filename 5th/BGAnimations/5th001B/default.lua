@@ -7,7 +7,7 @@ return Def.ActorFrame{
 
 	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/1 4x1.png", 1/(4), ScaleVar )..{},
 
-	LoadActor("../Backgrounds/5th/5 (stretch).png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/5 (stretch).png")..{
 		OnCommand=function(self)
 
 				local relative_posx = (self:GetWidth()/2)/self:GetWidth()

@@ -9,37 +9,37 @@ Def.Quad{
 			self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y):zoomto(SCREEN_WIDTH,SCREEN_HEIGHT):diffuse(Color.Black)
 		end,
 	},
-	LoadActor("../Backgrounds/5th/Rainbow/2A.png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/Rainbow/2A.png")..{
 		OnCommand=function(self)
 			self:zoom(0.4*1.75^3*ScaleVar)
 			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
 		end
 	},
-	LoadActor("../Backgrounds/5th/Rainbow/2A.png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/Rainbow/2A.png")..{
 		OnCommand=function(self)
 			self:zoom(0.4*1.75^2*ScaleVar)
 			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
 		end
 	},
-	LoadActor("../Backgrounds/5th/Rainbow/2A.png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/Rainbow/2A.png")..{
 		OnCommand=function(self)
 			self:zoom(0.4*1.75*ScaleVar)
 			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
 		end
 	},
-	LoadActor("../Backgrounds/5th/Rainbow/2A.png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/Rainbow/2A.png")..{
 		OnCommand=function(self)
 			self:zoom(0.4*ScaleVar)
 			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
 		end
 	},
-	LoadActor("../Backgrounds/5th/Rainbow/2B.png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/Rainbow/2B.png")..{
 		OnCommand=function(self)
 			self:zoom(0.25*ScaleVar)
 			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):effectclock("beat"):set_tween_uses_effect_delta(true)
 		end
 	},
-	LoadActor("../Backgrounds/5th/Rainbow/Color.png")..{
+	LoadActor("/BGAnimations/Backgrounds/5th/Rainbow/Color.png")..{
 		OnCommand=function(self)
 			self:Center():rainbow():effectperiod(8):diffusealpha(1/2):blend("BlendMode_Add"):effectclock("beat"):set_tween_uses_effect_delta(true)
 		end
