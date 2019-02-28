@@ -4,7 +4,7 @@
 
   1. Clone or download this branch and choose the version you want.
   2. Unzip / Copy the contents of the version you selected into your SM root folder.
-  3. Do the same but with the Graphics.
+  3. Do the same but with the Graphics branch.
 
 -- For helpers --
 
