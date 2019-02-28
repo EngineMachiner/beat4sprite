@@ -8,8 +8,9 @@
   
   Must check:
   
-  * That the folders "Backgrounds" and "Sprites" from the Graphics branch are in the BGAnimations folder.
-  * That the folders "BGA's Guide" (if you need it), "BGAnimations", "BackgroundEffects" are in your Stepmania root folder.
+  * That the folders "Backgrounds", "Sprites" from the Graphics branch are in the BGAnimations folder.
+  * That the folders, "BGAnimations", "BackgroundEffects" are in your Stepmania root folder.
+  * The BGA's Guide folder from graphics is just a guide to script BG's Scripts if you need it.
 
   IF YOU HAVE OTHER FOLDERS IN THE BGANIMATIONS FOLDER. IT WON'T WORK.
 
