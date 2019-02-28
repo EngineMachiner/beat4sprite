@@ -3,8 +3,15 @@
 -- Installation --
 
   1. Clone or download this branch and choose the version you want.
-  2. Unzip / Copy the contents of the version you selected into your SM root folder.
+  2. Unzip / Copy the contents of the version you selected into your Stepmania root folder.
   3. Do the same but with the Graphics branch.
+  
+  Must check:
+  
+  * That the folders "Backgrounds" and "Sprites" from the Graphics branch are in the BGAnimations folder.
+  * That the folders "BGA's Guide" (if you need it), "BGAnimations", "BackgroundEffects" are in your Stepmania root folder.
+
+  IF YOU HAVE OTHER FOLDERS IN THE BGANIMATIONS FOLDER. IT WON'T WORK.
 
 -- For helpers --
 
