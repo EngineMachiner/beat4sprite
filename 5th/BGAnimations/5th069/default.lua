@@ -5,7 +5,7 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Backgrounds/Tool.lua", "/BGAnimations/Sprites/1 5x1.png", 1/5, ScaleVar )..{},
+	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/1 5x1.png", 1/5, ScaleVar )..{},
 	LoadActor("../ParticleEffects/InnerEffect/CircleOutSpin", "/BGAnimations/Sprites/head.png", true )..{},
 
 }

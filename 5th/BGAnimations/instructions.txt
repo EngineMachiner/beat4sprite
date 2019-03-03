@@ -1,1 +1,0 @@
-Place BGAnimation folders in here.

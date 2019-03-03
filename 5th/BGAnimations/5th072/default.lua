@@ -4,7 +4,7 @@ local Backgrounds = {
 
 	"/BGAnimations/Backgrounds/5th/27 (stretch).png",
 	"/BGAnimations/Backgrounds/5th/8 (stretch).png",
-    "/BGAnimations/Backgrounds/5th/64 (stretch).png",
+    "/BGAnimations/Backgrounds/5th/64 (stretch).png"
 
 }
 
@@ -16,11 +16,8 @@ local t = Def.ActorFrame{
 
 }
 	-- Script
-
-	for i = #Backgrounds, 1, - 1 do
-		t[#t+1] = LoadActor("../Scripts/SplitScreen", Backgrounds )..{}
-	end
-
+	
+	t[#t+1] = LoadActor("../Scripts/SplitScreen", Backgrounds )..{}
 
 
 return t

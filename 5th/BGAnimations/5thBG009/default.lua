@@ -16,24 +16,24 @@ return Def.ActorFrame{
 		end;
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()+640*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()+640*ScaleVar;zoomx,-1)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()-640*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()-640*ScaleVar;zoomx,-1)
 	};
 		Def.Sprite{
 		Texture = "1 2x1.png", 
 		Frames = {{Delay= 1, Frame= 0}, {Delay= 1, Frame= 1}},
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;effectclock,"beat")
+		OnCommand=cmd(Center;zoom,ScaleVar;effectclock,"beat")
 	};
 		Def.Sprite{
 		Texture = "1 2x1.png", 
 		Frames = {{Delay= 1, Frame= 0}, {Delay= 1, Frame= 1}},
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()+640*ScaleVar;zoomx,-1;effectclock,"beat")
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()+640*ScaleVar;zoomx,-1;effectclock,"beat")
 	};
 		Def.Sprite{
 		Texture = "1 2x1.png", 
 		Frames = {{Delay= 1, Frame= 0}, {Delay= 1, Frame= 1}},
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()-640*ScaleVar;zoomx,-1;effectclock,"beat")
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()-640*ScaleVar;zoomx,-1;effectclock,"beat")
 	};
 };

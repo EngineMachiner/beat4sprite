@@ -1,35 +1,21 @@
-ENG_BG = "/BGAnimations/Backgrounds/5th/Kaleidoscopes/" .. (...)
+
 local ScaleVar = _screen.h/480
-local ENG_rule if ENG_BG == "/BGAnimations/Backgrounds/5th/Kaleidoscopes/"..GAMESTATE:GetCurrentSong():GetBackgroundPath() then ENG_BG = GAMESTATE:GetCurrentSong():GetBackgroundPath() end
-return Def.ActorFrame{
+
+local t = Def.ActorFrame{
+
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
-	end,
-		LoadActor("Core.lua")..{
-		OnCommand=cmd(x,ScaleVar*119*4;y,ScaleVar*-69*4)
-	};
-		LoadActor("Core.lua")..{
-		OnCommand=cmd(x,ScaleVar*119*3;y,ScaleVar*-69*3)
-	};
-		LoadActor("Core.lua")..{
-		OnCommand=cmd(x,ScaleVar*119*2;y,ScaleVar*-69*2)
-	};
-		LoadActor("Core.lua")..{
-		OnCommand=cmd(x,ScaleVar*119;y,ScaleVar*-69)
-	};
-		LoadActor("Core.lua")..{
-		OnCommand=cmd()
-	};
-		LoadActor("Core.lua")..{
-		OnCommand=cmd(x,ScaleVar*-119;y,ScaleVar*69)
-	};
-		LoadActor("Core.lua")..{
-		OnCommand=cmd(x,ScaleVar*-119*2;y,ScaleVar*69*2)
-	};
-		LoadActor("Core.lua")..{
-		OnCommand=cmd(x,ScaleVar*-119*3;y,ScaleVar*69*3)
-	};
-		LoadActor("Core.lua")..{
-		OnCommand=cmd(x,ScaleVar*-119*4;y,ScaleVar*69*4)
-	};
+	end
+
 }
+	
+	for i = -4,4 do
+		t[#t+1] = LoadActor("Core.lua")..{
+			OnCommand=function(self)
+				self:x( 119 * i * ScaleVar )
+				self:y( 69 * i * ScaleVar )
+			end
+		}
+	end
+
+return t

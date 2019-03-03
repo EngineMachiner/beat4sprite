@@ -9,13 +9,13 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 	LoadActor(file)..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar)
+		OnCommand=cmd(Center;zoom,ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()+640*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()+640*ScaleVar;zoomx,-1)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()-640*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()-640*ScaleVar;zoomx,-1)
 	};
 	Def.Sprite{
 		Texture = "1 2x1.png", 

@@ -4,13 +4,13 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 	LoadActor("/BGAnimations/Backgrounds/5th/8 (stretch).png")..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar)
+		OnCommand=cmd(Center;zoom,ScaleVar)
 	};
 	LoadActor("/BGAnimations/Backgrounds/5th/8 (stretch).png")..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()+self:GetWidth()*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()+self:GetWidth()*ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor("/BGAnimations/Backgrounds/5th/8 (stretch).png")..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()-self:GetWidth()*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()-self:GetWidth()*ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor("../Scripts/ParticlesDown", "Rhombus 5x1.png")..{},
 }

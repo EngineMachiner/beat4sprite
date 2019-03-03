@@ -8,9 +8,9 @@ local t = Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Backgrounds/Tool.lua", tool_sprite, 1/5, ScaleVar, false )..{ OnCommand=cmd(y,self:GetChild("template"):GetHeight()*ScaleVar/1.75); },
+	LoadActor("../Scripts/TileTool", tool_sprite, 1/5, ScaleVar, false )..{ OnCommand=cmd(y,self:GetChild("template"):GetHeight()*ScaleVar/1.75); },
 
-	LoadActor("../ParticleEffects/InnerEffect", "/BGAnimations/Sprites/head.png", 0, ScaleVar, false, true)..{};
+	LoadActor("../Scripts/InnerEffect", "/BGAnimations/Sprites/head.png", 0, ScaleVar, false, true)..{};
 
 };
 

@@ -12,10 +12,10 @@ return Def.ActorFrame{
 		OnCommand=cmd(Center;zoom,ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()+self:GetWidth()*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()+self:GetWidth()*ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()-self:GetWidth()*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()-self:GetWidth()*ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor(file2)..{
 		OnCommand=function(self)

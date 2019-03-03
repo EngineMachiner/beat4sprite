@@ -1,4 +1,4 @@
-BGA_SongLimit_Corners = math.floor(GAMESTATE:GetCurrentSong():GetLastSecond()*0.7)
+
 local tool_sprite = "/BGAnimations/Sprites/5th/1 5x1.png"
 local ScaleVar = _screen.h/480
 

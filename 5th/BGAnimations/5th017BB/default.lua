@@ -6,13 +6,13 @@ return Def.ActorFrame{
 	end,
 	
 	LoadActor(file)..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar)
+		OnCommand=cmd(Center;zoom,ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()+self:GetWidth()*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()+self:GetWidth()*ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(Center;SetSize,640*ScaleVar,480*ScaleVar;x,self:GetX()-self:GetWidth()*ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()-self:GetWidth()*ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor("B.lua")..{
 		OnCommand=function(self)
