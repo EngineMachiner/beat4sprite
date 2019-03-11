@@ -1,7 +1,7 @@
 
 local tbl = {}
 
-if GAMESTATE:GetCurrentSong():HasBackground() == true then 
+if GAMESTATE:GetCurrentSong():HasBackground() then 
 	tbl.file = GAMESTATE:GetCurrentSong():GetBackgroundPath() 
 else 
 	tbl.file = "/BGAnimations/Backgrounds/fallback.png"
@@ -30,7 +30,6 @@ local t = Def.ActorFrame{
 	for i = #Backgrounds, 1, - 1 do
 		t[#t+1] = LoadActor("../Scripts/SplitScreen", Backgrounds )..{}
 	end
-
 
 
 return t

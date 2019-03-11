@@ -9,10 +9,10 @@ return Def.ActorFrame{
 		OnCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;effectclock,"beat";SetAllStateDelays,1/4;zoom,ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(x,SCREEN_CENTER_X-self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-1;SetAllStateDelays,1/4;zoom,ScaleVar)
+		OnCommand=cmd(x,SCREEN_CENTER_X-self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-ScaleVar;SetAllStateDelays,1/4;zoom,ScaleVar)
 	};
 	LoadActor(file)..{
-		OnCommand=cmd(x,SCREEN_CENTER_X+self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-1;SetAllStateDelays,1/4;zoom,ScaleVar)
+		OnCommand=cmd(x,SCREEN_CENTER_X+self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-ScaleVar;SetAllStateDelays,1/4;zoom,ScaleVar)
 	};
 	LoadActor("../Scripts/Line", "/BGAnimations/Sprites/5th/Star 12x1.png", 1/12, ScaleVar)..{},
 }

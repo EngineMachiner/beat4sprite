@@ -12,6 +12,7 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
+
 	LoadActor("/BGAnimations/Backgrounds/5th/38 (stretch).png")..{
 		OnCommand=function(self)
 
@@ -30,6 +31,6 @@ return Def.ActorFrame{
 		end
 	},
 
-	LoadActor("../Scripts/SpiralSprite")..{}
+	LoadActor("../Scripts/SpiralSprite", sprites)..{}
 
 }

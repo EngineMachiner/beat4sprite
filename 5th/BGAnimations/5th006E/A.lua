@@ -12,10 +12,10 @@ return Def.ActorFrame{
 	};
 	Def.Sprite{
 	Texture=file,
-		OnCommand=cmd(x,SCREEN_CENTER_X-self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-1;SetAllStateDelays,1/4;zoom,ScaleVar)
+		OnCommand=cmd(x,SCREEN_CENTER_X-self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-ScaleVar;SetAllStateDelays,1/4;zoom,ScaleVar)
 	};
 	Def.Sprite{
 	Texture=file,
-		OnCommand=cmd(x,SCREEN_CENTER_X+self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-1;SetAllStateDelays,1/4;zoom,ScaleVar)
+		OnCommand=cmd(x,SCREEN_CENTER_X+self:GetWidth()*ScaleVar;y,SCREEN_CENTER_Y;effectclock,"beat";zoomx,-ScaleVar;SetAllStateDelays,1/4;zoom,ScaleVar)
 	};
 }

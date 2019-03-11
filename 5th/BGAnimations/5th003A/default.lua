@@ -11,10 +11,10 @@ return Def.ActorFrame{
 		OnCommand=cmd(Center;zoom,ScaleVar)
 	};
 	LoadActor(BG)..{
-		OnCommand=cmd(Center;x,self:GetX()+self:GetWidth()*ScaleVar;zoom,ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;x,self:GetX()+self:GetWidth()*ScaleVar;zoom,ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor(BG)..{
-		OnCommand=cmd(Center;x,self:GetX()-self:GetWidth()*ScaleVar;zoom,ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;x,self:GetX()-self:GetWidth()*ScaleVar;zoom,ScaleVar;zoomx,-ScaleVar)
 	};
 
 	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/2 4x4.png", 1/(4*4), ScaleVar, true )..{ 

@@ -9,11 +9,11 @@ return Def.ActorFrame{
 	};
 		Def.Sprite{
 		Texture = "/BGAnimations/Backgrounds/5th/27 (stretch).png", 
-		OnCommand=cmd(Center;zoom,ScaleVar;x,SCREEN_CENTER_X+self:GetWidth();zoomx,-1;diffusealpha,1;sleep,2/2*2;diffusealpha,0;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
+		OnCommand=cmd(Center;zoom,ScaleVar;x,SCREEN_CENTER_X+self:GetWidth();zoomx,-ScaleVar;diffusealpha,1;sleep,2/2*2;diffusealpha,0;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
 	};
 		Def.Sprite{
 		Texture = "/BGAnimations/Backgrounds/5th/27 (stretch).png", 
-		OnCommand=cmd(Center;zoom,ScaleVar;x,SCREEN_CENTER_X-self:GetWidth();zoomx,-1;diffusealpha,1;sleep,2/2*2;diffusealpha,0;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
+		OnCommand=cmd(Center;zoom,ScaleVar;x,SCREEN_CENTER_X-self:GetWidth();zoomx,-ScaleVar;diffusealpha,1;sleep,2/2*2;diffusealpha,0;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
 	};
 		Def.Sprite{
 		Texture = "/BGAnimations/Backgrounds/5th/8 (stretch).png", 
@@ -21,10 +21,10 @@ return Def.ActorFrame{
 	};
 		Def.Sprite{
 		Texture = "/BGAnimations/Backgrounds/5th/8 (stretch).png", 
-		OnCommand=cmd(Center;zoom,ScaleVar;x,SCREEN_CENTER_X+self:GetWidth();zoomx,-1;diffusealpha,1;sleep,1/2*2;diffusealpha,0;sleep,1/2*2;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
+		OnCommand=cmd(Center;zoom,ScaleVar;x,SCREEN_CENTER_X+self:GetWidth();zoomx,-ScaleVar;diffusealpha,1;sleep,1/2*2;diffusealpha,0;sleep,1/2*2;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
 	};
 		Def.Sprite{
 		Texture = "/BGAnimations/Backgrounds/5th/8 (stretch).png", 
-		OnCommand=cmd(Center;zoom,ScaleVar;x,SCREEN_CENTER_X-self:GetWidth();zoomx,-1;diffusealpha,1;sleep,1/2*2;diffusealpha,0;sleep,1/2*2;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
+		OnCommand=cmd(Center;zoom,ScaleVar;x,SCREEN_CENTER_X-self:GetWidth();zoomx,-ScaleVar;diffusealpha,1;sleep,1/2*2;diffusealpha,0;sleep,1/2*2;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
 	};
 }

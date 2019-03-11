@@ -4,10 +4,7 @@ local ScaleVar = _screen.h/480
 local t = Def.ActorFrame{
 
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
-	end,
-	OffCommand=function(self)
-		self:RunCommandsOnChildren(function(child) self.timing = nil end, {})
+		self:RemoveAllChildren()
 	end
 
 }

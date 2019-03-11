@@ -1,5 +1,5 @@
 local tbl = {}
-if GAMESTATE:GetCurrentSong():HasBackground() == true then 
+if GAMESTATE:GetCurrentSong():HasBackground() then 
 	tbl.file = GAMESTATE:GetCurrentSong():GetBackgroundPath() 
 else 
 	tbl.file = "/BGAnimations/Backgrounds/fallback.png"

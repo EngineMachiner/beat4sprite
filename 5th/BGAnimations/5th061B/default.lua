@@ -7,10 +7,10 @@ return Def.ActorFrame{
 		OnCommand=cmd(Center;zoom,ScaleVar)
 	};
 	LoadActor("/BGAnimations/Backgrounds/5th/58 (stretch).png")..{
-		OnCommand=cmd(Center;x,self:GetX()+self:GetWidth()*ScaleVar;zoom,ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;x,self:GetX()+self:GetWidth()*ScaleVar;zoom,ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor("/BGAnimations/Backgrounds/5th/58 (stretch).png")..{
-		OnCommand=cmd(Center;x,self:GetX()-self:GetWidth()*ScaleVar;zoom,ScaleVar;zoomx,-1)
+		OnCommand=cmd(Center;x,self:GetX()-self:GetWidth()*ScaleVar;zoom,ScaleVar;zoomx,-ScaleVar)
 	};
 	LoadActor("../Scripts/ParticlesUp", "Spheres 4x3.png")..{},
 }

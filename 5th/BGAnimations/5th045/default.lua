@@ -6,5 +6,5 @@ return Def.ActorFrame{
 	LoadActor("/BGAnimations/Backgrounds/5th/50 (stretch).png")..{
 		OnCommand=cmd(Center;customtexturerect,0,0,4,4;zoom,4*ScaleVar)
 	};
-	LoadActor("../Scripts/SpiralSpriteZoomIn", "/BGAnimations/Sprites/5th/2 Sun 2x1.png", 1/2)..{},
+	LoadActor("../Scripts/SpiralSprite", "/BGAnimations/Sprites/5th/2 Sun 2x1.png", 1/2)..{},
 }

@@ -11,11 +11,11 @@ local t = Def.ActorFrame{
  
 }
 
-    for i = 1,8 do
+    for i = 1,16 do
         t[#t+1] = LoadActor("A.lua", tool_sprite, rotationz_allow, rotationx_allow)..{
             GainFocusCommand=function(self)
                 self:xy(math.random(-SCREEN_WIDTH*ScaleVar/3,SCREEN_WIDTH*ScaleVar/3),math.random(-SCREEN_HEIGHT*ScaleVar/3,SCREEN_HEIGHT*ScaleVar/3))
-                :diffusealpha(0):z(125*ScaleVar/3):sleep( ( i - 1 ) * 4 ):diffusealpha(1)
+                :diffusealpha(0):z(125*ScaleVar/3):sleep( ( i - 1 ) * 2 ):diffusealpha(1)
                 :linear( 6 + 1 )
                 :z(-1000*ScaleVar)
                 :diffuse(color("0,0,0,255/9"))
@@ -26,8 +26,8 @@ local t = Def.ActorFrame{
                 :queuecommand("Repeat")
             end,
             RepeatCommand=function(self)
-                if i == 8 then
-                    self:sleep( 4 )
+                if i == 16 then
+                    self:sleep( 8 )
                 end
                 self:sleep( 4 )
                 :xy(math.random(-SCREEN_WIDTH*ScaleVar/3,SCREEN_WIDTH*ScaleVar/3),math.random(-SCREEN_HEIGHT*ScaleVar/3,SCREEN_HEIGHT*ScaleVar/3))

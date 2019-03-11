@@ -22,9 +22,7 @@ k[-i+3] = Def.Sprite{
                         GainFocusCommand=function(self)
 
                         if rotationz_allow == true then
-                            for m=1,50 do
-                                self:spin():effectoffset(m/1.25)
-                            end
+                            self:spin()
                         end
 
                         if rotationx_allow == true then
