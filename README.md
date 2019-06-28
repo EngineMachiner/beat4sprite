@@ -12,7 +12,8 @@
   * That the folders, "BGAnimations", "BackgroundEffects" are in your Stepmania root folder.
   * The BGA's Guide folder from graphics is just a guide to script BG's Scripts if you need it.
 
-  IF YOU HAVE OTHER FOLDERS IN THE BGANIMATIONS FOLDER. IT WON'T WORK.
+  The BGAnimations folder must have in it Sprites, Scripts and Backgrounds folder for the scripts to work.
+  Mixing BGA's from other games hasn't been tested yet.
 
 -- For helpers --
 
