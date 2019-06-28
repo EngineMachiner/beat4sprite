@@ -6,6 +6,6 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor( "../Scripts/KaleidoscopeB", "1 (stretch).png" )..{}
+	LoadActor( "../Scripts/KaleidoscopeB", "/BGAnimations/Backgrounds/5th/Kaleidoscopes/1 (stretch).png" )..{}
 	
 }

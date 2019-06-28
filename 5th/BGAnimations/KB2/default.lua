@@ -21,7 +21,7 @@ local t = Def.ActorFrame{
 
 }
 
-	t[#t+1] = LoadActor("../Scripts/KaleidoscopeB","4 (stretch).png")..{}
+	t[#t+1] = LoadActor("../Scripts/KaleidoscopeB","/BGAnimations/Backgrounds/5th/Kaleidoscopes/4 (stretch).png")..{}
 
 for i = 1, 9 do
 	t[#t+1] = Def.Sprite{

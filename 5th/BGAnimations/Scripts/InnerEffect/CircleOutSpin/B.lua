@@ -67,7 +67,7 @@ t[tostring(10+sleep_num)] = LoadActor(particle)..{
 
 			self:linear(0.5*0.5)
 			:rotationz(self:GetRotationZ()+50*0.75*spin_var)
-			:zoom(self:GetZoom()+0.075)
+			:zoom(self:GetZoom()+0.075*ScaleVar)
 			:xy(SCREEN_CENTER_X+Archimedean(self)[1],SCREEN_CENTER_Y+Archimedean(self)[2])
 			:queuecommand("Spiral")
 			:set_tween_uses_effect_delta(true):effectclock('beat')

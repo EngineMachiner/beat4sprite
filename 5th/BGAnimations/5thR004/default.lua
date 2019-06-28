@@ -19,19 +19,15 @@ local t = Def.ActorFrame{
 
 }
 
-for i=1,#scripts do
+for i=#scripts,1,-1 do
 	t[#t+1] = LoadActor(scripts[i])..{
 		OnCommand=function(self)
-			local scale = 0.5
-			if i == 1 then
-				self:diffusealpha(1):sleep(0.25*scale):diffusealpha(0):sleep(0.75*scale):queuecommand("On")
-			elseif i == 2 then
-				self:diffusealpha(0):sleep(0.25*scale):diffusealpha(1):sleep(0.75*scale):queuecommand("On")
-			elseif i == 3 then
-				self:diffusealpha(0):sleep(0.25*2*scale):diffusealpha(1):sleep(0.5*scale):queuecommand("On")
-			elseif i == 4 then
-				self:diffusealpha(0):sleep(0.25*3*scale):diffusealpha(1):sleep(0.25*scale):queuecommand("On")
-			end
+			self:diffusealpha(1):sleep( ( i - 1 ) * 0.5 ):diffusealpha(0):sleep( ( #scripts - 1 ) * 0.5 ):queuecommand("Repeat")
+			self:effectclock("beat"):set_tween_uses_effect_delta(true)
+		end,
+		RepeatCommand=function(self)
+			self:diffusealpha(1):sleep( 1 * 0.5 ):diffusealpha(0):sleep( ( #scripts - 1 ) * 0.5 ):queuecommand("Repeat")
+			self:effectclock("beat"):set_tween_uses_effect_delta(true)
 		end
 	}
 end
