@@ -1,9 +1,5 @@
 local BGA_dirs = FILEMAN:GetDirListing( "//BGAnimations/", true, true )
 
-return Def.ActorFrame{	
-	LoadActor( BGA_dirs[ math.random( 1, #BGA_dirs ) ] )..{}
-}
-
 function PTable( tbl, used, i )
 
 	if used == nil then used = {} end
@@ -36,3 +32,7 @@ function PTable( tbl, used, i )
 	return tbl_s["s"]
 	
 end
+
+return Def.ActorFrame{	
+	LoadActor( BGA_dirs[ math.random( 1, #BGA_dirs ) ] )..{}
+}

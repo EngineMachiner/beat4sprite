@@ -1,10 +1,10 @@
 # PSX BGAnimations Project
 
-This branch is for all the graphics used in the BGAnimations scripts.
+This branch is for all the resources used in the BGAnimations scripts.
 
 Credits:
 
 -Engine_Machiner
 -MadkaT
 
-The graphics will be sorted by their games and by SD/HD.
+The resources will be sorted by their games and by Original/HD.
