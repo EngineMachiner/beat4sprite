@@ -8,18 +8,14 @@ return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/Backgrounds/5th/6 (stretch).png")..{
 		OnCommand=function(self)
-
-				local relative_posy = (self:GetHeight()/2)/self:GetHeight()
-				local texcoordvelocity_y = relative_posy/4
-				
+		BGA_TCV_OrL(self, 0, 1)
 		self:Center()
 			:zoom(7*ScaleVar)
-			:texcoordvelocity(0,texcoordvelocity_y*(2*480/self:GetHeight())*1/3.75)
 			:customtexturerect(0,0,7,7)
 			:set_use_effect_clock_for_texcoords(true)
 			:addimagecoords(0,self:GetHeight()/4)
 			:effectclock('beat')
 		end
 	};
-	LoadActor("../Scripts/ParticlesDown", "Orange 2x1.png")..{};
+	LoadActor("../Scripts/ParticlesDown", "/BGAnimations/Sprites/5th/Orange 2x1.png")..{};
 }

@@ -1,12 +1,12 @@
+
 local ScaleVar = _screen.h/480
-local sprite = "/BGAnimations/Sprites/5th/" .. (...)
 
-local t = Def.ActorFrame{};
+local sprites, spin = ...
 
-local Params = {
-	NumParticles = 8*2,
-	File = sprite,
-}
+local t = Def.ActorFrame{}
+
+local num_sprites = 9*2
+
 
 local SelectedAngle = {
 
@@ -14,6 +14,11 @@ local SelectedAngle = {
 	360,
 
 }
+
+if not spin then 
+	SelectedAngle[1] = 0
+	SelectedAngle[2] = 0
+end
 
 local ZoomValue = {
 	
@@ -23,33 +28,66 @@ local ZoomValue = {
 	
 }
 
-for i=1,Params.NumParticles do	
+
+for i=1,num_sprites do	
 
 		t[#t+1] = Def.Sprite{
-		Texture=Params.File,
-		Name="Particle"..i;
 			OnCommand=function(self)			
-		
-				local NoStates if self:GetNumStates() == 1 then 
-					numStates = 0 else 
-					numStates = math.random(0,self:GetNumStates()-1) 
-					end;
-					
-				local numDelay = self:GetNumStates()
-				local colorval = ZoomValue[math.random(1,3)]
-			
-			if colorval == 0.5 then size_tween = 5 elseif colorval == 0.75 then size_tween = 4 elseif colorval == 1 then size_tween = 3 end
 
-			self:diffusealpha(0):sleep(i/Params.NumParticles):diffusealpha(1)
-			:zoom(colorval*ScaleVar):setstate(numStates):SetAllStateDelays((1/numDelay)/2)
-			:x(math.random(self:GetWidth()/2,_screen.w-self:GetWidth()/2))
-			:y(math.random(-SCREEN_BOTTOM,-self:GetHeight()/2))
-			:linear(size_tween)
-			:set_tween_uses_effect_delta(true):effectclock("beat")
-			:y(_screen.h+self:GetHeight()/2)
-			:queuecommand("On")
-			end;
+				if type(sprites) == "table" then 
+					self:Load(sprites[math.random(1,#sprites)])
+				else
+					self:Load(sprites)
+				end
+				
+				if self:GetNumStates() > 1 then 
+					self:setstate(math.random(0,self:GetNumStates()-1))
+				else
+					self:setstate(0)
+				end					
+
+				self:diffusealpha(0):sleep(i*0.5):diffusealpha(1)
+					:zoom(ZoomValue[math.random(1,3)]*ScaleVar)
+					:SetAllStateDelays(2*self:GetNumStates()^-1)
+					:x(math.random(self:GetWidth()*0.5,_screen.w-self:GetWidth()*0.5))
+					:y(SCREEN_TOP-self:GetHeight()*0.5)
+					:rotationz(0)
+					:linear(math.random(400,700)*0.01)
+					:rotationz(SelectedAngle[math.random(1,2)])
+					:y(_screen.h+self:GetHeight()/2)
+					:queuecommand("Repeat")
+					:set_tween_uses_effect_delta(true):effectclock("beat")
+
+			end,
+
+			RepeatCommand=function(self)
+
+				if type(sprites) == "table" then 
+					self:Load(sprites[math.random(1,#sprites)])
+				else
+					self:Load(sprites)
+				end
+				
+				if self:GetNumStates() > 1 then 
+					self:setstate(math.random(0,self:GetNumStates()-1))
+				else
+					self:setstate(0)
+				end	
+
+				self:diffusealpha(0):sleep(2):diffusealpha(1)
+					:SetAllStateDelays(2*self:GetNumStates()^-1)
+					:x(math.random(self:GetWidth()/2,_screen.w-self:GetWidth()/2))
+					:y(SCREEN_TOP-self:GetHeight()*0.5)
+					:rotationz(0)
+					:linear(math.random(400,700)*0.01)
+					:rotationz(SelectedAngle[math.random(1,2)])
+					:y(_screen.h+self:GetHeight()/2)
+					:queuecommand("Repeat")
+					:set_tween_uses_effect_delta(true):effectclock("beat")
+			end
+
 		}
+
 end
 
-return t;
+return t

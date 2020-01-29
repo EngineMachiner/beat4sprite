@@ -1,14 +1,22 @@
 local ScaleVar = _screen.h/480
-return Def.ActorFrame{
+
+local t = Def.ActorFrame{
+
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/2 2x2.png", 1/(2*2), ScaleVar )..{ 
-
-	OnCommand=cmd( y,self:GetChild("template"):GetHeight()/2*ScaleVar x,self:GetChild("template"):GetWidth()/2*ScaleVar )
-
-	},
-
-	LoadActor("../Scripts/RainbowSquares/default.lua", 160, 120 )..{ OnCommand=function(self) self:x(-55*ScaleVar) end },
+	LoadActor("../Scripts/Stairs", "/BGAnimations/Sprites/5th/1 2x2.png", true )..{}
+	
 }
+
+	t[#t+1] = Def.Quad{ 
+		OnCommand=function(self)
+			self:xy( SCREEN_CENTER_X , SCREEN_CENTER_Y )
+			self:blend('BlendMode_InvertDest')
+			self:diffuse(Color.White):zoomto(SCREEN_WIDTH,SCREEN_HEIGHT)
+			self:effectclock("beat")
+		end 
+	}
+
+return t

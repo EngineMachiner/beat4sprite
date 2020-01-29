@@ -7,19 +7,14 @@ return Def.ActorFrame{
 	end,
 	LoadActor("/BGAnimations/Backgrounds/5th/7 (stretch).png")..{
 		OnCommand=function(self)
-
--- The next variables define an accurate velocity (almost like the PSX emulation) according to the sizes of the sprites.
-
-				local relative_posy = (self:GetHeight()/2)/self:GetHeight()
-				local texcoordvelocity_y = relative_posy/4
-				
-		self:Center()
-			:zoom(5*ScaleVar)
-			:texcoordvelocity(0,texcoordvelocity_y*(2*480/self:GetHeight()))
-			:customtexturerect(0,0,5,5)
-			:set_use_effect_clock_for_texcoords(true)
-			:addimagecoords(0,self:GetHeight()/4)
-			:effectclock('beat')
+			BGA_TCV_OrL(self, 0, 1)
+			self:Center()
+				:zoom(5*ScaleVar)
+				:customtexturerect(0,0,5,5)
+				:set_use_effect_clock_for_texcoords(true)
+				:effectclock('beat')
+				:cropbottom(0.4):cropleft(0.3)
+				:croptop(0.4):cropright(0.3)
 		end
 	};
 }

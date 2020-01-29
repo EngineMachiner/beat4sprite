@@ -1,90 +1,27 @@
+
 local ScaleVar = _screen.h/480
-return Def.ActorFrame{
+
+local t = Def.ActorFrame{
 
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
-	end,
-	LoadActor("A.lua")..{
-		OnCommand=function(self)
-			self:effectclock('beat')
-			:x(-80*6*ScaleVar)
-			:diffuseshift()
-			:effectoffset(-1)
-			:effectperiod(4)
-			:effectcolor1(Color.Red)
-			:effectcolor2(0,0,0,0)
-			:diffusealpha(0.5)
-		end
-	},
-	LoadActor("A.lua")..{
-		OnCommand=function(self)
-			self:effectclock('beat')
-			:x(-80*4*ScaleVar)
-			:diffuseshift()
-			:effectoffset(-2)
-			:effectperiod(4)
-			:effectcolor1(Color.Red)
-			:effectcolor2(0,0,0,0)
-			:diffusealpha(0.5)
-		end
-	},
-	LoadActor("A.lua")..{
-		OnCommand=function(self)
-			self:effectclock('beat')
-			:x(-80*2*ScaleVar)
-			:diffuseshift()
-			:effectoffset(-3)
-			:effectperiod(4)
-			:effectcolor1(Color.Red)
-			:effectcolor2(0,0,0,0)
-			:diffusealpha(0.5)
-		end
-	},
-	LoadActor("A.lua")..{
-		OnCommand=function(self)
-			self:effectclock('beat')
-			:diffuseshift()
-			:effectoffset(-4)
-			:effectperiod(4)
-			:effectcolor1(Color.Red)
-			:effectcolor2(0,0,0,0)
-			:diffusealpha(0.5)
-		end
-	},
-	LoadActor("A.lua")..{
-		OnCommand=function(self)
-			self:effectclock('beat')
-			:diffuseshift()
-			:effectoffset(-5)
-			:effectperiod(4)
-			:effectcolor1(Color.Red)
-			:effectcolor2(0,0,0,0)
-			:x(80*2*ScaleVar)
-			:diffusealpha(0.5)
-		end
-	},
-	LoadActor("A.lua")..{
-		OnCommand=function(self)
-			self:effectclock('beat')
-			:diffuseshift()
-			:effectoffset(-6)
-			:effectperiod(4)
-			:effectcolor1(Color.Red)
-			:effectcolor2(0,0,0,0)
-			:x(80*4*ScaleVar)
-			:diffusealpha(0.5)
-		end
-	},
-	LoadActor("A.lua")..{
-		OnCommand=function(self)
-			self:effectclock('beat')
-			:effectoffset(-7)
-			:diffuseshift()
-			:effectperiod(4)
-			:effectcolor1(Color.Red)
-			:effectcolor2(0,0,0,0)
-			:x(80*6*ScaleVar)
-			:diffusealpha(0.5)
-		end
-	},
+	end
+
 }
+
+for i=-9,9,2 do
+	t[#t+1] = LoadActor("A.lua")..{
+		OnCommand=function(self)
+			self:effectclock('beat')
+			:x(80*i*ScaleVar)
+			:diffuseshift()
+			:effectoffset( - ((i*0.5) + 4) )
+			:effectperiod(4)
+			:effectcolor1(Color.Red)
+			:effectcolor2(0,0,0,0)
+			:diffusealpha(0.25+0.25*0.5)
+		end
+	}
+end
+
+return t

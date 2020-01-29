@@ -6,5 +6,6 @@ return Def.ActorFrame{
 	LoadActor("/BGAnimations/Backgrounds/5th/30 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,7*ScaleVar;customtexturerect,0,0,7,7)
 	},
-	LoadActor("../Scripts/WallBumpEffect1stCycle/default.lua","/BGAnimations/Sprites/5th/Symbol2.png", ScaleVar)..{};
+	LoadActor("../Scripts/WallBumpEffect","/BGAnimations/Sprites/5th/Symbol2.png")..{}
+	
 }

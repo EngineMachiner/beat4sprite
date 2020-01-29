@@ -24,10 +24,12 @@ for i=#scripts,1,-1 do
 		OnCommand=function(self)
 			self:diffusealpha(1):sleep( ( i - 1 ) * 0.5 ):diffusealpha(0):sleep( ( #scripts - 1 ) * 0.5 ):queuecommand("Repeat")
 			self:effectclock("beat"):set_tween_uses_effect_delta(true)
+			self:playcommand("Stop")
 		end,
 		RepeatCommand=function(self)
 			self:diffusealpha(1):sleep( 1 * 0.5 ):diffusealpha(0):sleep( ( #scripts - 1 ) * 0.5 ):queuecommand("Repeat")
 			self:effectclock("beat"):set_tween_uses_effect_delta(true)
+			self:playcommand("Stop")
 		end
 	}
 end

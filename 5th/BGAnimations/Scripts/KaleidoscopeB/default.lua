@@ -13,7 +13,7 @@ local t = Def.ActorFrame{
 
 }
 	
-	for i = -4,4 do
+	for i = -4,5 do
 		t[#t+1] = LoadActor("A.lua", bg)..{
 			OnCommand=function(self)
 				self:x( 118 * i * ScaleVar )

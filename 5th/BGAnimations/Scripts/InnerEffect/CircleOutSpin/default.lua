@@ -1,6 +1,14 @@
-local particle, round_move = ...
+local particle, round_move, c_wise = ...
+local tbl = {}
+
 local t = Def.ActorFrame{
 
+	OnCommand=function(self)
+		if c_wise then
+			self:rotationx(180)
+			self:y(SCREEN_HEIGHT)
+		end
+	end,
 	LoseFocusCommand=function(self)
 		self:RemoveAllChildren()
 	end

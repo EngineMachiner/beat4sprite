@@ -1,12 +1,27 @@
+
 local ScaleVar = _screen.h/480
-return Def.ActorFrame{
+
+local tbl = {
+
+	"/BGAnimations/Sprites/5th/4 5x1.png",
+	"/BGAnimations/Sprites/5th/3 5x1.png",
+	"/BGAnimations/Sprites/5th/2 5x1.png",
+	"/BGAnimations/Sprites/5th/5 5x1.png"
+
+}
+
+local t = Def.ActorFrame{
+
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("1.lua")..{
-		OnCommand=cmd(y,0;linear,(1.75*3.75)*2;set_tween_uses_effect_delta,true;effectclock,"beat";y,-480*ScaleVar;queuecommand,"On")
-	};
-	LoadActor("1.lua")..{
-		OnCommand=cmd(y,480*ScaleVar;linear,(1.75*3.75)*2;set_tween_uses_effect_delta,true;effectclock,"beat";y,0;queuecommand,"On")
-	};
+
+	LoadActor("../Scripts/Stairs", tbl, true)..{ 
+		OnCommand=function(self)
+			self:xy(0,0)
+			BGA_TCV_OrL(self, 0, -3, true)
+		end
+	}
 }
+
+return t

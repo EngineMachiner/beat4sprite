@@ -1,13 +1,12 @@
 
-local tbl = {}
-
-if GAMESTATE:GetCurrentSong():HasBackground() then 
-	tbl.file = GAMESTATE:GetCurrentSong():GetBackgroundPath() 
-else 
-	tbl.file = "/BGAnimations/Backgrounds/fallback.png"
-end
-
 local ScaleVar = _screen.h/480
+
+local sprites = {
+
+	"/BGAnimations/Sprites/5th/Jewel.png", 
+	"/BGAnimations/Sprites/5th/Ring.png"
+
+}
 
 return Def.ActorFrame{
 
@@ -15,8 +14,18 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor( "../Scripts/BGExtender", tbl.file )..{},
+	Def.Quad{
+		OnCommand=function(self)
+			self:diffuse(Color.Black)
+			self:FullScreen()
+		end
+	},
 
-	LoadActor( "../Scripts/BGExtender", "/BGAnimations/5thBG009/1 2x1.png" )..{}
+	LoadActor( "../Scripts/BGExtender", GAMESTATE:GetCurrentSong():GetBackgroundPath() )..{
+		OnCommand=function(self)
+			self:diffuseramp():effectcolor1(1,1,1,1):effectcolor2(0.5,0.5,0.5,0.5):effectclock('beat')
+		end
+	},
 
+	LoadActor("../Scripts/ParticlesDown", sprites, true)..{}
 }

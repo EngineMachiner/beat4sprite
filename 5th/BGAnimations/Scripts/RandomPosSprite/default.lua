@@ -1,4 +1,4 @@
-local file = "/BGAnimations/Sprites/5th/" .. (...)
+local file, rainbow, rotation = ...
 
 local ScaleVar = _screen.h/480
 
@@ -11,92 +11,43 @@ local ZoomValue = {
 }
 
 
-return Def.ActorFrame{
-	OnCommand=function(self) self:playcommand("Repeat") end,
-	
-			Def.Sprite{
-		Texture = file,
-          RepeatCommand=function(self)
-		  
-		  	if self:GetNumStates() == 1 then numStates = 0 else numStates = math.random(0,self:GetNumStates()-1) end;
-			
-			numDelay = self:GetNumStates()
-			
-		  self:effectclock("beat"):set_tween_uses_effect_delta(true)
-		  :zoom(ZoomValue[math.random(1,3)]):SetAllStateDelays(1/numDelay)
-		  :x(math.random(0, _screen.w))
-		  :y(math.random(0, _screen.h)
-		  :sleep(2)
-		  :zoom(ZoomValue[math.random(1,3)])
-		  :x(math.random(0, _screen.w))
-		  :y(math.random(0, _screen.h))
-		  :setstate(math.random(0,1)):queuecommand("Repeat");
-		  
-		  
-	},
+local t = Def.ActorFrame{
 
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
+	OnCommand=function(self) 
+		self:playcommand("Repeat") 
+	end
 
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-			Def.Sprite{
-		Texture = file, 
-          RepeatCommand=cmd(zoom,ZoomValue[math.random(1,3)];setstate,numStates;effectclock,"beat";set_tween_uses_effect_delta,true;x,math.random(0, _screen.w);y,math.random(0, _screen.h);sleep,2;zoom,ZoomValue[math.random(1,3)];x,math.random(0, _screen.w);y,math.random(0, _screen.h);  queuecommand,"Repeat");
-	},
-	
 }
+
+for i=1,12 do
+	t[#t+1] = Def.Sprite{
+		Texture = file, 
+        RepeatCommand=function(self)
+
+			if rainbow then 
+				self:rainbow():effectoffset(i*0.1):effectperiod(8)
+			end
+
+			if rotation then 
+				self:rotationz(math.random(0,360))
+			end
+
+		  	self:effectclock("beat"):set_tween_uses_effect_delta(true)
+		 		:zoom(ZoomValue[math.random(1,3)]):SetAllStateDelays(2*self:GetNumStates()^-1)
+		 		:x(math.random(0, _screen.w))
+		 		:y(math.random(0, _screen.h))
+		 		:sleep(2)
+		 		:zoom(ZoomValue[math.random(1,3)])
+		  		:x(math.random(0, _screen.w))
+		  		:y(math.random(0, _screen.h))
+		  		:queuecommand("Repeat")
+
+		  	if self:GetNumStates() > 1 then 
+				self:setstate(math.random(0,self:GetNumStates()-1))
+			end
+
+		end	
+	}
+end	
+
+return t

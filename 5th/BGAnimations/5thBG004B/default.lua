@@ -1,12 +1,4 @@
 
-local tbl = {}
-
-if GAMESTATE:GetCurrentSong():HasBackground() then 
-	tbl.file = GAMESTATE:GetCurrentSong():GetBackgroundPath() 
-else 
-	tbl.file = "/BGAnimations/Backgrounds/fallback.png"
-end
-
 local ScaleVar = _screen.h/480
 
 return Def.ActorFrame{
@@ -15,14 +7,8 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor( "../Scripts/BGExtender", tbl.file )..{},
+	LoadActor( "../Scripts/BGEffects/3", GAMESTATE:GetCurrentSong():GetBackgroundPath() )..{},
 
-	LoadActor("B.lua")..{
-		OnCommand=function(self)
-			self:diffusealpha(0.25)
-		end
-	},
-
-	LoadActor("../Scripts/RandomPosSprite/RainbowRotation", "2 Scissors 2x1.png")..{}
+	LoadActor("../Scripts/RandomPosSprite", "/BGAnimations/Sprites/5th/2 Scissors 2x1.png", true, true)..{}
 
 }

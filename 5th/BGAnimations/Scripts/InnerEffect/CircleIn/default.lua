@@ -14,12 +14,13 @@ local n = 7
 for i=1,n do
 	t[i+(n+1)*7] = LoadActor(particle)..{
 			GainFocusCommand=function(self)
-				self:SetAllStateDelays(1/self:GetNumStates())
-				:xy(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*1.25,SCREEN_CENTER_Y-self:GetHeight()*ScaleVar/2):rotationz(135):zoom(ScaleVar):diffusealpha(0)
+				AnimationDelay(self)
+				self:xy(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*1.25,SCREEN_CENTER_Y-self:GetHeight()*ScaleVar/2):rotationz(135):zoom(ScaleVar):diffusealpha(0)
 				:z(125*ScaleVar):sleep(math.abs(i)*2)
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
 				:set_tween_uses_effect_delta(true):effectclock('beat')
+				ToolPreview(self)
 			end,
 			RepeatCommand=function(self)
 				if rotationz_allow == true then
@@ -30,19 +31,19 @@ for i=1,n do
 				:sleep( n * 0.5 )
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
-				:set_tween_uses_effect_delta(true):effectclock('beat')
 			end
 		}
 
 	t[i+(n+1)*5] = LoadActor(particle)..{
 			GainFocusCommand=function(self)
-				self:SetAllStateDelays(1/self:GetNumStates())
-				:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-self:GetHeight()*ScaleVar*1.25)
+				AnimationDelay(self)
+				self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y-self:GetHeight()*ScaleVar*1.25)
 				:z(125*ScaleVar):rotationz(135+45):zoom(ScaleVar):diffusealpha(0)
 				:sleep(math.abs(i-(1/6)*5)*2)
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
 				:set_tween_uses_effect_delta(true):effectclock('beat')
+				ToolPreview(self)
 			end,
 			RepeatCommand=function(self)
 				if rotationz_allow == true then
@@ -53,20 +54,20 @@ for i=1,n do
 				:z(125*ScaleVar):sleep( n * 0.5 )
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
-				:set_tween_uses_effect_delta(true):effectclock('beat')
 			end
 		}
 
 	t[i+(n+1)*4] = LoadActor(particle)..{
 			GainFocusCommand=function(self)
-				self:SetAllStateDelays(1/self:GetNumStates())
-				:xy(SCREEN_CENTER_X-self:GetWidth()*ScaleVar*1.25,SCREEN_CENTER_Y-self:GetHeight()*ScaleVar*0.5)
+				AnimationDelay(self)
+				self:xy(SCREEN_CENTER_X-self:GetWidth()*ScaleVar*1.25,SCREEN_CENTER_Y-self:GetHeight()*ScaleVar*0.5)
 				:rotationz(135+45*2):zoom(ScaleVar):diffusealpha(0)
 				:z(125*ScaleVar)
 				:sleep(math.abs(i-(1/6)*4)*2)
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
 				:set_tween_uses_effect_delta(true):effectclock('beat')
+				ToolPreview(self)
 			end,
 			RepeatCommand=function(self)
 				if rotationz_allow == true then
@@ -77,20 +78,20 @@ for i=1,n do
 				:z(125*ScaleVar):sleep( n * 0.5 )
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
-				:set_tween_uses_effect_delta(true):effectclock('beat')
 			end
 		}
 
 	t[i+(n+1)*3] = LoadActor(particle)..{
 			GainFocusCommand=function(self)
-				self:SetAllStateDelays(1/self:GetNumStates())
-				:xy(SCREEN_CENTER_X-self:GetWidth()*ScaleVar*1.25,SCREEN_CENTER_Y+self:GetHeight()*ScaleVar)
+				AnimationDelay(self)
+				self:xy(SCREEN_CENTER_X-self:GetWidth()*ScaleVar*1.25,SCREEN_CENTER_Y+self:GetHeight()*ScaleVar)
 				:rotationz(135+45*4):zoom(ScaleVar):diffusealpha(0)
 				:z(125*ScaleVar):sleep(math.abs(i-(1/6)*3)*2)
 				:linear(0.25):diffusealpha(1)
 				:linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
 				:set_tween_uses_effect_delta(true):effectclock('beat')
+				ToolPreview(self)
 			end,
 			RepeatCommand=function(self)
 				if rotationz_allow == true then
@@ -101,14 +102,13 @@ for i=1,n do
 				:z(125*ScaleVar):sleep( n * 0.5 )
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
-				:set_tween_uses_effect_delta(true):effectclock('beat')
 			end
 		}
 
 	t[i+(n+1)*2] = LoadActor(particle)..{
 			GainFocusCommand=function(self)
-				self:SetAllStateDelays(1/self:GetNumStates())
-				:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y+self:GetHeight()*ScaleVar*1.75)
+				AnimationDelay(self)
+				self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y+self:GetHeight()*ScaleVar*1.75)
 				:rotationz(135+45*5):zoom(ScaleVar):diffusealpha(0)
 				:z(125*ScaleVar)
 				:sleep(math.abs(i-(1/6)*2)*2)
@@ -116,6 +116,7 @@ for i=1,n do
 				:linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
 				:set_tween_uses_effect_delta(true):effectclock('beat')
+				ToolPreview(self)
 			end,
 			RepeatCommand=function(self)
 				if rotationz_allow == true then
@@ -126,14 +127,13 @@ for i=1,n do
 				:z(125*ScaleVar):sleep( n * 0.5 )
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
-				:set_tween_uses_effect_delta(true):effectclock('beat')
 			end
 		}
 
 	t[i+(n+1)] = LoadActor(particle)..{
 			GainFocusCommand=function(self)
-				self:SetAllStateDelays(1/self:GetNumStates())
-				:xy(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*1.25,SCREEN_CENTER_Y+self:GetHeight()*ScaleVar)
+				AnimationDelay(self)
+				self:xy(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*1.25,SCREEN_CENTER_Y+self:GetHeight()*ScaleVar)
 				:rotationz(135+45*6):zoom(ScaleVar):diffusealpha(0)
 				:z(125*ScaleVar)
 				:sleep(math.abs(i-1/6)*2)
@@ -141,6 +141,7 @@ for i=1,n do
 				:linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
 				:set_tween_uses_effect_delta(true):effectclock('beat')
+				ToolPreview(self)
 			end,
 			RepeatCommand=function(self)
 				if rotationz_allow == true then
@@ -151,7 +152,6 @@ for i=1,n do
 				:z(125*ScaleVar):sleep( n * 0.5 )
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
-				:set_tween_uses_effect_delta(true):effectclock('beat')
 			end
 		}
 end

@@ -1,12 +1,4 @@
 
-local tbl = {}
-
-if GAMESTATE:GetCurrentSong():HasBackground() then 
-	tbl.file = GAMESTATE:GetCurrentSong():GetBackgroundPath() 
-else 
-	tbl.file = "/BGAnimations/Backgrounds/fallback.png"
-end
-
 local ScaleVar = _screen.h/480
 
 local t = Def.ActorFrame{
@@ -19,9 +11,7 @@ local t = Def.ActorFrame{
 		self:rainbow():effectperiod(8):effectclock("beat")
 	end,
 
-	LoadActor( "../Scripts/BGExtender", tbl.file )..{},
-
-	LoadActor("B.lua")..{}
+	LoadActor( "../Scripts/BGEffects/1", GAMESTATE:GetCurrentSong():GetBackgroundPath() )..{}
 	
 }
 

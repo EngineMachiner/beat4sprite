@@ -29,7 +29,7 @@ for i = 1, 9 do
 		OnCommand=function(self)
 
 			self:xy( SCREEN_CENTER_X + self:GetWidth() * - ( - i + 5 ) * ScaleVar , SCREEN_CENTER_Y )
-			self:zoom(ScaleVar):SetAllStateDelays(0.25):animate(false)
+			self:zoom(ScaleVar):SetAllStateDelays(2*self:GetNumStates()^-1):animate(false)
 			self:queuecommand( "Repeat" )
 			self:effectclock('beat')
 

@@ -1,134 +1,69 @@
-local file = "/BGAnimations/Sprites/5th/sparks 1x2.png"
 local ScaleVar = _screen.h/480
-return Def.ActorFrame{
+
+local t = Def.ActorFrame{
+
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
+
 	LoadActor("/BGAnimations/Backgrounds/5th/6 (stretch).png")..{
 		OnCommand=cmd(Center;zoom,6*ScaleVar;customtexturerect,0,0,6,6)
-	};
-		Def.Sprite{
-		Texture = file,
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*320;y,60*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*960;y,60*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*320;y,180*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*960;y,180*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*320;y,300*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*960;y,300*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*320;y,420*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*960;y,420*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*320;y,540*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-		Def.Sprite{
-		Texture = file, 
-		OnCommand=cmd(SetAllStateDelays,0.5;zoom,ScaleVar;x,ScaleVar*960;y,540*ScaleVar;diffusealpha,0;sleep,4;diffusealpha,1;sleep,12;diffusealpha,0;effectclock,"beat";set_tween_uses_effect_delta,true;queuecommand,"On")
-	};
-	LoadActor("/BGAnimations/Backgrounds/5th/47 (stretch).png")..{
-		OnCommand=function(self)
+	}
 
-		local relative_posy = (self:GetHeight()/2)/self:GetHeight()
-		local texcoordvelocity_y = relative_posy/4
-				
-			self:Center()
-			:zoom(5*ScaleVar)
-			:texcoordvelocity(0,texcoordvelocity_y*(2*480/self:GetHeight()))
-			:customtexturerect(0,0,5,5)
-			:set_use_effect_clock_for_texcoords(true)
-			:addimagecoords(0,self:GetHeight()/4)
-			:effectclock('beat'):diffusealpha(0):sleep(8):diffusealpha(1):sleep(8):diffusealpha(0):queuecommand("On"):set_tween_uses_effect_delta(true)
-		end
-	};
-		Def.Sprite{
-		Texture = "5 5x1.png", 
-		OnCommand=function(self)
-		self:x(SCREEN_CENTER_X-self:GetWidth()*ScaleVar*3)
-		:y(SCREEN_CENTER_Y)
-		:zoom(ScaleVar):SetAllStateDelays(0.25)
-		:effectoffset(0.4)
-		:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0):queuecommand( "On" ):effectclock('beat'):set_tween_uses_effect_delta(true)
-		end
-	};
-		Def.Sprite{
-		Texture = "1 5x1.png", 
-		OnCommand=function(self)
-		self:x(SCREEN_CENTER_X-self:GetWidth()*ScaleVar*2)
-		:y(SCREEN_CENTER_Y)
-		:zoom(ScaleVar):SetAllStateDelays(0.25)
-		:effectoffset(0.2)
-		:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0):queuecommand( "On" ):effectclock('beat'):set_tween_uses_effect_delta(true)
-		end
-	};
-		Def.Sprite{
-		Texture = "2 5x1.png", 
-		OnCommand=function(self)
-		self:x(SCREEN_CENTER_X-self:GetWidth()*ScaleVar)
-		:y(SCREEN_CENTER_Y)
-		:zoom(ScaleVar):SetAllStateDelays(0.25)
-		:effectoffset(0.4)
-		:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0):queuecommand( "On" ):effectclock('beat'):set_tween_uses_effect_delta(true)
-		end
-	};
-		Def.Sprite{
-		Texture = "3 5x1.png", 
-		OnCommand=function(self)
-		self:x(SCREEN_CENTER_X-self:GetWidth()*ScaleVar*0)
-		:y(SCREEN_CENTER_Y)
-		:zoom(ScaleVar):SetAllStateDelays(0.25)
-		:effectoffset(0.6)
-		:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0):queuecommand( "On" ):effectclock('beat'):set_tween_uses_effect_delta(true)
-		end
-	};
-		Def.Sprite{
-		Texture = "4 5x1.png", 
-		OnCommand=function(self)
-		self:x(SCREEN_CENTER_X+self:GetWidth()*ScaleVar)
-		:y(SCREEN_CENTER_Y)
-		:zoom(ScaleVar):SetAllStateDelays(0.25)
-		:effectoffset(0.8)
-		:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0):queuecommand( "On" ):effectclock('beat'):set_tween_uses_effect_delta(true)
-		end
-	};
-		Def.Sprite{
-		Texture = "5 5x1.png", 
-		OnCommand=function(self)
-		self:x(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*2)
-		:y(SCREEN_CENTER_Y)
-		:zoom(ScaleVar):SetAllStateDelays(0.25)
-		:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0):queuecommand( "On" ):effectclock('beat'):set_tween_uses_effect_delta(true)
-		end
-	};
-		Def.Sprite{
-		Texture = "1 5x1.png", 
-		OnCommand=function(self)
-		self:x(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*3)
-		:y(SCREEN_CENTER_Y)
-		:zoom(ScaleVar):SetAllStateDelays(0.25)
-		:effectoffset(0.2)
-		:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0):queuecommand( "On" ):effectclock('beat'):set_tween_uses_effect_delta(true)
-		end
-	};
 }
+
+	t[#t+1] = LoadActor( "../Scripts/TileTool","/BGAnimations/Sprites/5th/sparks 1x2.png", 1, 2 )..{
+		OnCommand=function(self)
+			self:y(self:GetChild("template"):GetHeight()*-0.5)
+			self:diffusealpha(0):sleep(4)
+				:diffusealpha(1):sleep(12):queuecommand("On")
+				:effectclock("beat")
+				:set_tween_uses_effect_delta(true)
+		end
+	}
+
+	t[#t+1] = LoadActor("/BGAnimations/Backgrounds/5th/47 (stretch).png")..{
+		OnCommand=function(self)
+			BGA_TCV_OrL(self, 0, 1)
+			self:queuecommand("Repeat")
+			self:Center()
+				:zoom(3*ScaleVar)
+				:customtexturerect(0,0,3,3)
+				:cropleft(0.25)
+				:cropright(0.25)
+				:cropbottom(0.25*1.5)
+				:croptop(0.25*1.5)
+		end,
+		RepeatCommand=function(self)
+			self:diffusealpha(0):sleep(8):diffusealpha(1):sleep(8)
+				:queuecommand("Repeat")
+				:effectclock('beat'):set_tween_uses_effect_delta(true)
+		end
+	}
+
+local count = 0
+
+for i=-1,5+2 do
+	t[#t+1] = Def.Sprite{
+		OnCommand=function(self)
+			self:Load("/BGAnimations/5th046/1 5x1.png")
+			self:xy(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*(i-3),SCREEN_CENTER_Y)
+				:zoom(ScaleVar):SetAllStateDelays(2*self:GetNumStates()^-1)
+				:effectclock('beat'):set_tween_uses_effect_delta(true)
+				:queuecommand( "Repeat" )
+			ToolPreview(self)
+			count = count + 1
+			if count > self:GetNumStates() - 1 then
+				count = 0
+			end
+			self:setstate(tbl.count)
+		end,
+		RepeatCommand=function(self)
+			self:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0)
+				:queuecommand( "Repeat" )
+				
+		end
+	};
+end
+
+return t

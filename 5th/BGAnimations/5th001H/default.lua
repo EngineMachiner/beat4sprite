@@ -1,5 +1,3 @@
-local file = "/BGAnimations/Backgrounds/5th/39 (stretch).png"
-local file2 = "/BGAnimations/Backgrounds/5th/5 (stretch).png"
 
 local ScaleVar = _screen.h/480
 
@@ -8,28 +6,23 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 	
-	LoadActor(file)..{
-		OnCommand=cmd(Center;zoom,ScaleVar)
-	};
-	LoadActor(file)..{
-		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()+self:GetWidth()*ScaleVar;zoomx,-ScaleVar)
-	};
-	LoadActor(file)..{
-		OnCommand=cmd(Center;zoom,ScaleVar;x,self:GetX()-self:GetWidth()*ScaleVar;zoomx,-ScaleVar)
-	};
-	LoadActor(file2)..{
-		OnCommand=function(self)
+	LoadActor( "../Scripts/BGExtender", "/BGAnimations/Backgrounds/5th/39 (stretch).png" )..{},
 
-				local relative_posx = (self:GetWidth()/2)/self:GetWidth()
-				local texcoordvelocity_x = relative_posx/4
+	LoadActor("/BGAnimations/Backgrounds/5th/5 (stretch).png")..{
+
+		OnCommand=function(self)
+		
+			BGA_TCV_OrL(self, 1, 0)
 				
-		self:Center()
-			:zoom(3*ScaleVar)
-			:texcoordvelocity(2*texcoordvelocity_x*(640/self:GetWidth()),0)
-			:customtexturerect(0,0,3,3)
-			:set_use_effect_clock_for_texcoords(true)
-			:addimagecoords(self:GetWidth()/4,0)
-			:effectclock('beat')
-			end
-	};
+			self:Center()
+				:zoom(1*ScaleVar)
+				:customtexturerect(0,0,1,1)
+				:set_use_effect_clock_for_texcoords(true)
+				:addimagecoords(self:GetWidth()/4,0)
+				:effectclock('beat')
+
+		end
+
+	}
+	
 }

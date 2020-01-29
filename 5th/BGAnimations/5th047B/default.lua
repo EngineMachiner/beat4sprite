@@ -1,13 +1,26 @@
 local ScaleVar = _screen.h/480
+
+local sprites = {
+
+	"/BGAnimations/Sprites/5th/SF1.png", 
+	"/BGAnimations/Sprites/5th/SF2.png"
+
+}
+
 return Def.ActorFrame{
+
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("A.lua")..{
-		OnCommand=cmd(y,0;linear,(35/3)/(8/6);y,-120*6;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
-	};
-	LoadActor("A.lua")..{
-		OnCommand=cmd(y,120*6;linear,(35/3)/(8/6);y,0;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
-	};
-	LoadActor("../Scripts/ParticlesDownSpin/2", "/BGAnimations/Sprites/5th/SF1.png", "/BGAnimations/Sprites/5th/SF2.png")..{},
+
+	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/snow 2x1.png", 3, 3 )..{ 
+		OnCommand=function(self)
+			BGA_TCV_OrL(self, 0, -1, true)
+			self:hurrytweening(2)
+			self:y(self:GetChild("template"):GetHeight()*ScaleVar/1.75)
+		end 
+	},
+
+	LoadActor("../Scripts/ParticlesDown", sprites, true)..{}
+
 }

@@ -5,16 +5,11 @@ return Def.ActorFrame{
 	end,
 	LoadActor("/BGAnimations/Backgrounds/5th/45 (stretch).png")..{
 		OnCommand=function(self)
-
-				local relative_posy = (self:GetHeight()/2)/self:GetHeight()
-				local texcoordvelocity_y = relative_posy/4
-				
+		BGA_TCV_OrL(self, 0, 0.5)
 		self:Center()
 			:zoom(6*ScaleVar)
-			:texcoordvelocity(0,texcoordvelocity_y*(2*480/self:GetHeight())*1/3.75) -- 0.5x speed
 			:customtexturerect(0,0,6,6)
 			:set_use_effect_clock_for_texcoords(true)
-			:addimagecoords(0,self:GetHeight()/4)
 			:effectclock('beat')
 		end	
 	};

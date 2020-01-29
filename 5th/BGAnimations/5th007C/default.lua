@@ -1,15 +1,18 @@
-local ScaleVar = _screen.h/480
+
+local Backgrounds = {
+
+	"/BGAnimations/Backgrounds/5th/13 (stretch).png",
+	"/BGAnimations/Backgrounds/5th/12 (stretch).png"
+
+}
 
 return Def.ActorFrame{
 
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
-	LoadActor("B.lua")..{
-		OnCommand=cmd(x,640*2;linear,self:GetChild(""):GetChild("sprt_1"):GetWidth()/(260/(9*2));x,320;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
-	};
-	LoadActor("B.lua")..{
-		OnCommand=cmd(x,320;linear,self:GetChild(""):GetChild("sprt_1"):GetWidth()/(260/(9*2));x,320*-2;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
-	};
-		LoadActor("../Scripts/Line", "/BGAnimations/Sprites/5th/2 Scissors 2x1.png", 1/2, ScaleVar)..{},
+
+	LoadActor( "../Scripts/AnimatedCTR", Backgrounds , false, -0.5 )..{},
+
+	LoadActor("../Scripts/Line", "/BGAnimations/Sprites/5th/2 Scissors 2x1.png")..{}
 }

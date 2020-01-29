@@ -1,22 +1,38 @@
 local ScaleVar = _screen.h/480
+
+local Backgrounds = {
+
+	"/BGAnimations/Backgrounds/5th/26 (stretch).png",
+	"/BGAnimations/Backgrounds/5th/25 (stretch).png"
+
+}
+
 return Def.ActorFrame{
+
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	Def.ActorFrame{
+	LoadActor("../Scripts/AnimatedCTR",Backgrounds)..{
 
-		Def.Sprite{
-		Texture = "/BGAnimations/Backgrounds/5th/26 (stretch).png", 
-			OnCommand=cmd(Center;zoom,8*ScaleVar;customtexturerect,0,0,8,8;diffusealpha,1;sleep,2/2;diffusealpha,0;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
-		},
-			
-		Def.Sprite{
-		Texture = "/BGAnimations/Backgrounds/5th/25 (stretch).png", 
-			OnCommand=cmd(Center;zoom,8*ScaleVar;customtexturerect,0,0,8,8;diffusealpha,1;sleep,1/2;diffusealpha,0;sleep,1/2;set_tween_uses_effect_delta,true;effectclock,"beat";queuecommand,"On")
-		},
+		OnCommand=function(self)
+			self:playcommand("Move")
+		end,
 
-		OnCommand=cmd(x,0;y,self:GetChild(""):GetHeight()/2;sleep,1/2;addx,-40*ScaleVar;addy,-40*ScaleVar;sleep,1/2;addx,-40*ScaleVar;addy,-40*ScaleVar;sleep,1/2;addx,-40*ScaleVar;addy,-40*ScaleVar;sleep,1/2;addx,-40*ScaleVar;addy,-40*ScaleVar;effectclock,"beat";queuecommand,"On")
+		MoveCommand=function(self)
+			self:xy(0,0)
+			self:set_tween_uses_effect_delta(true)
+			self:effectclock("beat")
+			self:sleep(2)
+				:xy( self:GetX()-40*ScaleVar, self:GetY()-40*ScaleVar )
+				:sleep(2)
+				:xy( self:GetX()-40*2*ScaleVar, self:GetY()-40*2*ScaleVar )
+				:sleep(2)
+				:xy( self:GetX()-40*3*ScaleVar, self:GetY()-40*3*ScaleVar )
+				:sleep(2)
+				:queuecommand("Move")
+				ToolPreview(self)
+		end
 
 	},
 
