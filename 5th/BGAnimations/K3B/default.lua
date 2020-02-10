@@ -8,7 +8,7 @@ return Def.ActorFrame{
     end, 
 		
     LoadActor("../Scripts/KaleidoscopeA/default.lua", ScaleVar, file)..{},
- 	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/Rhombus 3x1.png", 3, 1, false, "Left" )..{
+ 	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/Rhombus 3x1.png", 3, 1, "Left" )..{
 		OnCommand=cmd( x,self:GetChild("template"):GetWidth()/2*ScaleVar;queuecommand,"Stairs" )
 	}
 }

@@ -1,5 +1,5 @@
 local ScaleVar = _screen.h/480
-local sprite, rainbow = ...
+local sprite, dir = ...
 
 local tbl = {}
 
@@ -30,17 +30,26 @@ for n=-9,9 do
 					self:Load(sprite)
 				end	
 
-				if rainbow then
-					self:rainbow():effectperiod(8)
-					self:effectoffset(n*0.25) 
+				if dir then
+					self:playcommand("Rainbow")
 				end
 
 				self:effectclock("beat")
 				ToolPreview(self)
 				AnimationDelay(self)
 				self:zoom(ScaleVar)
-				self:xy(SCREEN_CENTER_X-self:GetWidth()*i+self:GetWidth()*n-80,SCREEN_CENTER_Y+self:GetHeight()*i+60)
+				self:xy(SCREEN_CENTER_X-self:GetWidth()*i*ScaleVar+self:GetWidth()*n*ScaleVar-80*ScaleVar,
+					SCREEN_CENTER_Y+self:GetHeight()*i*ScaleVar+60*ScaleVar)
 
+			end,
+			RainbowCommand=function(self)
+				if dir == true then dir = 1 end
+				self:rainbow():effectperiod(8)
+				self:effectoffset(dir*n*0.75)				
+			end,
+			RainbowFallCommand=function(self)
+				self:rainbow():effectperiod(8)
+				self:effectoffset(-(-i*0.75+n))		
 			end
 		}
 	end

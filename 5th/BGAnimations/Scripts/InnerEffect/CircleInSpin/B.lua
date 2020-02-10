@@ -1,13 +1,7 @@
 local sprite, round_move, sleep_num  = ...
 local ScaleVar = _screen.h/480
 
-local t = Def.ActorFrame{
-
-	LoseFocusCommand=function(self)
-		self:RemoveAllChildren()
-	end
-
-}
+local t = Def.ActorFrame{}
 
 local timing = -1
 
@@ -84,7 +78,7 @@ t[tostring(10+sleep_num)] = Def.Sprite{
 
 		self:linear(0.25*0.5)
 		:rotationz(self:GetRotationZ()-10*spin_var)
-		:zoom(self:GetZoom()-0.015)
+		:zoom(self:GetZoom()-0.015*ScaleVar)
 		:xy(SCREEN_CENTER_X+tbl[1],SCREEN_CENTER_Y+tbl[2])
 		:queuecommand("Spiral")
 	end

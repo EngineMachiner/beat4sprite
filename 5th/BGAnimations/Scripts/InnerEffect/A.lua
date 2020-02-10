@@ -1,8 +1,9 @@
-local tool_sprite, RState, rotationz_allow, rotationx_allow, e = ...
+local tool_sprite, RState, rotationz_allow, rotationx_allow = ...
 local ScaleVar = _screen.h/480
 local t = Def.ActorFrame{
 
     GainFocusCommand=function(self)
+
         if RState then
             self:RunCommandsOnChildren( function(child) 
                 if child:GetNumStates() > 1 then 
@@ -10,7 +11,13 @@ local t = Def.ActorFrame{
                 end
             end )
         end
-        self:fov(120*ScaleVar)
+
+        if rotationx_allow then
+            self:fov(140)
+        else
+            self:fov(130)
+        end
+        
     end
  
 }
@@ -36,7 +43,7 @@ for i=-math.random(0,2),math.random(0,2) do
 
             self:xy( SCREEN_CENTER_X+self:GetWidth()*ScaleVar*i, SCREEN_CENTER_Y+self:GetHeight()*ScaleVar*i )
             AnimationDelay(self)
-            self:effectclock('beat')
+            self:set_tween_uses_effect_delta(true):effectclock('beat')
             ToolPreview(self)
             
         end

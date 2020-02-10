@@ -9,7 +9,7 @@ return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/Backgrounds/5th/61 (stretch).png")..{
 		OnCommand=function(self)
-			BGA_TCV_OrL(self, 0.25*0.5, 0)
+			BGA_TCV_OrL(self, 0.25, 0)
 			self:Center()
 				:zoom(1*ScaleVar)
 				:customtexturerect(0,0,1,1)

@@ -10,7 +10,7 @@ return Def.ActorFrame{
 		Texture="/BGAnimations/Backgrounds/5th/6 (stretch).png",	
 		OnCommand=function(self)
 			self:Center()
-			:x( self:GetX() + 80 )
+			:x( self:GetX() + 80*ScaleVar )
 			:zoom(7*ScaleVar)
 			:customtexturerect(0,0,7,7)
 			:visible(true)
@@ -21,7 +21,7 @@ return Def.ActorFrame{
 
 	LoadActor("B.lua")..{
 		OnCommand=function(self)
-			self:xy(27+80*2,-120)
+			self:xy(27*ScaleVar+80*2*ScaleVar,-120*ScaleVar)
 			BGA_TCV_OrL(self, -1, -1, true)
 			self:hurrytweening(2)
 		end

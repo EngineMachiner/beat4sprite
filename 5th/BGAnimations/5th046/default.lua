@@ -19,6 +19,7 @@ local t = Def.ActorFrame{
 				:diffusealpha(1):sleep(12):queuecommand("On")
 				:effectclock("beat")
 				:set_tween_uses_effect_delta(true)
+				ToolPreview(self)
 		end
 	}
 
@@ -33,11 +34,12 @@ local t = Def.ActorFrame{
 				:cropright(0.25)
 				:cropbottom(0.25*1.5)
 				:croptop(0.25*1.5)
+				:effectclock('beat'):set_tween_uses_effect_delta(true)
+				ToolPreview(self)
 		end,
 		RepeatCommand=function(self)
 			self:diffusealpha(0):sleep(8):diffusealpha(1):sleep(8)
 				:queuecommand("Repeat")
-				:effectclock('beat'):set_tween_uses_effect_delta(true)
 		end
 	}
 
@@ -48,22 +50,23 @@ for i=-1,5+2 do
 		OnCommand=function(self)
 			self:Load("/BGAnimations/5th046/1 5x1.png")
 			self:xy(SCREEN_CENTER_X+self:GetWidth()*ScaleVar*(i-3),SCREEN_CENTER_Y)
-				:zoom(ScaleVar):SetAllStateDelays(2*self:GetNumStates()^-1)
+				:zoom(ScaleVar)
 				:effectclock('beat'):set_tween_uses_effect_delta(true)
 				:queuecommand( "Repeat" )
+			AnimationDelay(self)
 			ToolPreview(self)
 			count = count + 1
 			if count > self:GetNumStates() - 1 then
 				count = 0
 			end
-			self:setstate(tbl.count)
+			self:setstate(count)
 		end,
 		RepeatCommand=function(self)
 			self:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0)
 				:queuecommand( "Repeat" )
 				
 		end
-	};
+	}
 end
 
 return t

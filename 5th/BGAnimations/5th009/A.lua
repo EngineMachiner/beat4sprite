@@ -14,11 +14,11 @@ for i=-1,6 do
 			if i == 0 then self:diffusealpha(0) end
 
 			if i == -1 then 
-				self:x( -80 * ScaleVar )
+				self:x( - 80 * ScaleVar )
 				self:y( 0 )
 			else 
-				self:x( 80 + 160 * ( i - 1 ) * ScaleVar )
-				self:y( 120 * i )
+				self:x( 80 * ScaleVar + 160 * ( i - 1 ) * ScaleVar )
+				self:y( 120 * i * ScaleVar )
 			end
 
 			

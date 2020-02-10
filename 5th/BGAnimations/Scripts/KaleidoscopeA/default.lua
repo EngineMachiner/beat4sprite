@@ -41,6 +41,7 @@ for k=1,3,2 do
 					local h = math.sqrt( self:GetWidth() ^ 2 + self:GetHeight() ^ 2 )
 
 					self:SetSize(320,320)
+					self:zoom(ScaleVar)
 					self:customtexturerect(0,0,h*0.001*0.25,h*0.001*0.25)
 					self:SetCustomPosCoords(0,160-67,0,-320*0.5,-320*0.75,-320*0.5,-320*0.75,320*0.5-320*0.25*0.42)
 					self:rotationz(45*j)

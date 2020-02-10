@@ -3,12 +3,13 @@ local BG_Or_Sprites, beat, X, Y = ...
 
 local ScaleVar = _screen.h/480
 
-local tbl = {}
+local val = 0
+local val_2 = 0
 
 if type(beat) == "number" then
-	tbl["beat"] = beat
+	val_2 = beat
 else
-	tbl["beat"] = 1
+	val_2 = 1
 end
 
 
@@ -20,10 +21,10 @@ for i=1,#BG_Or_Sprites do
 
 			self:Load(BG_Or_Sprites[i])
 
-			tbl["val"] = math.round( SCREEN_WIDTH * 1.25 * ( self:GetWidth() ^ - 1 ) )
+			val = math.round( SCREEN_WIDTH * 1.25 * ( self:GetWidth() ^ - 1 ) )
 
-			if tbl["val"] * self:GetHeight() < SCREEN_HEIGHT then 
-				tbl["val"] = math.round( SCREEN_HEIGHT * 1.25 * ( self:GetHeight() ^ - 1 ) )
+			if val * self:GetHeight() < SCREEN_HEIGHT then 
+				val = math.round( SCREEN_HEIGHT * 1.25 * ( self:GetHeight() ^ - 1 ) )
 
 				local crop = math.round( SCREEN_WIDTH * 1.25 * ( self:GetWidth() ^ - 1 ) ) * 1.5
 				self:cropleft( crop ^ - 1 )
@@ -34,8 +35,8 @@ for i=1,#BG_Or_Sprites do
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock("beat")
 			self:Center()
-			self:zoom( tbl["val"] * ScaleVar )
-			self:customtexturerect(0,0,tbl["val"],tbl["val"])
+			self:zoom( val * ScaleVar )
+			self:customtexturerect(0,0,val,val)
 
 			if i > 1 then
 				self:playcommand("Beat")
@@ -56,8 +57,8 @@ for i=1,#BG_Or_Sprites do
 			end
 		end,
 		BeatCommand=function(self)
-			self:diffusealpha(1):sleep( ( #BG_Or_Sprites + 1 - i ) * tbl["beat"] )
-				:diffusealpha(0):sleep( ( i - 1 ) * tbl["beat"] )
+			self:diffusealpha(1):sleep( ( #BG_Or_Sprites + 1 - i ) * val_2 )
+				:diffusealpha(0):sleep( ( i - 1 ) * val_2 )
 				:queuecommand("Beat")
 		end
 	}

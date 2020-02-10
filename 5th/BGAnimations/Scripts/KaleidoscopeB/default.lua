@@ -4,7 +4,7 @@ local ScaleVar = _screen.h/480
 local t = Def.ActorFrame{
 
 	OnCommand=function(self)
-		self:xy(0,100)
+		self:xy(0,100*ScaleVar)
 	end,
 
 	LoseFocusCommand=function(self)
@@ -13,12 +13,15 @@ local t = Def.ActorFrame{
 
 }
 	
-	for i = -4,5 do
+	for i = 0,8 do
 		t[#t+1] = LoadActor("A.lua", bg)..{
 			OnCommand=function(self)
-				self:x( 118 * i * ScaleVar )
-				self:y( 71 * i * ScaleVar )
-				self:zoom(0.5*ScaleVar)
+				if i % 2 == 0 then
+					self:x( 119 )
+				end
+				self:x((self:GetX()+35)*ScaleVar)
+				self:y( 139 * 0.5 * i * ScaleVar )
+				self:zoom(0.5)
 			end
 		}
 	end

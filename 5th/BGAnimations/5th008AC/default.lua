@@ -20,7 +20,7 @@ return Def.ActorFrame{
 		OnCommand=function(self) 
 			self:y(self:GetChild("template"):GetHeight()/2*ScaleVar)
 				:x(self:GetChild("template"):GetWidth()/2*ScaleVar)
-				BGA_TCV_OrL(self, 0, 1, true)
+				BGA_TCV_OrL(self, 0, 0.5, true)
 		end
 
 	}

@@ -7,8 +7,9 @@ local t = Def.ActorFrame{
 			self:y(SCREEN_HEIGHT)
 		end
 	end,
+
 	LoseFocusCommand=function(self)
-		self:RemoveAllChildren()
+		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end)
 	end
 
 }

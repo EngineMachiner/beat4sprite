@@ -31,6 +31,8 @@ function StringTable( tbl, used, i )
 	
 end
 
+local ScaleVar = _screen.h/480
+
 function BGA_TCV_OrL(self, x, y, linear, s)
 
 	local tbl = {}
@@ -83,7 +85,7 @@ function BGA_TCV_OrL(self, x, y, linear, s)
 		self:texcoordvelocity( tbl["x"], tbl["y"] )
 	else
 		self:xy( self:GetX(), self:GetY() ):linear( math.sqrt( (tbl["x"])^2 + (tbl["y"])^2 ) * 5.5 * 2 )
-			:xy( math.round( 1100 * tbl["x"] + self:GetX() ), math.round( 875 * tbl["y"] + self:GetY() ) )
+			:xy( math.round( 1100 * tbl["x"] * ScaleVar + self:GetX() ), math.round( 875 * tbl["y"] * ScaleVar + self:GetY() ) )
 		self:effectclock("beat")
 		self:set_tween_uses_effect_delta(true)
 		ToolPreview(self)
@@ -100,8 +102,17 @@ function ToolPreview(self)
 	end
 end
 
+local PSX_scale = false
+
 function AnimationDelay(self)
+
 	self:SetAllStateDelays(self:GetNumStates()^-1)
+
+	if PSX_scale then 
+		self:SetWidth(self:GetWidth()*2)
+		self:SetHeight(self:GetHeight()*2)
+	end
+
 end
 
 function SpriteLimit( w, h )

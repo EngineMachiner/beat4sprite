@@ -14,6 +14,8 @@ for k,v in pairs(Backgrounds) do
 		else
 			Backgrounds.SpecialBG = Backgrounds[1]
 		end
+	else
+		Backgrounds.SpecialBG = Backgrounds[1]
 	end
 end
 

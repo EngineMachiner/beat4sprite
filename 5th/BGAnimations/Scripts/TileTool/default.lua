@@ -1,20 +1,9 @@
 
-local tool_sprite, x, y, RandomState, StairsDir = ...
+local tool_sprite, x, y, StairsDir = ...
 local ScaleVar = _screen.h/480
+local once, state = true, 0
 
-local t = Def.ActorFrame{ 
-
-	OnCommand=function(self)
-		if RandomState == true then
-			self:RunCommandsOnChildren( function(child)
-				if child:GetNumStates() > 1 then
-					child:setstate(math.random(0,child:GetNumStates()-1))
-				end 
-			end )
-		end
-	end,
-
-}
+local t = Def.ActorFrame{}
 
 for i=-x,x do
 	for k=-y,y do
@@ -23,11 +12,27 @@ for i=-x,x do
 			Texture = tool_sprite, 
 			OnCommand=function(self)
 			 	self:zoom(ScaleVar)
-			 	:xy(SCREEN_CENTER_X+self:GetWidth()*i*ScaleVar,SCREEN_CENTER_Y+self:GetHeight()*k*ScaleVar)
-			 	:SetAllStateDelays(2*self:GetNumStates()^-1)
-			 	:effectclock("beat")
-			 	:set_tween_uses_effect_delta(true)
+			 		:xy(SCREEN_CENTER_X+self:GetWidth()*i*ScaleVar,SCREEN_CENTER_Y+self:GetHeight()*k*ScaleVar)
+			 		:effectclock("beat")
+			 		:set_tween_uses_effect_delta(true)
+			 	AnimationDelay(self)
 			 	ToolPreview(self)
+			end,
+			ReverseAnimationCommand=function(self)
+				self:SetStateProperties(
+						{{Frame= 3, Delay=0.25},
+						{Frame= 2, Delay=0.25},
+						{Frame= 1, Delay=0.25},
+						{Frame= 0, Delay=0.25}}
+					)
+			end,
+			SlowCommand=function(self)
+				self:SetAllStateDelays(2*(self:GetNumStates()^-1))
+			end,
+			RandomStateCommand=function(self)
+				if self:GetNumStates() > 1 then
+					self:setstate(math.random(0,self:GetNumStates()-1))
+				end 
 			end,
 			SpinYCommand=function(self)
 			 	self:rotationx(0):linear(2):rotationx(90):linear(2):rotationx(0)

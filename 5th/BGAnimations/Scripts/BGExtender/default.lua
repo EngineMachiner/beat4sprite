@@ -1,4 +1,4 @@
-local file, texcoord, texcoord_2, customtex  = ...
+local file, texcoord, texcoord_2, customtex, mirror  = ...
 
 local ScaleVar = _screen.h/480
 
@@ -11,8 +11,10 @@ local t = Def.ActorFrame{
 }
 
 for i = -1,1 do
-	t[#t+1] = LoadActor(file)..{
+	t[#t+1] = Def.Sprite{
 		OnCommand=function(self)
+
+			self:Load(file,"stretch")
 
 			if string.match( file, ".mpg" ) then 
 				local data = GAMESTATE:GetCurrentSong():GetTimingData()
@@ -62,9 +64,6 @@ for i = -1,1 do
 				self:customtexturerect(0,0,customtex,customtex)
 			end
 
-		end,
-		StopCommand=function(self)
-			self:rate(0):position(0)
 		end
 	}
 end

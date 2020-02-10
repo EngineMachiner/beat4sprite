@@ -19,7 +19,7 @@ for i=-9,9,2 do
 			:effectperiod(4)
 			:effectcolor1(Color.Red)
 			:effectcolor2(0,0,0,0)
-			:diffusealpha(0.25+0.25*0.5)
+			:diffusealpha(0.5)
 		end
 	}
 end

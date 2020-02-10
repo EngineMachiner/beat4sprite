@@ -41,7 +41,7 @@ for i=1,Params.NumParticles do
 					:zoom(0.875*2)
 					:effectclock("beat")
 					:queuecommand("Repeat")
-					:SetAllStateDelays(2*self:GetNumStates()^-1)
+					AnimationDelay(self)
 
 				if self:GetNumStates() > 1 then 
 					self:setstate(math.random(0,self:GetNumStates()))

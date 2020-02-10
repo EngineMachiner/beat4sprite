@@ -16,7 +16,7 @@ local InitPos_2 = {
 
 local t = Def.ActorFrame{}	
 
-t["count"] = 1
+local count = 1
 
 for i=1,num do
 	
@@ -27,11 +27,11 @@ for i=1,num do
 		OnCommand=function(self)		
 		
 			if type(sprite) == "table" then
-				if t["count"] > #sprite then
-					t["count"] = 1
+				if count > #sprite then
+					count = 1
 				end
-				self:Load(sprite[t["count"]])
-				t["count"] = t["count"] + 1
+				self:Load(sprite[count])
+				count = count + 1
 			else
 				self:Load(sprite)
 			end
@@ -45,9 +45,10 @@ for i=1,num do
 			:xy(math.random(SCREEN_LEFT+(self:GetWidth()*ScaleVar/2),SCREEN_RIGHT-(self:GetWidth()*ScaleVar/2)),math.random(SCREEN_TOP+(self:GetHeight()*ScaleVar/2),SCREEN_BOTTOM-(self:GetHeight()*ScaleVar/2)))
 			:linear(1.5)
 			:xy(InitPos_2[math.random(1,3)],InitPos_2[math.random(3,5)])
-			:SetAllStateDelays(2*self:GetNumStates()^-1)
 			:effectclock("beat")
 			:set_tween_uses_effect_delta(true)
+			AnimationDelay(self)
+			ToolPreview(self)
 		
 		end
 				

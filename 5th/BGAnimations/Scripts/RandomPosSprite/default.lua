@@ -33,7 +33,7 @@ for i=1,12 do
 			end
 
 		  	self:effectclock("beat"):set_tween_uses_effect_delta(true)
-		 		:zoom(ZoomValue[math.random(1,3)]):SetAllStateDelays(2*self:GetNumStates()^-1)
+		 		:zoom(ZoomValue[math.random(1,3)])
 		 		:x(math.random(0, _screen.w))
 		 		:y(math.random(0, _screen.h))
 		 		:sleep(2)
@@ -41,6 +41,8 @@ for i=1,12 do
 		  		:x(math.random(0, _screen.w))
 		  		:y(math.random(0, _screen.h))
 		  		:queuecommand("Repeat")
+		  		AnimationDelay(self)
+				ToolPreview(self)
 
 		  	if self:GetNumStates() > 1 then 
 				self:setstate(math.random(0,self:GetNumStates()-1))

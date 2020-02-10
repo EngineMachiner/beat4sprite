@@ -25,10 +25,10 @@ for i = 3,9 do
 			:blend("BlendMode_Normal")
 
 			if i < 2 then
-				self:pulse():effectperiod(2)
+				self:pulse():effectperiod(1)
 				:effectmagnitude( 1, 1.015625, 0 )
 			else
-				self:pulse():effectperiod(2)
+				self:pulse():effectperiod(1)
 				:effectmagnitude( 1, 1.03125 + ( 1/32 ) * ( i - 2 ), 0 )
 
 				self:croptop( (1/32) * i )

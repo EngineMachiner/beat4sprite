@@ -7,7 +7,7 @@ return Def.ActorFrame{
 	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/3 4x1.png", 1, 1, true )..{
 		OnCommand=function(self)
 			self:xy(0,0)
-			BGA_TCV_OrL(self, 0, 2, true)
+			BGA_TCV_OrL(self, 0, 1, true)
 		end
 	}
 }
