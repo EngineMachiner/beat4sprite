@@ -6,6 +6,6 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor( "../Scripts/BGExtender", "/BGAnimations/Backgrounds/5th/41 (stretch).png", 2 )..{}
+	LoadActor( "../Scripts/BGExtender", "/BGAnimations/Backgrounds/5th/41 (stretch).png", 3 )..{}
 
 }

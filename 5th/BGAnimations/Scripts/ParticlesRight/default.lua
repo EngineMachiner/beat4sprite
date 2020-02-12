@@ -49,7 +49,7 @@ for i=1,num_sprites do
 				self:diffusealpha(0):sleep(i*0.5):diffusealpha(1)
 					:zoom(ScaleVar)
 					:z(z_value*ScaleVar)
-					--:diffuse(color(col..","..col..","..col..",".."255"))
+					:diffuse(color(col..","..col..","..col..",".."255"))
 					:y(math.random(z_value_2+self:GetHeight()*0.5,_screen.h-z_value_2-self:GetHeight()*0.5))
 					:x(SCREEN_LEFT+z_value_2-self:GetWidth()*0.5)
 					:rotationz(0)
@@ -83,7 +83,7 @@ for i=1,num_sprites do
 
 				self:diffusealpha(0):sleep(2):diffusealpha(1)
 					:z(z_value*ScaleVar)
-					--:diffuse(color(col..","..col..","..col..",".."255"))
+					:diffuse(color(col..","..col..","..col..",".."255"))
 					:y(math.random(z_value_2+self:GetHeight()*0.5,_screen.h-z_value_2-self:GetHeight()*0.5))
 					:x(SCREEN_LEFT+z_value_2-self:GetWidth()*0.5)
 					:rotationz(0)

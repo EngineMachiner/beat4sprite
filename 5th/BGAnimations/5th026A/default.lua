@@ -12,7 +12,7 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor( "../Scripts/AnimatedCTR", Backgrounds, 0.5, false, -1 )..{},
+	LoadActor( "../Scripts/AnimatedCTR", Backgrounds, 0.5, false, 1 )..{},
 
 	LoadActor("../Scripts/ParticlesDown", "/BGAnimations/Sprites/5th/Burn 2x1.png")..{}
 

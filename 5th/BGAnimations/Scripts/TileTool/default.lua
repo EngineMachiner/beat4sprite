@@ -1,5 +1,5 @@
 
-local tool_sprite, x, y, StairsDir = ...
+local tool_sprite, x, y, StairsDir, custom_delay = ...
 local ScaleVar = _screen.h/480
 local once, state = true, 0
 
@@ -17,14 +17,17 @@ for i=-x,x do
 			 		:set_tween_uses_effect_delta(true)
 			 	AnimationDelay(self)
 			 	ToolPreview(self)
+			 	if custom_delay then 
+			 		self:SetAllStateDelays(custom_delay)
+			 	end
 			end,
 			ReverseAnimationCommand=function(self)
-				self:SetStateProperties(
-						{{Frame= 3, Delay=0.25},
-						{Frame= 2, Delay=0.25},
-						{Frame= 1, Delay=0.25},
-						{Frame= 0, Delay=0.25}}
-					)
+				local tbl = {}
+				for i = 0,self:GetNumStates()-1 do
+					tbl[i+1] = { Frame = self:GetNumStates() - 1 - i,
+									Delay = 0.25 }
+				end
+				self:SetStateProperties(tbl)
 			end,
 			SlowCommand=function(self)
 				self:SetAllStateDelays(2*(self:GetNumStates()^-1))
@@ -44,6 +47,13 @@ for i=-x,x do
 			end,
 			OneTwoStatesCommand=function(self)
 				self:setstate(i % 2)
+			end,
+			CrossCommand=function(self)
+				for o = -6,6,2 do
+					if k == o + i then 
+						self:visible(false) 
+					end
+				end
 			end,
 			StairsCommand=function(self)
 

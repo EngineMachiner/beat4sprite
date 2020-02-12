@@ -12,6 +12,10 @@ return Def.ActorFrame{
 		self:RunCommandsOnChildren(function(child) child:visible(false):finishtweening() end, {})
 	end,
 
-	LoadActor("../Scripts/AnimatedCTR", Backgrounds, 0.5 )..{}
+	LoadActor("../Scripts/AnimatedCTR", Backgrounds, 0.5 )..{
+		OnCommand=function(self)
+			self:y(160*0.5)
+		end
+	}
 
 }

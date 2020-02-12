@@ -22,7 +22,7 @@ function StringTable( tbl, used, i )
 
 		if type( v ) == "table" and used[ v ] ~= true then
 			used[ tbl ] = true
-			tbl_s["s"] = tbl_s["s"] .. PTable( tbl, used ) .. " \n"
+			tbl_s["s"] = tbl_s["s"] .. StringTable( tbl, used ) .. " \n"
 		end
 
 	end

@@ -11,6 +11,6 @@ return Def.ActorFrame{
 		OnCommand=cmd(Center;x,self:GetX()-self:GetWidth()*ScaleVar;zoom,9*ScaleVar;customtexturerect,0,0,9,9)
 	},
 	
-	LoadActor("../Scripts/BumpEffect","Star.png")..{},
+	LoadActor("../Scripts/BumpEffect","/BGAnimations/Sprites/5th/Star.png")..{},
 
 }

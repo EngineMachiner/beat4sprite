@@ -15,7 +15,7 @@ return Def.ActorFrame{
 
 	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/snow 2x1.png", 3, 3 )..{ 
 		OnCommand=function(self)
-			BGA_TCV_OrL(self, 0, -1, true)
+			BGA_TCV_OrL(self, 0, 1, true)
 			self:hurrytweening(2)
 			self:y(self:GetChild("template"):GetHeight()*ScaleVar/1.75)
 		end 

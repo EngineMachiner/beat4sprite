@@ -64,4 +64,4 @@ for i=1,#BG_Or_Sprites do
 	}
 end
 
-return t
+return Def.ActorFrame{ t }

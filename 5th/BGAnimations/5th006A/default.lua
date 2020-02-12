@@ -5,6 +5,7 @@ return Def.ActorFrame{
 	OnCommand=function(self)
 		self:xy(0,0)
 		BGA_TCV_OrL(self, 0, 2, true)	
+		self:hurrytweening(0.5)
 	end,
 
 	LoseFocusCommand=function(self)

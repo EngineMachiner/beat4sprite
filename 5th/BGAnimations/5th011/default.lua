@@ -9,5 +9,8 @@ return Def.ActorFrame{
 		OnCommand=cmd(Center;zoom,8*ScaleVar;customtexturerect,0,0,8,8)
 	},
 
-	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/4 4x1.png", 3, 3, true )..{ OnCommand=cmd( y,self:GetChild("template"):GetHeight()/2*ScaleVar x,self:GetChild("template"):GetWidth()/2*ScaleVar ) },
+	LoadActor("../Scripts/TileTool", "/BGAnimations/Sprites/5th/4 4x1.png", 3, 3, true )..{ 
+		OnCommand=cmd( y,self:GetChild("template"):GetHeight()/2*ScaleVar 
+			x,self:GetChild("template"):GetWidth()/2*ScaleVar )
+	},
 }

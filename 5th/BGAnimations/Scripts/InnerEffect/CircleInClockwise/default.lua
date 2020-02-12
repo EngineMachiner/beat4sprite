@@ -65,6 +65,7 @@ for i=1,n do
 				:z(125*ScaleVar):sleep(math.abs(i-(1/6)*2)*2)
 				:linear(0.25):diffusealpha(1):linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
+				:set_tween_uses_effect_delta(true):effectclock('beat')
 				ToolPreview(self)
 			end,
 			RepeatCommand=function(self)
@@ -105,6 +106,7 @@ for i=1,n do
 
 	t[i+(n+1)*2] = LoadActor(particle)..{
 			GainFocusCommand=function(self)
+				self:diffuse(Color.Red)
 				AnimationDelay(self)
 				self:xy(SCREEN_CENTER_X,SCREEN_CENTER_Y+self:GetHeight()*ScaleVar*1.75)
 				:rotationz(135+45*5):zoom(ScaleVar):diffusealpha(0)
@@ -112,6 +114,7 @@ for i=1,n do
 				:linear(0.25):diffusealpha(1)
 				:linear( n + 1 ):z(-1000*ScaleVar)
 				:linear(0.25):diffusealpha(0):queuecommand("Repeat")
+				:set_tween_uses_effect_delta(true):effectclock('beat')
 				ToolPreview(self)
 			end,
 			RepeatCommand=function(self)

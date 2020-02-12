@@ -1,5 +1,5 @@
 local ScaleVar = _screen.h/480
-local sprite, dir = ...
+local sprite, dir, color_val = ...
 
 local tbl = {}
 
@@ -12,8 +12,8 @@ local t = Def.ActorFrame{
 	end
 }
 
-for n=-9,9 do
-	for i=-5,5 do
+for n=-11,11 do
+	for i=-8,8 do
 		t[#t+1] = Def.Sprite{
 			OnCommand=function(self)
 				
@@ -41,6 +41,17 @@ for n=-9,9 do
 				self:xy(SCREEN_CENTER_X-self:GetWidth()*i*ScaleVar+self:GetWidth()*n*ScaleVar-80*ScaleVar,
 					SCREEN_CENTER_Y+self:GetHeight()*i*ScaleVar+60*ScaleVar)
 
+				if self:GetX() < SCREEN_LEFT - self:GetWidth() * 4
+				or self:GetX() > SCREEN_RIGHT + self:GetWidth() * 4
+				or self:GetY() < SCREEN_TOP - self:GetHeight() * 3
+				or self:GetY() > SCREEN_BOTTOM + self:GetHeight() * 3 then 
+					self:visible(false)
+				end
+
+				if color_val then 
+					self:playcommand("ColorChangeFall")
+				end
+
 			end,
 			RainbowCommand=function(self)
 				if dir == true then dir = 1 end
@@ -50,9 +61,16 @@ for n=-9,9 do
 			RainbowFallCommand=function(self)
 				self:rainbow():effectperiod(8)
 				self:effectoffset(-(-i*0.75+n))		
+			end,
+			ColorChangeFallCommand=function(self)
+				self:diffuseshift()
+				self:effectcolor1(color("1,1,1,1"))
+				self:effectcolor2(color_val)
+				self:effectperiod(8)
+				self:effectoffset(-(-i*0.75+n))	
 			end
 		}
 	end
 end
 
-return t
+return Def.ActorFrame{ t }

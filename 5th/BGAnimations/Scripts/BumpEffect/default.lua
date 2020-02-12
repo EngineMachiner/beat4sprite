@@ -1,5 +1,5 @@
 local ScaleVar = _screen.h/480
-local file = "/BGAnimations/Sprites/5th/" .. (...)
+local file = ...
 
 local t = Def.ActorFrame{
 
