@@ -17,7 +17,7 @@
   
   Must check:
   
-  * That the Resources folder has the Nth game folder with the images and the libraries.
+  * That the Resources folder has the Nth game folder with the Sprites, Backgrounds, Rainbow folders and the libraries.
   * That the NthXXX folders are at "/BGAnimations/" and that PSX-BGA-Scripts.lua is at "/Scripts" (root directory folder) so it loads 		the file when starting the game.
   * When you start SM, press Ctrl + F2 to load the PSX-BGA-Scripts.lua in case it didn't.
   
