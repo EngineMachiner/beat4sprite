@@ -1,0 +1,1 @@
+return LoadActor( "../5thBG003AA", { Index = 1, Sleep = 2 } )..{}

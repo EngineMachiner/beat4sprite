@@ -1,0 +1,55 @@
+local t = Def.ActorFrame{}
+
+local d = ...
+
+if not d then 
+	d = 1
+end
+
+local f = { 1, 3 }
+local g = {}
+
+for i=1,#f do
+	if i == 1 then
+		g[i] = { Frame = f[i] - 1, Delay = d }
+	else
+		g[i] = { Frame = f[i] - 1, Delay = d }
+	end
+end
+
+local params = {
+
+	Index = 1,
+	File = "/BGAnimations/Resources/5th/Backgrounds/BABC 2x2.png",
+	Frames = g,
+	X_num = { -2, 1 },
+	Y_num = { -1, 0 },
+	ResetParams = true
+
+}
+
+	t[#t+1] = LoadActor("../5th037", params)..{}
+
+
+	f = { 9, 10 }
+	g = {}
+
+for i=1,#f do
+	g[i] = { Frame = f[i] - 1, Delay = d }
+end
+
+	params = {
+
+	Index = 1,
+	File = "/BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
+	Frames = g,
+	X_num = { -4, 3 },
+	Y_num = { -2, 1 },
+	ResetParams = true
+
+}
+
+	t[#t+1] = LoadActor("../5th037", params)..{}
+
+
+return Def.ActorFrame{ t }

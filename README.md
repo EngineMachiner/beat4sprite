@@ -1,6 +1,6 @@
 # PSX BGAnimations Project
 
-This branch is for all the resources used in the BGAnimations scripts.
+This branch is for all the DDR 5TH MIX BGAs.
 
 Credits:
 
