@@ -12,6 +12,7 @@ local tweaks = {
 
 	{
 		Index = 1,
+		X_num = { -6, 5 },
 		File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 		Frame_i = 8,
 		X_coord = 1,

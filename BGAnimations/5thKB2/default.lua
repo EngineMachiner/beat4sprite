@@ -4,7 +4,7 @@ local params = {
 }
 
 local params_2 = {
-		File = "/BGAnimations/KB2/1 5x1.png",
+		File = "/BGAnimations/Resources/5th/Sprites/X2 5x1.png",
 		X_num = 5,
 		Frame_i = 1,
 		Frame_l = 5,

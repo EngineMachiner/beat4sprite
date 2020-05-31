@@ -8,7 +8,7 @@ local params = {
 	FlashMove = true,
 	X_coord = -1,
 	Y_coord = -1,
-	X_num = 4,
+	X_num = { -4, 5 },
 	Y_num = { -1, 2 }
 
 }

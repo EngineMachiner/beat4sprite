@@ -8,8 +8,7 @@ local tweaks = {
 	{ 
 		Index = 1,
 		File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
-		X_pos = -0.5,
-		X_num = 5,
+		X_num = { -5, 6 },
 		Y_num = 2,
 		Frame_i = 9,
 		X_coord = -1,

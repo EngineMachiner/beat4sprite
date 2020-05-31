@@ -5,7 +5,7 @@ local params = {
 
 	{
 		Index = 1,
-		X_num = { -3, 5 },
+		X_num = { -5, 4 },
 		X_coord = 1,
 		Commands = "Move"
 	}

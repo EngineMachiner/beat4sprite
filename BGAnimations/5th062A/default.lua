@@ -9,7 +9,7 @@ local params = {
 	Commands = { "FramePerSprite", "StairsStates", "Move" },
 	X_coord = -1,
 	Delay = 1,
-	X_num = { -4, 3 },
+	X_num = { -1, 5 },
 	Y_num = 2
 }
 

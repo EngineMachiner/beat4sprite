@@ -5,8 +5,8 @@ local params = {
 		File = "/BGAnimations/Resources/5th/Backgrounds/BA.png",
 		X_num = 1,
 		Commands = "Mirror",
-		BGMirror = true
-		ResetParams = true		
+		BGMirror = true,
+		ResetParams = true	
 	},
 
 	{

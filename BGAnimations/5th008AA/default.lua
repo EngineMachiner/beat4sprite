@@ -30,7 +30,7 @@ local params = {
 
 	Index = 1,
 	File = "/BGAnimations/Resources/5th/Sprites/ABC 4x4.png",
-	X_num = { -4, 3 },
+	X_num = { -5, 4 },
 	Y_num = { -2, 1 },
 	Frame_i = 5,
 	Frame_l = 8

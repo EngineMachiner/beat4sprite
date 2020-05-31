@@ -59,7 +59,7 @@ local t = Def.ActorFrame{}
 	}
 
 	params = {
-		File = "/BGAnimations/5th046/D 5x1.png",
+		File = "/BGAnimations/Resources/5th/Sprites/X1 5x1.png",
 		X_num = 5,
 		Frame_i = 1,
 		Frame_l = 5,

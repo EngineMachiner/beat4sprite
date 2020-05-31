@@ -7,7 +7,7 @@ local tweaks = {
 	Commands = { "Move", "Rainbow" },
 	Y_coord = 1,
 	X_coord = 1,
-	X_num = 5,
+	X_num = { -5, 4 },
 	Y_num = 2
 }
 

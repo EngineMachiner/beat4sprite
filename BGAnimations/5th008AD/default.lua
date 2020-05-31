@@ -2,7 +2,7 @@
 local tweaks = {
 
 	Index = 1,
-	X_num = { -4, 3 },
+	X_num = { -4, 5 },
 	X_coord = -1,
 	Commands = "Move"
 

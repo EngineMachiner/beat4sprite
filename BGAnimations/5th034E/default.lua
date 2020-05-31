@@ -4,6 +4,7 @@ local t = Def.ActorFrame{}
 local params = {
 
 	{
+		X_num = 2,
 		Index = 1,
 		X_coord = 0
 	}	

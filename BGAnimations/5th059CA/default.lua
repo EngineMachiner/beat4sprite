@@ -1,7 +1,7 @@
 
 local params = {
 	File = "/BGAnimations/Resources/5th/Sprites/DAB 4x4.png",
-	X_num = 4,
+	X_num = { -4, 5 },
 	Y_num = 2,
 	Frame_i = 5,
 	Frame_l = 8,

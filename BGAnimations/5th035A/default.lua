@@ -7,7 +7,7 @@ local tweaks = {
 	{ 
 		Index = 1,
 		File = "/BGAnimations/Resources/5th/Sprites/DABC 4x4.png",
-		X_num = 4,
+		X_num = { -4, 5 },
 		Y_num = 2,
 		Frame_i = 15,
 		X_coord = -1,
