@@ -14,7 +14,6 @@
   2. Choose the DDR version you want in the branches and clone/download it, copy the BGAnimations folder in your SM root folder then drop the contents of the Original or Double Scaled version in the "/BGAnimations".
   
   
-  
   Must check:
   
   * That the Resources folder has the Nth game folder with the Sprites, Backgrounds, Rainbow folders and the libraries.
@@ -27,6 +26,8 @@
 
 
 -- For helpers --
+
+  // Beware with what scale you're working with. PSX-BGA-Scripts.lua uses a local variable ("scale"). For example the 320x240 images have scale = 2, 640x480 have scale = 1 //
 
 If anyone needs help on how the scripts are called:
 
