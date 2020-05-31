@@ -111,6 +111,22 @@ for j=0,7 do
 			end
 		}
 
+		t[#t+1] = Def.Sprite{
+			GainFocusCommand=function(self)
+				Settings(self, j, i)
+				local var = 0.5*3
+				self:SetCustomPosCoords( 
+					-h*var, h+12.5*16.75,
+					-h*var, -h*0.5,
+					-h*0.5-h*var, -h*0.5,
+					-h*0.5-h*var, h * 0.75+12.5*16
+				)
+				self:customtexturerect(w*0.0001*6,0,0,h*0.0001*6)
+				self:texcoordvelocity( 0, params.Reversed / 4 )
+				self:addimagecoords( w * random, 0 )
+			end
+		}
+
 	end
 end
 

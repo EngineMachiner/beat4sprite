@@ -30,13 +30,11 @@ local tbl
 
 for _,v in ipairs( params.Alphas ) do
 	tbl = {}
-	tbl.X_num = 1
 	tbl.BGMirror = true
 	tbl.Commands = "Mirror"
 	tbl.File = params.File[v]
 	t[#t+1] = LoadActor( "TileTool.lua", tbl )..{}
 end
-
 	
 	local function AddNSub(val)
 
@@ -140,6 +138,13 @@ for i=1,4 do
 			}
 
 		}
+	end
+end
+
+for i =-1,1 do
+	if i ~= 0 then
+		tbl.X_num = { i, i }
+		t[#t+1] = LoadActor( "TileTool.lua", tbl )..{}
 	end
 end
 

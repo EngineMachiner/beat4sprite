@@ -30,6 +30,7 @@ end
 for i=0,360*2-360/6,360/6 do -- 2 laps divided in 6 angles each one
 	for k=0,180,180 do
 		local angle = k + 360 - i / 6
+		
 		t[#t+1] = Def.ActorFrame{
 
 			GainFocusCommand=function(self)

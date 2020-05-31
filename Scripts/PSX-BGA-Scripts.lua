@@ -114,9 +114,10 @@ function BGA_Scale( self )
 		end
 		self:zoom( 1 / ratio )
 	elseif self:GetTexture():GetPath() == GAMESTATE:GetCurrentSong():GetBackgroundPath()
-	and self:GetHeight() == 240 
-	or self:GetHeight() == 240 
-	or string.match( self:GetTexture():GetPath(), "BGAnimations/Resources" ) then
+	and self:GetHeight() < SCREEN_HEIGHT 
+	or string.match( self:GetTexture():GetPath(), ".mpg" ) then
+		self:zoom( SCREEN_HEIGHT / self:GetHeight() )
+	elseif string.match( self:GetTexture():GetPath(), "BGAnimations/Resources" ) then
 		self:zoom( ScaleVar * scale )
 	end
 	

@@ -130,8 +130,20 @@ local function Find(self, filter) -- filter is the texture path/dir
 
 end
 
-local k_0, k_1 = 0, 0
--- k is the 0.5 factor to move if the sprites don't fit in the res. 
+local i_0, k_0 
+	-- These are offsets.
+
+if params.X_coord == 0 then
+	i_0 = ( ( math.abs( x[1] ) + math.abs( x[2] ) ) % 2 ) * 0.5
+else
+	i_0 = 0
+end
+
+if params.Y_coord == 0 then
+	k_0 = ( ( math.abs( y[1] ) + math.abs( y[2] ) ) % 2 ) * 0.5
+else
+	k_0 = 0
+end
 
 for i=x[1],x[2] do
 	for k=y[1],y[2] do
@@ -171,29 +183,10 @@ for i=x[1],x[2] do
 					end
 				end
 
-				if i == x[1] and k == y[1] then
-					if params.X_coord == 0 then
-						for p=x[1], x[2] do
-							if SCREEN_CENTER_X + self:GetZoomedWidth() * p * ScaleVar == 0 then 
-								k_0 = 0.5
-							end
-						end
-					end
-					if params.Y_coord == 0 then
-						for p=y[1], y[2] do
-							if SCREEN_CENTER_Y + self:GetZoomedHeight() * p * ScaleVar == 0 then 
-								k_1 = 0.5
-							end
-						end
-					end
-				end
-				-- Checks if the sprite fits corner to corner (sprite to res)
-				
-				vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+k_0)*ScaleVar
-				vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_1)*ScaleVar
+				vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)*ScaleVar
+				vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)*ScaleVar
 
 			 	self:xy( vec_start[1], vec_start[2] )
-
 			 	self:effectclock("beat")
 			 	self:set_tween_uses_effect_delta(true)
 				
@@ -386,7 +379,7 @@ for i=x[1],x[2] do
 				if params.BGMirror then
 
 					if i ~= 0 then
-						self:rotationy( 180 * ( i ) )
+						self:rotationy( 180 * i )
 					end
 
 					if params.X_pos and params.X_pos % 2 == 0 
@@ -436,7 +429,9 @@ for i=x[1],x[2] do
 				end	
 			end,
 			CrossCommand=function(self)
-				for o = -(x[2]+1),x[2]+1,2 do
+				if not params.Cross then params.Cross = x[2] end
+				local val = params.Cross
+				for o = -(val+1),val+1,2 do
 					if k == o + i then
 						self:visible(false) 
 					end
@@ -509,7 +504,7 @@ for i=x[1],x[2] do
 					if params.Delay then 
 						beat = params.Delay * ( search_sprt:GetNumStates() ) * 4
 					else
-						beat = 4 * ( search_sprt:GetNumStates() ) * 4
+						beat = 4 * ( search_sprt:GetNumStates() )
 					end
 					self:effectperiod(beat):effectoffset( beat * 0.5 * ( - params.Fade[1] * i - params.Fade[2] * k ) / total )
 				end
