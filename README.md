@@ -1,6 +1,7 @@
 # PSX BGAnimations Project
 
 
+
 -- IMPORTANT --
 
 	This branch only has the libraries for the BGA's to work in the game. 
@@ -13,6 +14,7 @@
   2. Choose the DDR version you want in the branches and clone/download it.
   
   
+  
   Must check:
   
   * That the Resources folder has the Nth game folder with the images and the libraries.
@@ -20,7 +22,9 @@
   * When you start SM, press Ctrl + F2 to load the PSX-BGA-Scripts.lua in case it didn't.
   
   
+  
   Yes, I'm thinking if PSX-BGA-Scripts.lua should be put in the _fallback to not press Ctrl + F2.
+
 
 
 -- For helpers --
