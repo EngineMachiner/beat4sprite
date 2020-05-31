@@ -1,10 +1,6 @@
 # PSX BGAnimations Project
 
-This branch is for all the DDR 5TH MIX BGAs.
+This branch is for all the content of DDR 5th BGAs.
 
-Credits:
-
--Engine_Machiner
--MadkaT
-
-The resources will be sorted by their games and by Original/HD.
+The Original files are 320x240.
+Double Scaled are 640x480.
