@@ -1,38 +1,42 @@
 local params  =  ...
-local ScaleVar = _screen.h/480
+
 local sprite = params.File
 
 BGA_NoParams( params )
+
+local ScaleVar = _screen.h/480
+local zw = self:GetZoomedWidth()*ScaleVar
+local zh = self:GetZoomedHeight()*ScaleVar
 
 local function I_Pos(self, i)
 
 	local tbl_Xpos_i = {
 
-		SCREEN_LEFT-self:GetZoomedWidth()*ScaleVar,
-		SCREEN_RIGHT+self:GetZoomedWidth()*ScaleVar,
-		SCREEN_LEFT-self:GetZoomedWidth()*ScaleVar,
-		SCREEN_RIGHT+self:GetZoomedWidth()*ScaleVar,
-		SCREEN_LEFT-self:GetZoomedWidth()*ScaleVar,
-		SCREEN_LEFT+self:GetZoomedWidth()*ScaleVar*0,
-		SCREEN_LEFT+self:GetZoomedWidth()*ScaleVar*1,
-		SCREEN_LEFT+self:GetZoomedWidth()*ScaleVar*2,
-		SCREEN_LEFT+self:GetZoomedWidth()*ScaleVar*3,
-		SCREEN_LEFT+self:GetZoomedWidth()*ScaleVar*4
+		SCREEN_LEFT-zw,
+		SCREEN_RIGHT+zw,
+		SCREEN_LEFT-zw,
+		SCREEN_RIGHT+zw,
+		SCREEN_LEFT-zw,
+		SCREEN_LEFT+zw*0,
+		SCREEN_LEFT+zw*1,
+		SCREEN_LEFT+zw*2,
+		SCREEN_LEFT+zw*3,
+		SCREEN_LEFT+zw*4
 
 	}
 
 	local tbl_Ypos_i = {
 
 		SCREEN_TOP,
-		SCREEN_TOP+self:GetZoomedHeight()*ScaleVar,
-		SCREEN_TOP+self:GetZoomedHeight()*ScaleVar*2,
-		SCREEN_TOP+self:GetZoomedHeight()*ScaleVar*3,
-		SCREEN_TOP+self:GetZoomedHeight()*ScaleVar*4,
-		SCREEN_TOP-self:GetZoomedHeight()*ScaleVar,
-		SCREEN_BOTTOM+self:GetZoomedHeight()*ScaleVar,
-		SCREEN_TOP-self:GetZoomedHeight()*ScaleVar,
-		SCREEN_BOTTOM+self:GetZoomedHeight()*ScaleVar,
-		SCREEN_TOP-self:GetZoomedHeight()*ScaleVar
+		SCREEN_TOP+zh,
+		SCREEN_TOP+zh*2,
+		SCREEN_TOP+zh*3,
+		SCREEN_TOP+zh*4,
+		SCREEN_TOP-zh,
+		SCREEN_BOTTOM+zh,
+		SCREEN_TOP-zh,
+		SCREEN_BOTTOM+zh,
+		SCREEN_TOP-zh
 
 	}
 
@@ -44,21 +48,21 @@ local function E_Pos(self, i)
 
 	local tbl_Xpos_e = {
 
-		SCREEN_RIGHT+self:GetZoomedWidth()*ScaleVar,
-		SCREEN_LEFT-self:GetZoomedWidth()*ScaleVar,
-		SCREEN_RIGHT+self:GetZoomedWidth()*ScaleVar,
-		SCREEN_LEFT-self:GetZoomedWidth()*ScaleVar,
-		SCREEN_RIGHT+self:GetZoomedWidth()*ScaleVar,
+		SCREEN_RIGHT+zw,
+		SCREEN_LEFT-zw,
+		SCREEN_RIGHT+zw,
+		SCREEN_LEFT-zw,
+		SCREEN_RIGHT+zw,
 
 	}
 
 	local tbl_Ypos_e = {
 
-		SCREEN_BOTTOM+self:GetZoomedHeight()*ScaleVar,
-		SCREEN_TOP-self:GetZoomedWidth()*ScaleVar,
-		SCREEN_BOTTOM+self:GetZoomedWidth()*ScaleVar,
-		SCREEN_TOP-self:GetZoomedWidth()*ScaleVar,
-		SCREEN_BOTTOM+self:GetZoomedWidth()*ScaleVar
+		SCREEN_BOTTOM+zh,
+		SCREEN_TOP-zw,
+		SCREEN_BOTTOM+zw,
+		SCREEN_TOP-zw,
+		SCREEN_BOTTOM+zw
 
 	}
 
