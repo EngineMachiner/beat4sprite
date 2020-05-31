@@ -1,39 +1,38 @@
 # PSX BGAnimations Project
 
+
 -- IMPORTANT --
 
-	This branch only has the scripts for the BGA's to work in the game. 
-	If you want the graphics go to the Resources branch.
+	This branch only has the libraries for the BGA's to work in the game. 
+	If you want the graphics and DDR Nth BGAnimations go to the Nth branch.
+
 
 -- Installation --
 
-  1. Clone or download this branch and choose the version (of the PSX game) you want.
-  2. Unzip / Copy the contents of the version you selected into your Stepmania root folder.
-  3. Do the same but with the Resources branch.
+  1. Clone or download this branch and drop it at your SM root folder.
+  2. Choose the DDR version you want in the branches and clone/download it.
+  
   
   Must check:
   
-  * That the folders "Backgrounds", "Sprites" from the Graphics branch are in the BGAnimations folder.
-  * That the folders, "BGAnimations", "BackgroundEffects", "Scripts" are in your Stepmania root folder.
+  * That the Resources folder has the Nth game folder with the images and the libraries.
+  * That the NthXXX folders are at "/BGAnimations/" and that PSX-BGA-Scripts.lua is at "/Scripts" (root directory folder) so it loads 		the file when starting the game.
+  * When you start SM, press Ctrl + F2 to load the PSX-BGA-Scripts.lua in case it didn't.
+  
+  
+  Yes, I'm thinking if PSX-BGA-Scripts.lua should be put in the _fallback to not press Ctrl + F2.
 
-  The BGAnimations folder must have in it Sprites, Scripts and Backgrounds folder for the scripts to work.
-  Mixing BGA's from other games hasn't been tested yet.
 
 -- For helpers --
 
-If anyone needs help with the structure on how the scripts are called, it goes like this:
+If anyone needs help on how the scripts are called:
 
-  FolderName/(default.lua) loads an Actor in the ActorFrame that can be a resource file or a custom (Tool.lua, loading an actual image with functions), it's structure has arguments that can be useful to call the sprite that we're going to use.
+  "/BGAnimations/FolderName/(default.lua)" loads an ActorFrame from the libraries at "BGAnimations/Resources/Scripts" with parameters put in a table, the keys and values define the data of the sprite.
+
+  Example: The file at "BGAnimations/5th001A", the default.lua calls another script in "BGAnimations/Resources/Scripts/TileTool.lua" and uses some functions from the "/Scripts/PSX-BGA-Scripts.lua". The script takes parameters from the table and passes them to the script called TileTool.
   
-  Example: LoadActor("../FolderName/default.lua", "/BGAnimations/folder_with_images/image.png", custom_arg_for_an_effect, custom_arg_for_scaling)..{}
-  
-  In order to check what are the custom arguments I suggest to read the code and check the variables on how they affect the sprite or image using the effects. 
-  
-  Examples - (ScaleVar = Resolution Scaling, round_move = Affects the rotation of the sprite,  textcoordsense = Changes the direction of the scrolling just by using 1 or -1)
-  
-  If you need to add a background that has animated frames, you can use /BGAnimations/Scripts/TileTool/ (it's a bit similar to customtexcoords)
-  
-  I'm currently developing Scripts so the rest of things to do it's just adding folders and changing resources (graphics).
+I tried to comment in the code. Still if you have any doubt please tell me.
+
 
 Credits:
 
