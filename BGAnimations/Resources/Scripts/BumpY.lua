@@ -52,7 +52,7 @@ for i=1,num do
 				BGA_PlayAllCommands(self, params)
 			end,
 			StartBumpCommand=function(self)
-				self:y(SCREEN_HEIGHT-self:GetHeight()):diffusealpha(1)
+				self:y(SCREEN_HEIGHT-self:GetZoomedHeight()):diffusealpha(1)
 				self:x(math.random(self:GetZoomedWidth()*0.5-SCREEN_WIDTH*0.5,SCREEN_WIDTH-self:GetZoomedWidth()*0.5+SCREEN_WIDTH*0.5))
 				self:bounce()
 					:effectmagnitude(0,-self:GetZoomedHeight()*1.5,0)
