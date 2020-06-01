@@ -1,6 +1,6 @@
 
 local params = ...
-
+local ScaleVar = _screen.h/480
 local t = Def.ActorFrame{
 
 	LoseFocusCommand=function(self)
@@ -24,7 +24,7 @@ local function Settings( self, j )
 	self:Center()
 	self:Load(params.File, "stretch")
 
-	self:SetHeight(320):SetWidth(240)
+	self:SetHeight(320*ScaleVar):SetWidth(240*ScaleVar)
 
 	if j == 0 then
 		w, h = self:GetZoomedWidth(), self:GetZoomedHeight()
@@ -45,8 +45,8 @@ for x=-2,2 do
 					self:x( self:GetX() + h*0.85*x - h*0.25 )
 					self:y( self:GetY() + h*0.5*y )
 					self:SetCustomPosCoords( 
-						0, h*0.75+13,
-						0, -h*0.75-13,
+						0, h*0.75+13*ScaleVar,
+						0, -h*0.75-13*ScaleVar,
 						-h*0.5, -h*0.5,
 						-h*0.5, h*0.5
 					)
@@ -67,8 +67,8 @@ for x=-2,2 do
 					self:x( self:GetX() + h*0.85*x + h*0.425 - h*0.25 )
 					self:y( self:GetY() + h*0.5*y - h*0.25 )
 					self:SetCustomPosCoords( 
-						0, h*0.75+13,
-						0, -h*0.75-13,
+						0, h*0.75+13*ScaleVar,
+						0, -h*0.75-13*ScaleVar,
 						-h*0.5, -h*0.5,
 						-h*0.5, h*0.5
 					)
