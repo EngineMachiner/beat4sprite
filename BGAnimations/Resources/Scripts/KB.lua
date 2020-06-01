@@ -24,7 +24,7 @@ local function Settings( self, j )
 	self:Center()
 	self:Load(params.File, "stretch")
 
-	self:SetHeight(320):SetWidth(240)
+	self:SetHeight(SCREEN_HEIGHT):SetWidth(SCREEN_HEIGHT)
 
 	if j == 0 then
 		w, h = self:GetZoomedWidth(), self:GetZoomedHeight()
