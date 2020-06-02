@@ -1,4 +1,9 @@
 
+local scale = 1 --[[ This variable tweaks the scale only, 
+					AND ONLY according to the Resources
+					Example: Original -> 320x240 -> scale = 2
+					Example: DS -> 640x480 -> scale = 1 ]]
+
 --Used but not directly
 
 function StringTable( tbl )
@@ -104,7 +109,6 @@ function BGA_TileTool( frame, params )
 	frame[#frame+1] = LoadActor("/BGAnimations/Resources/Scripts/TileTool.lua", params)..{}
 end
 
-local scale = 2
 function BGA_Scale( self )
 
 	if self:GetHeight() > SCREEN_HEIGHT then
@@ -118,7 +122,7 @@ function BGA_Scale( self )
 	or string.match( self:GetTexture():GetPath(), ".mpg" ) then
 		self:zoom( SCREEN_HEIGHT / self:GetHeight() )
 	elseif string.match( self:GetTexture():GetPath(), "BGAnimations/Resources" ) then
-		self:zoom( ScaleVar * scale )
+		self:zoom( ScaleVar / scale )
 	end
 	
 end

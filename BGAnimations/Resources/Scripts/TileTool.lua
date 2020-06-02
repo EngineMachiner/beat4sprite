@@ -1,6 +1,6 @@
 
 local params = ...
-local ScaleVar = _screen.h/480
+
 local texture = params.File
 
 local t = Def.ActorFrame{	
@@ -183,8 +183,8 @@ for i=x[1],x[2] do
 					end
 				end
 
-				vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)*ScaleVar
-				vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)*ScaleVar
+				vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)
+				vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)
 
 			 	self:xy( vec_start[1], vec_start[2] )
 			 	self:effectclock("beat")
@@ -245,11 +245,11 @@ for i=x[1],x[2] do
 			 			if params.X_coord ~= 0 then
 
 			 				local X_add = 0
-			 				while SCREEN_CENTER_X + self:GetZoomedWidth() * ScaleVar * ( x[2] - 1.5 ) + X_add > SCREEN_WIDTH and params.X_coord > 0 do
+			 				while SCREEN_CENTER_X + self:GetZoomedWidth() * ( x[2] - 1.5 ) + X_add > SCREEN_WIDTH and params.X_coord > 0 do
 								X_add = X_add - 1
 							end
 
-			 				while SCREEN_CENTER_X + self:GetZoomedWidth() * ScaleVar * ( x[1] + 1.5 ) + X_add < 0 and params.X_coord < 0 do
+			 				while SCREEN_CENTER_X + self:GetZoomedWidth() * ( x[1] + 1.5 ) + X_add < 0 and params.X_coord < 0 do
 								X_add = X_add + 1
 							end
 
@@ -270,11 +270,11 @@ for i=x[1],x[2] do
 				 		if params.Y_coord ~= 0 then
 
 			 				local Y_add = 0
-			 				while SCREEN_CENTER_Y + self:GetZoomedHeight() * ScaleVar * ( y[2] + 0.5 ) + Y_add > SCREEN_HEIGHT and params.Y_coord > 0 do
+			 				while SCREEN_CENTER_Y + self:GetZoomedHeight() * ( y[2] + 0.5 ) + Y_add > SCREEN_HEIGHT and params.Y_coord > 0 do
 								Y_add = Y_add - 1
 							end
 
-			 				while SCREEN_CENTER_Y + self:GetZoomedHeight() * ScaleVar * ( y[1] - 0.5 ) + Y_add < 0 and params.Y_coord < 0 do
+			 				while SCREEN_CENTER_Y + self:GetZoomedHeight() * ( y[1] - 0.5 ) + Y_add < 0 and params.Y_coord < 0 do
 								Y_add = Y_add + 1
 							end
 
@@ -345,12 +345,12 @@ for i=x[1],x[2] do
 
 						if params.X_coord ~= 0 then
 			 				local dir = params.X_coord / math.abs(params.X_coord)
-			 				vec_end[1] = vec_start[1] + self:GetZoomedWidth() * ( params.NumItemsX - params.NumTextures - 1 ) * dir * ScaleVar
+			 				vec_end[1] = vec_start[1] + self:GetZoomedWidth() * ( params.NumItemsX - params.NumTextures - 1 ) * dir
 			 			end
 
 			 			if params.Y_coord ~= 0 then
 			 				local dir = params.Y_coord / math.abs(params.Y_coord)
-			 				vec_end[2] = vec_start[2] + self:GetZoomedHeight() * 2 * dir * ScaleVar
+			 				vec_end[2] = vec_start[2] + self:GetZoomedHeight() * 2 * dir
 			 			end
 
 			 		end

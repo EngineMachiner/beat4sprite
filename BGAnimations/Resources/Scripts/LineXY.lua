@@ -5,10 +5,12 @@ local sprite = params.File
 BGA_NoParams( params )
 
 local ScaleVar = _screen.h/480
-local zw = self:GetZoomedWidth()*ScaleVar
-local zh = self:GetZoomedHeight()*ScaleVar
+local zw, zh
 
 local function I_Pos(self, i)
+
+	zw = self:GetZoomedWidth()*ScaleVar
+	zh = self:GetZoomedHeight()*ScaleVar
 
 	local tbl_Xpos_i = {
 
