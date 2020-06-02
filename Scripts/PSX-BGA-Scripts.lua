@@ -1,9 +1,4 @@
 
-local scale = 1 --[[ This variable tweaks the scale only, 
-					AND ONLY according to the Resources
-					Example: Original -> 320x240 -> scale = 2
-					Example: DS -> 640x480 -> scale = 1 ]]
-
 --Used but not directly
 
 function StringTable( tbl )
@@ -93,8 +88,6 @@ function StringTable( tbl )
 
 end
 
-local ScaleVar = _screen.h/480
-
 function BGA_ToolPreview(self)
 	if SCREENMAN:GetTopScreen():GetName() == "ScreenMiniMenuBackgroundChange" then
 		self:effectclock("timer")
@@ -111,20 +104,10 @@ end
 
 function BGA_Scale( self )
 
-	if self:GetHeight() > SCREEN_HEIGHT then
-		local ratio = 1
-		while self:GetHeight() / ratio > SCREEN_HEIGHT do 
-			ratio = ratio + 0.25
-		end
-		self:zoom( 1 / ratio )
-	elseif self:GetTexture():GetPath() == GAMESTATE:GetCurrentSong():GetBackgroundPath()
-	and self:GetHeight() < SCREEN_HEIGHT 
-	or string.match( self:GetTexture():GetPath(), ".mpg" ) then
-		self:zoom( SCREEN_HEIGHT / self:GetHeight() )
-	elseif string.match( self:GetTexture():GetPath(), "BGAnimations/Resources" ) then
-		self:zoom( ScaleVar / scale )
-	end
-	
+	local ScaleVar = SCREEN_HEIGHT / 480 -- Theme scale
+	ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetImageHeight() ) -- Image scale
+	self:zoom(ScaleVar)
+
 end
 
 function BGA_IQB()
