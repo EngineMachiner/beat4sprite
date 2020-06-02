@@ -17,7 +17,7 @@ local params_2 = {	Index = 1 }
 	params_2["Frame_l"] = 2
 	params_2["Speed"] = 2
 	params_2["Script"] = "../Resources/Scripts/TileTool.lua"
-	params_2["Commands"] = "SpinX"
+	params_2["Commands"] = "SpinXY"
 
 	BGA_ParamsTweaks( params_2, replace )
 

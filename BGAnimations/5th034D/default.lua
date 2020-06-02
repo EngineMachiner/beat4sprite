@@ -13,7 +13,6 @@ local params = {
 		Frame_i = 6,
 		Frame_l = 8,		
 		Delay = 0.25,
-		Y_pos = - 0.5,
 		Commands = { "Cross2" },
 		ResetParams = true
 	},

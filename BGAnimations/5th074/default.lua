@@ -17,7 +17,8 @@ local t = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
 	params["File"] = "/BGAnimations/Resources/5th/Sprites/HSV/DABCDE 4x3.png"
 	params["Frame_i"] = 1
 	params["Commands"] = { "Move", "Cross" }
-	params["X_num"] = 6
+	params["X_num"] = 5
+	params["X_pos"] = 0
 
 local t2 = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
 

@@ -6,7 +6,8 @@ local params = {
 	BGMirror = true,
 	Commands = { "OneTwoStates", "Mirror" },
 	Frame_i = 7,
-	Frame_l = 8
+	Frame_l = 8,
+	Delay = 1
 }
 
 return Def.ActorFrame{
