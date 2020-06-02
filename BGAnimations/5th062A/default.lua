@@ -3,7 +3,7 @@ local replace = ...
 
 local params = {
 	Index = 1,
-	File = "/BGAnimations/Resources/5th/Sprites/DANCE 1x4.png",
+	File = "/BGAnimations/Resources/5th/Sprites/DANCE 1x5.png",
 	Frame_i = 1,
 	Frame_l = 4,
 	Commands = { "FramePerSprite", "StairsStates", "Move" },
