@@ -59,8 +59,6 @@ local Y_pos = params.Y_pos
 
 BGA_NoParams( params )
 
-if not params.FadeX then params.FadeX = 0 end
-if not params.FadeY then params.FadeY = 0 end
 if not params.X_coord then params.X_coord = 0 end
 if not params.Y_coord then params.Y_coord = 0 end
 
@@ -170,16 +168,18 @@ for i=x[1],x[2] do
 					self:Load(texture)
 					if params.FramingXY then
 						stairs2 = true
-						BGA_FramingXY( self, params, i, k, Frames ) --5th033A that clothes effect
+						BGA_FramingXY( self, params, i, k, Frames ) --5th033A -> that clothes effect
+					elseif params.FramingY then
+						BGA_FramingY( self, params, i+math.abs(x[1]), k, Frames ) --5th072
 					else
 						BGA_FrameSelector(self, params)
 					end
 					if string.match( params.File, ".mpg" ) then
 						local val = 1
-						if string.match( params.File, "B0%d%d.mpg" ) then
+						if string.match( params.File, "B0%d%d" ) then
 							val = 0.5
 						end
-						self:rate( 0.1 * val )
+						self:rate( 0.125 * val )
 					end
 				end
 
@@ -468,7 +468,9 @@ for i=x[1],x[2] do
 					s = s + self:GetNumStates()
 				end
 
-				self:animate(false):setstate(s)
+				if not params.Animate then
+					self:animate(false):setstate(s)
+				end
 
 			end,
 			PulseCommand=function(self)
@@ -486,7 +488,9 @@ for i=x[1],x[2] do
 			end,
 			FadeCommand=function(self)
 
-				local total = x[2]+math.abs(x[1])+1
+				if not params.Fade then params.Fade = { 1, 1 } end
+
+				local total = math.abs(x[2])+math.abs(x[1])+1
 
 				if type(params.Color) == "table" then
 					if params.Ramp then
@@ -520,7 +524,7 @@ for i=x[1],x[2] do
 					:x( self:GetX() + self:GetZoomedWidth() * i )
 					:y( self:GetY() + self:GetZoomedHeight() * k )
 					:queuecommand("Split")
-			end,
+			end
 		}
 
 	end

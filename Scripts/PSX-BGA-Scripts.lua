@@ -106,7 +106,7 @@ function BGA_Scale( self )
 
 	local ScaleVar = SCREEN_HEIGHT / 480 -- Theme scale
 	ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetImageHeight() ) -- Image scale
-	self:zoom(ScaleVar)
+	self:zoom( ScaleVar )
 
 end
 
@@ -282,6 +282,23 @@ function BGA_NoParams( params )
 	
 end
 
+
+-- Framing 
+
+local function Keep( self, val, Frames )
+
+	while val < 0 do
+		val = val + Frames[1] * Frames[2]
+	end
+
+	while val >= self:GetNumStates() do
+		val = val - Frames[1] * Frames[2]
+	end
+
+	return val
+
+end 
+
 function BGA_FramingXY( self, params, i, k, Frames )
 
 	local lim = { 
@@ -291,28 +308,42 @@ function BGA_FramingXY( self, params, i, k, Frames )
 
 	}
 
-	local function Keep( val )
-
-		while val < 0 do
-			val = val + Frames[1] * Frames[2]
-		end
-
-		while val > self:GetNumStates() - 1 do
-			val = val - Frames[1] * Frames[2]
-		end
-
-		return val
-
-	end
-
-	lim[1] = Keep( lim[1] ) + i * Frames[1]
-	lim[2] = Keep( lim[2] ) + i * Frames[1]
-	lim[1] = Keep( lim[1] )
-	lim[2] = Keep( lim[2] )
+	lim[1] = Keep( self, lim[1], Frames ) + i * Frames[1]
+	lim[2] = Keep( self, lim[2], Frames ) + i * Frames[1]
+	lim[1] = Keep( self, lim[1], Frames )
+	lim[2] = Keep( self, lim[2], Frames )
 
 	local tbl = {}
 	for a=lim[1],lim[2] do
 		tbl[#tbl+1] = { Frame = a }
+	end
+
+	self:SetStateProperties(tbl)
+	BGA_Details( self, params )
+
+end
+
+function BGA_FramingY( self, params, i, k, Frames )
+
+	local val = i
+
+	if i * self:GetWidth() >= 640 then
+		self:rotationy(180)
+		val = - val - 1 - Frames[1] * 2
+	elseif i * self:GetWidth() < 0 then
+		self:rotationy(180)
+		val = val + 1 + Frames[1] * 2
+	end
+
+	local lim = {}
+	for p=1,Frames[2] do
+		lim[p] = i + k * Frames[1] + p * Frames[1]
+		lim[p] = Keep( self, lim[p], Frames )
+	end
+
+	local tbl = {}
+	for a=1,#lim do
+		tbl[#tbl+1] = { Frame = lim[a] }
 	end
 
 	self:SetStateProperties(tbl)

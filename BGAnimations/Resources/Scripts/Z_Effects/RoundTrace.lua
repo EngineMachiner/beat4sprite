@@ -44,6 +44,8 @@ for i=0,360-45,45 do
 			
 		GainFocusCommand=function(self)
 
+			self:set_tween_uses_effect_delta(true)
+			self:effectclock('beat')
 			self:Load(params.File)
 			BGA_FrameSelector(self, params)
 
@@ -51,7 +53,6 @@ for i=0,360-45,45 do
 				:diffusealpha(0)
 				:sleep(math.rad(i)*0.5)
 				:queuecommand("Repeat")
-				:set_tween_uses_effect_delta(true):effectclock('beat')
 			
 		end,
 		RepeatCommand=function(self)

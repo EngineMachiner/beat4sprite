@@ -58,6 +58,8 @@ for i=0,360*2-360/6,360/6 do -- 2 laps divided in 6 angles each one
 			
 				GainFocusCommand=function(self)
 
+					self:set_tween_uses_effect_delta(true)
+					self:effectclock('beat')
 					self:Load(params.File)
 					BGA_FrameSelector(self, params)
 
@@ -65,8 +67,6 @@ for i=0,360*2-360/6,360/6 do -- 2 laps divided in 6 angles each one
 						angle = angle - 180
 					end
 
-					self:set_tween_uses_effect_delta(false)
-					self:effectclock('beat')
 					self:rotationz(i)
 
 				end,
@@ -88,7 +88,7 @@ for i=0,360*2-360/6,360/6 do -- 2 laps divided in 6 angles each one
 
 					angle = angle + 2.5 * 6
 
-					self:linear(0.1)
+					self:linear(0.4)
 					self:x( SCREEN_CENTER_X + self:GetZoomedWidth()*ScaleVar * 1.5 * dir_x )
 					self:y( SCREEN_CENTER_Y - self:GetZoomedHeight()*ScaleVar * 1.5 * dir_y )
 					self:queuecommand("Repeat")
