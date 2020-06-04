@@ -105,7 +105,7 @@ end
 function BGA_Scale( self )
 
 	local ScaleVar = SCREEN_HEIGHT / 480 -- Theme scale
-	ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetImageHeight() ) -- Image scale
+	ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetSourceHeight() ) -- Image scale
 	self:zoom( ScaleVar )
 
 end
