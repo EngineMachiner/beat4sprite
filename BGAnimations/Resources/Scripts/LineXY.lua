@@ -1,76 +1,7 @@
 local params  =  ...
 
 local sprite = params.File
-
 BGA_NoParams( params )
-
-local ScaleVar = _screen.h/480
-local zw, zh
-
-local function I_Pos(self, i)
-
-	zw = self:GetZoomedWidth()*ScaleVar
-	zh = self:GetZoomedHeight()*ScaleVar
-
-	local tbl_Xpos_i = {
-
-		SCREEN_LEFT-zw,
-		SCREEN_RIGHT+zw,
-		SCREEN_LEFT-zw,
-		SCREEN_RIGHT+zw,
-		SCREEN_LEFT-zw,
-		SCREEN_LEFT+zw*0,
-		SCREEN_LEFT+zw*1,
-		SCREEN_LEFT+zw*2,
-		SCREEN_LEFT+zw*3,
-		SCREEN_LEFT+zw*4
-
-	}
-
-	local tbl_Ypos_i = {
-
-		SCREEN_TOP,
-		SCREEN_TOP+zh,
-		SCREEN_TOP+zh*2,
-		SCREEN_TOP+zh*3,
-		SCREEN_TOP+zh*4,
-		SCREEN_TOP-zh,
-		SCREEN_BOTTOM+zh,
-		SCREEN_TOP-zh,
-		SCREEN_BOTTOM+zh,
-		SCREEN_TOP-zh
-
-	}
-
-	return { tbl_Xpos_i[i], tbl_Ypos_i[i] } 
-
-end
-
-local function E_Pos(self, i)
-
-	local tbl_Xpos_e = {
-
-		SCREEN_RIGHT+zw,
-		SCREEN_LEFT-zw,
-		SCREEN_RIGHT+zw,
-		SCREEN_LEFT-zw,
-		SCREEN_RIGHT+zw,
-
-	}
-
-	local tbl_Ypos_e = {
-
-		SCREEN_BOTTOM+zh,
-		SCREEN_TOP-zw,
-		SCREEN_BOTTOM+zw,
-		SCREEN_TOP-zw,
-		SCREEN_BOTTOM+zw
-
-	}
-
-	return { tbl_Xpos_e[i], tbl_Ypos_e[i] } 
-
-end
 
 local t = Def.ActorFrame{
 
@@ -84,9 +15,7 @@ local t = Def.ActorFrame{
 	end
 }
 
-local count, count_2 = 1
-
-for i=1,10 do 
+for i=1,13 do 
 
 	t[#t+1] = Def.Sprite{
 		GainFocusCommand=function(self)
@@ -105,30 +34,29 @@ for i=1,10 do
 		end,
 		RepeatCommand=function(self)
 
-			count_2 = i
-
 			if self:GetNumStates() > 1 then 
 				self:setstate(math.random(0,self:GetNumStates()-1))
 			end
 
-			if i <= 5 then
-				self:x(I_Pos(self, i)[1]):sleep((count_2-1)*0.5)
-					:y(I_Pos(self, i)[2])
-			else
-				self:y(I_Pos(self, i)[2]):sleep((count_2-1-4)*0.5)
-					:x(I_Pos(self, i)[1])				
+			local v = i % 2
+			if v == 0 then 
+				v = -1
 			end
 
-			if self:GetY() > SCREEN_BOTTOM then 
-				self:visible(false)
-			end
+			self:diffusealpha(0)
 
-			if i <= 5 then
-				self:linear(5)
-					:x(E_Pos(self, i)[1])
+			if i < 5 then
+				self:sleep( math.random(i*100,(i+1)*100) * 0.01 ):diffusealpha(1)
+				self:x( SCREEN_RIGHT - SCREEN_RIGHT * ( i % 2 ) - self:GetZoomedWidth() * v )
+				self:y( SCREEN_TOP + self:GetZoomedHeight() * ( i - 1 ) )
+				self:linear( SCREEN_WIDTH / 160 )
+				self:x( SCREEN_RIGHT - SCREEN_RIGHT * ( ( i + 1 ) % 2 ) + self:GetZoomedWidth() * v )
 			else
-				self:linear(4)
-					:y(E_Pos(self, i-5)[2])
+				self:sleep( math.random((i-5)*100,((i-5)+1)*100) * 0.01 ):diffusealpha(1)
+				self:y( SCREEN_BOTTOM - SCREEN_BOTTOM * ( i % 2 ) - self:GetZoomedHeight() * v )
+				self:x( SCREEN_CENTER_X + self:GetZoomedWidth() * ( - i + 9 )  )
+				self:linear( SCREEN_HEIGHT / 120 )
+				self:y( SCREEN_BOTTOM - SCREEN_BOTTOM * ( ( i + 1 ) % 2 ) + self:GetZoomedHeight() * v )
 			end
 
 			self:queuecommand("Repeat")

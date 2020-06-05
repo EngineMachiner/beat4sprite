@@ -179,7 +179,7 @@ for i=x[1],x[2] do
 						if string.match( params.File, "B0%d%d" ) then
 							val = 0.5
 						end
-						self:rate( 0.125 * val )
+						self:rate( ( 0.1 - 0.025 ) * val )
 					end
 				end
 
@@ -374,6 +374,51 @@ for i=x[1],x[2] do
 			ZTestCommand=function(self)
 				self:ztest(true)
 			end,
+			FourScreensCommand=function(self)
+
+				if not vec_start["Zoom"] then
+					vec_start["X0"] = vec_start[1]
+					vec_start["Y0"] = vec_start[2]
+					vec_start["Zoom"] = self:GetZoom()
+				end
+
+				if k == 0 then
+					for p=1,2 do
+						self:diffusealpha(1)
+						self:sleep(1)
+						self:diffusealpha(0)
+						self:sleep(1)
+					end
+				elseif math.abs(k) == 1 then
+
+					self:x( vec_start["X0"] )
+					self:zoom(vec_start["Zoom"])
+					self:rotationx( ( k - 1 ) * 90 + 60 )
+					self:y( vec_start["Y0"] - self:GetZoomedHeight() * k * 0.75 )
+					self:diffusealpha(0)
+					self:sleep(1)
+					self:diffusealpha(1)
+					self:sleep(1)
+					self:diffusealpha(0)
+					self:sleep(1)
+					self:diffusealpha(1)
+					self:rotationx(0)
+					self:zoom( vec_start["Zoom"] * 0.5 )
+					self:rotationx( 90 * ( k + 1 ) )
+
+					vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)
+					vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)
+					vec_start[1] = vec_start[1]-self:GetZoomedWidth()*0.5
+					vec_start[2] = vec_start[2]-self:GetZoomedHeight()*0.5*k
+
+			 		self:xy( vec_start[1], vec_start[2] )
+			 		self:sleep(1)
+
+				end
+
+				self:queuecommand("FourScreens")
+
+			end,
 			MirrorCommand=function(self)
 
 				if params.BGMirror then
@@ -444,10 +489,26 @@ for i=x[1],x[2] do
 					end
 				end
 			end,
-			RandomStateCommand=function(self)
+			OddsCommand=function(self)
+				if i % 2 == 1 then 
+					self:visible(false)
+				elseif math.abs(i) > 0 then
+					self:x( self:GetX() - self:GetZoomedWidth() * 0.75 * i / math.abs(i) )
+				end
+				if math.abs(k) > 0 then
+					self:y( self:GetY() + self:GetZoomedHeight() * 0.25 * k / math.abs(k) )
+				end
+			end,
+			RandomStatesCommand=function(self)
 				if self:GetNumStates() > 1 then
-					self:setstate(math.random(0,self:GetNumStates()-1))
+					self:setstate(1/math.random(1,self:GetNumStates()))
 				end 
+			end,
+			RandomDelaysCommand=function(self)
+				if self:GetNumStates() > 1 then
+					local val = math.random(self:GetNumStates()*0.5*100,self:GetNumStates()*2*100) * 0.01
+					self:SetAllStateDelays(1/val)
+				end
 			end,
 			OneTwoStatesCommand=function(self)
 				self:setstate(i % self:GetNumStates())
@@ -505,12 +566,14 @@ for i=x[1],x[2] do
 				local beat
 
 				if params.Fade then
-					if params.Delay then 
-						beat = params.Delay * ( search_sprt:GetNumStates() ) * 4
-					else
-						beat = 4 * ( search_sprt:GetNumStates() )
+					if search_sprt then
+						if params.Delay then
+							beat = params.Delay * ( search_sprt:GetNumStates() ) * 4
+						else
+							beat = 4 * ( search_sprt:GetNumStates() )
+						end
+						self:effectperiod(beat):effectoffset( beat * 0.5 * ( - params.Fade[1] * i - params.Fade[2] * k ) / total )
 					end
-					self:effectperiod(beat):effectoffset( beat * 0.5 * ( - params.Fade[1] * i - params.Fade[2] * k ) / total )
 				end
 
 			end,

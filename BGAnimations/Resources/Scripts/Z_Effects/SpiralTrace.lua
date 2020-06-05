@@ -34,6 +34,7 @@ for i=0,360*2-360/6,360/6 do -- 2 laps divided in 6 angles each one
 		t[#t+1] = Def.ActorFrame{
 
 			GainFocusCommand=function(self)
+
 				self:set_tween_uses_effect_delta(false)
 				self:effectclock('beat')
 				self:z(params.Dir[1])
@@ -41,6 +42,7 @@ for i=0,360*2-360/6,360/6 do -- 2 laps divided in 6 angles each one
 					:sleep(math.rad(i)*0.25*0.5)
 					:diffusealpha(1)
 					:queuecommand("Repeat")
+					
 			end,
 
 			RepeatCommand=function(self)

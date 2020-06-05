@@ -1,7 +1,5 @@
 local params = ...
 
-local ScaleVar = _screen.h/480
-
 local t = Def.ActorFrame{
 
     GainFocusCommand=function(self)
@@ -28,7 +26,7 @@ for i=0,4 do
             GainFocusCommand=function(self)
                 self:Load(params.File)
                 BGA_FrameSelector(self, params)
-                self:xy( SCREEN_LEFT+self:GetZoomedWidth()*ScaleVar*i*1.5, SCREEN_BOTTOM )
+                self:xy( SCREEN_LEFT+self:GetZoomedWidth()*i*1.5, SCREEN_BOTTOM )
                 self:set_tween_uses_effect_delta(true):effectclock('beat')
                 self:diffusealpha(0):sleep(k*2)
                 self:queuecommand("Depth")

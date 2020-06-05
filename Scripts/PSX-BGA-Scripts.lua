@@ -385,6 +385,7 @@ function BGA_Details( self, params )
 
 	BGA_Scale(self)
 	BGA_ToolPreview(self)
+
 	self:SetTextureFiltering(false)
 
 	if not params.Frames then
