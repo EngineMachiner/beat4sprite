@@ -33,7 +33,8 @@ local params = {
 	X_num = { -5, 4 },
 	Y_num = { -2, 1 },
 	Frame_i = 5,
-	Frame_l = 8
+	Frame_l = 8,
+	Commands = "RandomDelays"
 
 }
 

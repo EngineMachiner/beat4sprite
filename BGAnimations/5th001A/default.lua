@@ -12,7 +12,7 @@ local params = {
 	Frame_i = 5, -- initial frame
 	Frame_l = 8, -- last frame
 	Delay = 0.5, -- sprite delay
-	Commands = "RandomState"
+	Commands = "RandomStates"
 
 } 
  

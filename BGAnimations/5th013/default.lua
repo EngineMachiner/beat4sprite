@@ -21,7 +21,7 @@ local params_2 = {
 
 	File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 	Frame_i = 1,
-	Commands = "RandomState"
+	Commands = "RandomStates"
 
 }
 
