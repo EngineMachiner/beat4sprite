@@ -49,16 +49,12 @@ for i=0,2 do
             self:zbuffer(true)
             self:set_tween_uses_effect_delta(true):effectclock('beat')
             self:diffusealpha(0):sleep(i*1.5):diffusealpha(1)
-
-            if params.Shade then
-                 self:queuecommand("Shade")
-            end
-
             self:queuecommand("Next")
 
         end,
 
         NextCommand=function(self)
+        	self:queuecommand("Shade")
             self:x( math.random( - SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 ) )
             self:y( math.random( - SCREEN_HEIGHT * 0.75, SCREEN_HEIGHT * 0.75 ) )
             self:z(Z_values[1]):linear(4):z(Z_values[2]):queuecommand("Next")
@@ -113,14 +109,13 @@ for i=0,2 do
             ShadeCommand=function(self)
 
                 local c = { 
-                    tostring(math.abs(Z_values[2])*0.001+0.125),
-                    tostring(math.abs(Z_values[1])*0.001+0.125)
+                    tostring(math.abs(Z_values[2])*0.001),
+                    tostring(math.abs(Z_values[1])*0.001)
                 }
 
                 self:diffuse(color(c[1]..","..c[1]..","..c[1]..",1"))
                     :linear(4)
-                    :diffuse(color(c[2]..","..c[2]..","..c[2]..",1"))
-                    :queuecommand("Shade")              
+                    :diffuse(color(c[2]..","..c[2]..","..c[2]..",1"))       
             end
 
         }
