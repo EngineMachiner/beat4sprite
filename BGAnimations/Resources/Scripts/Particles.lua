@@ -61,6 +61,7 @@ for i=1,num do
 				else
 					self:Load(sprites)
 				end
+				self:set_tween_uses_effect_delta(true):effectclock("beat")
 
 				BGA_FrameSelector(self, params)
 				BGA_PlayAllCommands(self, params)
@@ -69,7 +70,6 @@ for i=1,num do
 				if self:GetNumStates() > 1 then
 					self:setstate(math.random(0,self:GetNumStates()-1))
 				end
-				self:set_tween_uses_effect_delta(true):effectclock("beat")
 
 			end,
 			TwoSpritesCommand=function(self)

@@ -28,6 +28,10 @@ for i = 0,9 do
 			BGA_PlayAllCommands(self, params)
 		end,
 
+		RainbowCommand=function(self)
+			self:rainbow():effectperiod(8)
+		end,
+
 		Def.Sprite{
 			GainFocusCommand=function(self)
 
@@ -38,7 +42,7 @@ for i = 0,9 do
 				self:diffusealpha(0.75)
 				BGA_FrameSelector(self, params)
 
-				local mag = 2.5 * 0.5
+				local mag = 5
 				local val = ( i % 2 ) * mag * 2 - mag
 				self:bob():effectperiod(1):effectmagnitude(val,0,0)
 
