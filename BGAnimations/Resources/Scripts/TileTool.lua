@@ -176,10 +176,11 @@ for i=x[1],x[2] do
 						BGA_FramingY( self, params, i+math.abs(x[1]), k, Frames ) --5th072
 					else
 						if string.match( params.File, ".mpg" ) then
-							local BPM = math.floor( GAMESTATE:GetSongBPS() * 60 ) * 0.001
+							local BPM = math.floor( GAMESTATE:GetSongBPS() * 60 )
+							if BPM < 200 then BPM = 1 else BPM = math.floor( BPM * 0.01 ) * 0.75 end
 							local total = math.abs(x[2]) + math.abs(x[1]) + 1
 							total = total + math.abs(y[1]) + math.abs(y[2])
-							total = 0.1 / total
+							total = 0.5 / total
 							for i=1,#mpg_slow do
 								if string.match( params.File, mpg_slow[i] .. "%d%d%d" ) then 
 									total = total / 4
