@@ -143,18 +143,21 @@ else
 	k_0 = 0
 end
 
+local mpg_slow = {
+	"Rainbows/B",
+	"Rainbows/D",
+	"Rainbows/E"
+}
+
 for i=x[1],x[2] do
 	for k=y[1],y[2] do
 
 		local vec_start = {}
 		local vec_end = {}
 		local sprites = {}
-		local search_sprt
-
-		local state = 0
-		local stairs, stairs2
-		local file_num = 1
-
+		local state, file_num = 0, 1
+		local stairs, stairs2, search_sprt, tween_lock
+		
 		t[#t+1] = Def[params.ActorClass]{
 			GainFocusCommand=function(self)
 
@@ -172,14 +175,19 @@ for i=x[1],x[2] do
 					elseif params.FramingY then
 						BGA_FramingY( self, params, i+math.abs(x[1]), k, Frames ) --5th072
 					else
-						BGA_FrameSelector(self, params)
-					end
-					if string.match( params.File, ".mpg" ) then
-						local val = 1
-						if string.match( params.File, "B0%d%d" ) then
-							val = 0.5
+						if string.match( params.File, ".mpg" ) then
+							local BPM = math.floor( GAMESTATE:GetSongBPS() * 60 ) * 0.001
+							local total = math.abs(x[2]) + math.abs(x[1]) + 1
+							total = total + math.abs(y[1]) + math.abs(y[2])
+							total = 0.1 / total
+							for i=1,#mpg_slow do
+								if string.match( params.File, mpg_slow[i] .. "%d%d%d" ) then 
+									total = total / 4
+								end
+							end
+							self:rate( total / BPM )
 						end
-						self:rate( ( 0.1 - 0.025 ) * val )
+						BGA_FrameSelector(self, params)
 					end
 				end
 
@@ -187,9 +195,9 @@ for i=x[1],x[2] do
 				vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)
 
 			 	self:xy( vec_start[1], vec_start[2] )
-			 	self:effectclock("beat")
+				self:effectclock("beat")
 			 	self:set_tween_uses_effect_delta(true)
-				
+
 			 	local Move
 			 	if type(params.Commands) == "table" then
 			 		for i = 1,#params.Commands do
@@ -224,7 +232,7 @@ for i=x[1],x[2] do
 				if Move then 
 					self:playcommand("Move")
 				end
-				
+
 			end,
 			MoveCommand=function(self)
 

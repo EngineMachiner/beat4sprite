@@ -64,6 +64,7 @@ for j=0,7 do
 
 		t[#t+1] = Def.Sprite{
 			GainFocusCommand=function(self)
+				self:set_use_effect_clock_for_texcoords(true)
 				Settings(self, j, i)
 				self:SetCustomPosCoords( 
 					-0.5, h*0.75+13,
@@ -81,6 +82,7 @@ for j=0,7 do
 
 		t[#t+1] = Def.Sprite{
 			GainFocusCommand=function(self)
+				self:set_use_effect_clock_for_texcoords(true)
 				Settings(self, j, i)
 				local var = 0.5
 				self:SetCustomPosCoords( 
@@ -97,6 +99,7 @@ for j=0,7 do
 
 		t[#t+1] = Def.Sprite{
 			GainFocusCommand=function(self)
+				self:set_use_effect_clock_for_texcoords(true)
 				Settings(self, j, i)
 				local var = 0.5*2
 				self:SetCustomPosCoords( 
@@ -113,6 +116,7 @@ for j=0,7 do
 
 		t[#t+1] = Def.Sprite{
 			GainFocusCommand=function(self)
+				self:set_use_effect_clock_for_texcoords(true)
 				Settings(self, j, i)
 				local var = 0.5*3
 				self:SetCustomPosCoords( 

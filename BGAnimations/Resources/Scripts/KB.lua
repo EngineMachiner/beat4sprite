@@ -41,6 +41,7 @@ for x=-2,2 do
 		for j=0,5 do
 			t[#t+1] = Def.Sprite{
 				GainFocusCommand=function(self)
+					self:set_use_effect_clock_for_texcoords(true)
 					Settings( self, j )
 					self:x( self:GetX() + h*0.85*x - h*0.25 )
 					self:y( self:GetY() + h*0.5*y )
@@ -63,6 +64,7 @@ for x=-2,2 do
 		for j=0,5 do
 			t[#t+1] = Def.Sprite{
 				GainFocusCommand=function(self)
+					self:set_use_effect_clock_for_texcoords(true)
 					Settings( self, j )
 					self:x( self:GetX() + h*0.85*x + h*0.425 - h*0.25 )
 					self:y( self:GetY() + h*0.5*y - h*0.25 )
