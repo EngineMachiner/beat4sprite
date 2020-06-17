@@ -27,8 +27,6 @@
 
 -- For helpers --
 
-  // Beware with what scale you're working with. PSX-BGA-Scripts.lua uses a local variable ("scale"). For example the 320x240 images have scale = 2, 640x480 have scale = 1 //
-
 If anyone needs help on how the scripts are called:
 
   "/BGAnimations/FolderName/(default.lua)" loads an ActorFrame from the libraries at "BGAnimations/Resources/Scripts" with parameters put in a table, the keys and values define the data of the sprite.
