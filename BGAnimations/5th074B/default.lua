@@ -20,13 +20,16 @@ local params = {
 
 }
 
-local params_2 = {}
+local params_2, params_3 = {}, {}
 
 	DeepCopy( params[1], params_2 )
 	params_2["ActorClass"] = "Quad"
 	params_2["Commands"] = { "Move", "Fade" }
-	params_2["Fade"] = { 3, 1 }
-	params_2["Color"] = Color.Black
+	params_2["Fade"] = { 4, 1 }
+	params_2["Color"] = Color.Red
+
+	DeepCopy( params_2, params_3 )
+	params_3["Color"] = Color.Black
 
 return Def.ActorFrame{
 
@@ -43,6 +46,7 @@ return Def.ActorFrame{
 	},
 
 	LoadActor( "../5th001A", params )..{},
-	LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{}
+	LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{},
+	LoadActor( "../Resources/Scripts/TileTool.lua", params_3 )..{}
 
 }

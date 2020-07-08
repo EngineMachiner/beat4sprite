@@ -28,5 +28,5 @@ local params = {
 	BGA_ParamsTweaks( params, replace )
 
 return Def.ActorFrame{
-	LoadActor( "../5th051A", params )..{},
+	LoadActor( "../5th051A", params )..{}
 }

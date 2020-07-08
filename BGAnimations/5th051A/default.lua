@@ -1,5 +1,7 @@
 
+
 local replace = ...
+
 
 local params = {
 	Index = 2,
@@ -11,6 +13,7 @@ local params = {
 
 	BGA_ParamsTweaks( params, replace )
 
+
 local params_2 = {}
 
 	DeepCopy( params, params_2 )
@@ -20,6 +23,7 @@ local params_2 = {}
 	params_2["Y_num"] = { -2, 1 }
 	params_2["Speed"] = 2
 	params_2["Commands"] = "SpinXY"
+
 
 	BGA_ParamsTweaks( params_2, replace )
 

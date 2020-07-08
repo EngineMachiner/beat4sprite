@@ -28,6 +28,6 @@ local params_2 = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/BumpY",params_2)..{}
+	LoadActor("../Resources/Scripts/Z_Effects/BumpY",params_2)..{}
 
 }

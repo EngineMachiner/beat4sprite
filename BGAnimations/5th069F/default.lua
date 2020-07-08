@@ -1,10 +1,9 @@
 
 local params = {
 	Index = 1,
-	Script = "../Resources/Scripts/Z_Effects/SpiralTrace.lua",
+	Script = "../Resources/Scripts/Z_Effects/BumpY.lua",
 	File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 	Frame_i = 2,
-	Rotation = true
 }
 
 return Def.ActorFrame{
