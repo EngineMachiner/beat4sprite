@@ -23,7 +23,7 @@ return Def.ActorFrame{
 		end
 	},
 
-	LoadActor( "../Resources/5th/Scripts/TileTool.lua", {
+	LoadActor( "../Resources/Scripts/TileTool.lua", {
 		File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
 		X_num = 1,
 		BGMirror = true,

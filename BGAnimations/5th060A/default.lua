@@ -23,7 +23,7 @@ local params_2 = {
 
 return Def.ActorFrame{
 
-	LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{},
+	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
 	LoadActor( params_2.Script, params_2 )..{}
 
 }

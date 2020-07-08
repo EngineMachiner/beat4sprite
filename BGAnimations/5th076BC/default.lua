@@ -31,7 +31,7 @@ local params = {
 	
 return Def.ActorFrame{
 
-	LoadActor("../Resources/5th/Scripts/TileTool.lua", params[1])..{},
+	LoadActor("../Resources/Scripts/TileTool.lua", params[1])..{},
 	LoadActor("../Resources/5th/Scripts/Z_Effects/SpiralTrace.lua", params[2])..{
 		GainFocusCommand=function(self)
 			self:set_tween_uses_effect_delta(true)

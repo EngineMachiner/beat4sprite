@@ -22,6 +22,6 @@ local params_2 = {
 	BGA_ParamsTweaks( params_2, tweaks )
 
 return Def.ActorFrame{
-	LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{},
+	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
 	LoadActor( params_2.Script , params_2 )..{}
 }

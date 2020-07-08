@@ -31,7 +31,7 @@ local t = Def.ActorFrame{}
 		Frame_l = 8
 	}
 
-	t[#t+1] = LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{
+	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{
 		GainFocusCommand=function(self)
 			self:queuecommand("GainFocus2")
 			self:effectclock("beat")
@@ -66,6 +66,6 @@ local t = Def.ActorFrame{}
 		Commands = { "StairsStates", "SpinX" }
 	}
 
-	t[#t+1] = LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
 
 return t

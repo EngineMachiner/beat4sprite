@@ -40,7 +40,7 @@ local params = {
 
 	BGA_ParamsTweaks( params, replace )
 
-	t[#t+1] = LoadActor("../Resources/5th/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params )..{}
 
 	if replace then 
 		if replace.Remove then 

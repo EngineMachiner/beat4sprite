@@ -45,6 +45,6 @@ return Def.ActorFrame{
 	},
 
 	LoadActor( "../5th001A", params )..{},
-	LoadActor( "../Resources/5th/Scripts/TileTool.lua", params_2 )..{}
+	LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{}
 
 }

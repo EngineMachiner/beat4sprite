@@ -6,7 +6,7 @@ local t = Def.ActorFrame{}
 		AddActors = { BGA_IQB() }
 	} )..{}
 
-	t[#t+1] = LoadActor( "../Resources/5th/Scripts/TileTool.lua", {
+	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", {
 		File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
 		BGMirror = true,
 		X_num = 1,
