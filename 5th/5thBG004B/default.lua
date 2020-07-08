@@ -1,6 +1,6 @@
 return Def.ActorFrame{
 	LoadActor( "../5thBG004A", { Index = 1, Commands = { "Mirror" } } )..{},
-	LoadActor( "../Resources/5th/Scripts/RandomPos.lua", { 
+	LoadActor( "../Resources/Scripts/5th/RandomPos.lua", { 
 		File = "/BGAnimations/Resources/5th/Sprites/HSV/DAB2 4x4.png",
 		Frame_i = 12,
 		Frame_l = 13,

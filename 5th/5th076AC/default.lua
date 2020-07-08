@@ -32,7 +32,7 @@ local params = {
 return Def.ActorFrame{
 
 	LoadActor("../Resources/Scripts/TileTool.lua", params[1])..{},
-	LoadActor("../Resources/5th/Scripts/Z_Effects/RoundTrace.lua", params[2])..{
+	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua", params[2])..{
 		GainFocusCommand=function(self)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')
@@ -44,7 +44,7 @@ return Def.ActorFrame{
 			self:queuecommand("Repeat01")
 		end		
 	},
-	LoadActor("../Resources/5th/Scripts/Z_Effects/RoundTrace.lua", params[3])..{
+	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua", params[3])..{
 		GainFocusCommand=function(self)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')

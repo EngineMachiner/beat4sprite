@@ -9,5 +9,5 @@ local params = {
 
 return Def.ActorFrame{ 
 	LoadActor("../5th039A")..{},
-	LoadActor( "../Resources/5th/Scripts/Z_Effects/Stairs.lua", params )..{}
+	LoadActor( "../Resources/Scripts/5th/Z_Effects/Stairs.lua", params )..{}
 }

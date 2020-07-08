@@ -14,7 +14,7 @@ local tweaks = {
 		Frame_i = 9,
 		Commands = "TwoSprites",
 		Dir = "Out",
-		Script = "/BGAnimations/Resources/5th/Scripts/Z_Effects/Stairs.lua"
+		Script = "/BGAnimations/Resources/Scripts/5th/Z_Effects/Stairs.lua"
 	}
 
 }

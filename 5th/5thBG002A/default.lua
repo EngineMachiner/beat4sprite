@@ -11,5 +11,5 @@ local params = {
 	BGA_ParamsTweaks( params, replace )
 
 return Def.ActorFrame{
-	LoadActor( "../Resources/5th/Scripts/BG/2.lua", params )..{}
+	LoadActor( "../Resources/Scripts/5th/BG/2.lua", params )..{}
 }

@@ -29,7 +29,7 @@ local params_2 = {
 	Frame_l = 12,
 	Commands = "TwoSprites",
 	Rotation = true,
-	Script = "../Resources/5th/Scripts/SpiralStaticTrace.lua"
+	Script = "../Resources/Scripts/5th/SpiralStaticTrace.lua"
 	
 }
 

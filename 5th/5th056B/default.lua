@@ -15,7 +15,7 @@ local params = {
 
 	{
 		Index = 3,
-		Script = "../Resources/5th/Scripts/Z_Effects/Stairs.lua",
+		Script = "../Resources/Scripts/5th/Z_Effects/Stairs.lua",
 		File = "BGAnimations/Resources/5th/Sprites/B 4x3.png",
 		Frame_i = 1,
 		Frame_l = 5

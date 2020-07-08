@@ -27,7 +27,7 @@ local params_2 = {
 	Frame_l = 12,
 	Dir = "Down",
 	Commands = "TwoSprites",
-	Script = "../Resources/5th/Scripts/LineXY.lua"
+	Script = "../Resources/Scripts/5th/LineXY.lua"
 	
 }
 

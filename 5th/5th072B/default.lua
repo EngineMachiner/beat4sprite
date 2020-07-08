@@ -13,5 +13,5 @@ local params = {
 }
 
 return Def.ActorFrame{
-	LoadActor("../Resources/5th/Scripts/Split.lua", params )..{}
+	LoadActor("../Resources/Scripts/5th/Split.lua", params )..{}
 }

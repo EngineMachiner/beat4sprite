@@ -32,6 +32,6 @@ return Def.ActorFrame{
 		Color = Color.Black
 	}  )..{},
 
-	LoadActor( "../Resources/5th/Scripts/Particles.lua", params )..{}
+	LoadActor( "../Resources/Scripts/5th/Particles.lua", params )..{}
 
 }

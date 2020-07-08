@@ -1,7 +1,7 @@
 
 local tweaks = {
 	Index = 2,
-	Script = "../Resources/5th/Scripts/Particles.lua",
+	Script = "../Resources/Scripts/5th/Particles.lua",
 	Dir = "Up",
 	Commands = "RandomStates"
 }

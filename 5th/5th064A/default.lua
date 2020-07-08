@@ -28,7 +28,7 @@ local params = {
 		Frame_i = 9,
 		ResetParams = true,
 		Dir = "Right",
-		Script = "../Resources/5th/Scripts/Particles.lua"
+		Script = "../Resources/Scripts/5th/Particles.lua"
 
 	}
 

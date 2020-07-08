@@ -2,7 +2,7 @@
 local params = {
 
 	Index = 3,
-	Script = "../Resources/5th/Scripts/Particles.lua",
+	Script = "../Resources/Scripts/5th/Particles.lua",
 	Dir = "Down"
 
 }

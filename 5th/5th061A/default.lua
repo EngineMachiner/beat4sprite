@@ -18,7 +18,7 @@ local tweaks = {
 		File = "/BGAnimations/Resources/5th/Sprites/ABCD 4x3.png",
 		Frame_l = 12,
 		Dir = "Out",
-		Script = "../Resources/5th/Scripts/Z_Effects/Stairs.lua"
+		Script = "../Resources/Scripts/5th/Z_Effects/Stairs.lua"
 	}
 
 }

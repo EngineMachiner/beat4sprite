@@ -28,6 +28,6 @@ local params = {
 
 	}
 
-	t[#t+1] = LoadActor("../Resources/5th/Scripts/SpiralStaticTrace.lua", params)..{}
+	t[#t+1] = LoadActor("../Resources/Scripts/5th/SpiralStaticTrace.lua", params)..{}
 
 return Def.ActorFrame{ t }

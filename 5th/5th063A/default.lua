@@ -3,7 +3,7 @@ local replace = ...
 
 local params = {
 	Index = 1,
-	Script = "../Resources/5th/Scripts/Particles.lua",
+	Script = "../Resources/Scripts/5th/Particles.lua",
 	File = "/BGAnimations/Resources/5th/Sprites/BA 4x3.png",
 	Frame_i = 1,
 	Frame_l = 4,

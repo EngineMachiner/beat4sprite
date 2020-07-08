@@ -15,7 +15,7 @@ local params_2 = {
 	Frame_i = 1,
 	Frame_l = 6,
 	Dir = "Left",
-	Script = "../Resources/5th/Scripts/Particles.lua"
+	Script = "../Resources/Scripts/5th/Particles.lua"
 }
 
 	BGA_ParamsTweaks( params, replace )

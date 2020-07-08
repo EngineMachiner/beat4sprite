@@ -14,5 +14,5 @@ local params_2 = {
 
 return Def.ActorFrame{
 	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
-	LoadActor( "../Resources/5th/Scripts/SpiralStaticTrace", params_2 )..{}
+	LoadActor( "../Resources/Scripts/5th/SpiralStaticTrace", params_2 )..{}
 }

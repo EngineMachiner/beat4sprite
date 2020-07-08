@@ -10,6 +10,6 @@ local params = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th012A")..{},
-	LoadActor("../Resources/5th/Scripts/WallBumps.lua",params)..{}
+	LoadActor("../Resources/Scripts/5th/WallBumps.lua",params)..{}
 
 }

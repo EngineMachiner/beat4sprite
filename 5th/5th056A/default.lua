@@ -16,7 +16,7 @@ local params_2 = {
 	File = "BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
 	Frame_i = 9,
 	Dir = "Right",
-	Script = "../Resources/5th/Scripts/Particles.lua"
+	Script = "../Resources/Scripts/5th/Particles.lua"
 }
 
 	BGA_ParamsTweaks( params_2, tweaks )

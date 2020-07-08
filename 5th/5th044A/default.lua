@@ -33,7 +33,7 @@ local params = {
  	params.Index = count
  	params.ID = #t + 1
 
-	t[#t+1] = LoadActor("../Resources/5th/Scripts/WallBumps.lua", params)..{}
+	t[#t+1] = LoadActor("../Resources/Scripts/5th/WallBumps.lua", params)..{}
 
 	BGA_PostSpawn( t, params, tweaks )
 
