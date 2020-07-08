@@ -16,7 +16,7 @@ local t = Def.ActorFrame{
 
 	BGA_NoParams( params )
 
-	t[#t+1] = LoadActor( "../TileTool.lua", params )..{}
+	t[#t+1] = LoadActor( "../../TileTool.lua", params )..{}
 
 local angle = 0
 for i = 9,0,-1 do
