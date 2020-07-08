@@ -10,8 +10,12 @@
 
 -- Installation --
 
-  1. Clone or download this branch and drop it at your SM root folder.
-  2. Choose the DDR version you want in the branches and clone/download it, copy the BGAnimations in your BGAnimations folder then drop the contents of the Original or Double Scaled version in the "/BGAnimations".
+  1. Clone/Download this branch and drop it at your SM root folder.
+  2. Close/Download the "Resources" branch.
+  2. Choose the DDR version you want in the "Resources" branch, same for the Original or Double Scaled graphics. 
+  3. Copy the contents of the folder you choosed ("the ones that are XthXXX") in your BGAnimations folder.
+  4. Copy either Original or Double Scaled contents in the "/BGAnimations".
+  5. Copy the "Rainbows" folder to "/BGAnimations/Resources"
   
   
   Must check:
