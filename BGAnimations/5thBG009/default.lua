@@ -23,7 +23,7 @@ return Def.ActorFrame{
 		end
 	},
 
-	LoadActor( "../Resources/Scripts/TileTool.lua", {
+	LoadActor( "../Resources/5th/Scripts/TileTool.lua", {
 		File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
 		X_num = 1,
 		BGMirror = true,
@@ -32,6 +32,6 @@ return Def.ActorFrame{
 		Color = Color.Black
 	}  )..{},
 
-	LoadActor( "../Resources/Scripts/Particles.lua", params )..{}
+	LoadActor( "../Resources/5th/Scripts/Particles.lua", params )..{}
 
 }

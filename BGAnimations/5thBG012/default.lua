@@ -17,7 +17,7 @@ local params = {
 
 	BGA_ParamsTweaks( params, replace )
 
-	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{
+	t[#t+1] = LoadActor("../Resources/5th/Scripts/TileTool.lua", params)..{
 		GainFocusCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
@@ -45,7 +45,7 @@ local params = {
 
 	BGA_ParamsTweaks( params, replace )
 
-	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{
+	t[#t+1] = LoadActor("../Resources/5th/Scripts/TileTool.lua", params)..{
 		GainFocusCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)

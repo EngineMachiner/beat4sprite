@@ -5,7 +5,7 @@ local tweaks = {
 	ResetParams = true,
 	Frame_i = 11,
 	Frame_l = 11+4,
-	Script = "../Resources/Scripts/LineXY.lua"
+	Script = "../Resources/5th/Scripts/LineXY.lua"
 }
 
 return Def.ActorFrame{

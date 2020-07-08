@@ -14,7 +14,7 @@ local tweaks = {
 
 local params = {
 	Index = 1,
-	Script = "../Resources/Scripts/Z_Effects/RoundTrace.lua",
+	Script = "../Resources/5th/Scripts/Z_Effects/RoundTrace.lua",
 	File = "/BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
 	Frame_i = 11,
 }

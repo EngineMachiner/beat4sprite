@@ -5,7 +5,7 @@ local params_2 = {
 	Frame_l = 2
 }
 
-local t = LoadActor( "../Resources/Scripts/WallBumps.lua", params_2 )..{}
+local t = LoadActor( "../Resources/5th/Scripts/WallBumps.lua", params_2 )..{}
 
 return Def.ActorFrame{
 	LoadActor( "../5thBG002A" )..{},

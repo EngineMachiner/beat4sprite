@@ -15,7 +15,7 @@ local params_2 = {
 	Frame_i = 1,
 	Frame_l = 6,
 	Dir = "Left",
-	Script = "../Resources/Scripts/Particles.lua"
+	Script = "../Resources/5th/Scripts/Particles.lua"
 }
 
 	BGA_ParamsTweaks( params, replace )
@@ -23,7 +23,7 @@ local params_2 = {
 
 return Def.ActorFrame{
 
-	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
+	LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{},
 	LoadActor( params_2.Script, params_2 )..{}
 
 }

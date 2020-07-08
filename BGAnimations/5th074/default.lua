@@ -12,7 +12,7 @@ local params = {
 	X_coord = 1,
 }
 
-local t = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+local t = LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{}
 
 	params["File"] = "/BGAnimations/Resources/5th/Sprites/HSV/DABCDE 4x3.png"
 	params["Frame_i"] = 1
@@ -20,7 +20,7 @@ local t = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
 	params["X_num"] = 5
 	params["X_pos"] = 0
 
-local t2 = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+local t2 = LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{}
 
 return Def.ActorFrame{
 

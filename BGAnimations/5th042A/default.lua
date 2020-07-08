@@ -32,7 +32,7 @@ local params_2 = {
 	File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 	Frame_i = 3,
 	Spin = true,
-	Script = "../Resources/Scripts/Z_Effects/Stairs.lua"
+	Script = "../Resources/5th/Scripts/Z_Effects/Stairs.lua"
 
 }
 

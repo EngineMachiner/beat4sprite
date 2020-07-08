@@ -26,6 +26,6 @@ local params = {
 	Commands = { "Move" }
 }
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{}
 
 return Def.ActorFrame{ t }

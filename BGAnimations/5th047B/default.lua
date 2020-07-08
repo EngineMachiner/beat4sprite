@@ -20,6 +20,6 @@ local params = {
 return Def.ActorFrame{
 
 	LoadActor( "../5th047A", tweaks )..{},
-	LoadActor( "../Resources/Scripts/Particles.lua", params )..{}
+	LoadActor( "../Resources/5th/Scripts/Particles.lua", params )..{}
 
 }

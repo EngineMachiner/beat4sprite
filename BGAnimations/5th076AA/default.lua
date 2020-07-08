@@ -24,7 +24,7 @@ local params = {
 	
 return Def.ActorFrame{
 
-	LoadActor("../Resources/Scripts/TileTool.lua", params[1])..{},
-	LoadActor("../Resources/Scripts/Z_Effects/RoundTrace.lua", params[2])..{}
+	LoadActor("../Resources/5th/Scripts/TileTool.lua", params[1])..{},
+	LoadActor("../Resources/5th/Scripts/Z_Effects/RoundTrace.lua", params[2])..{}
 
 }

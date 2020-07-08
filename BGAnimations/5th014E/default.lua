@@ -10,6 +10,6 @@ local params = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th014A")..{},
-	LoadActor("../Resources/Scripts/Z_Effects/R_WhirlTrace", params)..{}
+	LoadActor("../Resources/5th/Scripts/Z_Effects/R_WhirlTrace", params)..{}
 
 }

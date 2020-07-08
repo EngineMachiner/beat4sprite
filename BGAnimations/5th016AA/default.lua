@@ -32,6 +32,6 @@ local params = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("/BGAnimations/Resources/Scripts/Z_Effects/RoundTrace.lua",params[3])..{}
+	LoadActor("/BGAnimations/Resources/5th/Scripts/Z_Effects/RoundTrace.lua",params[3])..{}
 
 }

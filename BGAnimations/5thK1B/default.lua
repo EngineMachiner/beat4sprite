@@ -9,5 +9,5 @@ local params = {
 
 return Def.ActorFrame{
     LoadActor( "../5thK1A" )..{},
-    LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}	
+    LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{}	
 }

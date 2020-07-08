@@ -33,7 +33,7 @@ local params = {
 		File = "/BGAnimations/Resources/5th/Sprites/B 4x3.png",
 		Frame_i = 1,
 		Frame_l = 6,
-		Script = "/BGAnimations/Resources/Scripts/WallBumps.lua"
+		Script = "/BGAnimations/Resources/5th/Scripts/WallBumps.lua"
 
 	}
 

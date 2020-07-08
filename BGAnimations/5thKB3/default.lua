@@ -4,5 +4,5 @@ local params = {
 }
 
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/KB.lua", params )..{}
+	LoadActor( "../Resources/5th/Scripts/KB.lua", params )..{}
 }

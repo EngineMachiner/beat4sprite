@@ -16,6 +16,6 @@ local params = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th027A", tweaks)..{},
-	LoadActor("/BGAnimations/Resources/Scripts/SpiralStaticTrace", params)..{}
+	LoadActor("/BGAnimations/Resources/5th/Scripts/SpiralStaticTrace", params)..{}
 
 }

@@ -12,6 +12,6 @@ local params = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th016A")..{},
-	LoadActor("../Resources/Scripts/Z_Effects/Stairs.lua", params)..{}
+	LoadActor("../Resources/5th/Scripts/Z_Effects/Stairs.lua", params)..{}
 
 }

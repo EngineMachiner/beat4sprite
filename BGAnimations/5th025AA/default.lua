@@ -31,6 +31,6 @@ local params_2 = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/Particles.lua",params_2)..{}
+	LoadActor("../Resources/5th/Scripts/Particles.lua",params_2)..{}
 
 }

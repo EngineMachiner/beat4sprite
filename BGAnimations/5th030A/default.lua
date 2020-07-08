@@ -12,7 +12,7 @@ local tweaks = {
 		Frame_i = 9,
 		Frame_l = 10,
 		Commands = "TwoSprites",
-		Script = "/BGAnimations/Resources/Scripts/LineXY.lua"
+		Script = "/BGAnimations/Resources/5th/Scripts/LineXY.lua"
 	}
 
 }

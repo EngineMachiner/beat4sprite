@@ -37,7 +37,7 @@ local params = {
 
 	}
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{}
 
 	BGA_PostSpawn( t, params, replace )
 
@@ -55,7 +55,7 @@ local params = {
 
 	}
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{}
 
 	BGA_PostSpawn( t, params, replace )
 

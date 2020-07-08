@@ -51,6 +51,6 @@ local params_2 = {}
 	params_2["Color"] = "Rainbow"
 	params_2["Commands"] = { "Pulse", "Fade" }
 
-	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params_2 )..{}
+	t[#t+1] = LoadActor( "/BGAnimations/Resources/5th/Scripts/TileTool.lua", params_2 )..{}
 
 return Def.ActorFrame{ t }

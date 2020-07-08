@@ -27,7 +27,7 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor("../Resources/Scripts/LineXY.lua", params)..{}
+	t[#t+1] = LoadActor("../Resources/5th/Scripts/LineXY.lua", params)..{}
 
 
 return Def.ActorFrame{ t }

@@ -16,12 +16,12 @@ local params_2 = {
 	File = "BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
 	Frame_i = 9,
 	Dir = "Right",
-	Script = "../Resources/Scripts/Particles.lua"
+	Script = "../Resources/5th/Scripts/Particles.lua"
 }
 
 	BGA_ParamsTweaks( params_2, tweaks )
 
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
+	LoadActor( "../Resources/5th/Scripts/TileTool.lua", params )..{},
 	LoadActor( params_2.Script , params_2 )..{}
 }

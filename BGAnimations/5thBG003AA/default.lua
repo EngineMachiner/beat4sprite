@@ -18,5 +18,5 @@ local params = {
     BGA_ParamsTweaks( params, replace )
 
 return Def.ActorFrame{
-    LoadActor("../Resources/Scripts/Split.lua", params )..{}
+    LoadActor("../Resources/5th/Scripts/Split.lua", params )..{}
 }

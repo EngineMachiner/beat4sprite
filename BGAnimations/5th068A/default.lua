@@ -19,7 +19,7 @@ local tweaks = {
 		Frame_i = 11,
 		Frame_l = 11+4,
 		Dir = "Left",
-		Script = "../Resources/Scripts/Particles.lua"
+		Script = "../Resources/5th/Scripts/Particles.lua"
 	}
 
 }

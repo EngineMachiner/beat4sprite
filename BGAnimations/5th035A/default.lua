@@ -51,7 +51,7 @@ local params_3 = {
 
 	BGA_ParamsTweaks( tweaks, replace )
 
-	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/Particles.lua", params_3 )..{}
+	t[#t+1] = LoadActor( "/BGAnimations/Resources/5th/Scripts/Particles.lua", params_3 )..{}
 
 	BGA_PostSpawn( t, params_3, replace )
 
