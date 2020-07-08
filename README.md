@@ -11,7 +11,7 @@
 -- Installation --
 
   1. Clone or download this branch and drop it at your SM root folder.
-  2. Choose the DDR version you want in the branches and clone/download it, copy the BGAnimations folder in your SM root folder then drop the contents of the Original or Double Scaled version in the "/BGAnimations".
+  2. Choose the DDR version you want in the branches and clone/download it, copy the BGAnimations in your BGAnimations folder then drop the contents of the Original or Double Scaled version in the "/BGAnimations".
   
   
   Must check:
