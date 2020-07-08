@@ -34,7 +34,6 @@ local t = Def.ActorFrame{
             function(child)
                 child:visible(false)
                 child:stoptweening()
-                child:stopeffect()
             end )
     end
 
@@ -54,7 +53,6 @@ for i=0,2 do
         end,
 
         NextCommand=function(self)
-        	self:queuecommand("Shade")
             self:x( math.random( - SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 ) )
             self:y( math.random( - SCREEN_HEIGHT * 0.75, SCREEN_HEIGHT * 0.75 ) )
             self:z(Z_values[1]):linear(4):z(Z_values[2]):queuecommand("Next")
@@ -66,19 +64,12 @@ for i=0,2 do
 
     for o=-math.random(0,2),math.random(0,2) do
 
-        k[#k+1] = Def.Sprite{
+        k[#k+1] = Def.ActorFrame{ 
 
-            GainFocusCommand=function(self)
-
-                if params.Flat then 
-                    self:rotationx(90)
+            NextCommand=function(self)
+                if params.Spin then 
+                    self:spin()
                 end
-
-                self:Load(params.File)
-                self:set_tween_uses_effect_delta(true):effectclock('beat')
-
-                BGA_FrameSelector(self, params)
-
                 if type(params.Commands) == "table" then
                     for i = 1,#params.Commands do
                         self:playcommand(params.Commands[i])
@@ -86,37 +77,47 @@ for i=0,2 do
                 elseif type(params.Commands) == "string" then
                     self:playcommand(params.Commands)
                 end
-
-                if params.Spin then
-                    self:spin()
-                end
-
-                if params.RotX then
-                    self:rotationx(90):zoom(self:GetZoom()*ScaleVar*0.25)
-                end
-
-                self:x( SCREEN_CENTER_X+self:GetZoomedWidth()*ScaleVar*o)
-                self:y( SCREEN_CENTER_Y+self:GetZoomedHeight()*ScaleVar*o )
-                self:z( (o+5) * - 100 )
-
             end,
-            TwoSpritesCommand=function(self)
 
-                self:animate(false)
-                self:setstate(i % self:GetNumStates())
+            Def.Sprite{
+
+                GainFocusCommand=function(self)
+
+                    if params.Flat then 
+                        self:rotationx(90)
+                    end
+
+                    self:Load(params.File)
+                    self:set_tween_uses_effect_delta(true):effectclock('beat')
+
+                    BGA_FrameSelector(self, params)
+
+                    self:GetParent():x( SCREEN_CENTER_X+self:GetZoomedWidth()*ScaleVar*o)
+                    self:GetParent():y( SCREEN_CENTER_Y+self:GetZoomedHeight()*ScaleVar*o )
+                    self:GetParent():z( (o+5) * - 100 )
+
+                end,
+                TwoSpritesCommand=function(self)
+
+                    self:animate(false)
+                    self:setstate(i % self:GetNumStates())
                 
-            end,
-            ShadeCommand=function(self)
+                end,
+                ShadeCommand=function(self)
 
-                local c = { 
-                    tostring(math.abs(Z_values[2])*0.001),
-                    tostring(math.abs(Z_values[1])*0.001)
-                }
+                    local c = { 
+                        tostring(math.abs(Z_values[2])*0.001),
+                        tostring(math.abs(Z_values[1])*0.001)
+                    }
 
-                self:diffuse(color(c[1]..","..c[1]..","..c[1]..",1"))
-                    :linear(4)
-                    :diffuse(color(c[2]..","..c[2]..","..c[2]..",1"))       
-            end
+                    self:stoptweening()
+                    self:diffuse(color(c[1]..","..c[1]..","..c[1]..",1"))
+                    self:linear(2)
+                    self:diffuse(color(c[2]..","..c[2]..","..c[2]..",1"))
+
+                end
+
+            }
 
         }
 

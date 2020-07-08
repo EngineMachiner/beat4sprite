@@ -182,8 +182,8 @@ for i=x[1],x[2] do
 							total = total + math.abs(y[1]) + math.abs(y[2])
 							total = 0.5 / total
 							for i=1,#mpg_slow do
-								if string.match( params.File, mpg_slow[i] .. "%d%d%d" ) then 
-									total = total / 4
+								if string.match( params.File, mpg_slow[i] .. "%d%d%d" ) then
+									total = total / 2
 								end
 							end
 							self:rate( total / BPM )

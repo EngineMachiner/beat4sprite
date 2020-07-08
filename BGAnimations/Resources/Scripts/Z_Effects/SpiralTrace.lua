@@ -22,40 +22,37 @@ local t = Def.ActorFrame{
 }
 
 if params.Dir == "Out" then
-	params.Dir = { -1000, 1250 }
+	params.Dir = { -1000, 1000 }
 else
-	params.Dir = { 1000, -1250 }
+	params.Dir = { 1000, -1000 }
 end
 
-for i=0,360*2-360/6,360/6 do -- 2 laps divided in 6 angles each one
+local n = 6
+
+if params.Clockwise then 
+	cw = -1
+else
+	cw = 1
+end
+
+for i=0,360-360/n,360/n do
 	for k=0,180,180 do
-		local angle = k + 360 - i / 6
-		
+
 		t[#t+1] = Def.ActorFrame{
 
 			GainFocusCommand=function(self)
-
-				self:set_tween_uses_effect_delta(false)
+				self:set_tween_uses_effect_delta(true)
 				self:effectclock('beat')
-				self:z(params.Dir[1])
-				self:diffusealpha(0)
-					:sleep(math.rad(i)*0.25*0.5)
-					:diffusealpha(1)
-					:queuecommand("Repeat")
-					
+				BGA_ToolPreview(self)
+				self:xy(SCREEN_CENTER_X, SCREEN_CENTER_Y)
+				self:queuecommand("Spin")
 			end,
 
-			RepeatCommand=function(self)
-
-				if math.abs(self:GetZ()) > 1000 then 
-					self:z(params.Dir[1])
-				end
-
-				self:linear(1):z( self:GetZ() + params.Dir[2] )
-				self:queuecommand("Repeat")
-
+			SpinCommand=function(self)
+				self:linear(4):rotationz( self:GetRotationZ() + 360 )
+				self:queuecommand("Spin")
 			end,
-
+			
 			Def.Sprite{
 			
 				GainFocusCommand=function(self)
@@ -64,41 +61,48 @@ for i=0,360*2-360/6,360/6 do -- 2 laps divided in 6 angles each one
 					self:effectclock('beat')
 					self:Load(params.File)
 					BGA_FrameSelector(self, params)
-
-					if i > 360 - 360 / 6 then 
-						angle = angle - 180
-					end
-
-					self:rotationz(i)
+					self:queuecommand("InitState")
 
 				end,
+				InitStateCommand=function(self)
 
+					local angle = k + 360 + i
+					local dir_x = math.cos(math.rad(angle))
+					local dir_y = math.sin(math.rad(angle)) * cw
+					local val = params.Dir[1] / math.abs(params.Dir[1])
+
+					self:x( self:GetZoomedWidth() * ScaleVar * dir_x )
+					self:y( - self:GetZoomedHeight() * ScaleVar * dir_y )
+					self:z( ( self:GetWidth() * self:GetHeight() * 0.05 * 0.1 - i * 5 - k ) * val + params.Dir[1] * 4 )
+					self:rotationz( ( - i + 180 ) * cw )
+
+					self:queuecommand("Repeat")
+
+				end,
 				RepeatCommand=function(self)
 
-					if params.Rotation then
-						self:rotationz(self:GetRotationZ()+360*2)
+					if self:GetZ() < params.Dir[2] and params.Dir[2] < 0
+					or self:GetZ() > params.Dir[2] and params.Dir[2] > 0 then
+						if params.Rotation then 
+							self:rotationz( ( - i + 180 ) * cw )
+						end
+						self:z( self:GetZ() - params.Dir[2] * 8 * 0.05 * 5 )
+						self:queuecommand("Repeat")
+					else
+						self:linear( 4 * 0.05 * 4 )
+						self:z( self:GetZ() + params.Dir[2] * 8 * 0.05 )
+						if params.Rotation then 
+							self:rotationz( self:GetRotationZ() + 45 * 0.25 * cw )
+						end
+						self:queuecommand("Repeat")
 					end
-
-					if angle >= 360 then 
-						angle = angle - 360
-					elseif angle < 0 then
-						angle = angle + 360
-					end
-
-					local dir_x = math.cos(math.rad(angle))
-					local dir_y = math.sin(math.rad(angle))
-
-					angle = angle + 2.5 * 6
-
-					self:linear(0.4)
-					self:x( SCREEN_CENTER_X + self:GetZoomedWidth()*ScaleVar * 1.5 * dir_x )
-					self:y( SCREEN_CENTER_Y - self:GetZoomedHeight()*ScaleVar * 1.5 * dir_y )
-					self:queuecommand("Repeat")
 
 				end
 
 			}
+
 		}
+
 	end
 end
 

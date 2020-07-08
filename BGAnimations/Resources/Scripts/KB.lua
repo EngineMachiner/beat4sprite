@@ -42,6 +42,7 @@ for x=-2,2 do
 			t[#t+1] = Def.Sprite{
 				GainFocusCommand=function(self)
 					self:set_use_effect_clock_for_texcoords(true)
+					self:effectclock('beat')
 					Settings( self, j )
 					self:x( self:GetX() + h*0.85*x - h*0.25 )
 					self:y( self:GetY() + h*0.5*y )
@@ -53,7 +54,7 @@ for x=-2,2 do
 					)
 					self:rotationx( 180 * ( j % 2 ) )
 					self:customtexturerect(0,0,w*0.0001*6,h*0.0001*6)
-					self:texcoordvelocity( 0, 1 / 8 )
+					self:texcoordvelocity( 0, 1 / 12 )
 					self:addimagecoords( w * random, 0 )
 					self:zoom(self:GetZoom()*0.5)
 				end
@@ -65,6 +66,7 @@ for x=-2,2 do
 			t[#t+1] = Def.Sprite{
 				GainFocusCommand=function(self)
 					self:set_use_effect_clock_for_texcoords(true)
+					self:effectclock('beat')
 					Settings( self, j )
 					self:x( self:GetX() + h*0.85*x + h*0.425 - h*0.25 )
 					self:y( self:GetY() + h*0.5*y - h*0.25 )
@@ -76,7 +78,7 @@ for x=-2,2 do
 					)
 					self:rotationx( 180 * ( j % 2 ) )
 					self:customtexturerect(0,0,w*0.0001*6,h*0.0001*6)
-					self:texcoordvelocity( 0, 1 / 8 )
+					self:texcoordvelocity( 0, 1 / 12 )
 					self:addimagecoords( w * random, 0 )
 					self:zoom(self:GetZoom()*0.5)
 				end

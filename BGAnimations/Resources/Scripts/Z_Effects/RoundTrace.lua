@@ -34,11 +34,13 @@ end
 
 if params.Clockwise then 
 	cw = -1
+	loop = { 360-45, 0, -45 }
 else
 	cw = 1
+	loop = { 0, 360-45, 45 }
 end
 
-for i=0,360-45,45 do
+for i = loop[1], loop[2], loop[3] do
 	num = num + 1
 	t[#t+1] = Def.Sprite{
 			
@@ -49,9 +51,9 @@ for i=0,360-45,45 do
 			self:Load(params.File)
 			BGA_FrameSelector(self, params)
 
-			self:rotationz(i)
+			self:rotationz(i*cw+90)
 				:diffusealpha(0)
-				:sleep(math.rad(i)*0.5)
+				:sleep(math.rad(i+45)*0.5)
 				:queuecommand("Repeat")
 			
 		end,
@@ -64,8 +66,8 @@ for i=0,360-45,45 do
 			local dir_x = math.cos(math.rad(i))
 			local dir_y = math.sin(math.rad(i)) * cw
 
-			self:x( SCREEN_CENTER_X + self:GetZoomedWidth()*ScaleVar * 1.5 * dir_x )
-			self:y( SCREEN_CENTER_Y - self:GetZoomedHeight()*ScaleVar * 1.5 * dir_y )
+			self:x( SCREEN_CENTER_X + self:GetZoomedHeight() * ScaleVar * 1.5 * dir_x )
+			self:y( SCREEN_CENTER_Y - self:GetZoomedHeight() * ScaleVar * 1.5 * dir_y )
 			self:z(params.Dir[1])
 			self:diffusealpha(1)
 			self:linear(num*0.5):z(params.Dir[2]):linear(0.25*0.5):diffusealpha(0)

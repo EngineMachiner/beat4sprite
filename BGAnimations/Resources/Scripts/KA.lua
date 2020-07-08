@@ -10,7 +10,6 @@ local t = Def.ActorFrame{
 			function(child)
 				child:visible(false)
 				child:stoptweening()
-				child:stopeffect()
 			end )
 	end,
 	Def.Quad{
@@ -65,6 +64,7 @@ for j=0,7 do
 		t[#t+1] = Def.Sprite{
 			GainFocusCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
+				self:effectclock('beat')
 				Settings(self, j, i)
 				self:SetCustomPosCoords( 
 					-0.5, h*0.75+13,
@@ -73,7 +73,7 @@ for j=0,7 do
 					-h*0.5, h*0.5
 				)
 				self:customtexturerect(0,0,w*0.0001*6,h*0.0001*6)
-				self:texcoordvelocity( 0, params.Reversed / 4 )
+				self:texcoordvelocity( 0, params.Reversed / 8 )
 				self:addimagecoords( w * random, 0 )
 			end
 		}
@@ -83,6 +83,7 @@ for j=0,7 do
 		t[#t+1] = Def.Sprite{
 			GainFocusCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
+				self:effectclock('beat')
 				Settings(self, j, i)
 				local var = 0.5
 				self:SetCustomPosCoords( 
@@ -92,7 +93,7 @@ for j=0,7 do
 					-h*0.5-h*var, h * 0.75+12.5
 				)
 				self:customtexturerect(w*0.0001*6,0,0,h*0.0001*6)
-				self:texcoordvelocity( 0, params.Reversed / 4 )
+				self:texcoordvelocity( 0, params.Reversed / 8 )
 				self:addimagecoords( w * random, 0 )
 			end
 		}
@@ -100,6 +101,7 @@ for j=0,7 do
 		t[#t+1] = Def.Sprite{
 			GainFocusCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
+				self:effectclock('beat')
 				Settings(self, j, i)
 				local var = 0.5*2
 				self:SetCustomPosCoords( 
@@ -109,7 +111,7 @@ for j=0,7 do
 					-h*0.5-h*var, h * 0.75+12.5*8.38
 				)
 				self:customtexturerect(0,0,w*0.0001*6,h*0.0001*6)
-				self:texcoordvelocity( 0, params.Reversed / 4 )
+				self:texcoordvelocity( 0, params.Reversed / 8 )
 				self:addimagecoords( w * random, 0 )
 			end
 		}
@@ -117,6 +119,7 @@ for j=0,7 do
 		t[#t+1] = Def.Sprite{
 			GainFocusCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
+				self:effectclock('beat')
 				Settings(self, j, i)
 				local var = 0.5*3
 				self:SetCustomPosCoords( 
@@ -126,7 +129,7 @@ for j=0,7 do
 					-h*0.5-h*var, h * 0.75+12.5*16
 				)
 				self:customtexturerect(w*0.0001*6,0,0,h*0.0001*6)
-				self:texcoordvelocity( 0, params.Reversed / 4 )
+				self:texcoordvelocity( 0, params.Reversed / 8 )
 				self:addimagecoords( w * random, 0 )
 			end
 		}
