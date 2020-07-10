@@ -31,7 +31,7 @@ local params_2 = {}
 	params_2[1]["Fade"] = { 1, 0 }
 	params_2[1]["ActorClass"] = "Quad"
 	params_2[1]["Color"] = "Rainbow"
-	params_2[1]["Commands"] = { "Move", "Fade" }
+	params_2[1]["Commands"] = { "Move", "Fade", "Blend" }
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", params_2 )..{}
 

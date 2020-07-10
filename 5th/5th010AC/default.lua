@@ -21,7 +21,7 @@ local params_2 = {}
 	params_2[1]["Fade"] = { 1, 1 }
 	params_2[1]["ActorClass"] = "Quad"
 	params_2[1]["Color"] = "Rainbow"
-	params_2[1]["Commands"] = { "Move", "Fade" }
+	params_2[1]["Commands"] = { "Move", "Fade", "Blend" }
 
 	BGA_ParamsTweaks( params, replace )
 

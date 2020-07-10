@@ -24,7 +24,7 @@ local params_2, params_3 = {}, {}
 
 	DeepCopy( params[1], params_2 )
 	params_2["ActorClass"] = "Quad"
-	params_2["Commands"] = { "Move", "Fade" }
+	params_2["Commands"] = { "Move", "Fade", "Blend" }
 	params_2["Fade"] = { 4, 1 }
 	params_2["Color"] = Color.Red
 

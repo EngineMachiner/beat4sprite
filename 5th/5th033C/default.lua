@@ -26,7 +26,7 @@ local params_2 = {}
 	params_2["Fade"] = { 1, 1 }
 	params_2["ActorClass"] = "Quad"
 	params_2["Color"] = "Rainbow"
-	params_2["Commands"] = "Fade"
+	params_2["Commands"] = { "Fade", "Blend" }
 
 	
 	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params_2 )..{}
