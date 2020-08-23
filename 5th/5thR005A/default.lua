@@ -1,7 +1,7 @@
 
 local params = {
 	Index = 1,
-	File = "/BGAnimations/Resources/Rainbows/D001R.mpg",
+	File = "/BGAnimations/Resources/5th/Videos/D001R.mpg",
 	X_num = 1,
 	Y_num = { -1, 0 },
 	Delay = 4,

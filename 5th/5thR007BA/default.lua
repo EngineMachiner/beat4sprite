@@ -1,6 +1,6 @@
 
 local params = {
-	File = "/BGAnimations/Resources/Rainbows/F002R.mpg",
+	File = "/BGAnimations/Resources/5th/Videos/F002R.mpg",
 	X_num = 1
 }
 
