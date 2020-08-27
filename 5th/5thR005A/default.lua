@@ -7,7 +7,8 @@ local params = {
 	Delay = 4,
 	ResetParams = true,
 	Y_coord = 1,
-	Commands = "Move"
+	Commands = "Move",
+	Rate = 0.5
 }
 
 return Def.ActorFrame{
