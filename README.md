@@ -2,10 +2,10 @@
 
 -- Installation --
 
-  1. Clone/Download this branch and drop it at your SM root folder.
-  2. Close/Download the "Resources" branch.
-  2. Choose the DDR version you want in the "Resources" branch, same for the Original or Double Scaled graphics. 
-  3. Copy the contents of the folder you choosed ("the ones that are XthXXX") in your BGAnimations folder.
+  1. Clone/Download this branch and drop it somewhere.
+  2. Clone/Download the "Resources" branch.
+  2. Choose the game version you want in the "Resources" branch, same for the Original or Double Scaled graphics. 
+  3. Copy the contents of the folder you chose ("the ones that are XthXXX") in your BGAnimations folder.
   4. Copy either Original or Double Scaled contents in the "/BGAnimations".
   5. Copy the videos. Videos are sorted (by game) in the Resources folder.
   
