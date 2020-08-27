@@ -1,8 +1,6 @@
 
 local params = ...
 
-local texture = params.File
-
 local t = Def.ActorFrame{	
 
 	LoseFocusCommand=function(self)
@@ -143,12 +141,6 @@ else
 	k_0 = 0
 end
 
-local mpg_slow = {
-	"Rainbows/B",
-	"Rainbows/D",
-	"Rainbows/E"
-}
-
 for i=x[1],x[2] do
 	for k=y[1],y[2] do
 
@@ -168,28 +160,40 @@ for i=x[1],x[2] do
 						stairs2 = true
 					end
 				elseif params.ActorClass == "Sprite" then
-					self:Load(texture)
+
+					if not params.Texture then
+						self:Load(params.File)
+					else
+						self:SetTexture(params.Texture)
+					end
+
 					if params.FramingXY then
 						stairs2 = true
 						BGA_FramingXY( self, params, i, k, Frames ) --5th033A -> that clothes effect
 					elseif params.FramingY then
 						BGA_FramingY( self, params, i+math.abs(x[1]), k, Frames ) --5th072
 					else
+
 						if string.match( params.File, ".mpg" ) then
 							local BPM = math.floor( GAMESTATE:GetSongBPS() * 60 )
 							if BPM < 200 then BPM = 1 else BPM = math.floor( BPM * 0.01 ) * 0.75 end
 							local total = math.abs(x[2]) + math.abs(x[1]) + 1
 							total = total + math.abs(y[1]) + math.abs(y[2])
 							total = 0.5 / total
-							for i=1,#mpg_slow do
-								if string.match( params.File, mpg_slow[i] .. "%d%d%d" ) then
-									total = total / 2
-								end
+							if params.Rate then
+								total = total * params.Rate
 							end
 							self:rate( total / BPM )
 						end
+
 						BGA_FrameSelector(self, params)
+
+						if params.Zoom then 
+							self:zoom( self:GetZoom() * params.Zoom )
+						end
+
 					end
+
 				end
 
 				vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)
@@ -460,6 +464,11 @@ for i=x[1],x[2] do
 				end
 				
 			end,
+			MirrorYPerRowCommand=function(self)
+				if k % 2 == 0 then
+					self:rotationy(180)
+				end
+			end,
 			SpinYCommand=function(self)
 			 	self:rotationx(0):linear(2):rotationx(90):linear(2):rotationx(0)
 			 	:queuecommand( "SpinY" )
@@ -481,6 +490,14 @@ for i=x[1],x[2] do
 				if params.Speed then
 					self:hurrytweening(params.Speed)
 				end	
+			end,
+			SpinFrameCommand=function(self)
+				if math.abs(i) % 2 == 0 then
+					self:rotationy(180)
+				end
+				if math.abs(k) % 2 == 0 then
+					self:rotationx(180)
+				end
 			end,
 			CrossCommand=function(self)
 				if not params.Cross then params.Cross = x[2] end
@@ -554,7 +571,11 @@ for i=x[1],x[2] do
 				self:diffuse(params.Color)
 			end,
 			BlendCommand=function(self)
-				self:blend("BlendMode_Modulate")
+				if not params.Blend then
+					self:blend("BlendMode_Modulate")
+				else
+					self:blend(params.Blend)
+				end
 			end,
 			FadeCommand=function(self)
 
@@ -566,7 +587,9 @@ for i=x[1],x[2] do
 					if params.Ramp then
 						self:diffuseramp():effectcolor1(params.Color):effectperiod(2)
 					else
-						self:diffuseshift():blend("BlendMode_Modulate"):effectcolor1(params.Color):effectperiod(2)
+						self:diffuseshift()
+						:effectcolor1(params.Color)
+						:effectperiod(2)
 					end
 				elseif params.Color == "Rainbow" then
 					self:rainbow():blend("BlendMode_Modulate")

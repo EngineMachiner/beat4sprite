@@ -38,14 +38,18 @@ function StringTable( tbl )
 		   			end
 
 		   		else
-		   			
-		   			if index == last_i then
-		   				tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. Reload( v )	
-		   			else
-		   				tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. Reload( v ) 
-		   				tbl_s["space"] = string.sub(tbl_s["space"], 1, #tbl_s["space"]-4)
-		   				tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. "},\n"
+
+		   			if not string.match( k, "ctx" )
+		   			and not string.match( k, "__index" ) then
+		   				if index == last_i then
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. Reload( v )	
+		   				else
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. Reload( v ) 
+		   					tbl_s["space"] = string.sub(tbl_s["space"], 1, #tbl_s["space"]-4)
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. "},\n"
+		   				end
 		   			end
+
 		   		end
 
 		   	else
@@ -106,6 +110,12 @@ function BGA_Scale( self )
 
 	local ScaleVar = SCREEN_HEIGHT / 480 -- Theme scale
 	ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetSourceHeight() ) -- Image scale
+
+	--[[ ( 480 / self:GetTexture():GetSourceHeight() ) * 1 / params.Zoom = ScaleVar
+	 		If we use a sprite graphic that is not in the 320x240 scale then we will need
+	 		to use params.Zoom to properly scale it.
+	]]
+
 	self:zoom( ScaleVar )
 
 end
@@ -389,6 +399,7 @@ function BGA_Details( self, params )
 	self:SetTextureFiltering(false)
 
 	if not params.Frames then
+
 		if params.Delay then
 			self:SetAllStateDelays(params.Delay)
 		else
