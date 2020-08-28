@@ -1,9 +1,18 @@
 local count = 0
 local tweaks = ...
 
-local t = Def.ActorFrame{}
+local t = Def.ActorFrame{
+	LoseFocusCommand=function(self)
+		self:RunCommandsOnChildren( 
+			function(child)
+				child:visible(false)
+				child:stoptweening()
+				child:stopeffect()
+			end )
+	end
+}
 
-	params = {
+local params = {
 
 	File = {
 		"/BGAnimations/Resources/5th/Backgrounds/DA.png",

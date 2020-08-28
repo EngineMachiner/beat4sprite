@@ -3,7 +3,6 @@ local t = Def.ActorFrame{}
 
 local tweaks = {
 
-
 	{ 
 		Index = 1,
 		File = "/BGAnimations/Resources/5th/Sprites/DABC 4x4.png",
@@ -49,7 +48,7 @@ local params_3 = {
 
 }
 
-	BGA_ParamsTweaks( tweaks, replace )
+	BGA_ParamsTweaks( params_3, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/5th/Particles.lua", params_3 )..{}
 

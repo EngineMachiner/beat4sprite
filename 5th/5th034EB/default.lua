@@ -20,9 +20,6 @@ local params = {
 
 }
 
-params.AddActors = {} 
-params.AddActors[#params.AddActors+1] = BGA_IQB()
-
 	t[#t+1] = LoadActor( "/BGAnimations/5th034A", params )..{}
 
 local params = {
@@ -32,7 +29,7 @@ local params = {
 	X_num = 4,
 	Y_num = 1,
 	X_coord = -1,
-	Commands = { "Move" }
+	Commands = { "Move", "Rainbow" }
 }
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}

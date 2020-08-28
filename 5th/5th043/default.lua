@@ -5,6 +5,14 @@ local t = Def.ActorFrame{
 
 	GainFocusCommand=function(self)
 		self.Name = "a"
+	end,
+	LoseFocusCommand=function(self)
+		self:RunCommandsOnChildren( 
+			function(child)
+				child:visible(false)
+				child:stoptweening()
+				child:stopeffect()
+			end )
 	end
 
 }
