@@ -196,8 +196,8 @@ for i=x[1],x[2] do
 
 				end
 
-				vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)
-				vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)
+				vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)*params.Spacing[1]
+				vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)*params.Spacing[2]
 
 			 	self:xy( vec_start[1], vec_start[2] )
 				self:effectclock("beat")
@@ -484,8 +484,12 @@ for i=x[1],x[2] do
 				end	
 			end,
 			SpinXYCommand=function(self)
-				self:rotationx(0):linear(1):rotationx(90):linear(1)
-					:rotationx(0):linear(1):rotationy(90):linear(1):rotationy(0)
+				self:rotationx(0)
+				self:rotationy(90):linear(1):rotationy(0):linear(1)
+					:rotationy(90):sleep(0)
+				self:rotationx(90)
+				self:rotationy(0):linear(1):rotationx(0):linear(1)
+					:rotationx(90):sleep(0)
 			 		:queuecommand( "SpinXY" )
 				if params.Speed then
 					self:hurrytweening(params.Speed)
@@ -585,11 +589,11 @@ for i=x[1],x[2] do
 
 				if type(params.Color) == "table" then
 					if params.Ramp then
-						self:diffuseramp():effectcolor1(params.Color):effectperiod(2)
+						self:diffuseramp():effectcolor1(params.Color):effectperiod(params.FDelay)
 					else
 						self:diffuseshift()
 						:effectcolor1(params.Color)
-						:effectperiod(2)
+						:effectperiod(params.FDelay)
 					end
 				elseif params.Color == "Rainbow" then
 					self:rainbow():blend("BlendMode_Modulate")

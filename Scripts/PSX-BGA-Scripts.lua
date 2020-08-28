@@ -287,7 +287,15 @@ function BGA_NoParams( params )
 			params.Frame_l = params.Frame_i
 		else
 			params.Frame_l = Replace(params.Frame_l, -1)
-		end 
+		end
+		if not params.FDelay then 
+			params.FDelay = 2
+		end
+		if not params.Spacing then
+			params.Spacing = { 1, 1 }
+		elseif type(params.Spacing) == "number" then 
+			params.Spacing = { 1 + params.Spacing, 1 + params.Spacing }
+		end
 	end
 	
 end
