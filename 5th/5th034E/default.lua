@@ -1,4 +1,6 @@
 
+local replace = ...
+
 local t = Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		self:RunCommandsOnChildren( 
@@ -23,6 +25,8 @@ local params = {
 params.AddActors = {} 
 params.AddActors[#params.AddActors+1] = BGA_IQB()
 
+	BGA_ParamsTweaks(params,replace)
+
 	t[#t+1] = LoadActor( "/BGAnimations/5th034A", params )..{}
 
 local params = {
@@ -32,6 +36,7 @@ local params = {
 	X_num = 4,
 	Y_num = 1,
 	X_coord = -1,
+	ScrollSpeed = 2,
 	Commands = { "Move" }
 }
 

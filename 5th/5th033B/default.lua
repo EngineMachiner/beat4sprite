@@ -14,6 +14,7 @@ local params = {
 	Y_num = { -3, 4 },
 	X_num = 5,
 	Delay = 0.25,
+	ScrollSpeed = 2,
 	FramingXY = true,
 	Commands = "Move",
 	Y_coord = -1

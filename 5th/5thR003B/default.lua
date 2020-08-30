@@ -2,7 +2,6 @@
 local params = {
 	File = "/BGAnimations/Resources/5th/Videos/B002.mpg",
 	X_num = 1,
-	Speed = 0.25,
 	Rate = 0.5
 }
 

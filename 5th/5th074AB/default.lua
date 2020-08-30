@@ -10,7 +10,7 @@ local params = {
 	X_num = 5,
 	Y_num = 1,
 	X_coord = 1,
-	Speed = 0.5,
+	ScrollSpeed = 0.5,
 }
 
 local t = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}

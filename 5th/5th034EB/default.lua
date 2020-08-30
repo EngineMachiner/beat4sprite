@@ -29,7 +29,8 @@ local params = {
 	X_num = 4,
 	Y_num = 1,
 	X_coord = -1,
-	Commands = { "Move", "Rainbow" }
+	ScrollSpeed = 2,
+	Commands = { "Move" }
 }
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}

@@ -22,6 +22,7 @@ local params = {
 		X_num = 3,
 		Y_num = { -2, 1 },
 		X_coord = -1,
+		Y_coord = -1,
 		Commands = "Move",
 		Delay = 0.125,
 		Speed = 2

@@ -27,6 +27,7 @@ local params = {
 	Y_num = 2,
 	Frame_l = 4,
 	Y_coord = -1,
+	ScrollSpeed = 2,
 	Commands = "Move"
 
 }
