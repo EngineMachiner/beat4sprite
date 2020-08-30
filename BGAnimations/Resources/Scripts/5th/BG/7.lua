@@ -15,6 +15,8 @@ local t = Def.ActorFrame{
 }
 
 	BGA_NoParams( params )
+	
+	if not params.Beat then params.Beat = 1 end
 
 	t[#t+1] = LoadActor( "../../TileTool.lua", params )..{}
 
@@ -42,7 +44,7 @@ for i = 12,0,-1 do
 				self:faderight( 0.0125 * 2 )
 				self:cropleft( i * 0.087 )
 				self:cropright( 1 - ( i + 1.6 ) * 0.087 )
-				self:sleep((-i+12)/8)
+				self:sleep((-i+12)*params.Beat/8)
 				self:queuecommand("Repeat")
 
 			end,
@@ -52,7 +54,7 @@ for i = 12,0,-1 do
 					angle = angle - 360
 				end
 
-				self:smooth(1)
+				self:smooth(params.Beat)
 					:x(SCREEN_CENTER_X - math.round( 30 * math.cos(math.rad(angle))))
 					:y(SCREEN_CENTER_Y - math.round( 30 * math.sin(math.rad(angle))))
 					:queuecommand("Repeat")

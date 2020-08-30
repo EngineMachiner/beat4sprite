@@ -18,6 +18,8 @@ local t = Def.ActorFrame{
 
 	BGA_NoParams( params )
 
+	if not params.Beat then params.Beat = 1 end
+
 	t[#t+1] = LoadActor( "../../TileTool.lua", params )..{}
 
 local length = 35
@@ -50,16 +52,16 @@ for i = 0,9 do
 					if i == 9 then 
 						once = false
 					end
-					self:sleep((-i+9)*0.25*0.5)
-						:smooth(1)
+					self:sleep((-i+9)*0.25*0.5*params.Beat)
+						:smooth(params.Beat)
 						:xy(SCREEN_CENTER_X-length,SCREEN_CENTER_Y-length)
-						:smooth(1)
+						:smooth(params.Beat)
 						:xy(SCREEN_CENTER_X+length,SCREEN_CENTER_Y+length)
 						:queuecommand("Alpha")
 				else
-					self:smooth(1)
+					self:smooth(params.Beat)
 						:xy(SCREEN_CENTER_X-length,SCREEN_CENTER_Y-length)
-						:smooth(1)
+						:smooth(params.Beat)
 						:xy(SCREEN_CENTER_X+length,SCREEN_CENTER_Y+length)
 						:queuecommand("Alpha")
 				end

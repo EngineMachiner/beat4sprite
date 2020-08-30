@@ -16,6 +16,8 @@ local t = Def.ActorFrame{
 }
 
 	BGA_NoParams( params )
+	
+	if not params.Beat then params.Beat = 1 end
 
 	t[#t+1] = LoadActor( "../../TileTool.lua", params )..{}
 
@@ -46,7 +48,7 @@ for i = 1,18 do
 				self:fadebottom( 0.05 )
 
 				self:wag()
-					:effectperiod(2)
+					:effectperiod(2*params.Beat)
 					:effectmagnitude( 8 + 4 * ( i - 1 ), 4 + 2 * ( i - 1 ), 2 + 2 * ( i - 1 ) )
 
 				if i > 2 then

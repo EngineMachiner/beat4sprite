@@ -92,7 +92,7 @@ for k=1,3 do
 						dir[2] = - dir[2]
 					end
 
-					self:linear(0.25):xy( self:GetX() + dir[1] , self:GetY() - dir[2] )
+					self:linear(0.125):xy( self:GetX() + dir[1] , self:GetY() - dir[2] )
 						:queuecommand("Move")
 
 				end

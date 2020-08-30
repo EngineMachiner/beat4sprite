@@ -17,6 +17,8 @@ local t = Def.ActorFrame{
 
 	BGA_NoParams( params )
 
+	if not params.Beat then params.Beat = 1 end
+	
 	t[#t+1] = LoadActor( "../../TileTool.lua", params )..{}
 
 for i = 1,18 do
@@ -43,7 +45,7 @@ for i = 1,18 do
 				self:fadetop( 0.025 )
 				self:fadebottom( 0.025 )
 
-				self:bob():effectperiod(2):effectmagnitude( 8 + 4 * ( i - 1 ), 4 + 2 * ( i - 1 ), 0 )
+				self:bob():effectperiod(2*params.Beat):effectmagnitude( 8 + 4 * ( i - 1 ), 4 + 2 * ( i - 1 ), 0 )
 
 				if i > 2 then
 					local crop_val = 0.03125 * i
