@@ -17,6 +17,8 @@ local t = Def.ActorFrame{
 	
 	t[#t+1] = LoadActor( "../../TileTool.lua", params )..{}
 
+if not params.Beat then params.Beat = 2 end
+
 for i = 3,9 do
 	t[#t+1] = Def.ActorFrame{
 
@@ -42,10 +44,10 @@ for i = 3,9 do
 				self:blend("BlendMode_Normal")
 
 				if i < 2 then
-					self:pulse():effectperiod(2)
+					self:pulse():effectperiod(params.Beat)
 						:effectmagnitude( 1, 1.015625, 0 )
 				else
-					self:pulse():effectperiod(2)
+					self:pulse():effectperiod(params.Beat)
 						:effectmagnitude( 1, 1.03125 + ( 1/32 ) * ( i - 2 ), 0 )
 					self:croptop( (1/32) * i )
 					self:cropbottom( (1/32) * i )

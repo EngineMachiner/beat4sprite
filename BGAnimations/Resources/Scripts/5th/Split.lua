@@ -1,6 +1,3 @@
-
-local ScaleVar = _screen.h/480
-
 local params = ...
 
 local t = Def.ActorFrame{
@@ -89,56 +86,55 @@ end
 	--Split
 
 for i=1,4 do
-	if i ~= 0 then
-		t[#t+1] = Def.ActorFrame{
 
+	t[#t+1] = Def.ActorFrame{
+
+		GainFocusCommand=function(self)
+			self:effectclock("beat")
+			self:set_tween_uses_effect_delta(true)
+			BGA_ToolPreview(self)
+
+			self:sleep( params.Sleep )
+				if i == 1 then
+					c2 = AddNSub(c2)
+				end				
+			self:queuecommand("GainFocus")
+
+		end,
+
+		Def.Sprite{
 			GainFocusCommand=function(self)
 
-				self:effectclock("beat")
-				self:set_tween_uses_effect_delta(true)
-				BGA_ToolPreview(self)
+			 	self:effectclock("beat")
+			 	self:set_tween_uses_effect_delta(true)
+				self:Load(params.File[c2])
+				BGA_Details( self, params )
 
-				self:sleep( params.Sleep )
-					if i == 1 then
-						c2 = AddNSub(c2)
-					end				
-				self:queuecommand("GainFocus")
+				self:Center()
+				self:croptop(crops[i][1])
+				self:cropbottom(crops[i][2])
+				self:cropleft(crops[i][3])
+				self:cropright(crops[i][4])
+
+				self:playcommand("Split")
 
 			end,
-
-			Def.Sprite{
-				GainFocusCommand=function(self)
-
-					self:finishtweening()
-			 		self:effectclock("beat")
-			 		self:set_tween_uses_effect_delta(true)
-					self:Load(params.File[c2])
-					BGA_Details( self, params )
-
-					self:Center()
-					self:croptop(crops[i][1])
-					self:cropbottom(crops[i][2])
-					self:cropleft(crops[i][3])
-					self:cropright(crops[i][4])
-
-					self:queuecommand("Split")
-
-				end,
-				SplitCommand=function(self)
-					if not params.Dir then
-						self:Center():linear(4)
-							:x( self:GetX() + self:GetZoomedWidth() * 0.5 * crops[i][5] )
-							:y( self:GetY() + self:GetZoomedHeight() * 0.5 * crops[i][6] )
-					else
-						self:x( self:GetX() + self:GetZoomedWidth() * 0.5 * crops[i][5] )
-							:y( self:GetY() + self:GetZoomedHeight() * 0.5 * crops[i][6] )
-							:linear(4):Center()						
-					end
+			SplitCommand=function(self)
+				self:finishtweening()
+				if not params.Dir then
+					self:Center():linear(4)
+						:x( self:GetX() + self:GetZoomedWidth() * 0.5 * crops[i][5] )
+						:y( self:GetY() + self:GetZoomedHeight() * 0.5 * crops[i][6] )
+				else
+					self:x( self:GetX() + self:GetZoomedWidth() * 0.5 * crops[i][5] )
+						:y( self:GetY() + self:GetZoomedHeight() * 0.5 * crops[i][6] )
+						:linear(4):Center()						
 				end
-			}
-
+			end
 		}
-	end
+
+	}
+
 end
 
 for i =-1,1 do

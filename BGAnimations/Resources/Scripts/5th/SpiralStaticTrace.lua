@@ -89,7 +89,8 @@ for i = 1,16 do
 			elseif type(params.Commands) == "string" then
 			 	self:playcommand(params.Commands)
 			end
-
+			
+			self:zoom(0)
 			self:sleep( (i-1) * 0.25 ):queuecommand("Repeat")
 
 			if params.Speed then 
@@ -102,9 +103,9 @@ for i = 1,16 do
 			self:setstate(i % self:GetNumStates())
 		end,
 		RepeatCommand=function(self)
-			self:linear(0.25):zoom(0)
+			self:linear(0.25):zoom(zoom)
 			:sleep(4-0.25)
-			:linear(0.25):zoom(zoom)
+			:linear(0.25):zoom(0)
 			:sleep(4-0.25)
 			:queuecommand("Repeat")
 		end

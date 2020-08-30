@@ -28,10 +28,6 @@ if type(params.File) == "string" then
 	end
 end
 
-if not params.ActorClass then 
-	params.ActorClass = "Sprite"
-end
-
 if params.X_num then
 	if type(params.X_num) == "table" then 
 		for i=1,#params.X_num do
@@ -55,10 +51,30 @@ end
 local X_pos = params.X_pos
 local Y_pos = params.Y_pos
 
+--In case something is missing
+
 BGA_NoParams( params )
 
-if not params.X_coord then params.X_coord = 0 end
-if not params.Y_coord then params.Y_coord = 0 end
+if not params.X_coord then 
+	params.X_coord = 0 
+end
+
+if not params.Y_coord then 
+	params.Y_coord = 0 
+end
+
+if not params.ActorClass then 
+	params.ActorClass = "Sprite"
+end
+
+if not params.ScrollSpeed then 
+	params.ScrollSpeed = 1
+end
+
+if not params.Speed then 
+	params.Speed = 1
+end
+
 
 local function StateMath( x, y, self, state )
 
@@ -327,7 +343,7 @@ for i=x[1],x[2] do
 			 		else
 
 						self:xy( vec_start[1], vec_start[2] )
-							:linear(2)
+							:linear( 2 * params.ScrollSpeed )
 							:xy( vec_end[1], vec_end[2] )
 							:queuecommand("Move")
 
@@ -369,13 +385,9 @@ for i=x[1],x[2] do
 			 		end
 
 					self:xy( vec_start[1], vec_start[2] )
-						:linear( 4 * ( params.NumTextures + 1 ) )
+						:linear( 4 * ( params.NumTextures + 1 ) * params.ScrollSpeed )
 						:xy( vec_end[1], vec_end[2] )
-						:queuecommand("Move")
-
-					if params.Speed then
-						self:hurrytweening( params.Speed )
-					end					
+						:queuecommand("Move")				
 
 				end
 
@@ -531,7 +543,7 @@ for i=x[1],x[2] do
 			end,
 			RandomStatesCommand=function(self)
 				if self:GetNumStates() > 1 then
-					self:setstate(1/math.random(1,self:GetNumStates()))
+					self:setstate(math.random(1,self:GetNumStates())-1)
 				end 
 			end,
 			RandomDelaysCommand=function(self)

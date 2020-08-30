@@ -52,7 +52,10 @@ for i=0,4 do
                 GainFocusCommand=function(self)
                     self:Load(params.File)
                     BGA_FrameSelector(self, params)
-                    self:xy( SCREEN_LEFT+self:GetZoomedWidth()*i*1.75, SCREEN_BOTTOM )
+                    self:xy( SCREEN_CENTER_X+self:GetZoomedWidth()*(i-2)*1.5, SCREEN_BOTTOM )
+                    if self:GetNumStates() > 1 then 
+                        self:setstate(math.random(0,self:GetNumStates()-1))
+                    end
                     self:set_tween_uses_effect_delta(true):effectclock('beat')
                 end,
                 ShadeCommand=function(self)
