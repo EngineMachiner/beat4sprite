@@ -9,6 +9,7 @@ local params = {
 	Commands = "Move",
 	X_coord = -1,
 	Y_coord = -1,
+	ScrollSpeed = 2,
 	Delay = 0.25
 
 }

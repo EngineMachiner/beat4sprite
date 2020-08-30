@@ -9,6 +9,7 @@ local params = {
 		Frame_i = 13,
 		Commands = "Move",
 		Y_coord = -1,
+		ScrollSpeed = 2,
 		ResetParams = true
 	},
 

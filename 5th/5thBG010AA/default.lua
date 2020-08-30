@@ -6,6 +6,7 @@ local params = {
 		File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
 		X_num = 1,
 		Commands = "Mirror",
+		Beat = 0.5,
 		BGMirror = true
 	}
 

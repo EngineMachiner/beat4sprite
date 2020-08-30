@@ -1,0 +1,1 @@
+return LoadActor( "../5thBG000B", { Index = 1, X_coord = 1, ScrollSpeed = 0.5 } )..{}

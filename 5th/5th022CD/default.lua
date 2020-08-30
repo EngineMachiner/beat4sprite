@@ -6,6 +6,7 @@ local params = {
 	Y_coord = -1,
 	Y_pos = 0,
 	Y_num = 2,
+	ScrollSpeed = 2,
 	Commands = { "Move" }
 
 }
