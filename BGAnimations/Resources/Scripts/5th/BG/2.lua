@@ -1,6 +1,8 @@
+
 local params = ...
+
 local ScaleVar = _screen.h/480
-local once = true
+local count = 0
 
 
 local t = Def.ActorFrame{
@@ -30,7 +32,6 @@ for i = 0,9 do
 		GainFocusCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			BGA_PlayAllCommands(self, params)
 		end,
 
 		Def.Sprite{
@@ -48,23 +49,19 @@ for i = 0,9 do
 				self:playcommand("Alpha")
 			end,
 			AlphaCommand=function(self)
-				if once then
-					if i == 9 then 
-						once = false
-					end
-					self:sleep((-i+9)*0.25*0.5*params.Beat)
-						:smooth(params.Beat)
-						:xy(SCREEN_CENTER_X-length,SCREEN_CENTER_Y-length)
-						:smooth(params.Beat)
-						:xy(SCREEN_CENTER_X+length,SCREEN_CENTER_Y+length)
-						:queuecommand("Alpha")
-				else
-					self:smooth(params.Beat)
-						:xy(SCREEN_CENTER_X-length,SCREEN_CENTER_Y-length)
-						:smooth(params.Beat)
-						:xy(SCREEN_CENTER_X+length,SCREEN_CENTER_Y+length)
-						:queuecommand("Alpha")
-				end
+				self:sleep((-i+9)*0.25*0.5*params.Beat)
+					:smooth(params.Beat)
+					:xy(SCREEN_CENTER_X-length,SCREEN_CENTER_Y-length)
+					:smooth(params.Beat)
+					:xy(SCREEN_CENTER_X+length,SCREEN_CENTER_Y+length)
+					:queuecommand("Move")
+			end,
+			MoveCommand=function(self)
+				self:smooth(params.Beat)
+					:xy(SCREEN_CENTER_X-length,SCREEN_CENTER_Y-length)
+					:smooth(params.Beat)
+					:xy(SCREEN_CENTER_X+length,SCREEN_CENTER_Y+length)
+					:queuecommand("Move")
 			end
 		},
 

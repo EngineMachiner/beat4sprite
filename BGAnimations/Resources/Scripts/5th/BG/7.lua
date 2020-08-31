@@ -44,6 +44,8 @@ for i = 12,0,-1 do
 				self:faderight( 0.0125 * 2 )
 				self:cropleft( i * 0.087 )
 				self:cropright( 1 - ( i + 1.6 ) * 0.087 )
+				self:x(SCREEN_CENTER_X - math.round( 30 * math.cos(math.rad(angle))))
+				self:y(SCREEN_CENTER_Y - math.round( 30 * math.sin(math.rad(angle))))
 				self:sleep((-i+12)*params.Beat/8)
 				self:queuecommand("Repeat")
 

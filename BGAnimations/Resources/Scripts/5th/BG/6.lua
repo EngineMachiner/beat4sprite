@@ -20,7 +20,7 @@ local t = Def.ActorFrame{
 
 	t[#t+1] = LoadActor( "../../TileTool.lua", params )..{}
 
-local angle = 0
+local angle, hurry = 0
 for i = 9,0,-1 do
 	t[#t+1] = Def.ActorFrame{
 
@@ -44,6 +44,8 @@ for i = 9,0,-1 do
 				self:diffusealpha(0.875)
 				self:croptop( i * 0.1 )
 				self:cropbottom( 1 - ( i + 1.5 ) * 0.1 )
+				self:x(SCREEN_CENTER_X - math.round( 30 * math.cos(math.rad(angle))))
+				self:y(SCREEN_CENTER_Y - math.round( 30 * math.sin(math.rad(angle))))
 				self:sleep((-i+9)*params.Beat/8)
 				self:queuecommand("Repeat")
 
