@@ -29,7 +29,7 @@ return Def.ActorFrame{
 		BGMirror = true,
 		Commands = { "Fade", "Mirror" },
 		Ramp = true,
-		Color = Color.Black
+		Color = color("#808080")
 	}  )..{},
 
 	LoadActor( "../Resources/Scripts/5th/Particles.lua", params )..{}

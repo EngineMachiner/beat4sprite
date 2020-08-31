@@ -8,9 +8,10 @@ local params = {
 
 	Index = 1,
 	File = "/BGAnimations/Resources/5th/Sprites/HSV/D 5x4.png",
-	Y_num = { -1, -1 },
-	X_num = { -2, 1 },
-	Spacing = { 1.25, 1.375 },
+	X_num = { -1, 0 },
+	Y_num = { -1, 1 },
+	Spacing = { 1.25*2, 1.375 },
+	X_pos = -0.625,
 	Frame_i = 6,
 	Frame_l = 10,		
 	Delay = 0.25
@@ -18,22 +19,27 @@ local params = {
 }
 	
 	DeepCopy(params, p2)
-	DeepCopy(params, p3)
 
 	BGA_TileTool( t, params )
 
-	p2["Y_num"] = 0
+	p2["X_pos"] = -0.625
+	p2["X_num"] = 0
 	p2["Frame_i"] = 11
 	p2["Frame_l"] = 15
 	BGA_TileTool( t, p2 )
 
-
-	p3["Y_num"] = { 1, 1 }
+	DeepCopy(p2, p3)
+	p3["Frame_i"] = 15
+	p3["Frame_l"] = 11
+	p3["X_pos"] = 0.625*3
 	BGA_TileTool( t, p3 )
 
 local params_2 = {}
 
 	DeepCopy(params, params_2)
+	params_2["Spacing"] = { 1.25, 1.375 }
+	params_2["X_pos"] = 0
+	params_2["X_num"] = { -2, 1 }
 	params_2["Y_num"] = 1
 	params_2["Fade"] = { 1, 1 }
 	params_2["ActorClass"] = "Quad"
