@@ -2,7 +2,7 @@
 local tweaks = {
 
 	Index = 3,
-	Commands = "SpinX"
+	Commands = { "SpinX", "RandomDelays" }
 	
 }
 

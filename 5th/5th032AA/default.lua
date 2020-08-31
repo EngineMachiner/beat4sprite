@@ -17,6 +17,7 @@ local params_2 = {
 	X_num = { -4, 3 },
 	Y_num = { -2, 1 },
 	Delay = 2,
+	SpinClosed = true,
 	Commands = { "SpinXY" }
 
 }
