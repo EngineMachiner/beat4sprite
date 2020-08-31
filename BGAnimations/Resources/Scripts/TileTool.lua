@@ -483,29 +483,33 @@ for i=x[1],x[2] do
 			end,
 			SpinYCommand=function(self)
 			 	self:rotationx(0):linear(2):rotationx(90):linear(2):rotationx(0)
-			 	:queuecommand( "SpinY" )
-				if params.Speed then
-					self:hurrytweening(params.Speed)
-				end
+			 	self:queuecommand( "SpinY" )
+				self:hurrytweening(params.Speed)
 			end,
 			SpinXCommand=function(self)
 			 	self:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0)
-			 	:queuecommand( "SpinX" )
-				if params.Speed then
-					self:hurrytweening(params.Speed)
-				end	
+			 	self:queuecommand( "SpinX" )
+				self:hurrytweening(params.Speed)
 			end,
 			SpinXYCommand=function(self)
+
+				local val
+
+				if params.SpinClosed then
+					val = { 90, 0 }
+				else
+					val = { 0, 90 }
+				end
+
 				self:rotationx(0)
-				self:rotationy(90):linear(1):rotationy(0):linear(1)
-					:rotationy(90):sleep(0)
-				self:rotationx(90)
-				self:rotationy(0):linear(1):rotationx(0):linear(1)
-					:rotationx(90):sleep(0)
-			 		:queuecommand( "SpinXY" )
-				if params.Speed then
-					self:hurrytweening(params.Speed)
-				end	
+				self:rotationy(val[1]):linear(1):rotationy(val[2]):linear(1)
+					:rotationy(val[1]):sleep(0)
+				self:rotationx(val[1])
+				self:rotationy(0):linear(1):rotationx(val[2]):linear(1)
+					:rotationx(val[1]):sleep(0)
+					:queuecommand( "SpinXY" )
+					:hurrytweening(params.Speed)
+
 			end,
 			SpinFrameCommand=function(self)
 				if math.abs(i) % 2 == 0 then
