@@ -49,13 +49,13 @@ for i=1,13 do
 				self:sleep( math.random(i*100,(i+1)*100) * 0.01 ):diffusealpha(1)
 				self:x( SCREEN_RIGHT - SCREEN_RIGHT * ( i % 2 ) - self:GetZoomedWidth() * v )
 				self:y( SCREEN_TOP + self:GetZoomedHeight() * ( i - 1 ) )
-				self:linear( SCREEN_WIDTH / 160 )
+				self:linear( SCREEN_WIDTH / self:GetZoomedWidth() )
 				self:x( SCREEN_RIGHT - SCREEN_RIGHT * ( ( i + 1 ) % 2 ) + self:GetZoomedWidth() * v )
 			else
 				self:sleep( math.random((i-5)*100,((i-5)+1)*100) * 0.01 ):diffusealpha(1)
 				self:y( SCREEN_BOTTOM - SCREEN_BOTTOM * ( i % 2 ) - self:GetZoomedHeight() * v )
 				self:x( SCREEN_CENTER_X + self:GetZoomedWidth() * ( - i + 9 )  )
-				self:linear( SCREEN_HEIGHT / 120 )
+				self:linear( SCREEN_HEIGHT / self:GetZoomedHeight() )
 				self:y( SCREEN_BOTTOM - SCREEN_BOTTOM * ( ( i + 1 ) % 2 ) + self:GetZoomedHeight() * v )
 			end
 
