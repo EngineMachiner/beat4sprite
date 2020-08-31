@@ -552,7 +552,7 @@ for i=x[1],x[2] do
 			end,
 			RandomDelaysCommand=function(self)
 				if self:GetNumStates() > 1 then
-					local val = math.random(self:GetNumStates()*0.5*100,self:GetNumStates()*2*100) * 0.01
+					local val = math.random(self:GetNumStates()*100,self:GetNumStates()*2*100) * 0.01
 					self:SetAllStateDelays(1/val)
 				end
 			end,
