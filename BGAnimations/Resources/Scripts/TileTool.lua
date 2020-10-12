@@ -129,6 +129,7 @@ local function Find(self, filter) -- filter is the texture path/dir
 					local tex = v:GetTexture()
 					if tex:GetPath() == filter then
 						storage[#storage+1] = v
+					break
 					end
 
 				end
@@ -170,7 +171,10 @@ for i=x[1],x[2] do
 			GainFocusCommand=function(self)
 
 				if params.ActorClass == "Quad" then
-					search_sprt = Find(self, params.File)[1]
+					if not self:GetParent().Results then
+						self:GetParent().Results = Find(self, params.File)
+					end
+					search_sprt = self:GetParent().Results[1]
 					self:SetSize( search_sprt:GetZoomedWidth(), search_sprt:GetZoomedHeight() )
 					if params.FramingXY then
 						stairs2 = true
