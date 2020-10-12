@@ -52,6 +52,10 @@ for k=1,3 do
 			local dir
 			t[#t+1] = Def.Sprite{
 				GainFocusCommand=function(self)
+
+					self:stoptweening()
+					self:stopeffect()
+
 					dir = UnitVec()
 					count = count + 0.1
 					self:Load(params.File)

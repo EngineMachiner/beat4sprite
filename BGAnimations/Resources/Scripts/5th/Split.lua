@@ -68,6 +68,9 @@ end
 	t[#t+1] = Def.Sprite{
 		GainFocusCommand=function(self)
 
+			self:stoptweening()
+			self:stopeffect()
+
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
 
@@ -90,6 +93,10 @@ for i=1,4 do
 	t[#t+1] = Def.ActorFrame{
 
 		GainFocusCommand=function(self)
+
+			self:stoptweening()
+			self:stopeffect()
+
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
 			BGA_ToolPreview(self)
@@ -104,6 +111,9 @@ for i=1,4 do
 
 		Def.Sprite{
 			GainFocusCommand=function(self)
+
+				self:stoptweening()
+				self:stopeffect()
 
 			 	self:effectclock("beat")
 			 	self:set_tween_uses_effect_delta(true)

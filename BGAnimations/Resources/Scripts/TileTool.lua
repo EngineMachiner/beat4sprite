@@ -170,6 +170,9 @@ for i=x[1],x[2] do
 		t[#t+1] = Def[params.ActorClass]{
 			GainFocusCommand=function(self)
 
+				self:stoptweening()
+				self:stopeffect()
+
 				if params.ActorClass == "Quad" then
 					if not self:GetParent().Results then
 						self:GetParent().Results = Find(self, params.File)
