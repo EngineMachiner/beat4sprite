@@ -32,6 +32,7 @@ BGA_NoParams( params )
 
 local w, h
 local ang = 360/6
+local ratio = SCREEN_HEIGHT/480
 
 local function Settings( self, j, i )
 
@@ -43,8 +44,10 @@ local function Settings( self, j, i )
 		w, h = self:GetZoomedWidth(), self:GetZoomedHeight()
 	end
 	
+	
 	self:SetSize(h,h)
 	self:rotationz(ang*j)
+	self:zoom( self:GetZoom() * ratio )
 
 	if i == 2 then
 		self:rotationx(180)
