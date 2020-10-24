@@ -3,27 +3,23 @@ local params = ...
 
 local ScaleVar = _screen.h/480
 
-local t = Def.ActorFrame{	
-
+local t = Def.ActorFrame{
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
-
 }
 
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local function UnitVec()
 
 	local val_x, val_y, norm
 
-	while not val_x and not val_y 
-		or norm == 0 do
+	if not val_x and not val_y 
+		or norm == 0 then
 		val_x = math.random(-1000,1000) * 0.001
 		val_y = math.random(-1000,1000) * 0.001
 		norm = math.sqrt( (val_x)^2 + (val_y)^2 )
@@ -51,27 +47,21 @@ for k=1,3 do
 		if k < 3 or i < 2 and k == 3 then
 			local dir
 			t[#t+1] = Def.Sprite{
+				LoseFocusCommand=function(self)
+					count = -0.1
+				end,
 				GainFocusCommand=function(self)
-
-					self:stoptweening()
-					self:stopeffect()
 
 					dir = UnitVec()
 					count = count + 0.1
 					self:Load(params.File)
-					BGA_FrameSelector(self, params)
+					PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 
 					if self:GetNumStates() > 1 then 
 						self:setstate(math.random(0,self:GetNumStates()-1))
 					end
 
-			 		if type(params.Commands) == "table" then
-			 			for i = 1,#params.Commands do
-			 				self:playcommand(params.Commands[i])
-			 			end
-			 		elseif type(params.Commands) == "string" then
-			 			self:playcommand(params.Commands)
-			 		end
+					PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
 
 			 		self:effectclock("beat")
 			 		self:set_tween_uses_effect_delta(true)

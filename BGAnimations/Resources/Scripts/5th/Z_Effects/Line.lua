@@ -2,23 +2,21 @@ local params = ...
 
 local t = Def.ActorFrame{
 
-    GainFocusCommand=function(self)
+    OnCommand=function(self)
         self:zbuffer(true)
         self:SortByDrawOrder()
         self:fov(120)
     end,
+    GainFocusCommand=function(self)
+        PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+    end,
     LoseFocusCommand=function(self)
-        self:RunCommandsOnChildren( 
-            function(child)
-                child:visible(false)
-                child:stoptweening()
-                child:stopeffect()
-            end )
+        PSX_BGA_Globals["BGA_ChildrenStop"]( self )
     end
 
 }
 
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local Z_values
 
@@ -32,7 +30,7 @@ for i=0,4 do
     for k=0,1 do
         t[#t+1] = Def.ActorFrame{
 
-            GainFocusCommand=function(self)
+            OnCommand=function(self)
                 self:set_tween_uses_effect_delta(true):effectclock('beat')
                 self:diffusealpha(0):sleep(k*2)
                 self:queuecommand("Depth")
@@ -49,9 +47,9 @@ for i=0,4 do
             end,
 
             Def.Sprite{
-                GainFocusCommand=function(self)
+                OnCommand=function(self)
                     self:Load(params.File)
-                    BGA_FrameSelector(self, params)
+                    PSX_BGA_Globals["BGA_FrameSelector"](self, params)
                     self:xy( SCREEN_CENTER_X+self:GetZoomedWidth()*(i-2)*1.5, SCREEN_BOTTOM )
                     if self:GetNumStates() > 1 then 
                         self:setstate(math.random(0,self:GetNumStates()-1))

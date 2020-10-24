@@ -1,31 +1,28 @@
 local params  =  ...
 
 local sprite = params.File
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local t = Def.ActorFrame{
-
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
 }
 
 for i=1,13 do 
 
 	t[#t+1] = Def.Sprite{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 
 			self:Load(sprite)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock("beat")
 			self:queuecommand("Repeat")
-			BGA_FrameSelector(self, params)
-			BGA_PlayAllCommands(self, params)
+			PSX_BGA_Globals["BGA_FrameSelector"](self, params)
+			PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
 
 		end,
 		TwoSpritesCommand=function(self)

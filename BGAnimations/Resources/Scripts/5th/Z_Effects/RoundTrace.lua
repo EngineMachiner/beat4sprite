@@ -1,26 +1,22 @@
 local params = ...
 local ScaleVar = _screen.h/480
 
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local num = -2
 
 local t = Def.ActorFrame{
-
-	GainFocusCommand=function(self)
+	OnCommand=function(self)
 		self:zbuffer(true)
 		self:SortByDrawOrder()
    		self:fov(120)
 	end,
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
-
 }
 
 
@@ -44,12 +40,12 @@ for i = loop[1], loop[2], loop[3] do
 	num = num + 1
 	t[#t+1] = Def.Sprite{
 			
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')
 			self:Load(params.File)
-			BGA_FrameSelector(self, params)
+			PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 
 			self:rotationz(i*cw+90)
 				:diffusealpha(0)

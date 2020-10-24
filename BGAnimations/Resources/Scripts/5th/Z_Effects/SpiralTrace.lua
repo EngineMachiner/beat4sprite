@@ -1,24 +1,20 @@
 local params = ...
 local ScaleVar = _screen.h/480
 
-	BGA_NoParams( params )
+	PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local t = Def.ActorFrame{
-
-	GainFocusCommand=function(self)
+	OnCommand=function(self)
 		self:zbuffer(true)
 		self:SortByDrawOrder()
    		self:fov(120)
 	end,
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
-
 }
 
 if params.Dir == "Out" then
@@ -40,12 +36,13 @@ for i=0,360-360/n,360/n do
 
 		t[#t+1] = Def.ActorFrame{
 
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
+				self:diffusealpha(0)
 				self:set_tween_uses_effect_delta(true)
 				self:effectclock('beat')
-				BGA_ToolPreview(self)
+				PSX_BGA_Globals["BGA_ToolPreview"](self)
 				self:xy(SCREEN_CENTER_X, SCREEN_CENTER_Y)
-				self:queuecommand("Spin")
+				self:queuecommand("Spin"):diffusealpha(1)
 			end,
 
 			SpinCommand=function(self)
@@ -55,12 +52,12 @@ for i=0,360-360/n,360/n do
 			
 			Def.Sprite{
 			
-				GainFocusCommand=function(self)
+				OnCommand=function(self)
 
 					self:set_tween_uses_effect_delta(true)
 					self:effectclock('beat')
 					self:Load(params.File)
-					BGA_FrameSelector(self, params)
+					PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 					self:queuecommand("InitState")
 
 				end,

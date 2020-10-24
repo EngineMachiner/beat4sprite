@@ -1,17 +1,14 @@
 
 local params = ...
 local ScaleVar = _screen.h/480
+
 local t = Def.ActorFrame{
-
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
-
 }
 
 
@@ -40,7 +37,7 @@ for x=-2,2 do
 	for y=-1,1 do
 		for j=0,5 do
 			t[#t+1] = Def.Sprite{
-				GainFocusCommand=function(self)
+				OnCommand=function(self)
 					self:set_use_effect_clock_for_texcoords(true)
 					self:effectclock('beat')
 					Settings( self, j )
@@ -64,7 +61,7 @@ for x=-2,2 do
 	for y=-1,2 do
 		for j=0,5 do
 			t[#t+1] = Def.Sprite{
-				GainFocusCommand=function(self)
+				OnCommand=function(self)
 					self:set_use_effect_clock_for_texcoords(true)
 					self:effectclock('beat')
 					Settings( self, j )

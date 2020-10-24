@@ -1,17 +1,13 @@
 
 local params = ...
 
-local t = Def.ActorFrame{	
-
+local t = Def.ActorFrame{
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
-
 }
 
 local x = { 0, 0 }
@@ -53,7 +49,7 @@ local Y_pos = params.Y_pos
 
 --In case something is missing
 
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 if not params.X_coord then 
 	params.X_coord = 0 
@@ -168,11 +164,8 @@ for i=x[1],x[2] do
 		local stairs, stairs2, search_sprt, tween_lock
 		
 		t[#t+1] = Def[params.ActorClass]{
-			GainFocusCommand=function(self)
-
-				self:stoptweening()
-				self:stopeffect()
-
+			OnCommand=function(self)
+			
 				if params.ActorClass == "Quad" then
 					if not self:GetParent().Results then
 						self:GetParent().Results = Find(self, params.File)
@@ -182,6 +175,7 @@ for i=x[1],x[2] do
 					if params.FramingXY then
 						stairs2 = true
 					end
+					self:diffuse(Color.Black)
 				elseif params.ActorClass == "Sprite" then
 
 					if not params.Texture then
@@ -192,24 +186,32 @@ for i=x[1],x[2] do
 
 					if params.FramingXY then
 						stairs2 = true
-						BGA_FramingXY( self, params, i, k, Frames ) --5th033A -> that clothes effect
+						PSX_BGA_Globals["BGA_FramingXY"]( self, params, i, k, Frames ) --5th033A -> that clothes effect
 					elseif params.FramingY then
-						BGA_FramingY( self, params, i+math.abs(x[1]), k, Frames ) --5th072
+						PSX_BGA_Globals["BGA_FramingY"]( self, params, i+math.abs(x[1]), k, Frames ) --5th072
 					else
 
 						if string.match( params.File, ".mpg" ) then
-							local BPM = math.floor( GAMESTATE:GetSongBPS() * 60 )
-							if BPM < 200 then BPM = 1 else BPM = math.floor( BPM * 0.01 ) * 0.75 end
+
 							local total = math.abs(x[2]) + math.abs(x[1]) + 1
 							total = total + math.abs(y[1]) + math.abs(y[2])
 							total = 0.5 / total
+
 							if params.Rate then
 								total = total * params.Rate
 							end
-							self:rate( total / BPM )
+
+							local a = math.floor( GAMESTATE:GetSongBPS() * 60 / 100 )
+							if a <= 1 then
+								a = 1
+							else
+								a = 1 + GAMESTATE:GetSongBPS() * 60 / 1000
+							end
+
+							self:rate( total / a )
 						end
 
-						BGA_FrameSelector(self, params)
+						PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 
 						if params.Zoom then 
 							self:zoom( self:GetZoom() * params.Zoom )
@@ -226,23 +228,6 @@ for i=x[1],x[2] do
 				self:effectclock("beat")
 			 	self:set_tween_uses_effect_delta(true)
 
-			 	local Move
-			 	if type(params.Commands) == "table" then
-			 		for i = 1,#params.Commands do
-			 			if params.Commands[i] ~= "Move" then
-			 				self:playcommand(params.Commands[i])
-			 			else
-			 				Move = true
-			 			end
-			 		end
-			 	elseif type(params.Commands) == "string" then
-			 		if params.Commands ~= "Move" then
-			 			self:playcommand(params.Commands)
-			 		else
-			 			Move = true
-			 		end
-			 	end
-
 			 	if X_pos then
 			 		self:x(self:GetX()+X_pos*self:GetZoomedWidth())
 			 	end
@@ -257,9 +242,7 @@ for i=x[1],x[2] do
 			 	vec_end[1] = vec_start[1]
 				vec_end[2] = vec_start[2]
 
-				if Move then 
-					self:playcommand("Move")
-				end
+				PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
 
 			end,
 			MoveCommand=function(self)
@@ -357,7 +340,6 @@ for i=x[1],x[2] do
 					end
 
 					if params.Delay then
-
 						if params.ActorClass ~= "Quad" then
 							if self:GetNumStates() > 1 then
 								self:hurrytweening( params.Delay * ( self:GetNumStates() - 1 ) * 4 )

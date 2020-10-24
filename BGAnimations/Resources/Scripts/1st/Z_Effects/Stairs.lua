@@ -21,20 +21,19 @@ if params.Flat then
     end
 end
 
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local t = Def.ActorFrame{
 
-    GainFocusCommand=function(self)
+    OnCommand=function(self)
         self:fov(params.fov)
         self:zbuffer(true)
     end,
+    GainFocusCommand=function(self)
+        PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+    end,
     LoseFocusCommand=function(self)
-        self:RunCommandsOnChildren( 
-            function(child)
-                child:visible(false)
-                child:stoptweening()
-            end )
+        PSX_BGA_Globals["BGA_ChildrenStop"]( self )
     end
 
 }
@@ -47,7 +46,7 @@ for i=0,4 + params.Add do
 
     t[#t+1] = Def.ActorFrame{
 
-        GainFocusCommand=function(self)
+        OnCommand=function(self)
 
             self:zbuffer(true)
             self:set_tween_uses_effect_delta(true):effectclock('beat')
@@ -76,18 +75,12 @@ for i=0,4 + params.Add do
                 if params.Spin then 
                     self:spin()
                 end
-                if type(params.Commands) == "table" then
-                    for i = 1,#params.Commands do
-                        self:playcommand(params.Commands[i])
-                    end
-                elseif type(params.Commands) == "string" then
-                    self:playcommand(params.Commands)
-                end
+                PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
             end,
 
             Def.Sprite{
 
-                GainFocusCommand=function(self)
+                OnCommand=function(self)
 
                     if params.Flat then 
                         self:rotationx(90)
@@ -96,7 +89,7 @@ for i=0,4 + params.Add do
                     self:Load(params.File)
                     self:set_tween_uses_effect_delta(true):effectclock('beat')
 
-                    BGA_FrameSelector(self, params)
+                    PSX_BGA_Globals["BGA_FrameSelector"](self, params)
                     if params.Zoom then 
                         self:zoom( self:GetZoom() * params.Zoom )
                     end

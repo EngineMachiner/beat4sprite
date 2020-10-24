@@ -3,12 +3,11 @@ local ScaleVar = _screen.h/480
 
 local t = Def.ActorFrame{
 
+    GainFocusCommand=function(self)
+        PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+    end,
     LoseFocusCommand=function(self)
-        self:RunCommandsOnChildren( 
-            function(child)
-                child:visible(false)
-                child:stoptweening()
-            end )
+        PSX_BGA_Globals["BGA_ChildrenStop"]( self )
     end
 
 }
@@ -19,12 +18,12 @@ local t = Def.ActorFrame{
         Def.Sprite{
             InitCommand=function(self)
                 self:Load(params.File)
-                BGA_FrameSelector(self, params)
+                PSX_BGA_Globals["BGA_FrameSelector"](self, params)
                 self:GetParent():SetWidth( self:GetZoomedWidth() * 0.6875 )
                 self:GetParent():SetHeight( self:GetZoomedHeight() * 0.6875 )
             end,
-            GainFocusCommand=function(self)
-                BGA_FrameSelector(self, params)
+            OnCommand=function(self)
+                PSX_BGA_Globals["BGA_FrameSelector"](self, params)
                 self:xy( self:GetZoomedWidth() * 0.5 * 0.6875, self:GetZoomedHeight() * 0.5 * 0.6875 )
                 self:spin()
                 self:effectclock("beat")

@@ -1,23 +1,19 @@
 local params = ...
 local ScaleVar = _screen.h/480
 
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local t = Def.ActorFrame{
-
-	GainFocusCommand=function(self)
+	OnCommand=function(self)
 		self:zbuffer(true)
    		self:fov(140)
 	end,
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
-
 }
 
 local num = -2
@@ -39,18 +35,11 @@ for i=360-15, 0, -15 do
 		local rot = 0
 		t[#t+1] = Def.Sprite{
 			
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 
 				self:Load(params.File)
-				BGA_FrameSelector(self, params)
-
-				if type(params.Commands) == "table" then
-			 		for i = 1,#params.Commands do
-			 			self:playcommand(params.Commands[i])
-			 		end
-				elseif type(params.Commands) == "string" then
-			 		self:playcommand(params.Commands)
-				end
+				PSX_BGA_Globals["BGA_FrameSelector"](self, params)
+				PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
 
 				self:rotationz(i)
 				self:diffusealpha(0)

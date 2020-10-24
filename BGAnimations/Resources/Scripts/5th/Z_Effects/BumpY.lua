@@ -1,22 +1,18 @@
 local ScaleVar = _screen.h/480
 local params = ...
 
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local t = Def.ActorFrame{
-
-	GainFocusCommand=function(self)
+	OnCommand=function(self)
 		self:fov(130):zbuffer(true)
 	end,
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
-	end
-	
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+	end	
 }
 
 local num = 8 + 4
@@ -24,7 +20,7 @@ local num = 8 + 4
 for i=1,num do	
 	local bounce_h = 0
 	t[#t+1] = Def.ActorFrame{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:diffusealpha(0)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
@@ -42,14 +38,14 @@ for i=1,num do
 		Def.Sprite{
 			Texture=params.File,
 			Name="Particle "..i,
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 				self:zoom(ScaleVar)
 				self:effectclock("beat")
 				self:set_tween_uses_effect_delta(true)
 				self:diffusealpha(0)
 				self:queuecommand("StartBump")
-				BGA_FrameSelector(self, params)
-				BGA_PlayAllCommands(self, params)
+				PSX_BGA_Globals["BGA_FrameSelector"](self, params)
+				PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
 			end,
 			StartBumpCommand=function(self)
 				self:y(SCREEN_HEIGHT-self:GetZoomedHeight()):diffusealpha(1)

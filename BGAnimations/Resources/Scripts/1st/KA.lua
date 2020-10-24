@@ -5,15 +5,14 @@ local random = math.random( 10,100 ) * 0.01
 
 local t = Def.ActorFrame{
 
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end,
 	Def.Quad{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:SetSize(SCREEN_WIDTH,SCREEN_HEIGHT)
 			self:Center()
 			self:diffuse(Color.Black)
@@ -28,10 +27,11 @@ else
 	params.Reversed = 1
 end
 
-BGA_NoParams( params )
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local w, h
 local ang = 360/6
+local ratio = SCREEN_HEIGHT/480
 
 local function Settings( self, j, i )
 
@@ -45,7 +45,8 @@ local function Settings( self, j, i )
 	
 	self:SetSize(h,h)
 	self:rotationz(ang*j)
-
+	self:zoom( self:GetZoom() * ratio )
+	
 	if i == 2 then
 		self:rotationx(180)
 		if j > 0 then
@@ -62,7 +63,7 @@ for j=0,7 do
 		-- Center Kaleidoscope
 
 		t[#t+1] = Def.Sprite{
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
 				self:effectclock('beat')
 				Settings(self, j, i)
@@ -81,7 +82,7 @@ for j=0,7 do
 		-- Cropped Outer Kaleidoscopes (2)
 
 		t[#t+1] = Def.Sprite{
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
 				self:effectclock('beat')
 				Settings(self, j, i)
@@ -99,7 +100,7 @@ for j=0,7 do
 		}
 
 		t[#t+1] = Def.Sprite{
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
 				self:effectclock('beat')
 				Settings(self, j, i)
@@ -117,7 +118,7 @@ for j=0,7 do
 		}
 
 		t[#t+1] = Def.Sprite{
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
 				self:effectclock('beat')
 				Settings(self, j, i)

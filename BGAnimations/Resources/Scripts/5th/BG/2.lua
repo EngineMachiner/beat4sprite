@@ -6,19 +6,15 @@ local count = 0
 
 
 local t = Def.ActorFrame{
-
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
-
 }
 
-	BGA_NoParams( params )
+	PSX_BGA_Globals["BGA_NoParams"]( params )
 
 	if not params.Beat then params.Beat = 1 end
 
@@ -29,16 +25,16 @@ local length = 35
 for i = 0,9 do
 	t[#t+1] = Def.ActorFrame{
 
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
 		end,
 
 		Def.Sprite{
 
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 				self:Load(params.File)
-				BGA_FrameSelector(self, params)
+				PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 				self:fadebottom(0.1)
 				self:fadetop(0.1)
 				self:croptop((i)*0.1)
@@ -46,7 +42,7 @@ for i = 0,9 do
 				self:Center()
 				self:effectclock('beat')
 				self:set_tween_uses_effect_delta(true)
-				self:playcommand("Alpha")
+				self:queuecommand("Alpha")
 			end,
 			AlphaCommand=function(self)
 				self:sleep((-i+9)*0.25*0.5*params.Beat)

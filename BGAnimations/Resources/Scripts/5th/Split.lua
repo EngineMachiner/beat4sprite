@@ -1,13 +1,11 @@
 local params = ...
 
 local t = Def.ActorFrame{
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
 }
 
@@ -66,22 +64,19 @@ end
 	--Background that changes
 
 	t[#t+1] = Def.Sprite{
-		GainFocusCommand=function(self)
-
-			self:stoptweening()
-			self:stopeffect()
+		OnCommand=function(self)
 
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
 
 			self:Load(params.File[c])
-			BGA_Details( self, params )
+			PSX_BGA_Globals["BGA_Details"]( self, params )
 
 			self:Center()
 
 			self:sleep( params.Sleep )
 				c = AddNSub(c)
-			self:queuecommand("GainFocus")
+			self:queuecommand("On")
 
 		end
 	}
@@ -92,25 +87,22 @@ for i=1,4 do
 
 	t[#t+1] = Def.ActorFrame{
 
-		GainFocusCommand=function(self)
-
-			self:stoptweening()
-			self:stopeffect()
+		OnCommand=function(self)
 
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			BGA_ToolPreview(self)
+			PSX_BGA_Globals["BGA_ToolPreview"](self)
 
 			self:sleep( params.Sleep )
 				if i == 1 then
 					c2 = AddNSub(c2)
 				end				
-			self:queuecommand("GainFocus")
+			self:queuecommand("On")
 
 		end,
 
 		Def.Sprite{
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 
 				self:stoptweening()
 				self:stopeffect()
@@ -118,7 +110,7 @@ for i=1,4 do
 			 	self:effectclock("beat")
 			 	self:set_tween_uses_effect_delta(true)
 				self:Load(params.File[c2])
-				BGA_Details( self, params )
+				PSX_BGA_Globals["BGA_Details"]( self, params )
 
 				self:Center()
 				self:croptop(crops[i][1])
@@ -126,7 +118,7 @@ for i=1,4 do
 				self:cropleft(crops[i][3])
 				self:cropright(crops[i][4])
 
-				self:playcommand("Split")
+				self:queuecommand("Split")
 
 			end,
 			SplitCommand=function(self)

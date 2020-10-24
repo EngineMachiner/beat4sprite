@@ -2,18 +2,15 @@ local params = ...
 local ScaleVar = _screen.h/480
 		
 local t = Def.ActorFrame{
-	
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
 }
 
-	BGA_NoParams( params )
+	PSX_BGA_Globals["BGA_NoParams"]( params )
 	
 	t[#t+1] = LoadActor( "../../TileTool.lua", params )..{}
 
@@ -22,19 +19,19 @@ if not params.Beat then params.Beat = 2 end
 for i = 3,9 do
 	t[#t+1] = Def.ActorFrame{
 
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			BGA_PlayAllCommands(self, params)
+			PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
 		end,
 
 		LoadActor( params.File )..{
-			GainFocusCommand=function(self)
+			OnCommand=function(self)
 
 				self:effectclock("beat")
 				self:set_tween_uses_effect_delta(true)
 				self:Center()
-					BGA_FrameSelector(self, params)
+					PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 
 				self:fadeleft(0.025)
 				self:fadetop(0.025)
