@@ -22,7 +22,7 @@ local params = {
 
 }
 	
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", params )..{}
 
@@ -37,7 +37,7 @@ local params = {
 
 	}
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	t[#t+1] = LoadActor( params.Script, params )..{}
 

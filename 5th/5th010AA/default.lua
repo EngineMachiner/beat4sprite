@@ -19,7 +19,7 @@ local params = {
 
 }
 	
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 return Def.ActorFrame{
 

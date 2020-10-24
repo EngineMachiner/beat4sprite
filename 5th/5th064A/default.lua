@@ -18,8 +18,8 @@ local params = {
  	count = count + 1
  	params.Index = count
  	params.ID = #t + 1
-	BGA_ParamsTweaks( params, replace )
-	BGA_TileTool( t, params )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params )
 
 	params = {
 
@@ -32,7 +32,7 @@ local params = {
 
 	}
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 return Def.ActorFrame{ 
 	t,

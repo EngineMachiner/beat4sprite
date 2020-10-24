@@ -34,7 +34,7 @@ local params_2, params_3 = {}, {}
 return Def.ActorFrame{
 
 	Def.Quad{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:visible(true)
 			self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT)
 			self:Center()

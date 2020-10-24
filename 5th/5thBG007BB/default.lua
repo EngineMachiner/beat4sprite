@@ -15,17 +15,17 @@ local t = Def.ActorFrame{}
 		X_num = 1,
 		Commands = { "Mirror" }
 	} )..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true):effectclock('beat')
-			BGA_ToolPreview(self)
-			self:playcommand("Repeat")
+			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
 			self:diffusealpha(0):sleep(0.5)
 				:diffusealpha(1):sleep(1.5)
 				:diffusealpha(0):sleep(0.5)
 				:diffusealpha(1):sleep(1.5)
-			self:queuecommand("Repeat")
+			self:queuecommand("On")
 		end
 	}
 

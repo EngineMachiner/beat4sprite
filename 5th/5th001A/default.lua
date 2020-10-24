@@ -1,17 +1,14 @@
---Never ResetParams twice in the same table using BGA_ParamsTweaks.
+--Never ResetParams twice in the same table using PSX_BGA_Globals["BGA_ParamsTweaks"].
 local count = 0
 local tweaks = ...
 
 local t = Def.ActorFrame{
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
-	end
-}
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+	end}
 
 local params = {
 
@@ -28,9 +25,9 @@ local params = {
  	count = count + 1
  	params.Index = count
  	params.ID = #t + 1
-	BGA_ParamsTweaks( params, tweaks )
-	BGA_TileTool( t, params )
-	BGA_PostSpawn( t, params, tweaks )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, tweaks )
 	
 	params_2 = {
 
@@ -49,9 +46,9 @@ local params = {
  	count = count + 1
  	params_2.Index = count
  	params_2.ID = #t + 1
-	BGA_ParamsTweaks( params_2, tweaks ) 
-	BGA_ScrollTextures( t, params_2 )
-	BGA_PostSpawn( t, params_2, tweaks )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, tweaks ) 
+	PSX_BGA_Globals["BGA_ScrollTextures"]( t, params_2 )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params_2, tweaks )
 
 	if params_2.AddActors then
 		for k,v in pairs(params_2.AddActors) do

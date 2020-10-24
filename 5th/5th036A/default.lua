@@ -25,7 +25,7 @@ local tweaks = {
 
 }
 	
-	BGA_ParamsTweaks( tweaks, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
 
@@ -39,7 +39,7 @@ local params = {
 
 }
 
-	BGA_ParamsTweaks( params, replace )
-	BGA_TileTool( t, params )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params )
 
 return Def.ActorFrame{ t }

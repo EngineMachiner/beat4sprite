@@ -16,7 +16,7 @@ local params = {
 
 }
 
-	BGA_ParamsTweaks( params, replace )
-	BGA_ScrollTextures( t, params )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	PSX_BGA_Globals["BGA_ScrollTextures"]( t, params )
 
 return Def.ActorFrame{ t }

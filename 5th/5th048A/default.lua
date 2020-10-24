@@ -20,7 +20,7 @@ local params = {
 
 }
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	t[#t+1] = LoadActor( "../5th001A", params )..{}
 
@@ -39,7 +39,7 @@ local params = {
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
 
-	BGA_PostSpawn( t, params, replace )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, replace )
 
 
 	params = {
@@ -57,7 +57,7 @@ local params = {
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
 
-	BGA_PostSpawn( t, params, replace )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, replace )
 
 
 return Def.ActorFrame{ t }

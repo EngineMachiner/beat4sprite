@@ -3,18 +3,15 @@ local replace = ...
 
 local t = Def.ActorFrame{
 
-	GainFocusCommand=function(self)
+	OnCommand=function(self)
 		self.Name = "a"
 	end,
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
-
 }
 
 local tweaks = {
@@ -39,9 +36,9 @@ local tweaks = {
 }
 
 	tweaks.AddActors = {} 
-	tweaks.AddActors[#tweaks.AddActors+1] = BGA_IQB()
+	tweaks.AddActors[#tweaks.AddActors+1] = PSX_BGA_Globals["BGA_IQB"]()
 
-	BGA_ParamsTweaks( tweaks, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
 

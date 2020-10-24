@@ -16,7 +16,7 @@ local params = {
 	X_coord = 1,
 }
 
-	BGA_ParamsTweaks(params, replace)
+	PSX_BGA_Globals["BGA_ParamsTweaks"](params, replace)
 
 local t = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
 
@@ -34,7 +34,7 @@ local t2 = LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{}
 return Def.ActorFrame{
 
 	Def.Quad{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:visible(true)
 			self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT)
 			self:Center()

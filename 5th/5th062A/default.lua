@@ -13,7 +13,7 @@ local params = {
 	Y_num = 2
 }
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 return Def.ActorFrame{
 	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},

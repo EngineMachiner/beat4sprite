@@ -19,7 +19,7 @@ local params_2 = {	Index = 1 }
 	params_2["Script"] = "../Resources/Scripts/TileTool.lua"
 	params_2["Commands"] = "SpinX"
 
-	BGA_ParamsTweaks( params_2, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
 
 
 return Def.ActorFrame{

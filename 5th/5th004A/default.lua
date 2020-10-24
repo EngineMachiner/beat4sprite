@@ -21,7 +21,7 @@ local tweaks = {
 
 }
 	
-	if tweaks_2 then BGA_ParamsTweaks( tweaks, tweaks_2 ) end
+	if tweaks_2 then PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, tweaks_2 ) end
 	t[#t+1] = LoadActor( "/BGAnimations/5th003A", tweaks )..{}
 
 return Def.ActorFrame{ t }

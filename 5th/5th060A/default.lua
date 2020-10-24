@@ -18,8 +18,8 @@ local params_2 = {
 	Script = "../Resources/Scripts/5th/Particles.lua"
 }
 
-	BGA_ParamsTweaks( params, replace )
-	BGA_ParamsTweaks( params_2, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
 
 return Def.ActorFrame{
 

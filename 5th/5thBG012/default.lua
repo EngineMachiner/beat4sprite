@@ -15,20 +15,20 @@ local params = {
 
 	}
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			BGA_ToolPreview(self)
-			self:playcommand("Repeat")
+			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
 			self:diffusealpha(0):sleep(2)
 				:diffusealpha(1):sleep(2)
-				:diffusealpha(0):sleep(2)
-				:queuecommand("GainFocus")
+				:diffusealpha(0):sleep(4)
+				:queuecommand("On")
 		end
 	}
 
@@ -43,20 +43,20 @@ local params = {
 
 	}
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			BGA_ToolPreview(self)
-			self:playcommand("Repeat")
+			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
 			self:diffusealpha(0):sleep(4)
 				:diffusealpha(1):sleep(2)
 				:diffusealpha(0):sleep(2)
-				:queuecommand("GainFocus")
+				:queuecommand("On")
 		end
 	}
 

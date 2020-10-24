@@ -2,13 +2,11 @@ local count = 0
 local tweaks = ...
 
 local t = Def.ActorFrame{
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
 }
 
@@ -28,9 +26,9 @@ local params = {
  	count = count + 1
  	params.Index = count
  	params.ID = #t + 1
-	BGA_ParamsTweaks( params, tweaks ) 
-	BGA_ScrollTextures( t, params )
-	BGA_PostSpawn( t, params, tweaks )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks ) 
+	PSX_BGA_Globals["BGA_ScrollTextures"]( t, params )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, tweaks )
 
 	if params.AddActors then
 		for k,v in pairs(params.AddActors) do

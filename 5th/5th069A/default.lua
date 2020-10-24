@@ -20,7 +20,7 @@ local tweaks = {
 
 }
 
-	BGA_ParamsTweaks( tweaks, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
 
 return Def.ActorFrame{
 	LoadActor( "../5th001A", tweaks )..{}

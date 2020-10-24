@@ -21,9 +21,9 @@ local tweaks = {
 
 }
 
-	BGA_ParamsTweaks( tweaks, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
-	BGA_PostSpawn( t, tweaks, replace )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, tweaks, replace )
 
 local params_2 = {
 
@@ -36,8 +36,8 @@ local params_2 = {
 
 }
 
-	BGA_ParamsTweaks( params_2, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
 	t[#t+1] = LoadActor( params_2.Script, params_2 )..{}
-	BGA_PostSpawn( t, params_2, replace )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params_2, replace )
 
 return Def.ActorFrame{ t }

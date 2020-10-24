@@ -1,20 +1,18 @@
 return Def.ActorFrame{
 
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end,
 	LoadActor( "/BGAnimations/5th034C", params )..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:rainbow()
 			self:effectperiod(8)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
 		end
-	},
+	}
 
 }

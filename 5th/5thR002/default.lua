@@ -8,34 +8,35 @@ local scripts = {
 
 local t = Def.ActorFrame{
 
-	GainFocusCommand=function(self)
+	OnCommand=function(self)
 		self:RunCommandsOnChildren( 
 			function(child) 
 				child:visible(true)
 		end )
 	end,
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child) 
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-		end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
 
 }
 
 for i=#scripts,1,-1 do
 	t[#t+1] = LoadActor(scripts[i])..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:effectclock("beat"):set_tween_uses_effect_delta(true)
-			BGA_ToolPreview(self)		
+			PSX_BGA_Globals["BGA_ToolPreview"](self)		
 			self:diffusealpha(1):sleep( i - 1 ):diffusealpha(0):sleep( #scripts - 1 )
 				:queuecommand("Repeat")
 		end,
+		GoCommand=function(self)
+			self:queuecommand("Repeat")
+		end,
 		RepeatCommand=function(self)
 			self:diffusealpha(1):sleep( 1 ):diffusealpha(0):sleep( #scripts - 1 )
-			:queuecommand("Repeat")
+			:queuecommand("Go")
 		end
 	}
 end

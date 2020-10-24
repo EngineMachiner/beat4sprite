@@ -47,13 +47,13 @@ end
 }
 
 	t[#t+1] = LoadActor("../5th037", params)..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
 			self:diffusealpha(0):sleep(d)
 				:diffusealpha(1):sleep(d*2)
 				:diffusealpha(0):sleep(d*3)
-				:queuecommand("GainFocus")
+				:queuecommand("On")
 		end
 	}
 

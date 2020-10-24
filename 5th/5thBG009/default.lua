@@ -13,7 +13,7 @@ local params = {
 return Def.ActorFrame{
 
 	Def.Quad{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:diffuse(Color.Black)
 			self:FullScreen()
 			self:visible(true)

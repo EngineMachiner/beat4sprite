@@ -9,7 +9,7 @@ local params = {
 	Y_num = { -1, 0 }
 }
 
-	BGA_ParamsTweaks( params, tweaks )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
 
 local params_2 = {
 	Index = 2,
@@ -19,7 +19,7 @@ local params_2 = {
 	Script = "../Resources/Scripts/5th/Particles.lua"
 }
 
-	BGA_ParamsTweaks( params_2, tweaks )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, tweaks )
 
 return Def.ActorFrame{
 	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},

@@ -1,12 +1,10 @@
 
 local t = Def.ActorFrame{
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child)
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-			end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
 }
 

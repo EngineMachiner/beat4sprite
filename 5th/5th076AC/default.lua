@@ -27,13 +27,13 @@ local params = {
 
 }
 
-	BGA_ParamsTweaks(params,tweaks)
+	PSX_BGA_Globals["BGA_ParamsTweaks"](params,tweaks)
 	
 return Def.ActorFrame{
 
 	LoadActor("../Resources/Scripts/TileTool.lua", params[1])..{},
 	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua", params[2])..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')
 			self:queuecommand("Repeat01")
@@ -45,7 +45,7 @@ return Def.ActorFrame{
 		end		
 	},
 	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua", params[3])..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')
 			self:diffusealpha(0)

@@ -1,18 +1,10 @@
 
 local t = Def.ActorFrame{
 	GainFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child) 
-				child:visible(true)
-		end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child) 
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-		end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
 }
 
@@ -28,7 +20,7 @@ local params = {
 
 }
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{}
 
@@ -44,18 +36,18 @@ local params = {
 
 	}
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			BGA_ToolPreview(self)
-			self:playcommand("Repeat")
+			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
 			self:diffusealpha(0):sleep(params.Beat):diffusealpha(1):sleep(params.Beat)
-				:queuecommand("GainFocus")
+				:queuecommand("On")
 		end
 	}
 

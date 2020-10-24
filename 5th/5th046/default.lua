@@ -32,7 +32,7 @@ local t = Def.ActorFrame{}
 	}
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:queuecommand("GainFocus2")
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
@@ -46,7 +46,7 @@ local t = Def.ActorFrame{}
 	}
 	
 	t[#t+1] = LoadActor("../5th041A")..{
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:queuecommand("GainFocus2")
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)

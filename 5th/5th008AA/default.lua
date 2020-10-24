@@ -38,7 +38,7 @@ local params = {
 
 }
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params )..{}
 

@@ -20,19 +20,19 @@ local params = {
 	
 	DeepCopy(params, p2)
 
-	BGA_TileTool( t, params )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params )
 
 	p2["X_pos"] = -0.625
 	p2["X_num"] = 0
 	p2["Frame_i"] = 11
 	p2["Frame_l"] = 15
-	BGA_TileTool( t, p2 )
+	PSX_BGA_Globals["BGA_TileTool"]( t, p2 )
 
 	DeepCopy(p2, p3)
 	p3["Frame_i"] = 15
 	p3["Frame_l"] = 11
 	p3["X_pos"] = 0.625*3
-	BGA_TileTool( t, p3 )
+	PSX_BGA_Globals["BGA_TileTool"]( t, p3 )
 
 local params_2 = {}
 

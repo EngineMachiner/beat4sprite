@@ -16,9 +16,9 @@ local params = {
  	count = count + 1
  	params.Index = count
  	params.ID = #t + 1
-	BGA_ParamsTweaks( params, tweaks )
-	BGA_TileTool( t, params )
-	BGA_PostSpawn( t, params, tweaks )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, tweaks )
 
 
 	params = {
@@ -35,6 +35,6 @@ local params = {
 
 	t[#t+1] = LoadActor("../Resources/Scripts/5th/WallBumps.lua", params)..{}
 
-	BGA_PostSpawn( t, params, tweaks )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, tweaks )
 
 return Def.ActorFrame{ t }

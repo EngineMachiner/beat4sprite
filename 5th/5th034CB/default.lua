@@ -10,7 +10,7 @@ local params = {
 }
 
 params.AddActors = {} 
-params.AddActors[#params.AddActors+1] = BGA_IQB()
+params.AddActors[#params.AddActors+1] = PSX_BGA_Globals["BGA_IQB"]()
 
 return Def.ActorFrame{
 	LoadActor( "../5th034A", params )

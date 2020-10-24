@@ -48,10 +48,10 @@ local params_3 = {
 
 }
 
-	BGA_ParamsTweaks( params_3, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_3, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/5th/Particles.lua", params_3 )..{}
 
-	BGA_PostSpawn( t, params_3, replace )
+	PSX_BGA_Globals["BGA_PostSpawn"]( t, params_3, replace )
 
 return Def.ActorFrame{ t }

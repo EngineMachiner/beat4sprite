@@ -2,7 +2,7 @@ return Def.ActorFrame{
 
 	Def.Quad{
 
-		GainFocusCommand=function(self)
+		OnCommand=function(self)
 			self:Center():visible(true)
 			self:SetSize(SCREEN_WIDTH,SCREEN_HEIGHT)
 			self:diffuseramp()

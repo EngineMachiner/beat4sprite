@@ -1,7 +1,7 @@
 
 local t = Def.ActorFrame{
 
-	GainFocusCommand=function(self)
+	OnCommand=function(self)
 		self.Name = "SearchIndex"
 	end
 

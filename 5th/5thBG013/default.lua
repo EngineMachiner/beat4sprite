@@ -2,7 +2,7 @@
 local replace = ...
 
 local t = Def.ActorFrame{
-	GainFocusCommand=function(self)
+	OnCommand=function(self)
 		self:RunCommandsOnChildren( 
 			function(child) 
 				child:visible(true)
@@ -11,13 +11,11 @@ local t = Def.ActorFrame{
 		self:SortByDrawOrder()
    		self:fov(120)
 	end,
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
 	LoseFocusCommand=function(self)
-		self:RunCommandsOnChildren( 
-			function(child) 
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-		end )
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
 	end
 }
 
@@ -30,7 +28,7 @@ local params = {
 	BGMirror = true
 }
 
-	BGA_ParamsTweaks( params, replace )
+	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
 
 	if params.AddActors then
 		for k,v in pairs(params.AddActors) do
