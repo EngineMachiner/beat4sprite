@@ -1,7 +1,13 @@
 
+PSX_BGA_Globals = {}
+local a = PSX_BGA_Globals
+
 --Used but not directly
 
-function StringTable( tbl )
+
+--Debug function 
+
+local function StringTable( tbl )
 
 	local tbl_s = {}
 	tbl_s["s"] = ""
@@ -25,16 +31,19 @@ function StringTable( tbl )
 
 		   	if type(k) ~= "number" then
 
+		   		local key = [["]] .. k .. [["]]
+
 		   		if type(v) ~= "table" then
+
 
 		   			if last_i > 1 then
 		   				if index == last_i then
-		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. tostring(v) .. "\n"
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. key .. " = " .. tostring(v) .. "\n"
 		   				else
-		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. tostring(v) .. ",\n"
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. key .. " = " .. tostring(v) .. ",\n"
 		   				end
 		   			else
-		   				tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. tostring(v) .. "\n"
+		   				tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. key .. " = " .. tostring(v) .. "\n"
 		   			end
 
 		   		else
@@ -42,9 +51,9 @@ function StringTable( tbl )
 		   			if not string.match( k, "ctx" )
 		   			and not string.match( k, "__index" ) then
 		   				if index == last_i then
-		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. Reload( v )	
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. key .. " = " .. Reload( v )	
 		   				else
-		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. k .. " = " .. Reload( v ) 
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. key .. " = " .. Reload( v ) 
 		   					tbl_s["space"] = string.sub(tbl_s["space"], 1, #tbl_s["space"]-4)
 		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. "},\n"
 		   				end
@@ -54,16 +63,19 @@ function StringTable( tbl )
 
 		   	else
 
+		   		local val = tostring(v)
+		   		if val == "" then val = [["]] .. tostring(v) .. [["]]  end
+
 		   		if type(v) ~= "table" then
 
 		   			if last_i > 1 then
 		   				if index == last_i then
-		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. tostring(v) .. "\n"
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. val .. "\n"
 		   				else
-		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. tostring(v) .. ",\n"
+		   					tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. val .. ",\n"
 		   				end
 		   			else
-		   				tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. tostring(v) .. "\n"
+		   				tbl_s["s"] = tbl_s["s"] .. tbl_s["space"] .. val .. "\n"
 		   			end
 
 		   		else
@@ -91,22 +103,29 @@ function StringTable( tbl )
 	return Reload( tbl ) .. "}\n"
 
 end
+a["StringTable"] = StringTable
 
-function BGA_ToolPreview(self)
+
+local function BGA_ToolPreview(self)
 	if SCREENMAN:GetTopScreen():GetName() == "ScreenMiniMenuBackgroundChange" then
 		self:effectclock("timer")
 		self:set_tween_uses_effect_delta(false)
 		self:hurrytweening(0.25)
 	end
 end
+a["BGA_ToolPreview"] = BGA_ToolPreview
+
 
 -- Direct Calls
 
-function BGA_TileTool( frame, params )
+
+local function BGA_TileTool( frame, params )
 	frame[#frame+1] = LoadActor("/BGAnimations/Resources/Scripts/TileTool.lua", params)..{}
 end
+a["BGA_TileTool"] = BGA_TileTool
 
-function BGA_Scale( self )
+
+local function BGA_Scale( self )
 
 	local ScaleVar = SCREEN_HEIGHT / 480 -- Theme scale
 	ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetSourceHeight() ) -- Image scale
@@ -119,8 +138,52 @@ function BGA_Scale( self )
 	self:zoom( ScaleVar )
 
 end
+a["BGA_Scale"] = BGA_Scale
 
-function BGA_IQB()
+
+local function BGA_Details( self, params )
+
+	BGA_Scale(self)
+	BGA_ToolPreview(self)
+
+	self:SetTextureFiltering(false)
+
+	if not params.Frames then
+
+		local c
+		if type(params.Commands) == "table" then
+			for k,v in pairs(params.Commands) do
+				if string.match(v,"Spin")
+				or string.match(v,"Move") then 
+					c = true
+				end
+			end
+		end
+
+		local a = math.floor( GAMESTATE:GetSongBPS() * 60 / 100 )
+		if a <= 1 or c then
+			a = 1
+		else
+			a = 1 + GAMESTATE:GetSongBPS() * 60 / 1000
+		end
+
+		if params.Delay then
+			self:SetAllStateDelays(a*params.Delay)
+		else
+			self:SetAllStateDelays(a/self:GetNumStates())
+		end
+
+	end
+
+	if params.Random then
+		self:setstate(math.random(0,self:GetNumStates()-1))
+	end
+
+end
+a["BGA_Details"] = BGA_Details
+
+
+local function BGA_IQB()
 	return Def.Quad{
 		GainFocusCommand=function(self)
 			self:blend("BlendMode_InvertDest")
@@ -129,8 +192,10 @@ function BGA_IQB()
 		end
 	}
 end
+a["BGA_IQB"] = BGA_IQB
 
-function BGA_ScrollTextures( frame, params )
+
+local function BGA_ScrollTextures( frame, params )
 
 	local X_coord, Y_coord
 	local X_add, Y_add
@@ -173,6 +238,9 @@ function BGA_ScrollTextures( frame, params )
 	end
 	
 end
+a["BGA_ScrollTextures"] = BGA_ScrollTextures
+
+
 
 	local ignore = {
 
@@ -183,7 +251,9 @@ end
 
 	}
 
-function BGA_ParamsTweaks( params, tweaks ) -- These tweaks are BEFORE creating the Actor!
+
+
+local function BGA_ParamsTweaks( params, tweaks ) -- These tweaks are BEFORE creating the Actor!
 
 	if tweaks then
 		
@@ -240,8 +310,10 @@ function BGA_ParamsTweaks( params, tweaks ) -- These tweaks are BEFORE creating 
 	end
 
 end
+a["BGA_ParamsTweaks"] = BGA_ParamsTweaks
 
-function BGA_PostSpawn( frame, params, tweaks ) -- These tweaks are AFTER creating the Actor!
+
+local function BGA_PostSpawn( frame, params, tweaks ) -- These tweaks are AFTER creating the Actor!
 
 	-- The only tweak for now is for removing the actor
 
@@ -269,8 +341,10 @@ function BGA_PostSpawn( frame, params, tweaks ) -- These tweaks are AFTER creati
 
 
 end
+a["BGA_PostSpawn"] = BGA_PostSpawn
 
-function BGA_NoParams( params )
+
+local function BGA_NoParams( params )
 
 	local function Replace(val, add)
 		if val then
@@ -299,6 +373,7 @@ function BGA_NoParams( params )
 	end
 	
 end
+a["BGA_NoParams"] = BGA_NoParams
 
 
 -- Framing 
@@ -317,7 +392,8 @@ local function Keep( self, val, Frames )
 
 end 
 
-function BGA_FramingXY( self, params, i, k, Frames )
+
+local function BGA_FramingXY( self, params, i, k, Frames )
 
 	local lim = { 
 
@@ -340,8 +416,10 @@ function BGA_FramingXY( self, params, i, k, Frames )
 	BGA_Details( self, params )
 
 end
+a["BGA_FramingXY"] = BGA_FramingXY
 
-function BGA_FramingY( self, params, i, k, Frames )
+
+local function BGA_FramingY( self, params, i, k, Frames )
 
 	local val = i
 
@@ -368,8 +446,10 @@ function BGA_FramingY( self, params, i, k, Frames )
 	BGA_Details( self, params )
 
 end
+a["BGA_FramingY"] = BGA_FramingY
 
-function BGA_FrameSelector( self, params )
+
+local function BGA_FrameSelector( self, params )
 
 	local tbl_Frames = {}
 
@@ -398,55 +478,31 @@ function BGA_FrameSelector( self, params )
 	BGA_Details( self, params )
 
 end
+a["BGA_FrameSelector"] = BGA_FrameSelector
 
-function BGA_Details( self, params )
 
-	BGA_Scale(self)
-	BGA_ToolPreview(self)
+local function BGA_PlayAllCommands(self, params)
 
-	self:SetTextureFiltering(false)
-
-	if not params.Frames then
-
-		if params.Delay then
-			self:SetAllStateDelays(params.Delay)
-		else
-			self:SetAllStateDelays(1/self:GetNumStates())
-		end
+	local function RunStuff(v)
+		self:queuecommand(v)
 	end
 
-	if params.Random then
-		self:setstate(math.random(0,self:GetNumStates()-1))
-	end
-
-end
-
-function BGA_PlayAllCommands(self, params)
 	if type(params.Commands) == "table" then
-		for i = 1,#params.Commands do
-			 self:playcommand(params.Commands[i])
+		for i=1,#params.Commands do
+			RunStuff(params.Commands[i])
 		end
 	elseif type(params.Commands) == "string" then
-		self:playcommand(params.Commands)
-	end
-end
-
-function BGA_StopAll( t )
-
-	t["GainFocusCommand"]=function(self)
-		self:RunCommandsOnChildren( 
-			function(child) 
-				child:visible(true)
-		end )
-	end
-
-	t["LoseFocusCommand"]=function(self)
-		self:RunCommandsOnChildren( 
-			function(child) 
-				child:visible(false)
-				child:stoptweening()
-				child:stopeffect()
-		end )
+		RunStuff(params.Commands)
 	end
 
 end
+a["BGA_PlayAllCommands"] = BGA_PlayAllCommands
+
+local function BGA_ChildrenStop(self, visible)
+	if visible then
+		self:diffusealpha(1)
+	else
+		self:diffusealpha(0)
+	end
+end
+a["BGA_ChildrenStop"] = BGA_ChildrenStop
