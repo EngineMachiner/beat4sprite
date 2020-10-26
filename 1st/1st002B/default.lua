@@ -29,7 +29,7 @@ local params = {
 
 } 
 
-	BGA_TileTool( t, params[2] )
-	BGA_TileTool( t, params[1] )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
 
 return Def.ActorFrame{ t }

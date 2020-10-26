@@ -28,7 +28,7 @@ local params = {
 
 } 
 
-	BGA_TileTool( t, params[1] )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
 	t[#t+1] = LoadActor( params[2]["Script"], params[2] )
 
 return Def.ActorFrame{ t }
