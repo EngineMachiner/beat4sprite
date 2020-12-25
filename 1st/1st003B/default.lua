@@ -7,9 +7,12 @@ local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/1st/Videos/1stAB.mpg",
-		X_num = 1
-
+		File = "/BGAnimations/Resources/1st/Sprites/1stAB 5x3.png",
+		X_num = { -2, 1 },
+		Y_num = { -1, 0 },
+		Frame_l = 15,
+		Zoom = 1.5,
+		Commands = { "Mirror" }
 	},
 
 	{

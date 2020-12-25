@@ -17,7 +17,12 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Videos/SkullsA.mpg",
+		File = "/BGAnimations/Resources/1st/Sprites/HSV/SkullR 5x6.png",
+		X_num = { -3, 2 },	
+		Y_num = 1,
+		Zoom = 2,
+		Frame_l = 30,
+		Delay = 4/30,
 		Commands = "Blend",
 		Blend = "BlendMode_Add"
 	}
