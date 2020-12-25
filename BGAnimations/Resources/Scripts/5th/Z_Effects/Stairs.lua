@@ -43,14 +43,11 @@ for i=0,2 do
     t[#t+1] = Def.ActorFrame{
 
         OnCommand=function(self)
-
             self:zbuffer(true)
             self:set_tween_uses_effect_delta(true):effectclock('beat')
             self:diffusealpha(0):sleep(i*1.5):diffusealpha(1)
             self:queuecommand("Next")
-
         end,
-
         NextCommand=function(self)
             self:x( math.random( - SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 ) )
             self:y( math.random( - SCREEN_HEIGHT * 0.75, SCREEN_HEIGHT * 0.75 ) )
@@ -65,7 +62,7 @@ for i=0,2 do
 
         k[#k+1] = Def.ActorFrame{ 
 
-            NextCommand=function(self)
+            OnCommand=function(self)
                 if params.Spin then 
                     self:spin()
                 end

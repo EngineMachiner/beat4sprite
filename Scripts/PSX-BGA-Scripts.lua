@@ -107,10 +107,12 @@ a["StringTable"] = StringTable
 
 
 local function BGA_ToolPreview(self)
-	if SCREENMAN:GetTopScreen():GetName() == "ScreenMiniMenuBackgroundChange" then
-		self:effectclock("timer")
-		self:set_tween_uses_effect_delta(false)
-		self:hurrytweening(0.25)
+	if SCREENMAN:GetTopScreen() then
+		if SCREENMAN:GetTopScreen():GetName() == "ScreenMiniMenuBackgroundChange" then
+			self:effectclock("timer")
+			self:set_tween_uses_effect_delta(false)
+			self:hurrytweening(0.25)
+		end
 	end
 end
 a["BGA_ToolPreview"] = BGA_ToolPreview
@@ -165,6 +167,10 @@ local function BGA_Details( self, params )
 			a = 1
 		else
 			a = 1 + GAMESTATE:GetSongBPS() * 60 / 1000
+		end
+
+		if params.NoBPMDelay then
+			a = 1
 		end
 
 		if params.Delay then
@@ -467,10 +473,15 @@ local function BGA_FrameSelector( self, params )
 				end
 			else
 				tbl_Frames[#tbl_Frames+1] = { Frame = params.Frame_i }
-			end		
+			end
+			if params.FrameReverse then
+				for i=params.Frame_l,params.Frame_i,-1 do
+					tbl_Frames[#tbl_Frames+1] = { Frame = i }
+				end
+			end
 		end
 	end
-
+	
 	if self:GetNumStates() > 1 then
 		self:SetStateProperties(tbl_Frames)
 	end

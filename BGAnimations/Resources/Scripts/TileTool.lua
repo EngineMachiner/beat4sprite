@@ -191,26 +191,6 @@ for i=x[1],x[2] do
 						PSX_BGA_Globals["BGA_FramingY"]( self, params, i+math.abs(x[1]), k, Frames ) --5th072
 					else
 
-						if string.match( params.File, ".mpg" ) then
-
-							local total = math.abs(x[2]) + math.abs(x[1]) + 1
-							total = total + math.abs(y[1]) + math.abs(y[2])
-							total = 0.5 / total
-
-							if params.Rate then
-								total = total * params.Rate
-							end
-
-							local a = math.floor( GAMESTATE:GetSongBPS() * 60 / 100 )
-							if a <= 1 then
-								a = 1
-							else
-								a = 1 + GAMESTATE:GetSongBPS() * 60 / 1000
-							end
-
-							self:rate( total / a )
-						end
-
 						PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 
 						if params.Zoom then 
@@ -382,6 +362,10 @@ for i=x[1],x[2] do
 
 			end,
 			ZWriteCommand=function(self)
+				if i == x[1]
+				and k == y[1] then 
+					self:clearzbuffer(true)
+				end
 				self:zwrite(true)
 				self:blend("BlendMode_NoEffect")
 			end,
@@ -534,6 +518,9 @@ for i=x[1],x[2] do
 					self:y( self:GetY() + self:GetZoomedHeight() * 0.25 * k / math.abs(k) )
 				end
 			end,
+			OffsetStatesCommand=function(self)
+				self:setstate(params.InitState-1)
+			end,
 			RandomStatesCommand=function(self)
 				if self:GetNumStates() > 1 then
 					self:setstate(math.random(1,self:GetNumStates())-1)
@@ -596,8 +583,12 @@ for i=x[1],x[2] do
 					if params.Ramp then
 						self:diffuseramp():effectcolor1(params.Color):effectperiod(params.FDelay)
 					else
+						if not params.Color2 then 
+							params.Color2 = Color.White
+						end
 						self:diffuseshift()
 						:effectcolor1(params.Color)
+						:effectcolor2(params.Color2)
 						:effectperiod(params.FDelay)
 					end
 				elseif params.Color == "Rainbow" then
@@ -628,7 +619,15 @@ for i=x[1],x[2] do
 					:x( self:GetX() + self:GetZoomedWidth() * i )
 					:y( self:GetY() + self:GetZoomedHeight() * k )
 					:queuecommand("Split")
-			end
+			end,
+			ZoominCommand=function(self)
+				if i % 2 == 0 then self:sleep(2) end
+				self:queuecommand("Zoomin2")
+			end,
+			Zoomin2Command=function(self)
+				local z = self:GetZoom()
+				self:zoom( z ):linear(2):zoom( z * 1.5 ):linear(2):zoom( z ):queuecommand("Zoomin2")
+			end,
 		}
 
 	end

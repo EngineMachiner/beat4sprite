@@ -34,7 +34,6 @@ for i=360-15, 0, -15 do
 
 		local rot = 0
 		t[#t+1] = Def.Sprite{
-			
 			OnCommand=function(self)
 
 				self:Load(params.File)
