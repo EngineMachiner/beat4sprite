@@ -28,14 +28,14 @@ for i=#scripts,1,-1 do
 		OnCommand=function(self)
 			self:effectclock("beat"):set_tween_uses_effect_delta(true)
 			PSX_BGA_Globals["BGA_ToolPreview"](self)		
-			self:diffusealpha(1):sleep( i - 1 ):diffusealpha(0):sleep( #scripts - 1 )
+			self:diffusealpha(1):sleep( ( i - 1 ) * 2 ):diffusealpha(0):sleep( ( #scripts - 1 ) * 2 )
 				:queuecommand("Repeat")
 		end,
 		GoCommand=function(self)
 			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
-			self:diffusealpha(1):sleep( 1 ):diffusealpha(0):sleep( #scripts - 1 )
+			self:diffusealpha(1):sleep( 2 ):diffusealpha(0):sleep( ( #scripts - 1 ) * 2 )
 			:queuecommand("Go")
 		end
 	}

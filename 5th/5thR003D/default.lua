@@ -1,8 +1,12 @@
 
 local params = {
-	File = "/BGAnimations/Resources/5th/Videos/B004.mpg",
-	X_num = 1,
-	Rate = 0.5
+	File = "/BGAnimations/Resources/5th/Sprites/Gradients/B004 8x8.png",
+	X_num = { -2, 1 },
+	Y_num = { -1, 0 },
+	Frame_l = 60,
+	Zoom = 4,
+	Delay = 8/60,
+	Commands = "Mirror"
 }
 
 return Def.ActorFrame{

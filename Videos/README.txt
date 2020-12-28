@@ -1,1 +1,0 @@
-These must be copied to the Resources folder.
