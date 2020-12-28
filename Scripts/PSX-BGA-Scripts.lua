@@ -162,8 +162,8 @@ local function BGA_Details( self, params )
 			end
 		end
 
-		local a = math.floor( GAMESTATE:GetSongBPS() * 60 / 100 )
-		if a <= 1 or c then
+		local a = math.floor( GAMESTATE:GetSongBPS() * 60 * 10 / 100 ) / 10
+		if a <= 1.75 or c then
 			a = 1
 		else
 			a = 1 + GAMESTATE:GetSongBPS() * 60 / 1000

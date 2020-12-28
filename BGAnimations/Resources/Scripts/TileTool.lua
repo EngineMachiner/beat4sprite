@@ -528,8 +528,8 @@ for i=x[1],x[2] do
 			end,
 			RandomDelaysCommand=function(self)
 				if self:GetNumStates() > 1 then
-					local val = math.random(self:GetNumStates()*100,self:GetNumStates()*2*100) * 0.01
-					self:SetAllStateDelays(1/val)
+					params.Delay = math.random(self:GetNumStates()*100,self:GetNumStates()*2*100) * 0.001 * 0.5
+					PSX_BGA_Globals["BGA_Details"](self, params)
 				end
 			end,
 			OneTwoStatesCommand=function(self)
