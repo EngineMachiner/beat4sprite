@@ -43,6 +43,7 @@ for i=0,2 do
     t[#t+1] = Def.ActorFrame{
 
         OnCommand=function(self)
+            self:stoptweening()
             self:zbuffer(true)
             self:set_tween_uses_effect_delta(true):effectclock('beat')
             self:diffusealpha(0):sleep(i*1.5):diffusealpha(1)
@@ -77,6 +78,7 @@ for i=0,2 do
                         self:rotationx(90)
                     end
 
+                    self:stoptweening()
                     self:Load(params.File)
                     self:set_tween_uses_effect_delta(true):effectclock('beat')
 

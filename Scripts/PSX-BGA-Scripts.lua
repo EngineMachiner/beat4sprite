@@ -130,7 +130,11 @@ a["BGA_TileTool"] = BGA_TileTool
 local function BGA_Scale( self )
 
 	local ScaleVar = SCREEN_HEIGHT / 480 -- Theme scale
-	ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetSourceHeight() ) -- Image scale
+	if self:GetTexture() then
+		ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetSourceHeight() ) -- Image scale
+	else
+		self:Load(THEME:GetPathG("","_blank"))
+	end
 
 	--[[ ( 480 / self:GetTexture():GetSourceHeight() ) * 1 / params.Zoom = ScaleVar
 	 		If we use a sprite graphic that is not in the 320x240 scale then we will need
@@ -146,6 +150,10 @@ a["BGA_Scale"] = BGA_Scale
 local function BGA_Details( self, params )
 
 	BGA_Scale(self)
+	if params.Zoom then 
+		self:zoom( self:GetZoom() * params.Zoom )
+	end
+	
 	BGA_ToolPreview(self)
 
 	self:SetTextureFiltering(false)

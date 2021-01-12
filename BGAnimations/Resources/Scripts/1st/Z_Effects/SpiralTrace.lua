@@ -109,10 +109,6 @@ for i=0,360*4-360+val*360/n,360/n do
 					PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 			 		PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
 
-					if params.Zoom then 
-						self:zoom( self:GetZoom() * params.Zoom )
-					end
-
 					self:diffusealpha(0)
 					if params.NoRot then 
 						add = add + 180

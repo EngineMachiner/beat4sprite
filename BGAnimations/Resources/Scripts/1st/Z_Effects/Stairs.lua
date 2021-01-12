@@ -48,6 +48,7 @@ for i=0,4 + params.Add do
 
         OnCommand=function(self)
 
+            self:stoptweening()
             self:zbuffer(true)
             self:set_tween_uses_effect_delta(true):effectclock('beat')
             self:diffusealpha(0):sleep(i*1.5):diffusealpha(1)
@@ -86,13 +87,11 @@ for i=0,4 + params.Add do
                         self:rotationx(90)
                     end
 
+                    self:stoptweening()
                     self:Load(params.File)
                     self:set_tween_uses_effect_delta(true):effectclock('beat')
 
                     PSX_BGA_Globals["BGA_FrameSelector"](self, params)
-                    if params.Zoom then 
-                        self:zoom( self:GetZoom() * params.Zoom )
-                    end
 
                     self:GetParent():x( SCREEN_CENTER_X+self:GetZoomedWidth()*0.55*ScaleVar*o)
                     self:GetParent():y( SCREEN_CENTER_Y+self:GetZoomedHeight()*0.55*ScaleVar*o )

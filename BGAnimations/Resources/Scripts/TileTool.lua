@@ -190,13 +190,7 @@ for i=x[1],x[2] do
 					elseif params.FramingY then
 						PSX_BGA_Globals["BGA_FramingY"]( self, params, i+math.abs(x[1]), k, Frames ) --5th072
 					else
-
 						PSX_BGA_Globals["BGA_FrameSelector"](self, params)
-
-						if params.Zoom then 
-							self:zoom( self:GetZoom() * params.Zoom )
-						end
-
 					end
 
 				end

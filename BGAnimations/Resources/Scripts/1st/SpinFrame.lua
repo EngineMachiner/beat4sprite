@@ -11,7 +11,7 @@ local t = Def.ActorFrame{
     end
 
 }
-    
+
     --Sample Texture
     t[#t+1] = Def.ActorFrameTexture{
 
@@ -24,7 +24,7 @@ local t = Def.ActorFrame{
             end,
             OnCommand=function(self)
                 PSX_BGA_Globals["BGA_FrameSelector"](self, params)
-                self:xy( self:GetZoomedWidth() * 0.5 * 0.6875, self:GetZoomedHeight() * 0.5 * 0.6875 )
+                self:xy( self:GetParent():GetWidth() * 0.5, self:GetParent():GetHeight() * 0.5 )
                 self:spin()
                 self:effectclock("beat")
                 self:set_tween_uses_effect_delta(true)
