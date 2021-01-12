@@ -7,13 +7,12 @@ local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/1st/Backgrounds/D.png",
+		File = "/BGAnimations/Resources/1st/Backgrounds/D2.png",
 		X_num = 1,
 		Y_num = { -1, 0 },
 		Zoom = 0.5,
 		Delay = 8,
-		Commands = { "Color", "Move" },
-		Color = Color.Orange,
+		Commands = "Move",
 		X_coord = -1
 
 	},

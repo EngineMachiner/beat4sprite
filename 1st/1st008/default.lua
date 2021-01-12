@@ -7,22 +7,17 @@ local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/1st/Backgrounds/D2.png",
+		File = "/BGAnimations/Resources/1st/Backgrounds/H.png",
 		X_num = 1,
-		Y_num = { -1, 0 },
-		Zoom = 0.5,
-		Commands = "Fade",
-		Color = Color.White,
-		Color2 = Color.Red
-
+		Commands = "Mirror",
 	},
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x3.png",
-		Zoom = 1 - 0.25,
-		Frame_i = 1,
-		Script = "../Resources/Scripts/1st/WallBumps.lua",
+		File = "/BGAnimations/Resources/1st/Sprites/M 6x1.png",
+		Zoom = 0.25,
+		Frame_i = 3,
+		Script = "../Resources/Scripts/1st/SpiralStaticTrace.lua",
 	}
 
 } 

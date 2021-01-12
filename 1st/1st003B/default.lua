@@ -21,7 +21,6 @@ local params = {
 		Frame_i = 3,
 		Zoom = 0.73,
 		Dir = "Out",
-		NoRot = true,
 		Commands = "Color",
 		Color = color("0,0,1,1"),
 		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/SpiralTrace.lua"
