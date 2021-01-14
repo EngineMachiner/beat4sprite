@@ -168,7 +168,7 @@ for i=0,360*4-360+val*360/n,360/n do
 						self:linear(1*params.ZSpeed)
 						self:z( self:GetZ() + 50 * params.Dir[3] )
 						if params.NoRot then 
-							self:rotationz( self:GetRotationZ() - 180 * cw )
+							self:rotationz( self:GetRotationZ() + 180 * cw )
 						end
 					end
 						self:queuecommand("Repeat")

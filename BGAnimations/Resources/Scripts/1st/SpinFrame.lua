@@ -19,12 +19,13 @@ local t = Def.ActorFrame{
             InitCommand=function(self)
                 self:Load(params.File)
                 PSX_BGA_Globals["BGA_FrameSelector"](self, params)
-                self:GetParent():SetWidth( self:GetZoomedWidth() * 0.6875 )
-                self:GetParent():SetHeight( self:GetZoomedHeight() * 0.6875 )
+                self:GetParent():SetWidth( self:GetZoomedWidth() * 4 )
+                self:GetParent():SetHeight( self:GetZoomedHeight() * 4 )
             end,
             OnCommand=function(self)
                 PSX_BGA_Globals["BGA_FrameSelector"](self, params)
                 self:xy( self:GetParent():GetWidth() * 0.5, self:GetParent():GetHeight() * 0.5 )
+                self:zoom( self:GetZoom() * 6.5 )
                 self:spin()
                 self:effectclock("beat")
                 self:set_tween_uses_effect_delta(true)
@@ -39,7 +40,7 @@ local t = Def.ActorFrame{
 
     }
 
-    params.Zoom = params.Zoom * 0.221
+    params.Zoom = params.Zoom * 0.2225
     t[#t+1] = LoadActor( "../TileTool.lua", params )..{}
 
 return Def.ActorFrame{ t }
