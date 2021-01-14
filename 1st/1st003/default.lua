@@ -17,9 +17,8 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x3.png",
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/Stairs.lua",
-		Zoom = 0.27,
 		Flat = true,
 		Dir = "Out",
 		fov = 175,

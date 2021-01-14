@@ -20,8 +20,8 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x3.png",
-		Zoom = 1 - 0.25,
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
+		Zoom = 1,
 		X_num = 4,
 		Y_num = { -2, 1 },
 		Frame_i = 5

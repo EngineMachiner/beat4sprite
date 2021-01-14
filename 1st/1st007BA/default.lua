@@ -19,9 +19,8 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x3.png",
-		Zoom = 1 - 0.25,
-		Frame_i = 1,
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
+		Frame_i = 2,
 		Script = "../Resources/Scripts/1st/WallBumps.lua",
 	}
 

@@ -7,10 +7,9 @@ local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x3.png",
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		X_num = 4,
 		Y_num = { -2, 1 },
-		Zoom = 1 - 0.25,
 		Frame_i = 4
 
 	},

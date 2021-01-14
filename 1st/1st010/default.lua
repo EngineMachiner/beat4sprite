@@ -7,7 +7,7 @@ local params = {
 
 	{
 		Index = 1,
-		File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
+		File = "/BGAnimations/Resources/1st/Backgrounds/E.png",
 		Commands = "Mirror",
 		BGMirror = true,
 		X_num = 1
@@ -16,10 +16,10 @@ local params = {
 	{
 		Index = 2,
 		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
-		Frame_i = 6,
-		Frame_l = 13,
+		Frame_i = 1,
+		Frame_l = 2,
+		Spin = true,
 		Zoom = 0.8,
-		Delay = 0.25,
 		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/Stairs.lua"
 	}
 

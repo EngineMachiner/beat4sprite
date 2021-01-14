@@ -9,7 +9,7 @@ local tweaks = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x3.png",
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		X_num = { -6, 5 },
 		Y_num = { -3, 2 },
 		Frame_i = 6,

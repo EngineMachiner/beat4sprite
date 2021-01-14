@@ -27,9 +27,8 @@ local params = {
 
 	{
 		Index = 3,
-		File = "/BGAnimations/Resources/1st/Sprites/N 1x2.png",
-		Frame_i = 1,
-		Frame_l = 1,
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
+		Frame_i = 17,
 		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/Line",
 		Num = 4
 	}

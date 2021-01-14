@@ -15,7 +15,7 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x3.png",
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		Frame_i = 1,
 		Frame_l = 2,
 		Spin = true,

@@ -7,20 +7,20 @@ local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/1st/Sprites/I 4x4.png",
+		File = "/BGAnimations/Resources/1st/Sprites/D 4x2.png",
 		X_num = 2,
-		Zoom = 1.07,
+		Zoom = 0.5,
 		Y_num = { -2, 1 },
-		Frame_l = 16,
-		Delay = 0.125,
+		Frame_l = 8,
+		Delay = 0.25,
 		Commands = { "Color", "MirrorYPerRow", "Blend" },
 		Blend = "BlendMode_Add",
-		Color = color("#00FF00")
+		Color = color("#FF0000")
 	},
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/HSV/B 4x1.png",
+		File = "/BGAnimations/Resources/1st/Sprites/E 4x1.png",
 		X_num = 1,
 		Frame_l = 4,
 		Delay = 0.125,
@@ -30,7 +30,7 @@ local params = {
 
 } 
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
 	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
+	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
 
 return Def.ActorFrame{ t }

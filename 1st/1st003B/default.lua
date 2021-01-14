@@ -17,11 +17,11 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x3.png",
-		Frame_i = 3,
-		Zoom = 0.73,
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
+		Frame_i = 16,
 		Dir = "Out",
 		Commands = "Color",
+		NoRot = true,
 		Color = color("0,0,1,1"),
 		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/SpiralTrace.lua"
 	}
