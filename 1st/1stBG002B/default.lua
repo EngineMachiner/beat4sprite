@@ -9,12 +9,12 @@ local tweaks = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
+		File = "/BGAnimations/Resources/1st/Sprites/G 4x4.png",
 		X_num = { -6, 5 },
 		Y_num = { -3, 2 },
-		Frame_i = 6,
+		Frame_i = 9,
 		ResetParams = true,
-		Commands = { "SpinFrame" },
+		Commands = { "SpinFrame", "Alpha" },
 		Zoom = 0.93,
 		Script = "/BGAnimations/Resources/Scripts/1st/SpinFrame.lua"
 	}

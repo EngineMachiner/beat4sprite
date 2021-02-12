@@ -1,16 +1,20 @@
 
-local t = Def.ActorFrame{}
+--Never ResetParams twice in the same table using BGA_ParamsTweaks.
 
-local tweaks = ...
+local t = Def.ActorFrame{}
 
 local params = {
 
 	{
 		Index = 1,
-		File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
-		Commands = "Mirror",
-		BGMirror = true,
-		X_num = 1
+		File = "/BGAnimations/Resources/1st/Backgrounds/D2.png",
+		X_num = 1,
+		Zoom = 0.5,
+		Y_num = { -1, 0 },
+		Delay = 8,
+		Commands = "Move",
+		X_coord = -1
+
 	},
 
 	{
@@ -25,11 +29,9 @@ local params = {
 		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/SpiralTrace.lua"
 	}
 
-}
+} 
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
 	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
 	t[#t+1] = LoadActor(params[2]["Script"], params[2])..{}
-
 
 return Def.ActorFrame{ t }

@@ -14,7 +14,7 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/M 6x1.png",
+		File = "/BGAnimations/Resources/1st/Sprites/M 7x1.png",
 		Zoom = 0.25,
 		Frame_i = 3,
 		Script = "../Resources/Scripts/1st/SpiralStaticTrace.lua",

@@ -1,7 +1,14 @@
 
 --Never ResetParams twice in the same table using BGA_ParamsTweaks.
 
-local t = Def.ActorFrame{}
+local t = Def.ActorFrame{
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
+	LoseFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+	end
+}
 
 local params = {
 
@@ -18,7 +25,6 @@ local params = {
 		Index = 2,
 		File = "/BGAnimations/Resources/1st/Sprites/I 4x4.png",
 		X_num = 2,
-		Zoom = 1.07,
 		Y_num = { -2, 1 },
 		Frame_l = 16,
 		Delay = 0.125,

@@ -20,6 +20,7 @@ local params = {
 		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		Frame_i = 16,
 		Dir = "Out",
+		Zoom = 0.93,
 		Commands = "Color",
 		NoRot = true,
 		Color = color("0,0,1,1"),

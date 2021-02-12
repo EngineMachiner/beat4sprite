@@ -7,20 +7,25 @@ local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
-		X_num = 4,
-		Y_num = { -2, 1 },
-		Frame_i = 4
-
+		File = "/BGAnimations/Resources/1st/Sprites/Gradients/1stA 5x3.png",
+		X_num = { -2, 1 },
+		Y_num = { -1, 0 },
+		Frame_l = 15,
+		Zoom = 1.5,
+		Commands = { "Mirror" }
 	},
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/M 7x1.png",
+		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/Stairs.lua",
-		Zoom = 0.5,
-		Commands = "FramePerSprite",
-		Frame_l = 6
+		Flat = true,
+		Dir = "Out",
+		fov = 175,
+		Add = 5,
+		Commands = { "FramePerSprite" },
+		ZoomX = 0.5,
+		Frame_i = 2
 	}
 
 } 
