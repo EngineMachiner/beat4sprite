@@ -93,9 +93,9 @@ for i=0,4 + params.Add do
 
                     PSX_BGA_Globals["BGA_FrameSelector"](self, params)
 
-                    self:GetParent():x( SCREEN_CENTER_X+self:GetZoomedWidth()*0.55*ScaleVar*o)
-                    self:GetParent():y( SCREEN_CENTER_Y+self:GetZoomedHeight()*0.55*ScaleVar*o )
-                    self:GetParent():z( (o+5) * - 100 * 0.5 )
+                    self:GetParent():x( SCREEN_CENTER_X+self:GetZoomedWidth()*0.75*ScaleVar*o )
+                    self:GetParent():y( SCREEN_CENTER_Y+self:GetZoomedHeight()*0.75*ScaleVar*o )
+                    self:GetParent():z( - (o+5) * 50 )
 
                 end,
                 TwoSpritesCommand=function(self)
@@ -107,6 +107,9 @@ for i=0,4 + params.Add do
                 FramePerSpriteCommand=function(self)
 
                     self:animate(false)
+                    if params.ZoomX then
+                        self:zoomx(params.ZoomX)
+                    end
 
                     if self:GetNumStates() > 5 then
 

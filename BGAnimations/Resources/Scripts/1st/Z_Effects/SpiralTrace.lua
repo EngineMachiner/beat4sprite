@@ -1,16 +1,10 @@
 local params = ...
 local ScaleVar = _screen.h/480
 
-	PSX_BGA_Globals["BGA_NoParams"]( params )
-
-local s, cw = params.Frame_l
-local num, total = -1, 0
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local t = Def.ActorFrame{
-
-	OnCommand=function(self)
-		s = params.Frame_l
-		num, total = -1, 0	
+	InitCommand=function(self)
 		self:zbuffer(true)
 		self:SortByDrawOrder()
    		self:fov(170)
@@ -23,174 +17,136 @@ local t = Def.ActorFrame{
 	end
 }
 
-if not params.Speed then
-	params.Speed = 1
-end
+local cw, n, d = params.Clockwise, params.Slices, params.Remainder
+local z_s, spacing = params.Speed, params.ZSpacing
+local i_rot, state = params.IRot, params.SState
+local num, b = 0, 0
+i_rot = cw == 1 and i_rot + 180 or i_rot
 
-if not params.ZSpeed then 
-	params.ZSpeed = params.Speed
-end
+--360 * 6 - 360 / n - 360 * d / n, 360 / n
+for i = 0, 360 * 6 - 360 / n - 360 * d / n, 360 / n  do
 
-if not params.FrameRotAdd then 
-	params.FrameRotAdd = 0
-end
-
-if not params.Add then 
-	params.Add = 0
-end
-
-if not params.RotAdd then 
-	params.RotAdd = 0
-end
-
-if params.Dir == "Out" then
-	params.Dir = { -500, 50, 1 }
-else
-	params.Dir = { 50, -500, -1 }
-end
-
-local n = 6
-
-if params.Clockwise then 
-	cw = -1
-else
-	cw = 1
-end
-
-local add, val, val_2 = 0, params.Add, 0
-
-local confirm
-if type(params.Commands) == "table" then
-	for i = 1,#params.Commands do
-		if params.Commands[i] == "FramePerSprite" then 
-			confirm = true
-			n = n * 2
+	local c_state
+	if params.Pattern and params.Slices then 
+		if i * n / 360 >= ( params.Pattern + 1 ) * b then 
+			b = b + 1
+			c_state = true
 		end
 	end
-elseif type(params.Commands) == "string" then
-	if params.Commands == "FramePerSprite" then
-		confirm = true
-		n = n * 2
-	end
-end
+	
+	t[#t+1] = Def.ActorFrame{
 
-for i=0,360*4-360+val*360/n,360/n do
-
-	if confirm then
-		num = num + 1
-	end
-
-	if i ~= 360 and not confirm
-	or num <= params.Frame_l - val_2 then
-
-		t[#t+1] = Def.ActorFrame{
+		OnCommand=function(self)
+			self:set_tween_uses_effect_delta(true)
+			self:effectclock('beat')
+			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			self:xy(SCREEN_CENTER_X, SCREEN_CENTER_Y)
+			self:rotationz( params.SpinAng )
+			self:queuecommand("Spin")
+		end,
+		SpinCommand=function(self)
+			self:linear( 8 * z_s ):rotationz( self:GetRotationZ() - 360 * cw )
+			self:queuecommand("Spin")
+		end,
+			
+		Def.ActorFrame{
 
 			OnCommand=function(self)
 				self:set_tween_uses_effect_delta(true)
 				self:effectclock('beat')
-				PSX_BGA_Globals["BGA_ToolPreview"](self)
-				self:xy(SCREEN_CENTER_X, SCREEN_CENTER_Y)
-				self:rotationz( params.FrameRotAdd )
-				self:queuecommand("Spin")
+				PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
+				self:diffusealpha(0)
+				self:z( ( params.InitZ - i * 0.125 ) * spacing )
+				self:queuecommand("InitState")
+				self:diffusealpha(1)
+				self:queuecommand("Repeat")
+			end,
+			RepeatCommand=function(self)
+
+				local z_lim = params.Dir[2]
+				if self:GetZ() >= z_lim and params.Dir[3] > 0
+				or self:GetZ() < z_lim and params.Dir[3] < 0 then
+					local d = math.abs( params.Dir[1] + z_lim ) * params.Dir[3]
+					self:z( self:GetZ() - d * 1.75 )
+				else
+					local l = z_s * 0.5
+					self:linear( l * 3 )
+					self:z( self:GetZ() + math.abs( params.Dir[1] + z_lim ) * l * params.Dir[3] * 0.0625 )
+					if params.NoRot then
+						self:queuecommand("NoRot")
+					end
+				end
+				self:queuecommand("Repeat")
+
 			end,
 
-			SpinCommand=function(self)
-				self:linear(2*params.Speed):rotationz( self:GetRotationZ() - 360 * cw )
-				self:queuecommand("Spin")
-			end,
-			
 			Def.Sprite{
-			
+				
 				OnCommand=function(self)
 
 					self:set_tween_uses_effect_delta(true)
 					self:effectclock('beat')
 					self:Load(params.File)
 					PSX_BGA_Globals["BGA_FrameSelector"](self, params)
-			 		PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
+					self.Zoom = self:GetZoom()
+					self:zoom(1)
 
-					self:diffusealpha(0)
-					if params.NoRot then 
-						add = add + 180
-						self:rotationz( add + 180 )
-					else
-						self:rotationz( ( ( - i + 180 ) - 90 ) * cw + params.RotAdd )
+					self:rotationz( i_rot )
+
+					if not params.NoRot then
+						self:rotationz( self:GetRotationZ() + 90 - i * cw )
 					end
-					self:sleep(i*n/360):queuecommand("InitState")
 
+				end,
+				InitStateCommand=function(self)
+
+					local p = self:GetParent()
+					local dir_x = math.cos(math.rad(i))
+					local dir_y = math.sin(math.rad(i)) * cw
+
+					self:x( self:GetZoomedWidth() * ScaleVar * 2 * dir_x )
+					self:y( - self:GetZoomedHeight() * ScaleVar * 2 * dir_y )
+					self:zoom( params.Zoom )
+
+				end,
+				BlendCommand=function(self)
+					self:blend(params.Blend)
+				end,
+				NoRotCommand=function(self)
+					self:linear( 4 * z_s )
+					self:rotationz( self:GetRotationZ() + 180 * cw )
 				end,
 				FramePerSpriteCommand=function(self)
 
-					total = total + 1
-					if total == params.Frame_l + 2 then 
-						s = math.floor(params.Frame_l * 0.5) - 1
-						total = -1
-					end
-
 					self:animate(false)
 
-					if s > self:GetNumStates() - 1 then 
+					if c_state then 
+						self:visible(false)
+						state = state - 1
+					end 
+
+					local s = i * n / 360 + state + 1
+
+					while s > self:GetNumStates() do 
 						s = s - self:GetNumStates()
 					end
 
-					if s < 0 then 
+					while s < 1 do 
 						s = s + self:GetNumStates()
 					end
-					
-					self:setstate(s)
-					s = s - 1
+
+					self:setstate(s-1)
 
 				end,
 				ColorCommand=function(self)
 					self:diffuse(params.Color)
-				end,
-				InitStateCommand=function(self)
-
-					local angle = 360 + i
-					local dir_x = math.cos(math.rad(angle))
-					local dir_y = math.sin(math.rad(angle)) * cw
-					local val = params.Dir[1] / math.abs(params.Dir[1])
-					
-					self:diffusealpha(1)
-					self:x( self:GetZoomedWidth() * ScaleVar * dir_x )
-					self:y( - self:GetZoomedHeight() * ScaleVar * dir_y )
-					self:z( params.Dir[1] + i * 0.125 )
-
-					self:queuecommand("Repeat")
-
-				end,
-				RepeatCommand=function(self)
-
-					if self:GetZ() > params.Dir[2] and params.Dir[2] > 0
-					or self:GetZ() < params.Dir[2] and params.Dir[2] < 0 then
-						self:z( self:GetZ() - math.abs( params.Dir[1] + params.Dir[2] ) * 1.5 * params.Dir[3]  )
-					else
-						self:linear(1*params.ZSpeed)
-						self:z( self:GetZ() + 50 * params.Dir[3] )
-						if params.NoRot then 
-							self:rotationz( self:GetRotationZ() + 180 * cw )
-						end
-					end
-						self:queuecommand("Repeat")
-
 				end
 
 			}
 
 		}
 
-	else
-
-		if confirm then 
-			num = -1
-			if val_2 == 0 then 
-				val_2 = math.floor(params.Frame_l * 0.5) + 1
-			else
-				val_2 = 0
-			end
-		end
-
-	end
+	}
 
 end
 

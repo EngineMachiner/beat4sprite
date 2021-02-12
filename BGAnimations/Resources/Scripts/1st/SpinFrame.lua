@@ -1,6 +1,8 @@
 local params = ...
 local ScaleVar = _screen.h/480
 
+params.Zoom = params.Zoom or 1
+
 local t = Def.ActorFrame{
 
     GainFocusCommand=function(self)
@@ -19,8 +21,8 @@ local t = Def.ActorFrame{
             InitCommand=function(self)
                 self:Load(params.File)
                 PSX_BGA_Globals["BGA_FrameSelector"](self, params)
-                self:GetParent():SetWidth( self:GetZoomedWidth() * 4 )
-                self:GetParent():SetHeight( self:GetZoomedHeight() * 4 )
+                self:GetParent():SetWidth( self:GetZoomedWidth() * 4.25 )
+                self:GetParent():SetHeight( self:GetZoomedHeight() * 4.25 )
             end,
             OnCommand=function(self)
                 PSX_BGA_Globals["BGA_FrameSelector"](self, params)
@@ -40,7 +42,7 @@ local t = Def.ActorFrame{
 
     }
 
-    params.Zoom = params.Zoom * 0.2225
+    params.Zoom = params.Zoom * 0.179
     t[#t+1] = LoadActor( "../TileTool.lua", params )..{}
 
 return Def.ActorFrame{ t }

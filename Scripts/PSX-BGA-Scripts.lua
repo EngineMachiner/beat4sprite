@@ -127,32 +127,26 @@ end
 a["BGA_TileTool"] = BGA_TileTool
 
 
-local function BGA_Scale( self )
-
-	local ScaleVar = SCREEN_HEIGHT / 480 -- Theme scale
-	if self:GetTexture() then
-		ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetSourceHeight() ) -- Image scale
-	else
+local function BGA_Scale( self, params )
+	if not self:GetTexture() then 
 		self:Load(THEME:GetPathG("","_blank"))
 	end
 
-	--[[ ( 480 / self:GetTexture():GetSourceHeight() ) * 1 / params.Zoom = ScaleVar
-	 		If we use a sprite graphic that is not in the 320x240 scale then we will need
-	 		to use params.Zoom to properly scale it.
-	]]
+	--Theme scale 
+	local ScaleVar = SCREEN_HEIGHT / 480
+
+	-- Image scale
+	ScaleVar = ScaleVar * ( 480 / self:GetTexture():GetSourceHeight() )
 
 	self:zoom( ScaleVar )
-
 end
 a["BGA_Scale"] = BGA_Scale
 
 
 local function BGA_Details( self, params )
 
-	BGA_Scale(self)
-	if params.Zoom then 
-		self:zoom( self:GetZoom() * params.Zoom )
-	end
+	BGA_Scale( self, params )
+	self:zoom( self:GetZoom() * params.Zoom )
 	
 	BGA_ToolPreview(self)
 
@@ -255,17 +249,14 @@ end
 a["BGA_ScrollTextures"] = BGA_ScrollTextures
 
 
+local ignore = {
 
-	local ignore = {
+	"Index",
+	"ID",
+	"ResetParams",
+	"AddActors"
 
-		"Index",
-		"ID",
-		"ResetParams",
-		"AddActors"
-
-	}
-
-
+}
 
 local function BGA_ParamsTweaks( params, tweaks ) -- These tweaks are BEFORE creating the Actor!
 
@@ -361,29 +352,60 @@ a["BGA_PostSpawn"] = BGA_PostSpawn
 local function BGA_NoParams( params )
 
 	local function Replace(val, add)
-		if val then
-			val = val + add
-		else
-			val = 0
-		end
-		return val
+		local v = val
+		v = v and v + add or 0
+		return v
 	end
 
 	if params then
+
+		params.Zoom = params.Zoom or 1
+		
 		params.Frame_i = Replace(params.Frame_i, -1)
-		if not params.Frame_l then 
-			params.Frame_l = params.Frame_i
+
+		local l = params.Frame_l
+		l = l and Replace(l, -1) or params.Frame_i
+		params.Frame_l = l
+
+		params.FDelay = params.FDelay or 2
+
+		local s = params.Spacing
+		s = type(s) == "number" and { 1 + s, 1 + s } or s or { 1, 1 }
+		params.Spacing = s
+
+		if params.Script and string.match( params.Script, "SpiralTrace" )
+		and string.match( params.Script, "1st" ) then 
+
+			params.InitZ = params.InitZ or 50
+			params.Slices = params.Slices or 6
+			params.Dir = params.Dir == "Out" and { -200, 50, 1 } or { 50, -200, -1 }
+			params.Clockwise = params.Clockwise and 1 or -1
+			params.RSpeed = params.RSpeed or 1
+			params.Speed = params.Speed or 1
+			params.ZSpacing = params.ZSpacing or 1
+			params.IRot = params.IRot or 0
+			params.SState = params.SState or 0
+			params.Remainder = params.Remainder or 0
+			params.SpinAng = params.SpinAng or 0
+
 		else
-			params.Frame_l = Replace(params.Frame_l, -1)
+
+			local x = params.X_num or 0
+			x = type(x) == "number" and { -math.abs(x), math.abs(x) } or x
+			params.X_num = x
+
+			local y = params.Y_num or 0
+			y = type(y) == "number" and { -math.abs(y), math.abs(y) } or y
+			params.Y_num = y
+
+			params.X_coord = params.X_coord or 0 
+			params.Y_coord = params.Y_coord or 0 
+			params.ActorClass = params.ActorClass or "Sprite"
+			params.ScrollSpeed = params.ScrollSpeed or 1
+			params.Speed = params.Speed or 1
+
 		end
-		if not params.FDelay then 
-			params.FDelay = 2
-		end
-		if not params.Spacing then
-			params.Spacing = { 1, 1 }
-		elseif type(params.Spacing) == "number" then 
-			params.Spacing = { 1 + params.Spacing, 1 + params.Spacing }
-		end
+
 	end
 	
 end
@@ -470,20 +492,22 @@ local function BGA_FrameSelector( self, params )
 	if params.Frames then
 		DeepCopy( params.Frames, tbl_Frames )
 	else
-		if params.Frame_i >= 0 then
-			if params.Frame_l > params.Frame_i then
-				for i=params.Frame_i,params.Frame_l do
+		local p_i = params.Frame_i
+		local p_l = params.Frame_l
+		if p_i >= 0 then
+			if p_l > p_i then
+				for i=p_i,p_l do
 					tbl_Frames[#tbl_Frames+1] = { Frame = i }
 				end
-			elseif params.Frame_l < params.Frame_i then
-				for i=params.Frame_i,params.Frame_l,-1 do
+			elseif p_l < p_i then
+				for i=p_i,p_l,-1 do
 					tbl_Frames[#tbl_Frames+1] = { Frame = i }
 				end
 			else
-				tbl_Frames[#tbl_Frames+1] = { Frame = params.Frame_i }
+				tbl_Frames[#tbl_Frames+1] = { Frame = p_i }
 			end
 			if params.FrameReverse then
-				for i=params.Frame_l,params.Frame_i,-1 do
+				for i=p_l,p_i,-1 do
 					tbl_Frames[#tbl_Frames+1] = { Frame = i }
 				end
 			end

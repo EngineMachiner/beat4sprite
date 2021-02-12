@@ -10,9 +10,7 @@ local t = Def.ActorFrame{
 	end
 }
 
-local x = { 0, 0 }
-local y = { 0, 0 }
-
+-- Getting the sheet proportion
 local s, Frames
 
 if type(params.File) == "string" then
@@ -24,53 +22,12 @@ if type(params.File) == "string" then
 	end
 end
 
-if params.X_num then
-	if type(params.X_num) == "table" then 
-		for i=1,#params.X_num do
-			x[i] = params.X_num[i]
-		end
-	elseif type(params.X_num) == "number" then
-		x = { -math.abs(params.X_num), math.abs(params.X_num) }
-	end
-end
-
-if params.Y_num then
-	if type(params.Y_num) == "table" then 
-		for i=1,#params.Y_num do
-			y[i] = params.Y_num[i]
-		end
-	elseif type(params.Y_num) == "number" then
-		y = { -math.abs(params.Y_num), math.abs(params.Y_num) }
-	end
-end
+--In case something is missing
+PSX_BGA_Globals["BGA_NoParams"]( params )
 
 local X_pos = params.X_pos
 local Y_pos = params.Y_pos
-
---In case something is missing
-
-PSX_BGA_Globals["BGA_NoParams"]( params )
-
-if not params.X_coord then 
-	params.X_coord = 0 
-end
-
-if not params.Y_coord then 
-	params.Y_coord = 0 
-end
-
-if not params.ActorClass then 
-	params.ActorClass = "Sprite"
-end
-
-if not params.ScrollSpeed then 
-	params.ScrollSpeed = 1
-end
-
-if not params.Speed then 
-	params.Speed = 1
-end
-
+local x, y = params.X_num, params.Y_num
 
 local function StateMath( x, y, self, state )
 
@@ -139,20 +96,10 @@ local function Find(self, filter) -- filter is the texture path/dir
 
 end
 
-local i_0, k_0 
-	-- These are offsets.
+-- Position offsets
 
-if params.X_coord == 0 then
-	i_0 = ( ( math.abs( x[1] ) + math.abs( x[2] ) ) % 2 ) * 0.5
-else
-	i_0 = 0
-end
-
-if params.Y_coord == 0 then
-	k_0 = ( ( math.abs( y[1] ) + math.abs( y[2] ) ) % 2 ) * 0.5
-else
-	k_0 = 0
-end
+local i_0 = params.X_coord == 0 and ( ( math.abs( x[1] ) + math.abs( x[2] ) ) % 2 ) * 0.5 or 0
+local k_0 = params.Y_coord == 0 and ( ( math.abs( y[1] ) + math.abs( y[2] ) ) % 2 ) * 0.5 or 0
 
 for i=x[1],x[2] do
 	for k=y[1],y[2] do
@@ -622,6 +569,11 @@ for i=x[1],x[2] do
 				local z = self:GetZoom()
 				self:zoom( z ):linear(2):zoom( z * 1.5 ):linear(2):zoom( z ):queuecommand("Zoomin2")
 			end,
+			AlphaCommand=function(self)
+				self:diffusealpha(1):linear(2):diffusealpha(0)
+				self:linear(2):diffusealpha(1)
+				self:queuecommand("Alpha")
+			end
 		}
 
 	end
