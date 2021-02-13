@@ -17,8 +17,8 @@ local params = {
 		Delay = 0.25,
 		Zoom = 1.875,
 		IRot = 90,
-		ZSpacing = 2,
-		Remainder = 6,
+		ZSpacing = 4,
+		Remainder = 6 * 4 + 3,
 		Speed = 2,
 		Script = "../Resources/Scripts/1st/Z_Effects/SpiralTrace.lua"
 	}

@@ -1,7 +1,14 @@
 
 --Never ResetParams twice in the same table using BGA_ParamsTweaks.
 
-local t = Def.ActorFrame{}
+local t = Def.ActorFrame{
+	GainFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+	end,
+	LoseFocusCommand=function(self)
+		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+	end
+}
 
 local params = {
 

@@ -40,7 +40,14 @@ local params = {
 
 for k=-1,1 do
 
-	t[#t+1] = Def.ActorFrame{}
+	t[#t+1] = Def.ActorFrame{
+		GainFocusCommand=function(self)
+			PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		end,
+		LoseFocusCommand=function(self)
+			PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		end
+	}
 
 	for i=1,2 do
 
@@ -56,6 +63,7 @@ for k=-1,1 do
 			OnCommand=function(self)
 
 				self.num = i - 1
+				self:stoptweening()
 				self:Center()
 				self:set_tween_uses_effect_delta(true)
 				self:effectclock("beat")
@@ -73,6 +81,7 @@ for k=-1,1 do
 
 				self.num = self.num + 1
 
+				self:stoptweening()
 				self:Load(bg[self.num])
 				self:animate(false)
 				self:cropleft(0):cropright(0)

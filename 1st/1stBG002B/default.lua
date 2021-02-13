@@ -3,7 +3,7 @@ local tweaks = {
 
 	{
 		Index = 1,
-		Commands = { "Mirror", "Fade" },
+		Commands = "Mirror",
 		Color = Color.Black
 	},
 
@@ -14,7 +14,8 @@ local tweaks = {
 		Y_num = { -3, 2 },
 		Frame_i = 9,
 		ResetParams = true,
-		Commands = { "SpinFrame", "Alpha" },
+		Blend = "BlendMode_Add",
+		Commands = { "SpinFrame", "Alpha", "Blend" },
 		Zoom = 0.93,
 		Script = "/BGAnimations/Resources/Scripts/1st/SpinFrame.lua"
 	}
