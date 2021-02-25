@@ -1,14 +1,7 @@
 
 --Never ResetParams twice in the same table using BGA_ParamsTweaks.
 
-local t = Def.ActorFrame{	
-	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
-	end,
-	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
-	end
-}
+local t = Def.ActorFrame{}
 
 local bg = {
 	GAMESTATE:GetCurrentSong():GetBackgroundPath(),
@@ -65,8 +58,10 @@ for k=-1,1 do
 				self.num = i - 1
 				self:stoptweening()
 				self:Center()
+				self:Load(bg[1])
 				self:set_tween_uses_effect_delta(true)
 				self:effectclock("beat")
+				self:x( self:GetX() + self:GetZoomedWidth() * k )
 
 				if i > 1 then
 					self:ztest(true)
@@ -81,7 +76,6 @@ for k=-1,1 do
 
 				self.num = self.num + 1
 
-				self:stoptweening()
 				self:Load(bg[self.num])
 				self:animate(false)
 				self:cropleft(0):cropright(0)
@@ -94,12 +88,6 @@ for k=-1,1 do
 				if self.num == 4 then fake.Frame_i = 4 end
 				PSX_BGA_Globals.BGA_NoParams(fake)
 				PSX_BGA_Globals.BGA_FrameSelector(self, fake)
-
-				if not self:GetParent().Once then 
-					local p = self:GetParent()
-					p.Once = true
-					p:x( self:GetZoomedWidth() * k )
-				end
 
 				self.num = self.num >= #bg and self.num - #bg or self.num
 
