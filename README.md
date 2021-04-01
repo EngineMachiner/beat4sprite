@@ -25,7 +25,7 @@ my own BGAnimations. So while I was learning Lua and through other games,
 this project evolved not only as a collection of background but a library.
 
 I tried to do a lot of maintenance and debugging too, 
-checking my code and the performance tests on game.
+checking my code and the performance tests in-game.
 
 There is also a branch with BGScripts/BGCHANGES, made by other users.
 
