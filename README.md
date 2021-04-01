@@ -23,7 +23,7 @@ I started to create my custom videos to use while on gameplay.
 Then my idea changed because of video encoding, quality and 
 size mostly. I moved to scripting and writing code so I could draw 
 my own BGAnimations. So while I was learning Lua and through other games, 
-this project evolved not only as a collection of background but a library.
+this project evolved not only as a collection of backgrounds but as a library.
 
 I tried to do a lot of maintenance and debugging too, 
 checking my code and the performance tests in-game.
