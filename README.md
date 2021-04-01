@@ -49,15 +49,11 @@ There is also a branch with BGScripts/BGCHANGES, made by other users.
 
 ### CREDITS
 
-Engine_Machiner
+- Engine_Machiner
+- RenTheHumanCat 
+- MadkaT
+- leadbman
+- Retrozaid
+- Project Moondance devs
 
-RenTheHumanCat 
-MadkaT
-
-leadbman
-Retrozaid
-
-Project Moondance folks
-
-Please tell me if I missed someone.
--> Engine_Machiner
+Please tell me if I missed someone. - Engine
