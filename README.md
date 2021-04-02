@@ -56,6 +56,6 @@ There is also a branch with BGScripts/BGCHANGES, made by other users.
 - leadbman
 - Retrozaid
 - Project Moondance devs
-- StepMania Theme Dev Server
+- StepMania Theme Dev Server folks
 
 Please tell me if I missed someone. - Engine
