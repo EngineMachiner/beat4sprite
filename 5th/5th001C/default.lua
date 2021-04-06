@@ -10,11 +10,10 @@ local tweaks = {
 	X_num = { -2, 1 },
 	Y_num = { -1, 0 },
 	Frame_i = 2,
-	ResetParams = true -- Deletes all the previous params values, false will keep the last defined params values.
-
+	Cleanup = true -- Deletes all the previous params values, false will keep the last defined params values.
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
 

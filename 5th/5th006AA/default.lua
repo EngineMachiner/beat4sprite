@@ -6,14 +6,13 @@ local tweaks = {
 
 	{
 		Index = 1,
-		ResetParams = true,
+		Cleanup = true,
 		File = "/BGAnimations/Resources/5th/Sprites/DABCD 1x4.png",
 		Frame_l = 4,
 		X_num = 1,
 		Y_num = { -3, 4 },
-		Delay = 0.5,
-		ScrollSpeed = 0.5,
 		Y_coord = -1,
+		FrmDelay = 2,
 		Commands = { "StairsStates", "Move" }
 	},
 
@@ -24,7 +23,7 @@ local tweaks = {
 	
 }
 	
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
 
 return Def.ActorFrame{ t }

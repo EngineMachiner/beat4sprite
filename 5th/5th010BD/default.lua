@@ -1,11 +1,11 @@
-local params = {}
 
-params.AddActors = {} 
+local params = {
+	Index = 1
+}
 
-params.AddActors[#params.AddActors+1] = PSX_BGA_Globals["BGA_IQB"]()
+params.Actors = {} 
+params.Actors[#params.Actors+1] = BGA_G.IDest_Quad()
 
 return Def.ActorFrame{
-
-	LoadActor("/BGAnimations/5th010AD", params)..{},
-
+	LoadActor("/BGAnimations/5th010AD", params)..{}
 }

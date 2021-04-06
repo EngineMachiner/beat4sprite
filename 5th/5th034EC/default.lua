@@ -1,10 +1,10 @@
 
 local t = Def.ActorFrame{
 	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		BGA_G.Stop( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		BGA_G.Stop( self )
 	end
 }
 
@@ -28,7 +28,7 @@ local params = {
 	Y_num = { -1, 2 },
 	X_coord = -1,
 	Y_coord = -1,
-	ScrollSpeed = 2,
+	HurryTweenBy = 2,
 	Commands = { "Move" }
 }
 

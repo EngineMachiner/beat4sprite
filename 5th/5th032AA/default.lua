@@ -16,13 +16,13 @@ local params_2 = {
 	Frame_l = 10,
 	X_num = { -4, 3 },
 	Y_num = { -2, 1 },
-	Delay = 2,
-	SpinClosed = true,
+	Delay = 4,
+	SpinC = true,
 	Commands = { "SpinXY" }
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 	
 return Def.ActorFrame{
 

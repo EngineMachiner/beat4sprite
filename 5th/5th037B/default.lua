@@ -13,7 +13,7 @@ local tweaks = {
 		Y_num = { -2, 1 },
 		Frame_i = 14,
 		Frame_l = 15,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -23,7 +23,7 @@ local tweaks = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
 

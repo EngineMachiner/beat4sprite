@@ -14,12 +14,12 @@ local tweaks = {
 		Frame_i = 9,
 		Commands = "TwoSprites",
 		Dir = "Out",
-		Script = "/BGAnimations/Resources/Scripts/5th/Z_Effects/Stairs.lua"
+		Script = "/BGAnimations/Resources/Scripts/SpaceEffects/Stairs.lua"
 	}
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 
 return Def.ActorFrame{ 
 	LoadActor( "/BGAnimations/5th001G", tweaks )..{},

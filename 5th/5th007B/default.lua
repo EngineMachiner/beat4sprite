@@ -4,8 +4,7 @@ local tweaks = {
 	Index = 1,
 	X_num = { -4, 6 },
 	X_coord = -1,
-	Commands = { "StairsStates", "Move" },
-	Delay = 1
+	Commands = { "StairsStates", "Move" }
 
 }
 

@@ -9,7 +9,7 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 local params_2 = {
 
@@ -20,7 +20,7 @@ local params_2 = {
 		X_num = { -4, 3 },
 		Y_num = 1,
 		Frame_i = 12,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{

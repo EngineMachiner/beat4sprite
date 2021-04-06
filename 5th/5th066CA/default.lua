@@ -28,7 +28,7 @@ local tweaks = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 
 return Def.ActorFrame{
 

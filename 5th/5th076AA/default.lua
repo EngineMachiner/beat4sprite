@@ -20,11 +20,11 @@ local params = {
 	}
 
 }
-	PSX_BGA_Globals["BGA_ParamsTweaks"](params,tweaks)
+	BGA_G.ParTweak(params,tweaks)
 	
 return Def.ActorFrame{
 
 	LoadActor("../Resources/Scripts/TileTool.lua", params[1])..{},
-	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua", params[2])..{}
+	LoadActor("../Resources/Scripts/SpaceEffects/RoundTrace.lua", params[2])..{}
 
 }

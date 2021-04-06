@@ -4,13 +4,14 @@ local params = {
 	{
 		Index = 1,
 		File = "/BGAnimations/Resources/5th/Sprites/DABCDE 4x3.png",
-		ResetParams = true,
+		Cleanup = true,
 		Y_num = { -2, 1 },
 		X_num = { -4, 3 },
 		Frame_l = 12,
-		Delay = 1/12,
 		Y_coord = -1,
-		Commands = "Move"
+		FrmDelay = 0.5,
+		HurryTweenBy = 4,
+		Commands = "Move",
 	},
 
 	{
@@ -20,16 +21,23 @@ local params = {
 
 }
 
-local params_2, params_3 = {}, {}
+local params_2 = {}
+local params_3 = {}
 
-	DeepCopy( params[1], params_2 )
-	params_2["ActorClass"] = "Quad"
-	params_2["Commands"] = { "Move", "Fade", "Blend" }
-	params_2["Fade"] = { 4, 1 }
-	params_2["Color"] = Color.Red
+DeepCopy( params[1], params_2 )
+params_2["Class"] = "Quad"
+params_2["Commands"] = { "Fade", "Blend", "Move" }
+params_2["Fade"] = { 4, 1 }
+params_2["EffectOffset"] = - 1.5
+params_2["FadePeriodBy"] = 0.5
+params_2["HurryTweenBy"] = 2
+params_2["Color"] = Color.Red
 
-	DeepCopy( params_2, params_3 )
-	params_3["Color"] = Color.Black
+DeepCopy( params_2, params_3 )
+params_3["Color"] = Color.Black
+	
+params_2["X_pos"] = 0
+params_3["X_pos"] = -1
 
 return Def.ActorFrame{
 

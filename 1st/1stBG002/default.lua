@@ -4,6 +4,7 @@ local tweaks = {
 	{
 		Index = 1,
 		Commands = { "Mirror", "Fade" },
+		Fade = { 0, 1 },
 		Color = Color.Black
 	},
 
@@ -16,7 +17,7 @@ local tweaks = {
 		ResetParams = true,
 		Commands = { "SpinFrame" },
 		Zoom = 0.93,
-		Script = "/BGAnimations/Resources/Scripts/1st/SpinFrame.lua"
+		Script = "/BGAnimations/Resources/Scripts/AFTSpin.lua"
 	}
 
 }

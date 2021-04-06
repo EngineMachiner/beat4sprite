@@ -17,7 +17,7 @@ local tweaks = {
 		Blend = "BlendMode_Add",
 		Commands = { "SpinFrame", "Alpha", "Blend" },
 		Zoom = 0.93,
-		Script = "/BGAnimations/Resources/Scripts/1st/SpinFrame.lua"
+		Script = "/BGAnimations/Resources/Scripts/AFTSpin.lua"
 	}
 
 }

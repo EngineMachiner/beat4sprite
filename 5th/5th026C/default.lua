@@ -8,10 +8,9 @@ local params = {
 		Y_num = { -2, 2 },
 		Frame_i = 9,
 		Frame_l = 10,
-		Delay = 0.5,
 		Commands = { "Move", "StairsStates" },
 		Y_coord = -1,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -34,6 +33,6 @@ local params_2 = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/5th/Particles.lua",params_2)..{}
+	LoadActor("../Resources/Scripts/Particles.lua",params_2)..{}
 
 }

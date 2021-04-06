@@ -7,12 +7,12 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/J 6x5.png",
+		File = "/BGAnimations/Resources/1st/Sprites/J 3x5.png",
 		X_num = 1,
 		Spacing = { 1, 0.65 },
 		Y_num = 1,
 		Zoom = 2.5,
-		Frame_l = 30,
+		Frame_l = 15,
 		Color = Color.Orange,
 		Blend = "BlendMode_Add",
 		Commands = { "Color", "Blend" }
@@ -28,7 +28,7 @@ local params = {
 
 } 
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
+	BGA_G.Tile( t, params[2] )
+	BGA_G.Tile( t, params[1] )
 
 return Def.ActorFrame{ t }

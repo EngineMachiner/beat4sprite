@@ -7,11 +7,12 @@ local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/1st/Sprites/Gradients/1stAB 5x3.png",
+		File = "/BGAnimations/Resources/1st/Sprites/Gradients/1stAB 5x6.png",
 		X_num = { -2, 1 },
 		Y_num = { -1, 0 },
-		Frame_l = 15,
-		Zoom = 1.5,
+		Frame_l = 30,
+		Zoom = 3,
+		Delay = 0.25,
 		Commands = { "Mirror" }
 	},
 
@@ -20,16 +21,15 @@ local params = {
 		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		Frame_i = 16,
 		Dir = "Out",
-		Zoom = 0.93,
 		Commands = "Color",
-		NoRot = true,
+		Slices = 4,
 		Color = color("0,0,1,1"),
-		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/SpiralTrace.lua"
+		Script = "/BGAnimations/Resources/Scripts/1st/SpaceEffects/Spiral.lua"
 	}
 
 } 
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
+	BGA_G.Tile( t, params[1] )
 	t[#t+1] = LoadActor( params[2]["Script"], params[2] )
 
 return Def.ActorFrame{ t }

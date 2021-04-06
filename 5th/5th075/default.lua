@@ -4,7 +4,7 @@ local params = {
 	{
 		Index = 1,
 		File = "/BGAnimations/Resources/5th/Backgrounds/AB.png",
-		ResetParams = true,
+		Cleanup = true,
 		X_num = 1,
 		Commands = "Mirror",
 		BGMirror = true
@@ -21,12 +21,11 @@ local params_2 = {
 
 	Index = 3,
 	File = "/BGAnimations/Resources/5th/Sprites/X3 5x4.png",
-	ResetParams = true,
+	Cleanup = true,
 	Y_num = { -2, 1 },
 	X_num = 2,
-	Frame_l = 20,
-	FramingY = true,
-	Commands = { "Pulse" }
+	Frames = { 1, 20, Type = 2 },
+	Commands = { "Pulse", "StairsStates" }
 
 }
 

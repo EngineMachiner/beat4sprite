@@ -8,7 +8,7 @@ local params = {
 		File = "/BGAnimations/Resources/5th/Sprites/BABCD 4x1.png",
 		Frame_i = 1,
 		Frame_l = 4,
-		ResetParams = true,
+		Cleanup = true,
 		Commands = "StairsStates",
 		X_num = { -4, 3 },
 	},
@@ -30,11 +30,11 @@ local params_2 = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
+	BGA_G.ParTweak( params_2, replace )
 
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/5th/Particles.lua",params_2)..{},
+	LoadActor("../Resources/Scripts/Particles.lua",params_2)..{},
 
 }

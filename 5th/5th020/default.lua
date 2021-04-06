@@ -7,7 +7,5 @@ local params = {
 } 
 
 return Def.ActorFrame{
-
-	LoadActor( "../Resources/Scripts/5th/BG/3.lua", params )..{}
-
+	LoadActor( "../Resources/Scripts/WarpingEffects/Bob.lua", params )..{}
 }

@@ -3,7 +3,7 @@ local params = {
 
 	{
 		Index = 1,
-		Delay = 1
+		FDelay = 2
 	}
 
 }

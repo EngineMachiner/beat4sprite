@@ -9,17 +9,17 @@ local tweaks = {
 	Frame_i = 3,
 	BGMirror = true,
 	Commands = "Mirror",
-	ResetParams = true
+	Cleanup = true
 }
 
 local params = {
 	Index = 1,
-	Script = "../Resources/Scripts/5th/Z_Effects/RoundTrace.lua",
+	Script = "../Resources/Scripts/SpaceEffects/RoundTrace.lua",
 	File = "/BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
 	Frame_i = 11,
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 

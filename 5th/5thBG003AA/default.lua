@@ -15,8 +15,8 @@ local params = {
 
 }
 
-    PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+    BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
-    LoadActor("../Resources/Scripts/5th/Split.lua", params )..{}
+    LoadActor("../Resources/Scripts/SplitScreen.lua", params )..{}
 }

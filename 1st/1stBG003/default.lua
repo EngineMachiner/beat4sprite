@@ -26,9 +26,9 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
+	BGA_G.ParTweak( params, tweaks )
+	BGA_G.Tile( t, params[1] )
+	BGA_G.Tile( t, params[2] )
 
 
 return Def.ActorFrame{ t }

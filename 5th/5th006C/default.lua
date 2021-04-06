@@ -6,7 +6,6 @@ local tweaks = {
 	{
 		Index = 1,
 		Y_num = { -2, 1 },
-		Y_pos = 0.5,
 		Commands = "StairsStates"
 	},
 
@@ -27,7 +26,7 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor("../Resources/Scripts/5th/LineXY.lua", params)..{}
+	t[#t+1] = LoadActor("../Resources/Scripts/LineXY.lua", params)..{}
 
 
 return Def.ActorFrame{ t }

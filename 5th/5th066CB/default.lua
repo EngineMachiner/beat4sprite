@@ -20,11 +20,11 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 
 	LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params[1] )..{},
-	LoadActor( "/BGAnimations/Resources/Scripts/5th/Z_Effects/Stairs.lua", params[2] )..{}
+	LoadActor( "/BGAnimations/Resources/Scripts/SpaceEffects/Stairs.lua", params[2] )..{}
 
 }

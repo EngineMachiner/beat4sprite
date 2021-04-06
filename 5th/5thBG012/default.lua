@@ -15,20 +15,21 @@ local params = {
 
 	}
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{
 		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			BGA_G.ScreenPreview(self)
 			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
-			self:diffusealpha(0):sleep(2)
-				:diffusealpha(1):sleep(2)
-				:diffusealpha(0):sleep(4)
-				:queuecommand("On")
+			local d = BGA_G.GetDelay(self)[2] * 2
+			self:diffusealpha(0):sleep(d)
+			self:diffusealpha(1):sleep(d)
+			self:diffusealpha(0):sleep(2*d)
+			self:queuecommand("On")
 		end
 	}
 
@@ -43,20 +44,21 @@ local params = {
 
 	}
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{
 		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			BGA_G.ScreenPreview(self)
 			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
-			self:diffusealpha(0):sleep(4)
-				:diffusealpha(1):sleep(2)
-				:diffusealpha(0):sleep(2)
-				:queuecommand("On")
+			local d = BGA_G.GetDelay(self)[2] * 2
+			self:diffusealpha(0):sleep(2*d)
+			self:diffusealpha(1):sleep(d)
+			self:diffusealpha(0):sleep(d)
+			self:queuecommand("On")
 		end
 	}
 

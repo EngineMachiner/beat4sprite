@@ -15,10 +15,8 @@ local params = {
  	
  	count = count + 1
  	params.Index = count
- 	params.ID = #t + 1
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params )
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, tweaks )
+	BGA_G.ParTweak( params, tweaks )
+	BGA_G.Tile( t, params )
 
 
 	params = {
@@ -33,10 +31,8 @@ local params = {
 
  	count = count + 1
  	params.Index = count
- 	params.ID = #t + 1
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params )
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, tweaks )
+	BGA_G.ParTweak( params, tweaks )
+	BGA_G.Tile( t, params )
 
 
 return Def.ActorFrame{ t }

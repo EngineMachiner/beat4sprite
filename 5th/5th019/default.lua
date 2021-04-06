@@ -10,7 +10,7 @@ local tweaks = {
 		Frame_l = 16,
 		X_num = { -4, 3 },
 		Y_num = { -2, 1 },
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{

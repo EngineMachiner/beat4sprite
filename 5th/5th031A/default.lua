@@ -8,7 +8,8 @@ local params = {
 		File = "/BGAnimations/Resources/5th/Sprites/DA 4x3.png",
 		Frame_i = 11,
 		Frame_l = 12,
-		Commands = "StairsStates"
+		Commands = "StairsStates",
+		RandomInitState = false
 	},
 
 	{
@@ -18,7 +19,7 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 

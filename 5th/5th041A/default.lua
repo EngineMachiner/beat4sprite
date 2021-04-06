@@ -3,37 +3,29 @@ local tweaks = ...
 
 local t = Def.ActorFrame{
 	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		BGA_G.Stop( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		BGA_G.Stop( self )
 	end
 }
 
 local params = {
 
 	File = {
-		"/BGAnimations/Resources/5th/Backgrounds/DA.png",
-		"/BGAnimations/Resources/5th/Backgrounds/DA2.png"
+		"/BGAnimations/Resources/5th/Backgrounds/DA2.png",
+		"/BGAnimations/Resources/5th/Backgrounds/DA.png"
 	},
 	Y_coord = 1,
 	X_num = 1,
 	Commands = "Move",
-	ResetParams = true
+	Cleanup = true
 
 }
 	
  	count = count + 1
  	params.Index = count
- 	params.ID = #t + 1
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks ) 
-	PSX_BGA_Globals["BGA_ScrollTextures"]( t, params )
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, tweaks )
-
-	if params.AddActors then
-		for k,v in pairs(params.AddActors) do
-			t[#t+1] = v
-		end
-	end
+	BGA_G.ParTweak( params, tweaks ) 
+	BGA_G.Tile( t, params )
 
 return Def.ActorFrame{ t }

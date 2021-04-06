@@ -10,7 +10,7 @@ local tweaks = {
 		X_num = { -4, 3 },
 		Y_num = 1,
 		Commands = "StairsStates",
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -20,7 +20,7 @@ local tweaks = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 
 return Def.ActorFrame{
 

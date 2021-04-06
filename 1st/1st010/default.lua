@@ -20,13 +20,13 @@ local params = {
 		Frame_l = 2,
 		Spin = true,
 		Zoom = 0.8,
-		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/Stairs.lua"
+		Script = "/BGAnimations/Resources/Scripts/1st/SpaceEffects/Stairs.lua"
 	}
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
+	BGA_G.ParTweak( params, tweaks )
+	BGA_G.Tile( t, params[1] )
 	t[#t+1] = LoadActor(params[2]["Script"], params[2])..{}
 
 

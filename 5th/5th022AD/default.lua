@@ -10,8 +10,8 @@ local params = {
 		Y_num = { -2, 1 },
 		Frame_i = 16,
 		Frame_l = 13,
-		ScrollSpeed = 2,
-		ResetParams = true
+		HurryTweenBy = 2,
+		Cleanup = true
 	},
 
 	{
@@ -21,7 +21,7 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 

@@ -8,7 +8,7 @@ local params = {
 		File = "/BGAnimations/Resources/5th/Sprites/A 4x3.png",
 		Frame_i = 11,
 		Frame_l = 12,
-		ResetParams = true,
+		Cleanup = true,
 		X_num = { -4, 3 },
 		Y_num = 1,
 	},
@@ -27,11 +27,11 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("/BGAnimations/Resources/Scripts/5th/Z_Effects/RoundTrace.lua",params[3])..{}
+	LoadActor("/BGAnimations/Resources/Scripts/SpaceEffects/RoundTrace.lua",params[3])..{}
 
 }

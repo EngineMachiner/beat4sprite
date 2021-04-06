@@ -9,8 +9,8 @@ local params = {
 	BGMirror = true
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/5th/BG/5.lua", params )..{}
+	LoadActor( "../Resources/Scripts/WarpingEffects/Bob2.lua", params )..{}
 }

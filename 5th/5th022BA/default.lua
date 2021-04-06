@@ -3,7 +3,7 @@ local params = {
 	Index = 1,
 	Frame_i = 13,
 	Frame_l = 16,
-	Commands = "OneTwoStates"
+	Commands = "LStates"
 
 }
 

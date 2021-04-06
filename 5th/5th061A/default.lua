@@ -5,7 +5,7 @@ local tweaks = {
 
 	{
 		Index = 1,
-		ResetParams = true,
+		Cleanup = true,
 		File = "/BGAnimations/Resources/5th/Backgrounds/AB.png",
 		X_num = 1,
 		Commands = "Mirror",
@@ -14,16 +14,16 @@ local tweaks = {
 
 	{
 		Index = 2,
-		ResetParams = true,
+		Cleanup = true,
 		File = "/BGAnimations/Resources/5th/Sprites/ABCD 4x3.png",
 		Frame_l = 12,
 		Dir = "Out",
-		Script = "../Resources/Scripts/5th/Z_Effects/Stairs.lua"
+		Script = "../Resources/Scripts/SpaceEffects/Stairs.lua"
 	}
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 
 return Def.ActorFrame{
 	LoadActor( "../5th060A", tweaks )..{}

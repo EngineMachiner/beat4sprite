@@ -11,6 +11,6 @@ local params = {
 } 
 
 	t[#t+1] = LoadActor("../1st006")..{}
-	PSX_BGA_Globals["BGA_TileTool"]( t, params )
+	BGA_G.Tile( t, params )
 
 return Def.ActorFrame{ t }

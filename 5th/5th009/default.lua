@@ -1,11 +1,5 @@
 
-local t = Def.ActorFrame{	
-
-	OnCommand=function(self)
-		self.Name = "SearchLimit"
-	end
-
-}
+local t = Def.ActorFrame{}
 
 local params = {
 
@@ -13,12 +7,12 @@ local params = {
 		Index = 1,
 		File = "/BGAnimations/Resources/5th/Sprites/DABC 4x4.png",
 		Frame_i = 13,
-		X_num = { -4, 5 },
+		X_num = 4,
 		Y_num = 2,
 		X_coord = -1,
 		Y_coord = -1,
 		Commands = "Move",
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -32,8 +26,11 @@ local params = {
 
 
 	params[1]["Color"] = Color.Red
-	params[1]["Fade"] = { 1, -1 } --Fade is the direction of the fading (like a tangent)
-	params[1]["ActorClass"] = "Quad"
+
+	-- Fade is the direction of the fading (like a tangent)
+	params[1]["Fade"] = { 1, -1 } 
+
+	params[1]["Class"] = "Quad"
 	params[1]["Commands"] = { "Move", "Fade", "Blend" }
 
 	t[#t+1] = LoadActor("/BGAnimations/5th001A", params)..{}
@@ -47,7 +44,7 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor("../Resources/Scripts/5th/LineXY.lua", params)..{}
+	t[#t+1] = LoadActor("../Resources/Scripts/LineXY.lua", params)..{}
 
 
 return Def.ActorFrame{ t }

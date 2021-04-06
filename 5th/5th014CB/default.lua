@@ -2,7 +2,7 @@
 local params = {
 
 	Index = 1,
-	Y_num = { -4, 2 },
+	Y_num = 2,
 	Y_coord = 1
 
 }

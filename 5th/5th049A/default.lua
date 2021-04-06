@@ -4,8 +4,8 @@ local params = {
 	Frame_i = 1,
 	Frame_l = 20,
 	Commands = "RandomStates",
-	Delay = 2/20,
 	X_num = 5,
+	FrmDelay = 1,
 	Y_num = { -2, 1 }
 }
 

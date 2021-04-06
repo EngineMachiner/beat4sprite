@@ -1,6 +1,4 @@
 
---Never ResetParams twice in the same table using BGA_ParamsTweaks.
-
 local t = Def.ActorFrame{}
 
 local bg = {
@@ -14,90 +12,97 @@ local params = {
 
 	Index = 1,
 	File = "/BGAnimations/Resources/1st/Sprites/Clock2 6x5.png",
-	X_num = 1,
 	Commands = "ZWrite",
-	Delay = 4/30,
 	Frame_i = 1,
 	Frame_l = 30,
 	Zoom = 5,
-	NoBPMDelay = true
+	Delay = 1,
+	NoDelayTweaking = true
 
 }
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, {
+local bpm = GAMESTATE:GetSongBPS() * 60
+if bpm > 200 then
+	params.Delay = params.Delay * math.floor( bpm * 0.01 )
+end
+
+	BGA_G.Tile( t, {
 		File = bg[1], 
 		X_num = 1, 
 		Commands = "Mirror", 
 		BGMirror = true 
 	} )
 
-for k=-1,1 do
+for i=1,2 do
 
 	t[#t+1] = Def.ActorFrame{
 		GainFocusCommand=function(self)
-			PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+			BGA_G.Stop( self, true )
 		end,
 		LoseFocusCommand=function(self)
-			PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+			BGA_G.Stop( self )
 		end
 	}
+	
+	local t = t[#t]
 
-	for i=1,2 do
-
-		local t = t[#t]
-
-		if i > 1 then
-			local copy = {}
-			DeepCopy( params, copy )
-			PSX_BGA_Globals["BGA_TileTool"]( t, copy )
-		end
-
-		t[#t+1] = Def.Sprite{
-			OnCommand=function(self)
-
-				self.num = i - 1
-				self:stoptweening()
-				self:Center()
-				self:Load(bg[1])
-				self:set_tween_uses_effect_delta(true)
-				self:effectclock("beat")
-				self:x( self:GetX() + self:GetZoomedWidth() * k )
-
-				if i > 1 then
-					self:ztest(true)
-				else
-					self:sleep(2)
-				end
-
-				self:queuecommand("Repeat")
-
-			end,
-			RepeatCommand=function(self)
-
-				self.num = self.num + 1
-
-				self:Load(bg[self.num])
-				self:animate(false)
-				self:cropleft(0):cropright(0)
-				if self.num == 3 then 
-					self:cropleft(0.375)
-					self:cropright(0.375)
-				end
-
-				local fake = {}
-				if self.num == 4 then fake.Frame_i = 4 end
-				PSX_BGA_Globals.BGA_NoParams(fake)
-				PSX_BGA_Globals.BGA_FrameSelector(self, fake)
-
-				self.num = self.num >= #bg and self.num - #bg or self.num
-
-				self:sleep(4)
-				self:queuecommand("Repeat")
-
-			end
-		}
-
+	if i > 1 then
+		local copy = {}
+		DeepCopy( params, copy )
+		BGA_G.Tile( t, copy )
 	end
+
+	t[#t+1] = Def.Sprite{
+		OnCommand=function(self)
+
+			self.num = i
+
+			self:stoptweening()
+			self:set_tween_uses_effect_delta(true)
+			self:effectclock("beat")
+			self:Center()
+			self:Load(bg[self.num])
+			BGA_G.SetStates( self, { Frames = {0,0}, Zoom = 1 } )
+			self:animate(false)
+
+			if i > 1 then
+				self.s = 0
+				self:ztest(true)
+			else
+				self.s = params.Delay
+			end
+
+			self:queuecommand("Repeat")
+
+		end,
+		RepeatCommand=function(self)
+			
+			while self.num > #bg do
+				self.num = self.num - #bg
+			end
+
+			self:Load(bg[self.num])
+
+			if self.num == 3 then 
+				self:cropleft(0.375)
+				self:cropright(0.375)
+			else
+				self:cropleft(0):cropright(0)
+			end
+
+			local fake = { Frames = {0,0}, Zoom = 1 }
+			fake.Frames = self.num == 4 and {3,3} or fake.Frames
+			BGA_G.SetStates(self, fake)
+
+			self.num = self.num + 2
+
+			self:sleep( ( params.Delay * 2 - self.s ) )
+			self.s = 0
+
+			self:queuecommand("Repeat")
+
+		end
+	}
 
 end
 

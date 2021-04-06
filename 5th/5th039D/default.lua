@@ -13,7 +13,7 @@ local params_2 = {
 	Index = 1,
 	File = "/BGAnimations/Resources/5th/Sprites/HSV/DA 4x3.png",
 	Frame_i = 3,
-	X_num = 4,
+	X_num = 5,
 	X_coord = -1,
 	Commands = { "Move", "Rainbow" }
 
@@ -21,5 +21,5 @@ local params_2 = {
 
 return Def.ActorFrame{ 
 	LoadActor("../5th039A",params_2)..{},
-	LoadActor( "../Resources/Scripts/5th/LineXY.lua", params )..{}
+	LoadActor( "../Resources/Scripts/LineXY.lua", params )..{}
 }

@@ -9,17 +9,17 @@ local params = {
 	Y_num = { -1, 0 }
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
+	BGA_G.ParTweak( params, tweaks )
 
 local params_2 = {
 	Index = 2,
 	File = "BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
 	Frame_i = 9,
 	Dir = "Right",
-	Script = "../Resources/Scripts/5th/Particles.lua"
+	Script = "../Resources/Scripts/Particles.lua"
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, tweaks )
+	BGA_G.ParTweak( params_2, tweaks )
 
 return Def.ActorFrame{
 	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},

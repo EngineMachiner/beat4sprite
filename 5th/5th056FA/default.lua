@@ -10,12 +10,12 @@ local params = {
 		X_num = { -2, 1 },
 		Y_num = { -1, 0 },
 		Commands = "Mirror",
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
 		Index = 3,
-		Script = "../Resources/Scripts/5th/Z_Effects/Stairs.lua",
+		Script = "../Resources/Scripts/SpaceEffects/Stairs.lua",
 		File = "BGAnimations/Resources/5th/Sprites/B 4x3.png",
 		Frame_i = 1,
 		Frame_l = 5
@@ -23,7 +23,7 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 	LoadActor( "../5th005", params )..{},

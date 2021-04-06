@@ -8,17 +8,18 @@ local params = {
 	{
 		Index = 1,
 		File = "/BGAnimations/Resources/1st/Backgrounds/A.png",
-		X_num = 1
+		X_num = 1,
+		Delay = 4,
 	},
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/J 6x5.png",
+		File = "/BGAnimations/Resources/1st/Sprites/J 3x5.png",
 		X_num = 1,
 		Spacing = { 1, 0.65 },
 		Y_num = 1,
 		Zoom = 2.5,
-		Frame_l = 30,
+		Frame_l = 15,
 		Color = Color.Orange,
 		Commands = { "Color" }
 	}
@@ -32,7 +33,7 @@ local params = {
 		end
 	}
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
+	BGA_G.Tile( t, params[1] )
 	t[2]["OnCommand"] = function(self)
 		self:zoomx( 0.5 )
 		self:x(25)
@@ -60,8 +61,8 @@ for i=-1,1 do
 
 				local p = {}
 
-				PSX_BGA_Globals["BGA_NoParams"]( p )
-				PSX_BGA_Globals["BGA_FrameSelector"](self, p)
+				BGA_G.DefPar( p )
+				BGA_G.SetStates(self, p)
 
 				self:x( self:GetX() + self:GetZoomedWidth() * i )
 				self:cropleft(matrix[1][k])
@@ -76,6 +77,6 @@ for i=-1,1 do
 	end
 end
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
+	BGA_G.Tile( t, params[2] )
 
 return Def.ActorFrame{ t }

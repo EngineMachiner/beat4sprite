@@ -1,7 +1,7 @@
 
 local params = {
 	Index = 1,
-	Script = "../Resources/Scripts/5th/Z_Effects/BumpY.lua",
+	Script = "../Resources/Scripts/SpaceEffects/Bounce.lua",
 	File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 	Frame_i = 2,
 }

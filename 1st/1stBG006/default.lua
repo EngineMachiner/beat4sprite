@@ -3,10 +3,10 @@
 
 local t = Def.ActorFrame{
 	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		BGA_G.Stop( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		BGA_G.Stop( self )
 	end
 }
 
@@ -27,7 +27,6 @@ local params = {
 		X_num = 2,
 		Y_num = { -2, 1 },
 		Frame_l = 16,
-		Delay = 0.125,
 		Commands = { "Color", "MirrorYPerRow", "Blend" },
 		Blend = "BlendMode_Modulate",
 		Color = color("0,0,1,1")
@@ -35,7 +34,7 @@ local params = {
 
 } 
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/1st/KA.lua", params[1] )..{}	
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
+	t[#t+1] = LoadActor( "../Resources/Scripts/Kaleidoscopes/Main.lua", params[1] )..{}	
+	BGA_G.Tile( t, params[2] )
 
 return Def.ActorFrame{ t }

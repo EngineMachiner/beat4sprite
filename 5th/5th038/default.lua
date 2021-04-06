@@ -1,61 +1,65 @@
--- Example to simulate two actors (with different textures) as one animated frame synced.
-
-local t = Def.ActorFrame{}
-
-local d = 1
-local f = { 15, 16, 5, 6 }
-local g = {}
-
-for i=1,#f do
-	if i == 1 then
-		g[i] = { Frame = f[i] - 1, Delay = d * 3  }
-	else
-		g[i] = { Frame = f[i] - 1, Delay = d }
-	end
-end
 
 local params = {
-
-	Index = 1,
 	File = "/BGAnimations/Resources/5th/Sprites/AB 4x4.png",
-	Frames = g,
-	X_num = { -4, 3 },
-	Y_num = { -2, 1 },
-	ResetParams = true
-
+	Frames = { 16, 16 },
+	X_num = 4,
+	Y_num = { -2, 1 }
 }
 
-	t[#t+1] = LoadActor("../5th037", params)..{}
-
-
-	f = { 12, 11 }
-	g = {}
-
-for i=1,#f do
-	g[i] = { Frame = f[i] - 1, Delay = d }
+local function Beat(self)
+	self:set_tween_uses_effect_delta(true)
+	self:effectclock('beat')
 end
 
-	params = {
+return Def.ActorFrame{
 
-	Index = 1,
-	File = "/BGAnimations/Resources/5th/Sprites/A 4x3.png",
-	Frames = g,
-	X_num = { -4, 3 },
-	Y_num = 1,
-	ResetParams = true
+	GainFocusCommand=function(self)
+		BGA_G.Stop( self, true )
+	end,
+	LoseFocusCommand=function(self)
+		BGA_G.Stop( self )
+	end,
 
-}
+	LoadActor("/BGAnimations/5th037B")..{},
 
-	t[#t+1] = LoadActor("../5th037", params)..{
+	LoadActor("/BGAnimations/5th012A")..{
 		OnCommand=function(self)
-			self:effectclock("beat")
-			self:set_tween_uses_effect_delta(true)
+			Beat(self)
+			self:GetParent():queuecommand("Repeat")
+		end,
+		RepeatCommand=function(self)
+			local d = BGA_G.GetDelay(self, params)[2]
 			self:diffusealpha(0):sleep(d)
-				:diffusealpha(1):sleep(d*2)
-				:diffusealpha(0):sleep(d*3)
-				:queuecommand("On")
-		end
+			self:diffusealpha(1):sleep(d)
+			self:diffusealpha(0):sleep( 2 * d )
+			self:queuecommand("Repeat")
+		end,
+	},
+
+	LoadActor("/BGAnimations/5th016A")..{
+		OnCommand=function(self)
+			Beat(self)
+			self:GetParent():queuecommand("Repeat")
+		end,
+		RepeatCommand=function(self)
+			local d = BGA_G.GetDelay(self, params)[2]
+			self:diffusealpha(0):sleep(2*d)
+			self:diffusealpha(1):sleep(d)
+			self:diffusealpha(0):sleep(d)
+			self:queuecommand("Repeat")
+		end,
+	},
+
+	LoadActor("../Resources/Scripts/TileTool.lua", params)..{
+		OnCommand=function(self)
+			Beat(self)
+		end,
+		RepeatCommand=function(self)
+			local d = BGA_G.GetDelay(self, params)[2]
+			self:diffusealpha(0):sleep(3*d)
+			self:diffusealpha(1):sleep(d)
+			self:queuecommand("Repeat")
+		end,
 	}
 
-
-return Def.ActorFrame{ t }
+}

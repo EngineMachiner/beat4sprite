@@ -5,7 +5,7 @@ local params = {
 		Index = 1,
 		File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 		Frame_i = 8,
-		ResetParams = true,
+		Cleanup = true,
 		X_num = 5,
 		Y_num = { -2, 1 } 
 	},
@@ -27,6 +27,6 @@ local params_2 = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/5th/Z_Effects/BumpY",params_2)..{}
+	LoadActor("../Resources/Scripts/SpaceEffects/Bounce",params_2)..{}
 
 }

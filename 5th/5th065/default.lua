@@ -1,10 +1,10 @@
 
 local t = Def.ActorFrame{
 	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		BGA_G.Stop( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		BGA_G.Stop( self )
 	end
 }
 
@@ -20,7 +20,7 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{}
 
@@ -31,23 +31,25 @@ local params = {
 		File = "/BGAnimations/Resources/5th/Backgrounds/CA.png",
 		X_num = 1,
 		Commands = "Mirror",
-		BGMirror = true,
-		Beat = 1
+		BGMirror = true
 
 	}
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 	t[#t+1] = LoadActor("../Resources/Scripts/TileTool.lua", params)..{
 		OnCommand=function(self)
+			self.Beat = params.Beat or 1
+			self.Beat = self.Beat * BGA_G.GetDelay(self, params)[2]
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
-			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			BGA_G.ScreenPreview(self)
 			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
-			self:diffusealpha(0):sleep(params.Beat):diffusealpha(1):sleep(params.Beat)
-				:queuecommand("On")
+			self:diffusealpha(0):sleep(self.Beat)
+			self:diffusealpha(1):sleep(self.Beat)
+			self:queuecommand("Repeat")
 		end
 	}
 

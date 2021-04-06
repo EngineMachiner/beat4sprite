@@ -9,7 +9,7 @@ local params = {
 		X_num = { -4, 3 },
 		Y_num = { -2, 1 },
 		Frame_i = 16,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -26,11 +26,11 @@ local params_2 = {
 	Frame_i = 11,
 	Frame_l = 12,
 	Commands = "TwoSprites",
-	Script = "../Resources/Scripts/5th/LineXY.lua"
+	Script = "../Resources/Scripts/LineXY.lua"
 	
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"](params_2,replace)
+	BGA_G.ParTweak(params_2,replace)
 
 local t = Def.ActorFrame{
 

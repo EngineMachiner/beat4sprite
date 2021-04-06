@@ -8,14 +8,14 @@ local params = {
 		GAMESTATE:GetCurrentSong():GetBackgroundPath(),
 		GAMESTATE:GetCurrentSong():GetBackgroundPath()
 	},
-	Commands = { "Move", "Mirror" },
+	Commands = { "Mirror", "Move" },
 	BGMirror = true,
-	ScrollSpeed = 0.5,
+	HurryTweenBy = 0.5,
 	X_coord = -1,
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
-	PSX_BGA_Globals["BGA_ScrollTextures"]( t, params )
+	BGA_G.ParTweak( params, replace )
+	BGA_G.Tile( t, params )
 
 return Def.ActorFrame{ t }

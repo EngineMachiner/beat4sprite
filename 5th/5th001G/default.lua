@@ -9,7 +9,7 @@ local tweaks = {
 		X_num = { -1, 1 },
 		Commands = "Mirror",
 		BGMirror = true,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -18,7 +18,7 @@ local tweaks = {
 
 }
 
-PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+BGA_G.ParTweak( tweaks, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
 

@@ -21,10 +21,10 @@ local params = {
 
 	Index = 1,
 	File = "/BGAnimations/Resources/5th/Backgrounds/BABC 2x2.png",
-	Frames = g,
+	CustomFrames = g,
 	X_num = { -2, 1 },
 	Y_num = { -1, 0 },
-	ResetParams = true
+	Cleanup = true
 
 }
 
@@ -42,10 +42,10 @@ end
 
 	Index = 1,
 	File = "/BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
-	Frames = g,
+	CustomFrames = g,
 	X_num = { -4, 3 },
 	Y_num = { -2, 1 },
-	ResetParams = true
+	Cleanup = true
 
 }
 

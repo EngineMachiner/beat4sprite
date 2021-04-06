@@ -9,7 +9,7 @@ local params = {
 		Frame_l = 12,
 		X_num = { -4, 3 },
 		Y_num = { -2, 1 },
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -19,7 +19,7 @@ local params = {
 
 }
 	
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 

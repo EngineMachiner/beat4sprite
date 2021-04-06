@@ -8,12 +8,13 @@ local params = {
 	Frame_l = 4,
 	Commands = { "FramePerSprite", "StairsStates", "Move" },
 	X_coord = -1,
-	Delay = 1,
+	HurryTweenBy = 8,
 	X_num = { -1, 5 },
+	X_pos = 1,
 	Y_num = 2
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},

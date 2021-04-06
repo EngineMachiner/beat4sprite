@@ -4,7 +4,7 @@ local params = {
 	File = "BGAnimations/Resources/5th/Sprites/HSV/DA 4x3.png",
 	Frame_i = 1,
 	Frame_l = 2,
-	Delay = 1
+	Delay = 2
 
 }
 

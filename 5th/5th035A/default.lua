@@ -12,7 +12,7 @@ local tweaks = {
 		X_coord = -1,
 		Y_coord = -1,
 		Commands = "Move",
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -28,7 +28,7 @@ local params_2 = {}
 
 	DeepCopy(tweaks, params_2)
 	params_2[1]["Fade"] = { 1, 0 }
-	params_2[1]["ActorClass"] = "Quad"
+	params_2[1]["Class"] = "Quad"
 	params_2[1]["Color"] = "Rainbow"
 	params_2[1]["Commands"] = { "Move", "Fade", "Blend" }
 
@@ -48,10 +48,8 @@ local params_3 = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_3, replace )
+	BGA_G.ParTweak( params_3, replace )
 
-	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/5th/Particles.lua", params_3 )..{}
-
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params_3, replace )
+	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/Particles.lua", params_3 )..{}
 
 return Def.ActorFrame{ t }

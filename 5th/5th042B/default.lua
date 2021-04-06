@@ -16,6 +16,6 @@ local tweaks = {
 return Def.ActorFrame{
 
 	LoadActor( "../5th042A", tweaks )..{},
-	LoadActor( "../Resources/Scripts/5th/Z_Effects/SpiralTrace.lua", params )..{}
+	LoadActor( "../Resources/Scripts/SpaceEffects/Spiral.lua", params )..{}
 
 }

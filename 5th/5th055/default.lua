@@ -4,7 +4,8 @@ local params = {
 	Frame_i = 7,
 	Frame_l = 8,
 	X_num = { -4, 3 },
-	Y_num = { -2, 1 }
+	Y_num = { -2, 1 },
+	Commands = "LineStates"
 }
 
 local params_2 = {
@@ -14,5 +15,5 @@ local params_2 = {
 
 return Def.ActorFrame{
 	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
-	LoadActor( "../Resources/Scripts/5th/SpiralStaticTrace", params_2 )..{}
+	LoadActor( "../Resources/Scripts/SpiralStaticTrace", params_2 )..{}
 }

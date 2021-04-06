@@ -11,8 +11,8 @@ local params = {
 		X_num = 1,
 		Frame_i = 4,
 		Frame_l = 1,
-		Delay = 4,
-		NoBPMDelay = true
+		Delay = 8,
+		NoDelayTweaking = true
 	},
 
 	{
@@ -20,26 +20,26 @@ local params = {
 		File = "/BGAnimations/Resources/1st/Sprites/Clock 6x5.png",
 		X_num = 1,
 		Commands = "ZWrite",
-		Delay = 4/30,
 		Frame_i = 1,
 		Frame_l = 30,
 		Zoom = 5,
-		NoBPMDelay = true
+		Delay = 2,
+		NoDelayTweaking = true
 	},
 
-	{	Index = 3	}
+	{ Index = 3	}
 
 }
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
-	local r = {}
+	BGA_G.Tile( t, params[1] )
 	DeepCopy(params[1], params[3])
-	params[3]["Delay"] = 4
-	params[3]["InitState"] = 2
-	params[3]["Commands"] = { "OffsetStates", "ZTest" }
+	params[3]["Delay"] = 8
+	params[3]["Animate"] = true
+	params[3]["State"] = 1
+	params[3]["Commands"] = { "FramePerSprite", "ZTest" }
 	params[3]["Frame_i"] = 4
 	params[3]["Frame_l"] = 1
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[3] )
+	BGA_G.Tile( t, params[2] )
+	BGA_G.Tile( t, params[3] )
 
 return Def.ActorFrame{ t }

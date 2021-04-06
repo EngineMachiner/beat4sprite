@@ -3,7 +3,7 @@ local t = Def.ActorFrame{}
 
 	t[#t+1] = LoadActor( "../5thBG000", { 
 		Index = 1,
-		AddActors = { PSX_BGA_Globals["BGA_IQB"]() }
+		Actors = { BGA_G.IDest_Quad() }
 	} )..{}
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", {
@@ -14,11 +14,13 @@ local t = Def.ActorFrame{}
 	} )..{
 		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true):effectclock('beat')
-			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			BGA_G.ScreenPreview(self)
 			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
-			self:diffusealpha(1):sleep(4):diffusealpha(0):sleep(4)
+			local d = BGA_G.GetDelay(self)[2] * 4
+			self:diffusealpha(1):sleep(d)
+			self:diffusealpha(0):sleep(d)
 			self:queuecommand("On")
 		end
 	}

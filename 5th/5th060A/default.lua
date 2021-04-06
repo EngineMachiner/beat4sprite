@@ -15,11 +15,11 @@ local params_2 = {
 	Frame_i = 1,
 	Frame_l = 6,
 	Dir = "Left",
-	Script = "../Resources/Scripts/5th/Particles.lua"
+	Script = "../Resources/Scripts/Particles.lua"
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
+	BGA_G.ParTweak( params, replace )
+	BGA_G.ParTweak( params_2, replace )
 
 return Def.ActorFrame{
 

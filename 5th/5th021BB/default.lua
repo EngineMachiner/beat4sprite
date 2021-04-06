@@ -6,7 +6,7 @@ local params = {
 		X_num = 1,
 		Commands = "Mirror",
 		BGMirror = true,
-		ResetParams = true	
+		Cleanup = true	
 	},
 
 	{
@@ -26,7 +26,7 @@ local params_2 = {
 		X_num = { -2, 1 },
 		Y_num = { -2, 1 },
 		Commands = { "StairsStates", "SpinY" },
-		ResetParams = true		
+		Cleanup = true		
 	},
 
 	{

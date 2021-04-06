@@ -9,7 +9,7 @@ local params = {
 		X_num = 1,
 		Y_num = { -2, 1 },
 		Frame_l = 4,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -19,7 +19,7 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 local params_2 = {
 
@@ -27,7 +27,8 @@ local params_2 = {
 	File = "/BGAnimations/Resources/5th/Sprites/ABC 4x4.png",
 	Frame_l = 4,
 	X_num = { -4, 3 },
-	Y_num = { -2, 1 }
+	Y_num = { -2, 1 },
+	Commands = { "RandomDelays" }
 	
 }
 
@@ -38,12 +39,10 @@ local t = Def.ActorFrame{
 }
 
 if replace then
-	params_2.ID = #t + 1
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params_2 )
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params_2, replace )
+	BGA_G.ParTweak( params_2, replace )
+	BGA_G.Tile( t, params_2 )
 else
-	PSX_BGA_Globals["BGA_TileTool"]( t, params_2 )
+	BGA_G.Tile( t, params_2 )
 end
 
 return Def.ActorFrame{ t }

@@ -1,7 +1,7 @@
 
 local t = Def.ActorFrame{}
 
-	t[#t+1] = LoadActor( "/BGAnimations/5th006A", tweaks )..{}
+	t[#t+1] = LoadActor( "/BGAnimations/5th006A" )..{}
 
 local params = {
 
@@ -11,7 +11,7 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor("../Resources/Scripts/5th/LineXY.lua", params)..{}
+	t[#t+1] = LoadActor("../Resources/Scripts/LineXY.lua", params)..{}
 
 
 return Def.ActorFrame{ t }

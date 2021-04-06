@@ -6,9 +6,8 @@ local params = {
 	Y_num = 1,
 	Frame_l = 60,
 	Zoom = 4,
-	Delay = 4/60,
-	Commands = { "Mirror", "Move" },
-	ResetParams = true,
+	Commands = { "Move" },
+	Cleanup = true,
 	Y_coord = 1
 }
 

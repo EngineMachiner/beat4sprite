@@ -11,7 +11,7 @@ local tweaks = {
 		X_num = 5,
 		Y_num = { -2, 1 },
 		Frame_i = 7,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -21,23 +21,20 @@ local tweaks = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, tweaks, replace )
 
 local params_2 = {
 
 	Index = 3,
-	ID = 2,
 	File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 	Frame_i = 3,
 	Spin = true,
-	Script = "../Resources/Scripts/5th/Z_Effects/Stairs.lua"
+	Script = "../Resources/Scripts/SpaceEffects/Stairs.lua"
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
+	BGA_G.ParTweak( params_2, replace )
 	t[#t+1] = LoadActor( params_2.Script, params_2 )..{}
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params_2, replace )
 
 return Def.ActorFrame{ t }

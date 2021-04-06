@@ -14,7 +14,7 @@ local tweaks = {
 		Frame_l = 8,
 		Delay = 1,
 		Commands = "StairsStates",
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -24,7 +24,7 @@ local tweaks = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
 

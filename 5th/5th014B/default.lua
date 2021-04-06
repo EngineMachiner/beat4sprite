@@ -5,7 +5,7 @@ local params = {
 	Frame_i = 7,
 	Frame_l = 8,
 	Commands = "Move",
-	FlashMove = true,
+	SleepMove = true,
 	X_coord = -1,
 	Y_coord = -1,
 	X_num = { -4, 5 },
@@ -24,6 +24,6 @@ local params_2 = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th014AB",params)..{},
-	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua",params_2)..{}
+	LoadActor("../Resources/Scripts/SpaceEffects/RoundTrace.lua",params_2)..{}
 
 }

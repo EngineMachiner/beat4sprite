@@ -17,14 +17,15 @@ local t = Def.ActorFrame{}
 	} )..{
 		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true):effectclock('beat')
-			PSX_BGA_Globals["BGA_ToolPreview"](self)
+			BGA_G.ScreenPreview(self)
 			self:queuecommand("Repeat")
 		end,
 		RepeatCommand=function(self)
-			self:diffusealpha(0):sleep(0.5)
-				:diffusealpha(1):sleep(1.5)
-				:diffusealpha(0):sleep(0.5)
-				:diffusealpha(1):sleep(1.5)
+			local d = BGA_G.GetDelay(self)[2]
+			self:diffusealpha(0):sleep(0.5*d)
+				:diffusealpha(1):sleep(1.5*d)
+				:diffusealpha(0):sleep(0.5*d)
+				:diffusealpha(1):sleep(1.5*d)
 			self:queuecommand("On")
 		end
 	}

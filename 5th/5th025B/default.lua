@@ -7,7 +7,7 @@ local params = {
 		X_num = { -4, 3 },
 		Y_num = { -2, 1 },
 		Frame_i = 13,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -27,6 +27,6 @@ local params_2 = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/5th/LineXY.lua",params_2)..{}
+	LoadActor("../Resources/Scripts/LineXY.lua",params_2)..{}
 
 }

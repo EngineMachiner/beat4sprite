@@ -6,12 +6,12 @@ local params = {
 		"/BGAnimations/Resources/5th/Backgrounds/C.png",
    		"/BGAnimations/Resources/5th/Backgrounds/CA.png"
    	},
-   	Sleep = 1,
+   	Sleep = 2,
    	Alphas = { 1, 2 } --[[ The backgrounds that are not 
    							complelety filled (alpha) and a filled background (from the File table) ]]
 
 }
 
 return Def.ActorFrame{
-	LoadActor("../Resources/Scripts/5th/Split.lua", params )..{}
+	LoadActor("../Resources/Scripts/SplitScreen.lua", params )..{}
 }

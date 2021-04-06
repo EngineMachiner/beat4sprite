@@ -1,4 +1,6 @@
 
+local tweaks = ...
+
 local params = {
 
 	{
@@ -27,34 +29,36 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"](params,tweaks)
+	BGA_G.ParTweak(params, tweaks)
 	
 return Def.ActorFrame{
 
 	LoadActor("../Resources/Scripts/TileTool.lua", params[1])..{},
-	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua", params[2])..{
+	LoadActor("../Resources/Scripts/SpaceEffects/RoundTrace.lua", params[2])..{
 		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')
-			self:queuecommand("Repeat01")
+			self:queuecommand("Repeat")
 		end,
-		Repeat01Command=function(self)
-			self:sleep(4*2):diffusealpha(0)
-			self:sleep(4*2):diffusealpha(1)
-			self:queuecommand("Repeat01")
+		RepeatCommand=function(self)
+			local d = BGA_G.GetDelay(self, params)[2] * 8
+			self:sleep(d):diffusealpha(0)
+			self:sleep(d):diffusealpha(1)
+			self:queuecommand("Repeat")
 		end		
 	},
-	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua", params[3])..{
+	LoadActor("../Resources/Scripts/SpaceEffects/RoundTrace.lua", params[3])..{
 		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')
 			self:diffusealpha(0)
-			self:queuecommand("Repeat01")
+			self:queuecommand("Repeat")
 		end,
-		Repeat01Command=function(self)
-			self:sleep(4*2):diffusealpha(1)
-			self:sleep(4*2):diffusealpha(0)
-			self:queuecommand("Repeat01")
+		RepeatCommand=function(self)
+			local d = BGA_G.GetDelay(self, params)[2] * 8
+			self:sleep(d):diffusealpha(1)
+			self:sleep(d):diffusealpha(0)
+			self:queuecommand("Repeat")
 		end		
 	}
 

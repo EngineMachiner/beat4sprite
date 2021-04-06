@@ -17,7 +17,7 @@ local params = {
 	{
 		Index = 2,
 		File = "/BGAnimations/Resources/1st/Sprites/M 7x1.png",
-		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/Stairs.lua",
+		Script = "/BGAnimations/Resources/Scripts/1st/SpaceEffects/Stairs.lua",
 		Zoom = 0.5,
 		Commands = "FramePerSprite",
 		Frame_l = 6
@@ -25,7 +25,7 @@ local params = {
 
 } 
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
+	BGA_G.Tile( t, params[1] )
 	t[#t+1] = LoadActor( params[2]["Script"], params[2] )
 
 return Def.ActorFrame{ t }

@@ -4,11 +4,11 @@ local replace = ...
 local params = {
 
 	Index = 1,
-	Delay = 1
+	Delay = 2
 	
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 

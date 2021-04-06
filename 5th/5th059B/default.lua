@@ -4,10 +4,9 @@ local params = {
 	X_num = { -4, 3 },
 	Y_num = { -2, 1 },
 	BGMirror = true,
-	Commands = { "OneTwoStates", "Mirror" },
+	Commands = { "LStates", "Mirror" },
 	Frame_i = 7,
-	Frame_l = 8,
-	Delay = 1
+	Frame_l = 8
 }
 
 return Def.ActorFrame{

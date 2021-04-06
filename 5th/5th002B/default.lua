@@ -11,8 +11,8 @@ local tweaks = {
 
 	{
 		Index = 2,
-		File = {"/BGAnimations/Resources/5th/Backgrounds/ABC.png",
-				"/BGAnimations/Resources/5th/Backgrounds/ABC2.png"
+		File = {"/BGAnimations/Resources/5th/Backgrounds/ABC2.png",
+				"/BGAnimations/Resources/5th/Backgrounds/ABC.png"
 			},
 		Y_coord = 1,
 		Commands = "Move"

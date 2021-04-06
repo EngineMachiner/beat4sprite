@@ -11,7 +11,7 @@ local params = {
 		Y_num = 2,
 		Commands = { "Rainbow", "Move" },
 		Y_coord = -1,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -29,12 +29,12 @@ local params_2 = {
 	Frame_l = 12,
 	Commands = "TwoSprites",
 	Rotation = true,
-	Script = "../Resources/Scripts/5th/SpiralStaticTrace.lua"
+	Script = "../Resources/Scripts/SpiralStaticTrace.lua"
 	
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"](params_2,replace)
-	PSX_BGA_Globals["BGA_ParamsTweaks"](params,replace)
+	BGA_G.ParTweak(params_2,replace)
+	BGA_G.ParTweak(params,replace)
 
 local t = Def.ActorFrame{
 

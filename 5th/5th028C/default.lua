@@ -1,7 +1,7 @@
 local tweaks = {
 
 	Index = 3,
-	Script = "../Resources/Scripts/5th/Z_Effects/R_WhirlTrace"
+	Script = "../Resources/Scripts/SpaceEffects/Whirl"
 	
 }
 

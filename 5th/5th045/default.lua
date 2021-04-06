@@ -1,4 +1,5 @@
 
+local tweaks = ...
 local count = 0
 local t = Def.ActorFrame{}
 
@@ -9,16 +10,15 @@ local params = {
 	Y_num = { -2, 1 },
 	Frame_i = 8,
 	Frame_l = 9,
-	Commands = { "FramePerSprite", "StairsStates" }
+	Static = true,
+	Commands = { "StairsStates" }
 
 } 
  	
  	count = count + 1
  	params.Index = count
- 	params.ID = #t + 1
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, tweaks )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params )
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, tweaks )
+	BGA_G.ParTweak( params, tweaks )
+	BGA_G.Tile( t, params )
 
 	params = {
 
@@ -28,6 +28,6 @@ local params = {
 
 	}
 
-	t[#t+1] = LoadActor("../Resources/Scripts/5th/SpiralStaticTrace.lua", params)..{}
+	t[#t+1] = LoadActor("../Resources/Scripts/SpiralStaticTrace.lua", params)..{}
 
 return Def.ActorFrame{ t }

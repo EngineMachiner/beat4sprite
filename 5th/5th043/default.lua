@@ -2,20 +2,15 @@
 local replace = ...
 
 local t = Def.ActorFrame{
-
-	OnCommand=function(self)
-		self.Name = "a"
-	end,
 	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		BGA_G.Stop( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		BGA_G.Stop( self )
 	end
 }
 
 local tweaks = {
-
 
 	{ 
 		Index = 1,
@@ -25,7 +20,7 @@ local tweaks = {
 		Frame_i = 1,
 		Frame_l = 20,
 		Commands = "FramePerSprite",
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -35,14 +30,11 @@ local tweaks = {
 
 }
 
-	tweaks.AddActors = {} 
-	tweaks.AddActors[#tweaks.AddActors+1] = PSX_BGA_Globals["BGA_IQB"]()
-
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
+	t[#t+1] = BGA_G.IDest_Quad()
 
-	tweaks.AddActors = nil
 	tweaks[1]["File"] = "/BGAnimations/Resources/5th/Sprites/HSV/D 5x4.png"
 	tweaks[1]["Commands"] = { "FramePerSprite", "Pulse" }
 
@@ -52,7 +44,7 @@ local params_2 = {}
 
 	DeepCopy(tweaks[1], params_2)
 	params_2["Fade"] = { 1, 1 }
-	params_2["ActorClass"] = "Quad"
+	params_2["Class"] = "Quad"
 	params_2["Color"] = "Rainbow"
 	params_2["Commands"] = { "Pulse", "Fade", "Blend" }
 

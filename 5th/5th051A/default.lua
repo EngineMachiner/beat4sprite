@@ -11,7 +11,7 @@ local params = {
 	Y_num = 1
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 
 local params_2 = {}
@@ -25,7 +25,7 @@ local params_2 = {}
 	params_2["Commands"] = "SpinXY"
 
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
+	BGA_G.ParTweak( params_2, replace )
 
 
 return Def.ActorFrame{

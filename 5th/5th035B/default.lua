@@ -6,7 +6,7 @@ local params = {
 	Frame_i = 5,
 	Frame_l = 8,
 	Dir = "Right",
-	ResetParams = true
+	Cleanup = true
 
 }
 

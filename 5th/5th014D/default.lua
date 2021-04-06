@@ -4,12 +4,12 @@ local params = {
 		Index = 1,
 		File = "/BGAnimations/Resources/5th/Sprites/DA 4x3.png",
 		Frame_i = 7,
-		ResetParams = true,
+		Cleanup = true,
 		Commands = "Move",
-		ScrollSpeed = 2,
 		Y_coord = -1,
 		X_num = { -4, 3 },
-		Y_num = { -1, 2 }
+		Y_num = { -1, 2 },
+		HurryTweenBy = 2
 	},
 
 	{
@@ -30,6 +30,6 @@ local params_2 = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/5th/WallBumps.lua", params_2)..{}
+	LoadActor("../Resources/Scripts/WallBumps.lua", params_2)..{}
 	
 }

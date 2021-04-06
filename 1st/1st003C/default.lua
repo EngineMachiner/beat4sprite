@@ -3,10 +3,10 @@
 
 local t = Def.ActorFrame{
 	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		BGA_G.Stop( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		BGA_G.Stop( self )
 	end
 }
 
@@ -19,6 +19,7 @@ local params = {
 		Y_num = { -1, 0 },
 		Frame_l = 15,
 		Zoom = 1.5,
+		Delay = 0.5,
 		Commands = { "Blend", "Rainbow", "Mirror" }
 	},
 
@@ -29,7 +30,6 @@ local params = {
 		Y_num = { -2, 1 },
 		Frame_l = 8,
 		FrameReverse = true,
-		Delay = 1/8,
 		Color = color("#808080"),
 		Commands = { "Color" }
 	}
@@ -42,7 +42,7 @@ local params = {
 			self:Center()
 		end
 	}
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
+	BGA_G.Tile( t, params[2] )
+	BGA_G.Tile( t, params[1] )
 
 return Def.ActorFrame{ t }

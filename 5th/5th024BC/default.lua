@@ -7,7 +7,7 @@ local params = {
 		X_num = 5,
 		Y_num = { -2, 1 },
 		Frame_i = 10,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -27,11 +27,11 @@ local params_2 = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"](params_2, replace)
+	BGA_G.ParTweak(params_2, replace)
 
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/5th/Z_Effects/Stairs.lua",params_2)..{}
+	LoadActor("../Resources/Scripts/SpaceEffects/Stairs.lua",params_2)..{}
 
 }

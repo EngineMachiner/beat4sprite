@@ -3,7 +3,6 @@ local replace = ...
 local params = {
 
 	Index = 1,
-	Delay = 0.25*0.5,
 	Commands = ""
 
 }
@@ -13,10 +12,8 @@ local params_2 = {
 	Index = 1,
 	File ="/BGAnimations/Resources/5th/Sprites/DABC 4x4.png",
 	X_num = { -4, 3 },
-	Y_num = { -2, 4 },
-	Delay = 0.25*0.5,
-	NumTextures = 0,
-	ScrollSpeed = 1.5,
+	Y_num = 2,
+	HurryTweenBy = 1.5,
 	Commands = "Move",
 	Y_coord = -1,
 	Frame_i = 1,
@@ -24,7 +21,7 @@ local params_2 = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"](params_2,replace)
+	BGA_G.ParTweak(params_2,replace)
 
 return Def.ActorFrame{
 

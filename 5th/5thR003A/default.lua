@@ -5,7 +5,7 @@ local params = {
 	Y_num = { -1, 0 },
 	Frame_l = 60,
 	Zoom = 4,
-	Delay = 8/60,
+	Delay = 8,
 	Commands = { "Mirror" }
 }
 

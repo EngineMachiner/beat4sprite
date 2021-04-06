@@ -13,19 +13,18 @@ local tweaks = {
 	{
 		Index = 2,
 		File = {
-					"/BGAnimations/Resources/5th/Backgrounds/ABC.png",
-					"/BGAnimations/Resources/5th/Backgrounds/ABC2.png"
+					"/BGAnimations/Resources/5th/Backgrounds/ABC2.png",
+					"/BGAnimations/Resources/5th/Backgrounds/ABC.png"
 				},
-		X_num = { -1, 1 },
-		X_pos = -0.5,
+		X_num = 1,
 		Y_coord = -1,
 		Commands = "Move",
-		ResetParams = true
+		Cleanup = true
 	}
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( tweaks, replace )
+	BGA_G.ParTweak( tweaks, replace )
 	
 	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
 

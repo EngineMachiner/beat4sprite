@@ -17,22 +17,21 @@ local params = {
  	
  	count = count + 1
  	params.Index = count
- 	params.ID = #t + 1
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params )
+	BGA_G.ParTweak( params, replace )
+	BGA_G.Tile( t, params )
 
 	params = {
 
 		Index = 2,
 		File = "/BGAnimations/Resources/5th/Sprites/CA 4x3.png",
 		Frame_i = 9,
-		ResetParams = true,
+		Cleanup = true,
 		Dir = "Right",
-		Script = "../Resources/Scripts/5th/Particles.lua"
+		Script = "../Resources/Scripts/Particles.lua"
 
 	}
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{ 
 	t,

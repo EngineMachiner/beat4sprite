@@ -1,5 +1,5 @@
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/5th/BG/7.lua", {
+	LoadActor( "../Resources/Scripts/WarpingEffects/FlagY.lua", {
 		File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
 		X_num = 1,
 		Commands = { "Mirror", "Rainbow" },

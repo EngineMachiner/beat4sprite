@@ -10,7 +10,7 @@ local params = {
 		Y_num = { -2, 1 },
 		Frame_i = 13,
 		Commands = { "Move" },
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -29,11 +29,11 @@ local params_2 = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params_2, replace )
+	BGA_G.ParTweak( params_2, replace )
 
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/5th/WallBumps.lua",params_2)..{}
+	LoadActor("../Resources/Scripts/WallBumps.lua",params_2)..{}
 
 }

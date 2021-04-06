@@ -6,14 +6,14 @@ local tweaks = {
 		Frame_i = 14,
 		X_num = { -4, 3 },
 		Y_num = { -2, 1 },
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
 		Index = 3,
 		X_num = 2,
 		Y_num = 1,
-		Commands = { "Odds", "RandomStates" }
+		Commands = { "Align", "RandomStates" }
 	}
 
 }

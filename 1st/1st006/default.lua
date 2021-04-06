@@ -3,10 +3,10 @@
 
 local t = Def.ActorFrame{
 	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		BGA_G.Stop( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		BGA_G.Stop( self )
 	end
 }
 
@@ -37,17 +37,19 @@ local params = {
 		Index = 3,
 		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		Frame_i = 17,
-		Script = "/BGAnimations/Resources/Scripts/1st/Z_Effects/Line",
+		Script = "/BGAnimations/Resources/Scripts/SpaceEffects/Line",
 		Num = 4
 	}
 
 } 
 
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[1] )
-	PSX_BGA_Globals["BGA_TileTool"]( t, params[2] )
+	BGA_G.Tile( t, params[1] )
+	BGA_G.Tile( t, params[2] )
 
 	t[2]["On2Command"] = function(self)
-		self:diffusealpha(1):sleep(4):diffusealpha(0):sleep(4):diffusealpha(1)
+		local d = BGA_G.GetDelay(self, params[2])[2] * 4
+		self:diffusealpha(1):sleep(d)
+		self:diffusealpha(0):sleep(d):diffusealpha(1)
 		self:queuecommand("On2")
 	end
 
@@ -66,7 +68,10 @@ local params = {
 			self:queuecommand("On2")
 		end,
 		On2Command=function(self)
-			self:diffusealpha(0):sleep(3):diffusealpha(1):sleep(1):diffusealpha(0)
+			local d = BGA_G.GetDelay(self, params)[2]
+			self:diffusealpha(0)
+			self:sleep( 3 * d ):diffusealpha(1)
+			self:sleep(d):diffusealpha(0)
 			self:queuecommand("On2")
 		end
 	}

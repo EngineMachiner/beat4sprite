@@ -2,7 +2,7 @@
 local params = {
 
 	Index = 1,
-	Delay = 1
+	Delay = 2
 
 }
 

@@ -6,7 +6,7 @@ local params = {
 	Frame_i = 60,
 	Frame_l = 1,
 	Zoom = 4,
-	Delay = 4/60,
+	FrmDelay = 4,
 	Commands = "Mirror"
 }
 

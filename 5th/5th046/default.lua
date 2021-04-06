@@ -9,7 +9,7 @@ local t = Def.ActorFrame{}
 			X_num = { -4, 3 },
 			Y_num = { -2, 1 },
 			Frame_i = 13,
-			ResetParams = true
+			Cleanup = true
 		},
 
 		{
@@ -26,35 +26,37 @@ local t = Def.ActorFrame{}
 		X_num = { -4, 3 },
 		Y_num = { -2, 1 },
 		BGMirror = true,
-		Commands = { "OneTwoStates", "Mirror" },
+		Commands = { "LStates", "Mirror" },
 		Frame_i = 7,
 		Frame_l = 8
 	}
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{
 		OnCommand=function(self)
-			self:queuecommand("GainFocus2")
+			self:queuecommand("Repeat")
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
 		end,
-		GainFocus2Command=function(self)
-			self:diffusealpha(0):sleep(4)
-				:diffusealpha(1):sleep(4)
-				:diffusealpha(0):sleep(4*2)
-				:queuecommand("GainFocus2")
+		RepeatCommand=function(self)
+			local d = BGA_G.GetDelay(self, params)[2] * 4
+			self:diffusealpha(0):sleep(d)
+			self:diffusealpha(1):sleep(d)
+			self:diffusealpha(0):sleep(d*2)
+			self:queuecommand("Repeat")
 		end
 	}
 	
 	t[#t+1] = LoadActor("../5th041A")..{
 		OnCommand=function(self)
-			self:queuecommand("GainFocus2")
+			self:queuecommand("Repeat")
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)
 		end,
-		GainFocus2Command=function(self)
-			self:diffusealpha(0):sleep(4*2)
-				:diffusealpha(1):sleep(4*2)
-				:queuecommand("GainFocus2")
+		RepeatCommand=function(self)
+			local d = BGA_G.GetDelay(self, params)[2] * 8
+			self:diffusealpha(0):sleep(d)
+			self:diffusealpha(1):sleep(d)
+			self:queuecommand("Repeat")
 		end
 	}
 

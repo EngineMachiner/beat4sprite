@@ -8,7 +8,7 @@ local params = {
 		File = "/BGAnimations/Resources/5th/Sprites/A 4x3.png",
 		Frame_i = 11,
 		Frame_l = 12,
-		ResetParams = true,
+		Cleanup = true,
 		X_num = { -4, 3 },
 		Y_num = 1,
 	},
@@ -20,7 +20,7 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 

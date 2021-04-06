@@ -7,7 +7,7 @@ local params = {
 		X_num = 5,
 		Y_num = { -2, 1 },
 		Frame_i = 10,
-		ResetParams = true
+		Cleanup = true
 	},
 
 	{
@@ -28,6 +28,6 @@ local params_2 = {
 return Def.ActorFrame{
 
 	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor("../Resources/Scripts/5th/Z_Effects/RoundTrace.lua",params_2)..{}
+	LoadActor("../Resources/Scripts/SpaceEffects/RoundTrace.lua",params_2)..{}
 
 }

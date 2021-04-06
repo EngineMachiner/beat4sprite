@@ -8,8 +8,8 @@ local params = {
 	{	
 		Index = 2,
 		File = { 
-			"/BGAnimations/Resources/5th/Backgrounds/CABC.png",
-			"/BGAnimations/Resources/5th/Backgrounds/CABC2.png"
+			"/BGAnimations/Resources/5th/Backgrounds/CABC2.png",
+			"/BGAnimations/Resources/5th/Backgrounds/CABC.png"
 		}
 	},
 
@@ -20,7 +20,7 @@ local params = {
 
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
+	BGA_G.ParTweak( params, replace )
 
 	t[#t+1] = LoadActor( "../5th001A", params )..{}
 
@@ -28,7 +28,6 @@ local params = {
 	params = {
 
 		Index = 3,
-		ID = 2,
 		File = "/BGAnimations/Resources/5th/Sprites/HSV/DA 4x3.png",
 		Frame_i = 5,
 		X_num = { -4, 3 },
@@ -39,13 +38,10 @@ local params = {
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
 
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, replace )
-
 
 	params = {
 
 		Index = 4,
-		ID = 3,
 		File = "/BGAnimations/Resources/5th/Sprites/HSV/DA 4x3.png",
 		Frame_i = 4,
 		X_num = { -4, 3 },
@@ -56,8 +52,6 @@ local params = {
 	}
 
 	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
-
-	PSX_BGA_Globals["BGA_PostSpawn"]( t, params, replace )
 
 
 return Def.ActorFrame{ t }

@@ -1,7 +1,15 @@
 
+local tweaks = ...
+
 local params = {
-	Index = 2,
-	Remove = true
+
+	{ Index = 1 },
+
+	{
+		Index = 2,
+		Remove = true
+	}
+
 }
 
 local params_2 = {
@@ -14,7 +22,9 @@ local params_2 = {
 
 }
 
+	BGA_G.ParTweak( params, tweaks )
+
 return Def.ActorFrame{
 	LoadActor( "../5th044A", params )..{},
-	LoadActor("../Resources/Scripts/5th/Particles.lua", params_2)..{}
+	LoadActor("../Resources/Scripts/Particles.lua", params_2)..{}
 }

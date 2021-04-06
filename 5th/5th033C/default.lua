@@ -1,11 +1,5 @@
 
-local t = Def.ActorFrame{
-
-	OnCommand=function(self)
-		self.Name = "SearchIndex"
-	end
-
-}
+local t = Def.ActorFrame{}
 
 local params = {
 
@@ -13,9 +7,7 @@ local params = {
 	File = "/BGAnimations/Resources/5th/Sprites/HSV/D 5x4.png",
 	Y_num = { -2, 1 },
 	X_num = 5,
-	Delay = 0.25,
-	FramingXY = true
-
+	Frames = { 1, 20, Type = 1 }
 }
 
 	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params )..{}
@@ -24,7 +16,7 @@ local params_2 = {}
 
 	DeepCopy(params, params_2)
 	params_2["Fade"] = { 1, 1 }
-	params_2["ActorClass"] = "Quad"
+	params_2["Class"] = "Quad"
 	params_2["Color"] = "Rainbow"
 	params_2["Commands"] = { "Fade", "Blend" }
 

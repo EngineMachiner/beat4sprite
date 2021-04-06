@@ -4,7 +4,6 @@ local tweaks = {
 	Index = 1,
 	Y_num = 2,
 	Y_coord = 1,
-	Y_pos = 0,
 	Commands = "Move"
 
 }

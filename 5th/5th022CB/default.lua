@@ -4,10 +4,9 @@ local params = {
 	Frame_i = 13,
 	Frame_l = 16,
 	Y_coord = 1,
-	Y_pos = 0,
 	Y_num = 2,
-	ScrollSpeed = 2,
-	Commands = { "OneTwoStates", "Move" }
+	HurryTweenBy = 2,
+	Commands = { "LStates", "Move" }
 
 }
 

@@ -12,10 +12,10 @@ local t = Def.ActorFrame{
    		self:fov(120)
 	end,
 	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
+		BGA_G.Stop( self, true )
 	end,
 	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
+		BGA_G.Stop( self )
 	end
 }
 
@@ -28,13 +28,7 @@ local params = {
 	BGMirror = true
 }
 
-	PSX_BGA_Globals["BGA_ParamsTweaks"]( params, replace )
-
-	if params.AddActors then
-		for k,v in pairs(params.AddActors) do
-			t[#t+1] = v
-		end
-	end
+	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
 	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},

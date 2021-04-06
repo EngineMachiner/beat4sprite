@@ -7,7 +7,7 @@ local tweaks = {
 	Frame_i = 1,
 	Frame_l = 6,
 	Dir = "Left",
-	Script = "/BGAnimations/Resources/Scripts/5th/Particles.lua",
+	Script = "/BGAnimations/Resources/Scripts/Particles.lua",
 	Random = true
 
 }

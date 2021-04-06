@@ -2,7 +2,7 @@
 local tweaks = {
 
 	Index = 2,
-	ResetParams = true,
+	Cleanup = true,
 	Script = "../Resources/Scripts/TileTool.lua",
 	File = "/BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
 	Delay = 0.5,
