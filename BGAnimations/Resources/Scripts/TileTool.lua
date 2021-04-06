@@ -1,579 +1,618 @@
 
 local params = ...
+local p = params
 
-local t = Def.ActorFrame{
-	GainFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self, true )
-	end,
-	LoseFocusCommand=function(self)
-		PSX_BGA_Globals["BGA_ChildrenStop"]( self )
-	end
+local t = Def.ActorFrame{}
+
+-- Set default values in case they are missing
+BGA_G.DefPar( p )
+
+local x, y = p.X_num, p.Y_num
+
+-- Matrix description
+local matrix = {
+	math.abs(x[1]) + math.abs(x[2]) + 1,
+	math.abs(y[1]) + math.abs(y[2]) + 1
 }
+p.Matrix = matrix
 
--- Getting the sheet proportion
-local s, Frames
+-- Total number of sprites
+p.Total = matrix[1] + matrix[2]
 
-if type(params.File) == "string" then
-	s = string.match( params.File, " %dx%d" )
-	if s then
-		Frames = { string.match( s, "%dx"), string.match( s, "x%d") }
-		Frames[1] = tonumber( string.match( Frames[1], "%d" ) )
-		Frames[2] = tonumber( string.match( Frames[2], "%d" ) )
-	end
-end
-
---In case something is missing
-PSX_BGA_Globals["BGA_NoParams"]( params )
-
-local X_pos = params.X_pos
-local Y_pos = params.Y_pos
-local x, y = params.X_num, params.Y_num
-
-local function StateMath( x, y, self, state )
-
-	state = state + x
-
-	while state < self:GetNumStates() - 1 do 
-		state = state + self:GetNumStates()
-	end
-
-	while state > self:GetNumStates() - 1 do 
-		state = state - self:GetNumStates()
-	end
-
-	state = state + y
-
-	while state < self:GetNumStates() - 1 do 
-		state = state + self:GetNumStates()
-	end
-
-	while state > self:GetNumStates() - 1 do 
-		state = state - self:GetNumStates()
-	end
-
-	return state
-
-end
-
-local function Find(self, filter) -- filter is the texture path/dir
-
-	local init_af, check = self
-
-	while init_af:GetParent() and not check do
-		init_af = init_af:GetParent()
-		if init_af.Name then check = true end
-	end
-
-	local storage = {}
-	local function Filter(tbl)
-
-		for k,v in pairs(tbl) do
-			if string.match(tostring(v),"table") then
-				Filter(v)
-			elseif string.match(tostring(v),"Frame") then
-				Filter(v:GetChildren())
-			elseif string.match(tostring(v),"Sprite") then
-				if v:GetTexture() then
-
-					--[[ v.GetTexture(v).GetPath(v.GetTexture(v))
-					please remember self behaviour, this is why
-					v:GetTexture():GetPath() returned an error  ]]
-
-					local tex = v:GetTexture()
-					if tex:GetPath() == filter then
-						storage[#storage+1] = v
-					break
-					end
-
-				end
-			end
+-- Sample
+if p.Class == "Quad" then
+	t[#t+1] = Def.Sprite{
+		Name="Sample",
+		InitCommand=function(self)
+			self:Load(p.File)
+			BGA_G.SetStates(self, p)
+		end,
+		OnCommand=function(self)
+			self:diffusealpha(0) 
+			self:animate(false)
 		end
-
-	end
-
-	Filter(init_af:GetChildren())
-	return storage
-
+	}
 end
 
--- Position offsets
+x[1] = - math.floor( ( matrix[1] - 1 ) * 0.5 )
+x[2] = math.ceil( ( matrix[1] - 1 ) * 0.5 )
 
-local i_0 = params.X_coord == 0 and ( ( math.abs( x[1] ) + math.abs( x[2] ) ) % 2 ) * 0.5 or 0
-local k_0 = params.Y_coord == 0 and ( ( math.abs( y[1] ) + math.abs( y[2] ) ) % 2 ) * 0.5 or 0
+y[1] = - math.floor( ( matrix[2] - 1 ) * 0.5 )
+y[2] = math.ceil( ( matrix[2] - 1 ) * 0.5 )
 
 for i=x[1],x[2] do
-	for k=y[1],y[2] do
-
-		local vec_start = {}
-		local vec_end = {}
-		local sprites = {}
-		local state, file_num = 0, 1
-		local stairs, stairs2, search_sprt, tween_lock
+	for j=y[1],y[2] do
 		
-		t[#t+1] = Def[params.ActorClass]{
+		t[#t+1] = Def.ActorFrame{
+			GainFocusCommand=function(self)
+				BGA_G.Stop( self, true )
+			end,
+			LoseFocusCommand=function(self)
+				BGA_G.Stop( self )
+			end,
 			OnCommand=function(self)
-			
-				if params.ActorClass == "Quad" then
-					if not self:GetParent().Results then
-						self:GetParent().Results = Find(self, params.File)
-					end
-					search_sprt = self:GetParent().Results[1]
-					self:SetSize( search_sprt:GetZoomedWidth(), search_sprt:GetZoomedHeight() )
-					if params.FramingXY then
-						stairs2 = true
-					end
-					self:diffuse(Color.Black)
-				elseif params.ActorClass == "Sprite" then
-
-					if not params.Texture then
-						self:Load(params.File)
-					else
-						self:SetTexture(params.Texture)
-					end
-
-					if params.FramingXY then
-						stairs2 = true
-						PSX_BGA_Globals["BGA_FramingXY"]( self, params, i, k, Frames ) --5th033A -> that clothes effect
-					elseif params.FramingY then
-						PSX_BGA_Globals["BGA_FramingY"]( self, params, i+math.abs(x[1]), k, Frames ) --5th072
-					else
-						PSX_BGA_Globals["BGA_FrameSelector"](self, params)
-					end
-
-				end
-
-				vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)*params.Spacing[1]
-				vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)*params.Spacing[2]
-
-			 	self:xy( vec_start[1], vec_start[2] )
 				self:effectclock("beat")
-			 	self:set_tween_uses_effect_delta(true)
+				self:set_tween_uses_effect_delta(true)
+				local t = p.MultipleFiles
+				if t and p.TCV[1] == 0 then
+					if t[1] == t[2] * 2 + 1
+					or t[1] == 1 then
+						self:stoptweening()
+						self:RemoveAllChildren()
+						self = nil
+					end
+				end
+			end
+		}
 
-			 	if X_pos then
-			 		self:x(self:GetX()+X_pos*self:GetZoomedWidth())
-			 	end
+		local a = t[#t]
 
-			 	if Y_pos then
-			 		self:y(self:GetY()+Y_pos*self:GetZoomedHeight())
-			 	end
+		a[#a+1] = Def[p.Class]{
 
-				vec_start[1] = self:GetX()
-			 	vec_start[2] = self:GetY()
+			InitCommand=function(self)
+			
+				local classes = {
 
-			 	vec_end[1] = vec_start[1]
-				vec_end[2] = vec_start[2]
+					Quad = function(self)
+						p.Sample = self:GetParent():GetParent():GetChild("Sample")
+						local s = p.Sample
+						self:SetSize( s:GetZoomedWidth(), s:GetZoomedHeight() )
+					end,
 
-				PSX_BGA_Globals["BGA_PlayAllCommands"](self, params)
+					Sprite = function(self)
+						if p.Texture then
+							self:SetTexture(p.Texture)
+						else
+							self:Load(p.File)
+						end
+					end,
+
+				}
+				
+				for k,v in pairs( classes ) do
+					if p.Class == k then
+						v(self)
+					end
+				end
+
+			end,	
+
+			OnCommand=function(self)
+
+				self.UniqueEffect = true
+				self:effectclock("beat")
+				self:set_tween_uses_effect_delta(true)
+
+				if BGA_G.IsCmd( p, "Rainbow" ) then
+					self:rainbow()
+					self:effectperiod( 16 * BGA_G.GetDelay(self)[2] )
+				elseif BGA_G.IsCmd( p, "Color" ) then
+					self:diffuse(p.Color)
+				end
+
+				if BGA_G.IsCmd( p, "Blend" ) then
+					p.Blend = p.Blend or "BlendMode_Modulate"
+					self:blend( p.Blend )
+				end
+
+				if BGA_G.IsCmd( p, "Blink" ) then
+					self:diffuseramp():effectperiod(1)
+				end
+
+				if BGA_G.IsCmd( p, "Rotation" ) then
+					self:rotationx(p.Rot[1])
+					self:rotationy(p.Rot[2])
+					self:rotationz(p.Rot[3])
+				end
+
+				if BGA_G.IsCmd( p, "SpinFrame" ) then
+					if math.abs(i) % 2 == 0 then
+						self:rotationy(180)
+					end
+					if math.abs(j) % 2 == 0 then
+						self:rotationx(180)
+					end
+				end
+
+				if p.Class == "Sprite" then
+					
+					if p.Frames["Type"] then
+						self.matrix = { i, j }
+					end
+					BGA_G.SetStates(self, p)
+
+					if BGA_G.IsCmd( p, "StairsStates" )
+					and not p.StopAtFrame then
+						local n = BGA_G.InitState( self, { i+x[2], j+y[2] } )
+						if p.Frames["Type"] == 2 then 
+							local x = p.Sheet[1]
+							n = BGA_G.InitState( self, { 1, (j+1)*x } )
+						end
+						self:setstate( n )
+					end
+
+					if BGA_G.IsCmd( p, "LineStates" ) then
+						local n = self:GetNumStates()
+						n = i % n
+						self:setstate( n )
+					end
+
+					if BGA_G.IsCmd( p, "RandomDelays" ) then
+						local n = self:GetNumStates()
+						if n > 1 then
+							n = n * 100
+							self.IDelay = math.random(15,100-15) * 0.01
+							self.IDelay = self.IDelay + math.random( n, n * 2 ) * 0.001
+							self.IDelay = self.IDelay * 0.75
+						end
+					end
+
+					if p.Static then 
+						self:animate(false)
+					end
+
+				end
+				
+				self:queuecommand("Pos")
 
 			end,
+
+			PosCommand=function(self)
+
+				local w = self:GetZoomedWidth()
+				local h = self:GetZoomedHeight()
+				local pa = self:GetParent()
+
+				pa:stoptweening()
+				pa:Center()
+
+				local offsets = { 0, 0 }
+
+				-- If the number of sprites is odd
+
+				local d = ( matrix[1] + 1 ) % 2 
+				d = - d * 0.5
+				offsets[1] = offsets[1] + d
+				
+				d = ( matrix[2] + 1 ) % 2 
+				d = - d * 0.5
+				offsets[2] = offsets[2] + d
+
+				-- If Move cmd is active
+
+				local dir = p.TCV[1] ~= 0 and p.TCV[1] / math.abs(p.TCV[1]) or 0
+				d = matrix[1] - ( 640 / w ) - math.ceil( matrix[1] * 0.5 )
+				d = d - math.ceil( matrix[1] * 0.5 ) % 2
+				d = d * 0.5 * dir
+				offsets[1] = offsets[1] - d
+
+				dir = p.TCV[2] ~= 0 and p.TCV[2] / math.abs(p.TCV[2]) or 0
+				d = matrix[2] - ( SCREEN_HEIGHT / h )
+				d = d * 0.5 * dir
+				offsets[2] = offsets[2] - d
+
+				------------------------------
+
+				local x = w * ( i + offsets[1] )
+				x = x * p.Spacing[1]
+				x = x + w * p.X_pos
+
+				local y = h * ( j + offsets[2] )
+				y = y * p.Spacing[2]
+				y = y + h * p.Y_pos
+
+			 	self:xy( x, y )
+				self.InitPos = { self:GetX(), self:GetY() }
+				BGA_G.PlayCmds(self, p)
+
+			end,
+
 			MoveCommand=function(self)
+				
+				local pa, c = self:GetParent()
+				for i=1,#p.TCV do
+					if p.TCV[i] ~= 0 then 
+						c = true
+					end
+				end
 
-				if not params.NumTextures then
+				if c then 
+					
+					p.TCV[1] = p.TCV[1] ~= 0 and 1 / p.TCV[1] or 0
+					p.TCV[2] = p.TCV[2] ~= 0 and 1 / p.TCV[2] or 0
 
-					if vec_end[1] == vec_start[1]
-					and vec_end[2] == vec_start[2] then
+					local w = self:GetZoomedWidth()
+					local h = self:GetZoomedHeight()
+					local n = p.Class == "Quad" and p.Sample:GetNumStates()
+					n = n or self:GetNumStates()
 
-						if #sprites == 0 then
-			 				for k,v in pairs(self:GetParent():GetChildren()) do
-			 					for _,o in pairs(v) do
-			 						sprites[#sprites+1] = o
-			 						if #sprites > 1 then break end
-			 					end
-			 				end
-			 			end
+					pa:Center()
 
-			 			if params.X_coord ~= 0 then
+					local scl = h / SCREEN_HEIGHT
+					scl = BGA_G.NoteSync and scl * 7.5 or scl
 
-			 				local X_add = 0
-			 				while SCREEN_CENTER_X + self:GetZoomedWidth() * ( x[2] - 1.5 ) + X_add > SCREEN_WIDTH and params.X_coord > 0 do
-								X_add = X_add - 1
-							end
+					local endpos = { 
+						pa:GetX() + w * p.TCV[1],
+						pa:GetY() + h * p.TCV[2]
+					}
 
-			 				while SCREEN_CENTER_X + self:GetZoomedWidth() * ( x[1] + 1.5 ) + X_add < 0 and params.X_coord < 0 do
-								X_add = X_add + 1
-							end
+					if BGA_G.IsCmd( params, "StairsStates" ) then
+						scl = ( n + p.FrmDelay ) * 2
+						n = p.StopAtFrame or n
+						endpos = {
+							pa:GetX() + w * n * p.TCV[1],
+							pa:GetY() + h * n * p.TCV[2]
+						}		
+					end
 
-							vec_start[1] = vec_start[1] + X_add 
-			 				vec_end[1] = vec_start[1]
+					local a = p.MultipleFiles
+					if a then
 
-			 				params.X_coord = params.X_coord / math.abs(params.X_coord) -- versor
-			 				if stairs then
-			 					vec_end[1] = vec_end[1] + self:GetZoomedWidth() * self:GetNumStates() * params.X_coord
-			 				elseif stairs2 then
-			 					vec_end[1] = vec_end[1] + self:GetZoomedWidth() * Frames[2] * params.X_coord
-			 				else
-			 					vec_end[1] = vec_end[1] + self:GetZoomedWidth() * params.X_coord
-			 				end
+						local x = w * p.TCV[1]
+						local y = h * p.TCV[2]
 
-			 			end
+						local d = a[2] - a[1]
 
-				 		if params.Y_coord ~= 0 then
+						pa:x( pa:GetX() + x * d )
+						pa:y( pa:GetY() + y * d )
 
-			 				local Y_add = 0
-			 				while SCREEN_CENTER_Y + self:GetZoomedHeight() * ( y[2] + 0.5 ) + Y_add > SCREEN_HEIGHT and params.Y_coord > 0 do
-								Y_add = Y_add - 1
-							end
+						endpos[1] = endpos[1] + x * d
+						endpos[1] = endpos[1] + x * math.floor( a[2] * 0.5 )
 
-			 				while SCREEN_CENTER_Y + self:GetZoomedHeight() * ( y[1] - 0.5 ) + Y_add < 0 and params.Y_coord < 0 do
-								Y_add = Y_add + 1
-							end
+						endpos[2] = endpos[2] + y * d
+						endpos[2] = endpos[2] + y * math.floor( a[2] * 0.5 )
 
-							vec_start[2] = vec_start[2] + Y_add
-							vec_end[2] = vec_start[2]
-			 				
-			 				params.Y_coord = params.Y_coord / math.abs(params.Y_coord) -- versor
-			 				if stairs then
-			 					vec_end[2] = vec_end[2] + self:GetZoomedHeight() * self:GetNumStates() * params.Y_coord
-			 				elseif stairs2 then 
-			 					vec_end[2] = vec_end[2] + self:GetZoomedHeight() * Frames[2] * params.Y_coord
-			 				else
-			 					vec_end[2] = vec_end[2] + self:GetZoomedHeight() * params.Y_coord			 					
-			 				end
-
-			 			end
+						scl = scl * a[2]
 
 					end
 
-					if params.FlashMove then 
-
-						while vec_end[1] <= vec_start[1] - self:GetZoomedWidth() do 
-							vec_end[1] = vec_start[1]
+					local d = BGA_G.GetDelay(self, p)[2]
+					scl = scl * d
+					
+					if p.SleepMove then
+						local x = w * p.TCV[1]
+						local y = h * p.TCV[2]
+						for i=1,n do
+							pa:sleep( n * d )
+							pa:x( pa:GetX() + x * i / n )
+							pa:y( pa:GetY() + y * i / n )
 						end
-
-						while vec_end[2] <= vec_start[2] - self:GetZoomedHeight() do 
-							vec_end[2] = vec_start[2]
-						end
-
-			 			vec_end[1] = vec_end[1] - self:GetZoomedWidth() * 0.25
-						vec_end[2] = vec_end[2] - self:GetZoomedHeight() * 0.25
-
-						self:xy( vec_end[1], vec_end[2] )
-							:sleep(self:GetNumStates()*0.25)
-							:queuecommand("Move")
-
-			 		else
-
-						self:xy( vec_start[1], vec_start[2] )
-							:linear( 2 * params.ScrollSpeed )
-							:xy( vec_end[1], vec_end[2] )
-							:queuecommand("Move")
-
+					else
+						pa:linear(scl)
+						pa:xy( endpos[1], endpos[2] )
+						pa:hurrytweening( p.HurryTweenBy )
+						pa:queuecommand("MoveEffect")
 					end
 
-					if params.Delay then
-						if params.ActorClass ~= "Quad" then
-							if self:GetNumStates() > 1 then
-								self:hurrytweening( params.Delay * ( self:GetNumStates() - 1 ) * 4 )
-							else
-								self:hurrytweening( params.Delay )
-							end
-						elseif params.ActorClass == "Quad" then
-							if search_sprt:GetNumStates() > 1 then
-								self:hurrytweening( params.Delay * ( search_sprt:GetNumStates() - 1 ) * 4 )
-							else
-								self:hurrytweening( params.Delay )
-							end
-						end
-
-					end
-
-				else
-
-					if vec_end[1] == vec_start[1]
-					and vec_end[2] == vec_start[2] then
-
-						if params.X_coord ~= 0 then
-			 				local dir = params.X_coord / math.abs(params.X_coord)
-			 				vec_end[1] = vec_start[1] + self:GetZoomedWidth() * ( params.NumItemsX - params.NumTextures - 1 ) * dir
-			 			end
-
-			 			if params.Y_coord ~= 0 then
-			 				local dir = params.Y_coord / math.abs(params.Y_coord)
-			 				vec_end[2] = vec_start[2] + self:GetZoomedHeight() * 2 * dir
-			 			end
-
-			 		end
-
-					self:xy( vec_start[1], vec_start[2] )
-						:linear( 4 * ( params.NumTextures + 1 ) * params.ScrollSpeed )
-						:xy( vec_end[1], vec_end[2] )
-						:queuecommand("Move")				
+					pa:queuecommand("Move")
 
 				end
 
 			end,
-			ZWriteCommand=function(self)
-				if i == x[1]
-				and k == y[1] then 
-					self:clearzbuffer(true)
+
+			MoveEffectCommand=function(self)
+				if BGA_G.IsCmd( p, "Fade" ) then
+					local p = p.EffectOffset or 1
+					self.EffectOffset = self.EffectOffset + p
+					self:effectoffset(self.EffectOffset)
 				end
-				self:zwrite(true)
-				self:blend("BlendMode_NoEffect")
 			end,
-			ZTestCommand=function(self)
-				self:ztest(true)
+
+			FadeCommand=function(self)
+
+				p.Fade = p.Fade or { 1, 1 }
+				p.FadePeriodBy = p.FadePeriodBy or 1
+
+				local n = p.Sample and p.Sample:GetNumStates()
+				local d = BGA_G.GetDelay(self, p)[2]
+				
+				n = n or self:GetNumStates()
+				n = p.StopAtFrame or n
+
+				local beat = p.HurryTweenBy + d
+				beat = beat * n * p.FadePeriodBy
+
+				if type(p.Color) == "table" then
+					if p.Ramp then
+						self:diffuseramp()
+						self:effectcolor1(p.Color)
+						self:effectperiod(beat)
+					else
+						p.Color = p.Color or Color.Black
+						p.Color2 = p.Color2 or Color.White
+						self:diffuseshift()
+						self:effectcolor1(p.Color)
+						self:effectcolor2(p.Color2)
+						self:effectperiod(beat)
+					end
+				end
+
+				local o
+				if p.Fade then
+					if p.Color == "Rainbow" then
+						self:rainbow()
+						o = - p.Fade[1] * i - p.Fade[2] * j 
+						o = o * beat / p.Total
+					else
+						beat = beat * 0.5
+						o = - p.Fade[1] * i - p.Fade[2] * j
+						o = o * beat * 2 / p.Total
+					end
+					self:effectperiod(beat)
+					self:effectoffset(o)
+					self.EffectOffset = o
+				end
+
 			end,
+
 			FourScreensCommand=function(self)
 
-				if not vec_start["Zoom"] then
-					vec_start["X0"] = vec_start[1]
-					vec_start["Y0"] = vec_start[2]
-					vec_start["Zoom"] = self:GetZoom()
-				end
+				local d = BGA_G.GetDelay(self, p)[2]
+				if j == 0 then
 
-				if k == 0 then
+					-- Repeat twice
 					for p=1,2 do
 						self:diffusealpha(1)
-						self:sleep(1)
+						self:sleep(d)
 						self:diffusealpha(0)
-						self:sleep(1)
+						self:sleep(d)
 					end
-				elseif math.abs(k) == 1 then
 
-					self:x( vec_start["X0"] )
-					self:zoom(vec_start["Zoom"])
-					self:rotationx( ( k - 1 ) * 90 + 60 )
-					self:y( vec_start["Y0"] - self:GetZoomedHeight() * k * 0.75 )
+				elseif math.abs(j) == 1 then
+
+					self.w = self.w or self:GetZoomedWidth()
+					self.h = self.h or self:GetZoomedHeight()
+					self.Zoom = self.Zoom or self:GetZoom()
+
+					local w = self.w
+					local h = self.h
+
+					local endpos = {}
+					endpos[1] = self.InitPos[1] - w * i * 0.5 + w * 0.25
+					endpos[1] = endpos[1]
+					endpos[2] = self.InitPos[2] - h * j * 0.75
+					endpos[2] = endpos[2]
+
+					self:x( self.InitPos[1] )
+					self:y( self.InitPos[2] - h * 0.75 * j )
+					self:rotationx( ( j - 1 ) * 90 + 60 )
+					self:zoom(self.Zoom)
+
 					self:diffusealpha(0)
-					self:sleep(1)
+					self:sleep(d)
 					self:diffusealpha(1)
-					self:sleep(1)
+					self:sleep(d)
 					self:diffusealpha(0)
-					self:sleep(1)
+					self:sleep(d)
 					self:diffusealpha(1)
+					
 					self:rotationx(0)
-					self:zoom( vec_start["Zoom"] * 0.5 )
-					self:rotationx( 90 * ( k + 1 ) )
+					self:zoom( self.Zoom * 0.5 )
+					self:rotationx( 90 * ( j + 1 ) )
+			 		self:xy( endpos[1], endpos[2] )
 
-					vec_start[1] = SCREEN_CENTER_X+self:GetZoomedWidth()*(i+i_0)
-					vec_start[2] = SCREEN_CENTER_Y+self:GetZoomedHeight()*(k+k_0)
-					vec_start[1] = vec_start[1]-self:GetZoomedWidth()*0.5
-					vec_start[2] = vec_start[2]-self:GetZoomedHeight()*0.5*k
-
-			 		self:xy( vec_start[1], vec_start[2] )
-			 		self:sleep(1)
+			 		self:sleep(d)
 
 				end
 
 				self:queuecommand("FourScreens")
 
 			end,
+
 			MirrorCommand=function(self)
 
-				if params.BGMirror then
+				if p.BGMirror then
 
 					if i ~= 0 then
 						self:rotationy( 180 * i )
 					end
 
-					if params.X_pos and params.X_pos % 2 == 0 
-					and params.NumTextures and params.X_coord ~= 0 then
-						self:rotationy( 180 )
-					end
+					if p.MultipleFiles then
 
-					if params.Y_pos and params.Y_pos % 2 == 0 
-					and params.NumTextures and params.Y_coord ~= 0 then
-						self:rotationx( 180 )
+						if p.MultipleFiles[1] % 2 == 0
+						and p.TCV[1] ~= 0 then
+							self:rotationy( 180 )
+						end
+
+						if p.MultipleFiles[1] % 2 == 0
+						and p.TCV[2] ~= 0 then
+							self:rotationx( 180 )
+						end
+
 					end
 
 				else
 
-					if i % 2 == 0 and k % 2 == 1 then
-						self:rotationy( 180 )
-					elseif i % 2 == 1 and k % 2 == 0 then
+					if i % 2 == 0 and j % 2 == 1 then
 						self:rotationx( 180 )
-					elseif i % 2 == 0 and k % 2 == 0 then
-						self:rotationx( 180 )
+					elseif i % 2 == 1 and j % 2 == 0 then
 						self:rotationy( 180 )
+					elseif i % 2 == 1 and j % 2 == 1 then 
+						self:rotationy( 180 )
+						self:rotationx( 180 )
 					end
 
 				end
-				
-			end,
-			MirrorYPerRowCommand=function(self)
-				if k % 2 == 0 then
+		
+				if BGA_G.IsCmd( params, "MirrorY" )
+				and j % 2 == 0 then
 					self:rotationy(180)
-				end
-			end,
-			SpinYCommand=function(self)
-			 	self:rotationx(0):linear(2):rotationx(90):linear(2):rotationx(0)
-			 	self:queuecommand( "SpinY" )
-				self:hurrytweening(params.Speed)
-			end,
-			SpinXCommand=function(self)
-			 	self:rotationy(0):linear(2):rotationy(90):linear(2):rotationy(0)
-			 	self:queuecommand( "SpinX" )
-				self:hurrytweening(params.Speed)
-			end,
-			SpinXYCommand=function(self)
-
-				local val
-
-				if params.SpinClosed then
-					val = { 90, 0 }
-				else
-					val = { 0, 90 }
-				end
-
-				self:rotationx(0)
-				self:rotationy(val[1]):linear(1):rotationy(val[2]):linear(1)
-					:rotationy(val[1]):sleep(0)
-				self:rotationx(val[1])
-				self:rotationy(0):linear(1):rotationx(val[2]):linear(1)
-					:rotationx(val[1]):sleep(0)
-					:queuecommand( "SpinXY" )
-					:hurrytweening(params.Speed)
+				end				
 
 			end,
-			SpinFrameCommand=function(self)
-				if math.abs(i) % 2 == 0 then
-					self:rotationy(180)
+
+			AlignCommand=function(self)
+
+				local w = self:GetZoomedWidth()
+				local h = self:GetZoomedHeight()
+
+				if i % 2 == 1 then
+					self:visible(false)
 				end
-				if math.abs(k) % 2 == 0 then
-					self:rotationx(180)
+
+				if math.abs(i) > 0 then
+					local x = - w * 0.75 * i / math.abs(i)
+					self:x( self:GetX() + x )
 				end
+
+				if math.abs(j) > 0 then
+					local y = h * 0.5 * j / math.abs(j)
+					self:y( self:GetY() + y )
+				end
+
 			end,
+
 			CrossCommand=function(self)
-				if not params.Cross then params.Cross = x[2] end
-				local val = params.Cross
-				for o = -(val+1),val+1,2 do
-					if k == o + i then
+				
+				local val = p.Cross or x[2]
+				val = p.CType == 2 and x[2] or val
+				val = val + 1
+
+				for o=-val,val,2 do
+
+					if j == o + i then
 						self:visible(false) 
 					end
-				end
-			end,
-			Cross2Command=function(self)
-				for o = -(x[2]+1),x[2]+1,2 do
-					if k == o + i or math.abs(k) > 1 or k == 0 then 
-						self:visible(false)
+
+					if p.CType == 2 then
+						if math.abs(j) > 1 
+						or j == 0 then 
+							self:visible(false)
+						end
 					end
+
 				end
+
 			end,
-			OddsCommand=function(self)
-				if i % 2 == 1 then 
-					self:visible(false)
-				elseif math.abs(i) > 0 then
-					self:x( self:GetX() - self:GetZoomedWidth() * 0.75 * i / math.abs(i) )
-				end
-				if math.abs(k) > 0 then
-					self:y( self:GetY() + self:GetZoomedHeight() * 0.25 * k / math.abs(k) )
-				end
-			end,
-			OffsetStatesCommand=function(self)
-				self:setstate(params.InitState-1)
-			end,
-			RandomStatesCommand=function(self)
-				if self:GetNumStates() > 1 then
-					self:setstate(math.random(1,self:GetNumStates())-1)
-				end 
-			end,
-			RandomDelaysCommand=function(self)
-				if self:GetNumStates() > 1 then
-					params.Delay = math.random(self:GetNumStates()*100,self:GetNumStates()*2*100) * 0.001 * 0.5
-					PSX_BGA_Globals["BGA_Details"](self, params)
-				end
-			end,
-			OneTwoStatesCommand=function(self)
-				self:setstate(i % self:GetNumStates())
-			end,
-			StairsStatesCommand=function(self)	
-				stairs = true 
-				self:setstate(StateMath( i+x[2], k+y[2], self, state ))
-			end,
+
 			FramePerSpriteCommand=function(self)
 
-				local s = i + 2 + k * Frames[1] - Frames[1] * 2
+				p.State = p.State or 0
+				local n = self:GetNumStates()
+				local s = i + 3 + j * p.Sheet[1] + p.Sheet[2] + p.State
+				s = p.Animate and p.State or s
 
-				while s > self:GetNumStates() - 1 do
-					s = s - self:GetNumStates()
+				while s > n - 1 do
+					s = s - n
 				end
 
 				while s < 0 do
-					s = s + self:GetNumStates()
+					s = s + n
 				end
 
-				if not params.Animate then
-					self:animate(false):setstate(s)
+				if not p.Animate then
+					self:animate(false)
 				end
+				self:setstate(s)
 
 			end,
-			PulseCommand=function(self)
-				local z = self:GetZoom()
-				self:smooth(1):zoom(0):smooth(1):zoom(z):queuecommand("Pulse")
-			end,
-			RainbowCommand=function(self)
-				self:rainbow():effectperiod(8)
-			end,
-			ColorCommand=function(self)
-				self:diffuse(params.Color)
-			end,
-			BlendCommand=function(self)
-				if not params.Blend then
-					self:blend("BlendMode_Modulate")
-				else
-					self:blend(params.Blend)
-				end
-			end,
-			FadeCommand=function(self)
 
-				if not params.Fade then params.Fade = { 1, 1 } end
+			SpinXYCommand=function(self)
 
-				local total = math.abs(x[2])+math.abs(x[1])+1
+				local d = BGA_G.GetDelay(self)[2] * 0.25
+				local val = p.SpinC and { 90, 0 } or { 0, 90 }
+				SCREENMAN:SystemMessage(d)
+				self:rotationx(0)
+				self:rotationy(val[1]):linear(d)
+				self:rotationy(val[2]):linear(d)
+				self:rotationy(val[1]):sleep(0)
 
-				if type(params.Color) == "table" then
-					if params.Ramp then
-						self:diffuseramp():effectcolor1(params.Color):effectperiod(params.FDelay)
-					else
-						if not params.Color2 then 
-							params.Color2 = Color.White
-						end
-						self:diffuseshift()
-						:effectcolor1(params.Color)
-						:effectcolor2(params.Color2)
-						:effectperiod(params.FDelay)
-					end
-				elseif params.Color == "Rainbow" then
-					self:rainbow():blend("BlendMode_Modulate")
-				end
+				self:rotationx(val[1])
+				self:rotationy(0):linear(d)
+				self:rotationx(val[2]):linear(d)
+				self:rotationx(val[1]):sleep(0)
 
-				local beat
-
-				if params.Fade then
-					if search_sprt then
-						if params.Delay then
-							beat = params.Delay * ( search_sprt:GetNumStates() ) * 4
-						else
-							beat = 4 * ( search_sprt:GetNumStates() )
-						end
-						self:effectperiod(beat):effectoffset( beat * 0.5 * ( - params.Fade[1] * i - params.Fade[2] * k ) / total )
-					end
-				end
+				self:queuecommand( "SpinXY" )
 
 			end,
-			BlinkCommand=function(self)
-				self:diffuseramp():effectperiod(1)
-			end,
+
+			SpinXCommand=function(self)
+				self:rotationy(0):linear(2)
+			   	self:rotationy(90):linear(2)
+			   	self:rotationy(0)
+				self:queuecommand( "SpinX" )
+		   	end,
+
+			SpinYCommand=function(self)
+				self:rotationx(0):linear(2)
+			  	self:rotationx(90):linear(2)
+			  	self:rotationx(0)
+				self:queuecommand( "SpinY" )
+		   	end,
+
 			SplitCommand=function(self)
 				if i == 0 then self:diffuse(Color.Red) end
-				self:xy( vec_start[1], vec_start[2] )
-					:linear(4)
-					:x( self:GetX() + self:GetZoomedWidth() * i )
-					:y( self:GetY() + self:GetZoomedHeight() * k )
-					:queuecommand("Split")
+				self:xy( self.InitPos[1], self.InitPos[2] )
+				self:linear(4)
+				self:x( self:GetX() + self:GetZoomedWidth() * i )
+				self:y( self:GetY() + self:GetZoomedHeight() * j )
+				self:queuecommand("Split")
 			end,
+
+			ZWriteCommand=function(self)
+				if i == x[1]
+				and j == y[1] then 
+					self:clearzbuffer(true)
+				end
+				self:zwrite(true)
+				self:blend("BlendMode_NoEffect")
+				-- This blend is necessary
+			end,
+
+			ZTestCommand=function(self)
+				self:ztest(true)
+			end,
+
+			PulseCommand=function(self)
+				local z = self:GetZoom()
+				local d = BGA_G.GetDelay(self)[2]
+				self:smooth(d):zoom(0)
+				self:smooth(d):zoom(z)
+				self:queuecommand("Pulse")
+			end,
+
 			ZoominCommand=function(self)
 				if i % 2 == 0 then self:sleep(2) end
-				self:queuecommand("Zoomin2")
+				self:queuecommand("Z2")
 			end,
-			Zoomin2Command=function(self)
+
+			Z2Command=function(self)
 				local z = self:GetZoom()
-				self:zoom( z ):linear(2):zoom( z * 1.5 ):linear(2):zoom( z ):queuecommand("Zoomin2")
+				local d = BGA_G.GetDelay(self)[2] * 2
+				self:zoom(z):linear(d)
+				self:zoom( z * 1.5 ):linear(d)
+				self:zoom(z)
+				self:queuecommand("Z2")
 			end,
+
 			AlphaCommand=function(self)
-				self:diffusealpha(1):linear(2):diffusealpha(0)
-				self:linear(2):diffusealpha(1)
+				local d = BGA_G.GetDelay(self)[2] * 2
+				self:diffusealpha(1):linear(d)
+				self:diffusealpha(0):linear(d)
+				self:diffusealpha(1)
 				self:queuecommand("Alpha")
 			end
+
 		}
 
 	end
