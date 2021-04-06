@@ -531,7 +531,7 @@ for i=x[1],x[2] do
 
 				local d = BGA_G.GetDelay(self)[2] * 0.25
 				local val = p.SpinC and { 90, 0 } or { 0, 90 }
-				SCREENMAN:SystemMessage(d)
+				
 				self:rotationx(0)
 				self:rotationy(val[1]):linear(d)
 				self:rotationy(val[2]):linear(d)
