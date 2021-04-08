@@ -62,7 +62,10 @@ local function ScreenPreview(self, params)
 	if scrn then
 
 		local s = string.match(scrn, "MenuBackgroundChange")
-		s = s or scrn == "ScreenEdit"
+		if scrn == "ScreenEdit"
+		and SCREENMAN:GetTopScreen():GetEditState() == "EditState_Edit" then 
+			s = true
+		end
 
 		if s then
 
@@ -81,7 +84,8 @@ local function ScreenPreview(self, params)
 				if self.UniqueEffect then
 					self:effectperiod(8)
 				else
-					self:GetParent():addcommand("ResetRainbow",function(p)
+					self:GetParent():addcommand("ResetRainbow", function(p)
+						p:stoptweening()
 						p:effectperiod(8)
 					end)
 					self:GetParent():sleep(0):queuecommand("ResetRainbow")
@@ -135,6 +139,33 @@ a.GetDelay = GetDelay
 
 -- // -- // --
 
+local function ParToCmd(params, cmds, s_tbl)
+
+	local p, t = params, cmds -- tables
+	local s = s_tbl 
+	
+	if type(s) == "string" then
+		s = { 
+			Index = s, 
+			CmdString = s
+		}
+	end
+
+	local c
+	local a = #t == 0 and 1 or #t
+	for i=1,a do
+		if p[s.Index] and t[i] == s.CmdString then 
+			c = true
+		end
+		if i == a and not c
+		and p[s.Index] then
+			t[#t+1] = s.CmdString
+		end
+	end
+
+	return t
+
+end
 
 local function DefPar( params )
 
@@ -147,11 +178,17 @@ local function DefPar( params )
 	
 	p.Frames = p.Frames or { p.Frame_i, p.Frame_l }
 	local t = p.Frames
-	for i=1,#t do
-		if not p.Frames["Check"] then
-			t[i] = t[i] - 1
+	if type(t) == "table" then
+		for i=1,#t do
+			if not p.Frames["Check"] then
+				t[i] = t[i] - 1
+			end
 		end
+	else
+		t = { t - 1, t - 1 }
 	end
+	p.Frames = t
+	
 	p.Frames["Check"] = true
 	p.Frames = t
 
@@ -262,6 +299,14 @@ local function DefPar( params )
 		end	
 
 	end
+
+	t = ParToCmd(p, t, "Blend")
+	t = ParToCmd(p, t, "Color")
+	t = ParToCmd(p, t, {
+		Index = "BGMirror",
+		CmdString = "Mirror"
+	})
+
 	p.Commands = t
 	
 	p.Class = p.Class or "Sprite"
@@ -288,42 +333,53 @@ local function Tile( frame, params )
 	if not params.Remove then
 
 		local f, p = frame, params
-		local s = "/BGAnimations/Resources/Scripts/TileTool.lua"
 
-		local t = p.File
-		if type(t) == "table" then
+		if #p > 1 and p[1]["Index"] then
 
-			f[#f+1] = Def.ActorFrame{}
-			f = f[#f]
+			for k,v in pairs( p ) do
+				Tile(f, v)
+			end
 
-			for i=#t*2+1,1,-1 do
+		else
+		
+			local s = "/BGAnimations/Resources/Scripts/TileTool.lua"
 
-				local pcopy = {}
+			local t = p.File
+			if type(t) == "table" then
 
-				DeepCopy(p, pcopy)
-				
-				pcopy.MultipleFiles = { i, #t }
+				f[#f+1] = Def.ActorFrame{}
+				f = f[#f]
 
-				while i > #t do
-					i = i - #t
+				for i=#t*2+1,1,-1 do
+
+					local pcopy = {}
+
+					DeepCopy(p, pcopy)
+					
+					pcopy.MultipleFiles = { i, #t }
+
+					while i > #t do
+						i = i - #t
+					end
+
+					pcopy.File = t[i]
+
+					f[#f+1] = loadfile(s)(pcopy)
+
 				end
 
-				pcopy.File = t[i]
+			elseif type(t) == "string" then
 
-				f[#f+1] = loadfile(s)(pcopy)
+				f[#f+1] = loadfile(s)(p)
 
 			end
 
-		elseif type(t) == "string" then
-
-			f[#f+1] = loadfile(s)(p)
-
-		end
-
-		if p.Actors then
-			for k,v in pairs(p.Actors) do
-				f[#f+1] = v
+			if p.Actors then
+				for k,v in pairs(p.Actors) do
+					f[#f+1] = v
+				end
 			end
+
 		end
 
 	end
