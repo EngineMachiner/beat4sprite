@@ -106,8 +106,9 @@ for i=x[1],x[2] do
 				if BGA_G.IsCmd( p, "Rainbow" ) then
 					self:rainbow()
 					self:effectperiod( 16 * BGA_G.GetDelay(self)[2] )
-				elseif BGA_G.IsCmd( p, "Color" ) then
-					self:diffuse(p.Color)
+				elseif BGA_G.IsCmd( p, "Color" )
+				and type(p.Color) == "table" then
+					self:diffuse(p.Color[1])
 				end
 
 				if BGA_G.IsCmd( p, "Blend" ) then
@@ -259,6 +260,7 @@ for i=x[1],x[2] do
 					if BGA_G.IsCmd( params, "StairsStates" ) then
 						scl = ( n + p.FrmDelay ) * 2
 						n = p.StopAtFrame or n
+						n = p.Cut or n
 						endpos = {
 							pa:GetX() + w * n * p.TCV[1],
 							pa:GetY() + h * n * p.TCV[2]
@@ -273,16 +275,35 @@ for i=x[1],x[2] do
 
 						local d = a[2] - a[1]
 
-						pa:x( pa:GetX() + x * d )
-						pa:y( pa:GetY() + y * d )
+						local r = { 0, 0 }
+						if p.Reversed then
+							r = {
+								x * 0.833,
+								y * 0.833
+							}
+						end
 
-						endpos[1] = endpos[1] + x * d
+						local b = {
+							pa:GetX() + x * d - r[1],
+							pa:GetY() + y * d - r[2]
+						}
+
+						pa:x( b[1] )
+						pa:y( b[2] )
+						
+						endpos[1] = endpos[1] + x * d - r[1] * 2.2
 						endpos[1] = endpos[1] + x * math.floor( a[2] * 0.5 )
 
-						endpos[2] = endpos[2] + y * d
+						endpos[2] = endpos[2] + y * d - r[2] * 2.2
 						endpos[2] = endpos[2] + y * math.floor( a[2] * 0.5 )
 
-						scl = scl * a[2]
+						if p.Reversed and pa.R then
+							pa:xy( endpos[1], endpos[2] )
+							endpos = b
+						end
+
+						local v = p.Reversed and 0.5 or 1
+						scl = scl * a[2] * v
 
 					end
 
@@ -298,10 +319,17 @@ for i=x[1],x[2] do
 							pa:y( pa:GetY() + y * i / n )
 						end
 					else
+						local tween = p.HurryTweenBy
+						tween = p.Cut and tween * 2 / n or tween
 						pa:linear(scl)
 						pa:xy( endpos[1], endpos[2] )
-						pa:hurrytweening( p.HurryTweenBy )
+						pa:hurrytweening( tween )
 						pa:queuecommand("MoveEffect")
+					end
+
+					if p.Reversed and i == x[1] then
+						pa.R = pa.R or false
+						pa.R = not pa.R
 					end
 
 					pa:queuecommand("Move")
@@ -311,10 +339,13 @@ for i=x[1],x[2] do
 			end,
 
 			MoveEffectCommand=function(self)
-				if BGA_G.IsCmd( p, "Fade" ) then
-					local p = p.EffectOffset or 1
-					self.EffectOffset = self.EffectOffset + p
-					self:effectoffset(self.EffectOffset)
+				local eo = self.EffectOffset
+				if BGA_G.IsCmd( p, "Fade" )
+				and eo then
+					local p = p.EffectOffset or 1	
+					eo = eo + p
+					self:effectoffset(eo)
+					self.EffectOffset = eo
 				end
 			end,
 
@@ -335,14 +366,14 @@ for i=x[1],x[2] do
 				if type(p.Color) == "table" then
 					if p.Ramp then
 						self:diffuseramp()
-						self:effectcolor1(p.Color)
+						self:effectcolor1(p.Color[1])
 						self:effectperiod(beat)
 					else
-						p.Color = p.Color or Color.Black
-						p.Color2 = p.Color2 or Color.White
+						p.Color[1] = p.Color[1] or Color.Black
+						p.Color[2] = p.Color[2] or Color.White
 						self:diffuseshift()
-						self:effectcolor1(p.Color)
-						self:effectcolor2(p.Color2)
+						self:effectcolor1(p.Color[1])
+						self:effectcolor2(p.Color[2])
 						self:effectperiod(beat)
 					end
 				end
@@ -421,42 +452,22 @@ for i=x[1],x[2] do
 
 			MirrorCommand=function(self)
 
-				if p.BGMirror then
+				local x = self:GetRotationX()
+				local y = self:GetRotationY()
 
-					if i ~= 0 then
-						self:rotationy( 180 * i )
-					end
+				if i % 2 == 1 then
+					self:rotationy( y + 180 * p.Mirror[1] )
+				end
 
-					if p.MultipleFiles then
-
-						if p.MultipleFiles[1] % 2 == 0
-						and p.TCV[1] ~= 0 then
-							self:rotationy( 180 )
-						end
-
-						if p.MultipleFiles[1] % 2 == 0
-						and p.TCV[2] ~= 0 then
-							self:rotationx( 180 )
-						end
-
-					end
-
-				else
-
-					if i % 2 == 0 and j % 2 == 1 then
-						self:rotationx( 180 )
-					elseif i % 2 == 1 and j % 2 == 0 then
-						self:rotationy( 180 )
-					elseif i % 2 == 1 and j % 2 == 1 then 
-						self:rotationy( 180 )
-						self:rotationx( 180 )
-					end
-
+				if j % 2 == 1 then
+					self:rotationx( x + 180 * p.Mirror[2] )
 				end
 		
+				y = self:GetRotationY()
+
 				if BGA_G.IsCmd( params, "MirrorY" )
 				and j % 2 == 0 then
-					self:rotationy(180)
+					self:rotationy( y + 180 * p.Mirror[1] )
 				end				
 
 			end,
@@ -529,17 +540,19 @@ for i=x[1],x[2] do
 
 			SpinXYCommand=function(self)
 
-				local d = BGA_G.GetDelay(self)[2] * 0.25
+				local d = BGA_G.GetDelay(self)[2] 
+				d = d * 2 * p.HurryTweenBy
+
 				local val = p.SpinC and { 90, 0 } or { 0, 90 }
 				
 				self:rotationx(0)
-				self:rotationy(val[1]):linear(d)
-				self:rotationy(val[2]):linear(d)
+				self:rotationy(val[1]):linear(d*0.5)
+				self:rotationy(val[2]):linear(d*0.5)
 				self:rotationy(val[1]):sleep(0)
 
 				self:rotationx(val[1])
-				self:rotationy(0):linear(d)
-				self:rotationx(val[2]):linear(d)
+				self:rotationy(0):linear(d*0.5)
+				self:rotationx(val[2]):linear(d*0.5)
 				self:rotationx(val[1]):sleep(0)
 
 				self:queuecommand( "SpinXY" )
@@ -547,15 +560,19 @@ for i=x[1],x[2] do
 			end,
 
 			SpinXCommand=function(self)
-				self:rotationy(0):linear(2)
-			   	self:rotationy(90):linear(2)
+				local d = BGA_G.GetDelay(self)[2] 
+				d = d * 2 * p.HurryTweenBy
+				self:rotationy(0):linear(d)
+			   	self:rotationy(90):linear(d)
 			   	self:rotationy(0)
 				self:queuecommand( "SpinX" )
 		   	end,
 
 			SpinYCommand=function(self)
-				self:rotationx(0):linear(2)
-			  	self:rotationx(90):linear(2)
+				local d = BGA_G.GetDelay(self)[2] 
+				d = d * 2 * p.HurryTweenBy
+				self:rotationx(0):linear(d)
+			  	self:rotationx(90):linear(d)
 			  	self:rotationx(0)
 				self:queuecommand( "SpinY" )
 		   	end,
@@ -607,6 +624,7 @@ for i=x[1],x[2] do
 
 			AlphaCommand=function(self)
 				local d = BGA_G.GetDelay(self)[2] * 2
+				d = p.HurryTweenBy and p.HurryTweenBy * d or d
 				self:diffusealpha(1):linear(d)
 				self:diffusealpha(0):linear(d)
 				self:diffusealpha(1)
@@ -616,6 +634,10 @@ for i=x[1],x[2] do
 		}
 
 	end
+end
+
+if params.Remove then
+	t = nil
 end
 
 return Def.ActorFrame{ t }

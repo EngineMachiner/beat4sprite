@@ -16,7 +16,7 @@ local t = Def.ActorFrame{
 
 	params.Beat = params.Beat or 1
 
-	t[#t+1] = LoadActor( "../TileTool.lua", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )
 
 local n = 18
 for i=0,n do

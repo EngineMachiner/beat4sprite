@@ -1,32 +1,16 @@
 local params = ...
 local ScaleVar = _screen.h/480
 
-if not params.fov then 
-    params.fov = 160
-end
-
-local Z_values
-
-if params.Dir == "Out" then 
-    Z_values = { -750, 250 }
-else
-    Z_values = { 250, -750 }
-end
-
-if params.Flat then 
-    for i=1,2 do
-        if Z_values[i] == 250 then 
-            Z_values[i] = 750
-        end
-    end
-end
+local zpos = params.Dir == "Out" and { -750, 250 }
+zpos = zpos or { 250, -750 }
 
 BGA_G.DefPar( params )
 
 local t = Def.ActorFrame{
 
     OnCommand=function(self)
-        self:fov(params.fov)
+        local fov = params.fov or 160
+        self:fov(fov)
         self:zbuffer(true)
     end,
     GainFocusCommand=function(self)
@@ -40,6 +24,14 @@ local t = Def.ActorFrame{
 
 if not params.Add then 
     params.Add = 0
+end
+
+if params.Rot and params.Flat then
+    params.Rot[1] = 45
+end
+
+if not params.Rot and params.Flat then
+    params.Rot = { 45, 0, 0 }
 end
 
 for i=0,4 + params.Add do
@@ -59,7 +51,7 @@ for i=0,4 + params.Add do
         NextCommand=function(self)
             self:x( math.random( - SCREEN_WIDTH * 0.75, SCREEN_WIDTH * 0.75 ) )
             self:y( math.random( - SCREEN_HEIGHT * 0.75, SCREEN_HEIGHT * 0.75 ) )
-            self:z(Z_values[1]):linear(4*2):z(Z_values[2]):queuecommand("Next")
+            self:z(zpos[1]):linear(4*2):z(zpos[2]):queuecommand("Next")
         end
 
     } 
@@ -83,10 +75,6 @@ for i=0,4 + params.Add do
 
                 OnCommand=function(self)
 
-                    if params.Flat then 
-                        self:rotationx(90)
-                    end
-
                     self:stoptweening()
                     self:Load(params.File)
                     self:set_tween_uses_effect_delta(true):effectclock('beat')
@@ -99,16 +87,16 @@ for i=0,4 + params.Add do
 
                 end,
                 TwoSpritesCommand=function(self)
-
                     self:animate(false)
                     self:setstate(i % self:GetNumStates())
-                
                 end,
                 FramePerSpriteCommand=function(self)
 
                     self:animate(false)
-                    if params.ZoomX then
-                        self:zoomx(params.ZoomX)
+                    if params.Rot then
+                        self:rotationx(params.Rot[1])
+                        self:rotationy(params.Rot[2])
+                        self:rotationz(params.Rot[3])
                     end
 
                     if self:GetNumStates() > 5 then
@@ -136,8 +124,8 @@ for i=0,4 + params.Add do
                 ShadeCommand=function(self)
 
                     local c = { 
-                        tostring(math.abs(Z_values[2])*0.001),
-                        tostring(math.abs(Z_values[1])*0.001)
+                        tostring(math.abs(zpos[2])*0.001),
+                        tostring(math.abs(zpos[1])*0.001)
                     }
 
                     self:stoptweening()

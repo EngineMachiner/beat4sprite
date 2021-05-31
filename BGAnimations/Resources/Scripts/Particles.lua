@@ -1,11 +1,14 @@
 
 
 local params = ...
-local sprites = params.File
+local p = params
+
+local sprites = p.File
 
 local t = Def.ActorFrame{
 	OnCommand=function(self)
-		self:fov(120):zbuffer(true)
+		self:fov(120)
+		self:zbuffer(true)
 	end,
 	GainFocusCommand=function(self)
 		BGA_G.Stop( self, true )
@@ -15,30 +18,30 @@ local t = Def.ActorFrame{
 	end	
 }
 
-params.Alpha = params.Alpha or 1
+p.Alpha = p.Alpha or 1
 
-BGA_G.DefPar( params )
+BGA_G.DefPar( p )
 
-local num = 9*2
+local num = p.Num or 18
 
 local ang = { -360, 360 }
 
-if not params.Spin then 
+if not p.Spin then 
 	ang[1] = 0
 	ang[2] = 0
 end
 
 local comd = "MoveY"
-if params.Dir == "Left" 
-or params.Dir == "Right" then
+if p.Dir == "Left" 
+or p.Dir == "Right" then
 	comd = "MoveX"
 end
 
-params.Dir = params.Dir or "Down"
+p.Dir = p.Dir or "Down"
 
 for i=1,num do	
 
-	t[#t+1] = Def.ActorFrame{
+	local a = Def.ActorFrame{
 		GainFocusCommand=function(self)
 			BGA_G.Stop( self, true )
 		end,
@@ -47,7 +50,8 @@ for i=1,num do
 		end
 	}
 
-	local a = t[#t]
+	-- Rainbow Pattern AF
+	t[#t+1] = Def.ActorFrame{ a }
 
 	a[#a+1] = Def.Sprite{
 
@@ -69,7 +73,7 @@ for i=1,num do
 			local col = 1 + z * 0.001 * 1.25 * 0.75
 			col = tostring(col)
 
-			if params.Shade then
+			if p.Shade then
 				local s = col .. ","
 				for i=1,2 do
 					s = s .. s
@@ -91,12 +95,54 @@ for i=1,num do
 				self:setstate( n )
 			end
 
-			BGA_G.SetStates(self, params)
-			BGA_G.PlayCmds(self, params)
+			BGA_G.SetStates(self, p)
+			BGA_G.PlayCmds(self, p)
+
+			if BGA_G.IsCmd( p, "Rainbow" )
+			or p.Color == "Rainbow" then
+
+				if p.RainbowPattern == 2 then
+					self:GetParent():GetParent():SetUpdateFunction(function(af)
+
+						local d = self:GetEffectDelta()
+						af.clock = af.clock and af.clock + d or 0
+
+						if af.clock > 1 then
+							local n = {}
+							for i=1,3 do
+								n[i] = math.random(0,1000) * 0.001
+								n[i] = tostring(n[i]) .. ","
+							end
+							af:diffuse(color(n[1]..n[2]..n[3].."1"))
+							af.clock = 0
+						end
+
+					end)
+				else
+					self:rainbow()
+					self:effectperiod( 16 * BGA_G.GetDelay(self)[2] )
+				end
+				
+			end
 
 			local d = BGA_G.GetDelay(self)[2]
 			self:sleep( i * 0.5 * d )
-			self:diffusealpha(1)
+			self:diffusealpha(1)	
+
+			if BGA_G.IsCmd( p, "Color" )
+			and type(p.Color) == "table" then
+				self:diffuse(p.Color)
+			end
+
+			if BGA_G.IsCmd( p, "Alpha" ) then
+				self:diffusealpha( p.Alpha )
+			end
+
+			if BGA_G.IsCmd( p, "Blend" ) then
+				p.Blend = p.Blend or "BlendMode_Modulate"
+				self:blend( p.Blend )
+			end
+
 			self:queuecommand(comd)
 
 		end,
@@ -112,6 +158,9 @@ for i=1,num do
 			self:diffusealpha(0)
 			self:sleep(2*d)
 			self:diffusealpha(1)
+			if BGA_G.IsCmd( p, "Alpha" ) then
+				self:diffusealpha( p.Alpha )
+			end
 			self:queuecommand(comd)
 		end,
 
@@ -124,11 +173,11 @@ for i=1,num do
 
 			local Dirs = {}
 
-			local p = w + d
+			local p2 = w + d
 			Dirs.Right = {}
 			a = Dirs.Right
-			a[1] = SCREEN_LEFT - p
-			a[2] = SCREEN_RIGHT + p
+			a[1] = SCREEN_LEFT - p2
+			a[2] = SCREEN_RIGHT + p2
 
 			Dirs.Left = {}
 			a = Dirs.Left
@@ -138,16 +187,16 @@ for i=1,num do
 			self:rotationz(0)
 
 			d = d * 0.5
-			p = h - d
-			self:y( math.random( p, _screen.h - p ) )
-			self:x( Dirs[params.Dir][1] )
+			p2 = h - d
+			self:y( math.random( p2, _screen.h - p2 ) )
+			self:x( Dirs[p.Dir][1] )
 
-			p = math.random( 400, 700 )
-			p = p * 0.01 * 0.5
-			self:linear( p * d_2 )
+			p2 = math.random( 400, 700 )
+			p2 = p2 * 0.01
+			self:linear( p2 * d_2 )
 
 			self:rotationz( ang[math.random(1,2)] )
-			self:x( Dirs[params.Dir][2] )
+			self:x( Dirs[p.Dir][2] )
 
 			self:queuecommand("Sleep")
 
@@ -162,11 +211,11 @@ for i=1,num do
 
 			local Dirs = {}
 
-			local p = h + d
+			local p2 = h + d
 			Dirs.Up = {}
 			local a = Dirs.Up
-			Dirs.Up[1] = SCREEN_BOTTOM + p * 1.25
-			Dirs.Up[2] = SCREEN_TOP - p * 1.25
+			Dirs.Up[1] = SCREEN_BOTTOM + p2 * 1.25
+			Dirs.Up[2] = SCREEN_TOP - p2 * 1.25
 
 			Dirs.Down = {}
 			local a = Dirs.Down
@@ -176,16 +225,16 @@ for i=1,num do
 			self:rotationz(0)
 
 			d = d * 2
-			p = h - d
-			self:x( math.random( p, _screen.h - p ) )
-			self:y( Dirs[params.Dir][1] )
+			p2 = h - d
+			self:x( math.random( p2, _screen.h - p2 ) )
+			self:y( Dirs[p.Dir][1] )
 
-			p = math.random( 400, 700 )
-			p = p * 0.01 * 0.5
-			self:linear( p * d_2 )
+			p2 = math.random( 400, 700 )
+			p2 = p2 * 0.01
+			self:linear( p2 * d_2 )
 
 			self:rotationz( ang[math.random(1,2)] )
-			self:y( Dirs[params.Dir][2] )
+			self:y( Dirs[p.Dir][2] )
 
 			self:queuecommand("Sleep")
 
@@ -195,7 +244,7 @@ for i=1,num do
 
 end
 
-if params.Remove then
+if p.Remove then
 	t = nil
 end
 

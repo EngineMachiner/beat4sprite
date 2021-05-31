@@ -1,23 +1,17 @@
 
 local params = ...
 
-local scl = _screen.h / 480
+local scl = _screen.h/480
 
-local zpos = params.Dir == "Out" and { -1000, 250 }
-zpos = zpos or { 250, -1000 }
-
-if params.Flat then 
-    for i=1,2 do
-        zpos[i] = zpos[i] == 250 and 750 or zpos[i]
-    end
-end
+local zpos = params.Dir == "Out" and { -1000, 500 }
+zpos = zpos or { 1000, -750 }
 
 BGA_G.DefPar( params )
 
 local t = Def.ActorFrame{
 
     OnCommand=function(self)
-        self:fov(120)
+        self:fov(160)
         self:zbuffer(true)
     end,
     GainFocusCommand=function(self)
@@ -29,7 +23,7 @@ local t = Def.ActorFrame{
 
 }
 
-for i=0,2 do
+for i=0,8 do
 
     t[#t+1] = Def.ActorFrame{
 
@@ -43,7 +37,7 @@ for i=0,2 do
             self:queuecommand("Next")
         end,
         NextCommand=function(self)
-            local d = BGA_G.GetDelay(self)[2] * 4
+            local d = BGA_G.GetDelay(self)[2] * 16
             if params.Shade then
               self:queuecommand("Shade")
             end
@@ -63,6 +57,7 @@ for i=0,2 do
             OnCommand=function(self)
                 if params.Spin then 
                     self:spin()
+                    self:effectmagnitude(0,0,-180)
                 end
                 BGA_G.PlayCmds(self, params)
             end,
@@ -70,10 +65,6 @@ for i=0,2 do
             Def.Sprite{
 
                 OnCommand=function(self)
-
-                    if params.Flat then 
-                        self:rotationx(90)
-                    end
 
                     self:Load(params.File)
                     self:set_tween_uses_effect_delta(true)

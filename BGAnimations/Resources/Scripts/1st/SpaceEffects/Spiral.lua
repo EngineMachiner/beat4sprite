@@ -109,10 +109,6 @@ for i = 0, total, 360 * d / n  do
 							self:zoom( p.Zoom )
 							self:GetParent():GetParent():diffusealpha(1)
 
-						end,
-
-						RepeatCommand=function(self)
-
 							local pa = self:GetParent():GetParent()
 							pa:SetUpdateFunction(function()
 		
@@ -126,12 +122,19 @@ for i = 0, total, 360 * d / n  do
 								else
 									local l = twnby * 0.5 / ( 60 * 8 )
 									pa:z( pa:GetZ() + math.abs( e[1] + e[2] ) * e[3] * l )
-									if not p.Rot then 
-										self:rotationz( self:GetRotationZ() + 0.3375 )
-									end
 								end
 		
 							end)
+
+						end,
+
+						RepeatCommand=function(self)
+
+							if not p.Rot then 
+								self:linear( 8 * twnby * BGA_G.GetDelay(self)[2] )
+								self:rotationz( self:GetRotationZ() - 360 * cw )
+								self:queuecommand("Repeat")
+							end
 		
 						end,
 

@@ -25,13 +25,22 @@ local t = Def.ActorFrame{
                 self:GetParent():SetHeight( self:GetZoomedHeight() * 4.25 )
             end,
             OnCommand=function(self)
+
+                self:effectclock("beat")
+                self:set_tween_uses_effect_delta(true)
+
                 BGA_G.SetStates(self, params)
+
                 self:animate(false)
                 self:xy( self:GetParent():GetWidth() * 0.5, self:GetParent():GetHeight() * 0.5 )
                 self:zoom( self:GetZoom() * 6.5 )
+
                 self:spin()
-                self:effectclock("beat")
-                self:set_tween_uses_effect_delta(true)
+                if params.SpinMag then 
+                    local r = params.SpinMag
+                    self:effectmagnitude(r[1],r[2],r[3])
+                end
+
             end
         },
 
@@ -44,6 +53,7 @@ local t = Def.ActorFrame{
     }
 
     params.Zoom = params.Zoom * 0.179
-    t[#t+1] = LoadActor( "TileTool.lua", params )..{}
+    local s = "/BGAnimations/Resources/Scripts/TileTool.lua"
+    t[#t+1] = loadfile( s )( params )
 
 return Def.ActorFrame{ t }

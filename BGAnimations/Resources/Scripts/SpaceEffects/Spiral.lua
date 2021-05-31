@@ -93,7 +93,7 @@ for i=0,360-360/n,360/n do
 						else
 							self:z( self:GetZ() + params.Dir[2] * 8 * 0.05 * d )
 							if params.Rotation then 
-								self:rotationz( self:GetRotationZ() + 45 * 0.25 * cw )
+								self:rotationz( self:GetRotationZ() + 45 * 0.0625 * cw )
 							end
 						end
 

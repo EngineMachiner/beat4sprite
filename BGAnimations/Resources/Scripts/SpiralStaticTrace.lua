@@ -1,58 +1,58 @@
 
 local params =  ...
+local p = params
 
-local ScaleVar = _screen.h/480
-local v = 0.5
-local dir, zzz = 0, 0
-
-BGA_G.DefPar( params )
+BGA_G.DefPar( p )
 
 local t = Def.ActorFrame{}
 
+if p.Frames[1] == p.Frames[2] then
+	p.Default = p.Default or 16
+end
+
+local m = p.Sheet[1] * p.Sheet[2]
+m = p.Default and p.Default or m
+
 local pos = {}
+pos[3] = 1
+pos[4] = 0
 
-local function AddPositions(self)
+local function Add( i, w, h )
+				
+	pos.Sheet = pos.Sheet or { p.Sheet[1] + 1 }
+	if not pos.Sheet[2] then
+		pos.Sheet[2] = pos.Sheet[1] + p.Sheet[2] - 1
+		pos.Sheet[3] = pos.Sheet[2] + p.Sheet[1] - 1
+		pos.Sheet[4] = pos.Sheet[3] + p.Sheet[2] - 1
+	end
 
-	for o = -1,2 do
-		pos[o+2] = {
-			X = SCREEN_CENTER_X + self:GetZoomedWidth() * ( o - 0.5 ),
-			Y = SCREEN_CENTER_Y - self:GetZoomedHeight() * 1.5
-		}
+	if i == pos.Sheet[1]
+	or i == pos.Sheet[3] then
+		pos[4] = pos[3]
+		pos[3] = 0
 	end
-	for o = -1,1 do
-		pos[4+o+2] = {
-			X = SCREEN_CENTER_X + self:GetZoomedWidth() * 1.5,
-			Y = SCREEN_CENTER_Y + self:GetZoomedHeight() * ( o + 0.5 )
-		}
+
+	if i == pos.Sheet[2]
+	or i == pos.Sheet[4] then
+		pos[3] = - pos[4]
+		pos[4] = 0
+		pos[7] = 1
 	end
-	for o = -1,1 do
-		pos[4+3+o+2] = {
-			X = SCREEN_CENTER_X - self:GetZoomedWidth() * ( o + 0.5 ),
-			Y = SCREEN_CENTER_Y + self:GetZoomedHeight() * 1.5
-		}
+
+	if i == pos.Sheet[3] then
+		pos.Sheet[4] = pos.Sheet[4] - 1
+		pos.Sheet[1] = pos.Sheet[1] + pos.Sheet[3] - 1
+		pos.Sheet[2] = pos.Sheet[1] + p.Sheet[2] - 3
 	end
-	for o = 0,1 do
-		pos[4+3+3+o+1] = {
-			X = SCREEN_CENTER_X - self:GetZoomedWidth() * 1.5,
-			Y = SCREEN_CENTER_Y - self:GetZoomedHeight() * ( o - 0.5 )
-		}
-	end
-	for o = 0,1 do
-		pos[4+3+3+2+o+1] = {
-			X = SCREEN_CENTER_X + self:GetZoomedWidth() * ( o - 0.5 ),
-			Y = SCREEN_CENTER_Y - self:GetZoomedHeight() * 0.5
-		}
-	end
-	for o = 0,1 do
-		pos[4+3+3+2+2+o+1] = {
-			X = SCREEN_CENTER_X - self:GetZoomedWidth() * ( o - 0.5 ),
-			Y = SCREEN_CENTER_Y + self:GetZoomedHeight() * 0.5
-		}
-	end
+
+	pos[1] = pos[1] + w * pos[3]
+	pos[2] = pos[2] + h * pos[4]
+
+	pos[7] = pos[7] and pos[7] + 1 or pos[7]
 
 end
 
-for i = 1,16 do
+for i = 1,m do
 	
 	t[#t+1] = Def.ActorFrame{
 		GainFocusCommand=function(self)
@@ -64,33 +64,86 @@ for i = 1,16 do
 	}
 
 	local t = t[#t]
-	local zoom
+	
 	t[#t+1] = Def.Sprite{
 		OnCommand=function(self)
 
+			self:set_tween_uses_effect_delta(true)
+			self:effectclock("beat")
+
+			self:Load(p.File)
+			BGA_G.SetStates(self, p)
+
 			local d = BGA_G.GetDelay(self)[2]
+			local w = self:GetZoomedWidth()
+			local h = self:GetZoomedHeight()
+			self.firstZoom = self:GetZoom()
 
-			self:Load(params.File)
-			BGA_G.SetStates(self, params)
+			pos[1] = pos[1] or SCREEN_CENTER_X - w * math.ceil( p.Sheet[1] * 0.5 )
+			pos[2] = pos[2] or SCREEN_CENTER_Y - h * ( - 0.5 + math.ceil( p.Sheet[2] * 0.5 ) )
 
-			if not zoom then AddPositions(self) end
-			zoom = self:GetZoom()
+			if p.Backwards then
+
+				if p.Backwards ~= "On" then
+
+					local n = 1
+					while n ~= m do
+						n = n + 1
+						Add( n, w, h )
+					end
+	
+					pos.Sheet[1] = pos[7] + 1
+					pos.Sheet[2] = pos.Sheet[1] + 1 
+					pos.Sheet[3] = pos.Sheet[2] + p.Sheet[1] - 2
+					pos.Sheet[4] = pos.Sheet[3] + p.Sheet[2] - 3
+	
+					p.Backwards = "On"
+					
+				end
+
+				-- pos[7] leads the way...
+
+				if i == pos.Sheet[1]
+				or i == pos.Sheet[3] then
+					pos[4] = - pos[3]
+					pos[3] = 0
+				end
 			
-			if params.Backwards then
-				self:xy( pos[17-i]["X"], pos[17-i]["Y"] )
+				if i == pos.Sheet[2]
+				or i == pos.Sheet[4] then
+					pos[3] = pos[4]
+					pos[4] = 0
+				end
+			
+				if i == pos.Sheet[3] then
+					pos.Sheet[4] = pos.Sheet[4] + 1
+					pos.Sheet[1] = pos.Sheet[1] + pos.Sheet[3] + 2
+					pos.Sheet[2] = pos.Sheet[1] + p.Sheet[2] - 1
+				end
+			
+				pos[1] = pos[1] - w * pos[3]
+				pos[2] = pos[2] - h * pos[4]
+
 			else
-				self:xy( pos[i]["X"], pos[i]["Y"] )
+
+				Add( i, w, h )
+				
 			end
 
-			self:set_tween_uses_effect_delta(true):effectclock("beat")
+			self:x( pos[1] )
+			self:y( pos[2] )
 
-			BGA_G.PlayCmds(self, params)
+			self:x( self:GetX() - ( ( p.Sheet[1] + 1 ) % 2 ) * w * 0.5 )
+			self:y( self:GetY() - ( p.Sheet[2] % 2 ) * h * 0.5 )
+
+			BGA_G.PlayCmds(self, p)
 			
 			self:zoom(0)
-			self:sleep( (i-1) * 0.25 * d ):queuecommand("Repeat")
+			self:sleep( 4 * d * (i-1) / m )
+			self:queuecommand("Repeat")
 
-			if params.Speed then 
-				self:hurrytweening( params.Speed )
+			if p.HurryTweenBy then 
+				self:hurrytweening( p.HurryTweenBy )
 			end
 
 		end,
@@ -100,16 +153,19 @@ for i = 1,16 do
 		end,
 		RepeatCommand=function(self)
 			local d = BGA_G.GetDelay(self)[2]
-			self:linear(0.25 * d):zoom(zoom)
-			:sleep(3.75*d)
-			:linear(0.25*d):zoom(0)
-			:sleep(3.75)
-			:queuecommand("Repeat")
+			local s = 4 * d * (m-1) / m
+			self:linear(0.25)
+			self:zoom(self.firstZoom)
+			self:sleep(s)
+			self:linear(0.25):zoom(0)
+			self:sleep(s)
+			self:queuecommand("Repeat")
 		end
 	}
+
 end
 
-if params.Remove then
+if p.Remove then
 	t = nil
 end
 

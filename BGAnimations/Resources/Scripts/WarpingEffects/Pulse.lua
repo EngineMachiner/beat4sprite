@@ -12,7 +12,7 @@ local t = Def.ActorFrame{
 
 	BGA_G.DefPar( params )
 	
-	t[#t+1] = LoadActor( "../TileTool.lua", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )
 
 if not params.Beat then params.Beat = 2 end
 
@@ -28,8 +28,10 @@ for i = 3,9 do
 			BGA_G.PlayCmds(self, params)
 		end,
 
-		LoadActor( params.File )..{
+		Def.Sprite{
 			OnCommand=function(self)
+
+				self:Load(params.File)
 
 				self:effectclock("beat")
 				self:set_tween_uses_effect_delta(true)

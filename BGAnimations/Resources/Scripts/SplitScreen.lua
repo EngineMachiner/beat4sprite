@@ -3,6 +3,7 @@ local params = ...
 params.Sleep = params.Sleep or 4
 params.Zoom = params.Zoom or 1
 params.FrmDelay = params.FrmDelay or 1
+params.Alphas = params.Alphas or { 1 }
 
 local bpm = GAMESTATE:GetSongBPS() * 60
 if bpm > 200 then
@@ -33,7 +34,8 @@ for _,v in ipairs( params.Alphas ) do
 	tbl.BGMirror = true
 	tbl.Commands = "Mirror"
 	tbl.File = params.File[v]
-	t[#t+1] = LoadActor( "TileTool.lua", tbl )..{}
+	local s = "/BGAnimations/Resources/Scripts/TileTool.lua"
+	t[#t+1] = loadfile( s )( tbl )
 end
 
 local function AddNSub(val)
@@ -149,6 +151,7 @@ for i=1,4 do
 
 end
 
+local s = "/BGAnimations/Resources/Scripts/TileTool.lua"
 for i=-1,1 do
 	if i ~= 0 then
 		local tbla = {}
@@ -156,7 +159,7 @@ for i=-1,1 do
 		tbla.X_pos = i
 		tbla.Commands = "Rotation"
 		tbla.Rot = { 0, 180, 0 }
-		t[#t+1] = LoadActor( "TileTool.lua", tbla )..{}
+		t[#t+1] = loadfile( s )( tbla )
 	end
 end
 

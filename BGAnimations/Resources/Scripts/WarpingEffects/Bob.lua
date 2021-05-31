@@ -15,7 +15,8 @@ local t = Def.ActorFrame{
 
 	params.Beat = params.Beat or 1
 	
-	t[#t+1] = LoadActor( "../TileTool.lua", params )..{}
+	local s = "/BGAnimations/Resources/Scripts/TileTool.lua"
+	t[#t+1] = loadfile( s )( params )
 
 for i = 1,18 do
 	t[#t+1] = Def.ActorFrame{
@@ -29,11 +30,12 @@ for i = 1,18 do
 			BGA_G.PlayCmds(self, params)
 		end,
 
-		LoadActor( params.File )..{
+		Def.Sprite{
 			OnCommand=function(self)
 
 				local n = 0.0125
 
+				self:Load(params.File)
 				BGA_G.SetStates(self, params)
 
 				self:Center()

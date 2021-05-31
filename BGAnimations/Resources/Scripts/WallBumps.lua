@@ -17,8 +17,6 @@ local function UnitVec()
 
 end
 
-local frame, check = 0
-
 local count = - 0.1
 for k=1,3 do
 	for i=1,4 do

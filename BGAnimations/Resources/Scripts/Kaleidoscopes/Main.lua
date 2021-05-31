@@ -1,5 +1,6 @@
 
 local params = ...
+local p = params
 
 local random = math.random( 10,100 ) * 0.01
 
@@ -21,13 +22,8 @@ local t = Def.ActorFrame{
 
 }
 
-if params.Reversed then 
-	params.Reversed = - 1
-else
-	params.Reversed = 1
-end
-
-BGA_G.DefPar( params )
+p.Reversed = p.Reversed and - 1 or 1
+BGA_G.DefPar( p )
 
 local w, h
 local ang = 360/6
@@ -55,14 +51,14 @@ local function Settings( self, j, i )
 end
 
 
-for j=0,7 do
+for j=0,5 do
 	for i=1,2 do
 
 		-- Center Kaleidoscope
 
 		t[#t+1] = Def.Sprite{
 			InitCommand=function(self)
-				self:Load(params.File, "stretch")
+				self:Load(p.File, "stretch")
 			end,
 			OnCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
@@ -75,7 +71,7 @@ for j=0,7 do
 					-h*0.5, h*0.5
 				)
 				self:customtexturerect(0,0,w*0.0001*6,h*0.0001*6)
-				self:texcoordvelocity( 0, params.Reversed / 8 )
+				self:texcoordvelocity( 0, p.Reversed / 8 )
 				self:addimagecoords( w * random, 0 )
 			end
 		}
@@ -84,7 +80,7 @@ for j=0,7 do
 
 		t[#t+1] = Def.Sprite{
 			InitCommand=function(self)
-				self:Load(params.File, "stretch")
+				self:Load(p.File, "stretch")
 			end,
 			OnCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
@@ -98,14 +94,14 @@ for j=0,7 do
 					-h*0.5-h*var, h * 0.75+12.5
 				)
 				self:customtexturerect(w*0.0001*6,0,0,h*0.0001*6)
-				self:texcoordvelocity( 0, params.Reversed / 8 )
+				self:texcoordvelocity( 0, p.Reversed / 8 )
 				self:addimagecoords( w * random, 0 )
 			end
 		}
 
 		t[#t+1] = Def.Sprite{
 			InitCommand=function(self)
-				self:Load(params.File, "stretch")
+				self:Load(p.File, "stretch")
 			end,
 			OnCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
@@ -119,14 +115,14 @@ for j=0,7 do
 					-h*0.5-h*var, h * 0.75+12.5*8.38
 				)
 				self:customtexturerect(0,0,w*0.0001*6,h*0.0001*6)
-				self:texcoordvelocity( 0, params.Reversed / 8 )
+				self:texcoordvelocity( 0, p.Reversed / 8 )
 				self:addimagecoords( w * random, 0 )
 			end
 		}
 
 		t[#t+1] = Def.Sprite{
 			InitCommand=function(self)
-				self:Load(params.File, "stretch")
+				self:Load(p.File, "stretch")
 			end,
 			OnCommand=function(self)
 				self:set_use_effect_clock_for_texcoords(true)
@@ -140,12 +136,16 @@ for j=0,7 do
 					-h*0.5-h*var, h * 0.75+12.5*16
 				)
 				self:customtexturerect(w*0.0001*6,0,0,h*0.0001*6)
-				self:texcoordvelocity( 0, params.Reversed / 8 )
+				self:texcoordvelocity( 0, p.Reversed / 8 )
 				self:addimagecoords( w * random, 0 )
 			end
 		}
 
 	end
+end
+
+if params.Remove then
+	t = nil
 end
 
 return Def.ActorFrame{ t }

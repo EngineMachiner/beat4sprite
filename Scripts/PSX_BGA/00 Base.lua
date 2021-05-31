@@ -116,12 +116,9 @@ local function GetDelay(self, params)
 
 	local p = params
 	local d = p.FrmDelay or 1
-	local frmd = self.IDelay and d * self.IDelay or d
 
 	local n = p.Class == "Quad" and 1 
 	n = n or s:GetNumStates()
-
-	d = frmd
 	
 	local bpm = GAMESTATE:GetSongBPS() * 60
 	if bpm > 200
@@ -197,9 +194,12 @@ local function DefPar( params )
 	p.FrmDelay = p.FrmDelay or 1
 	p.FrmDelay = p.Class == "Quad" and 1 or p.FrmDelay
 	
-	p.FrmDelay = p.StopAtFrame and p.FrmDelay / p.StopAtFrame or p.FrmDelay
+	p.FrmDelay = p.StopAtFrame and p.FrmDelay / p.StopAtFrame or p.FrmDelay 
 	p.Delay = nil
 
+	p.Mirror = p.BGMirror and { 1, 0 } or p.Mirror
+	p.BGMirror = nil
+	
 	if p.File
 	and string.match(p.File,"1st") then
 		p.FrmDelay = p.FrmDelay * 2
@@ -267,11 +267,7 @@ local function DefPar( params )
 	elseif type(p.Commands) == "table" then
 		t = p.Commands
 	end
-	
-	if c and #t < 1 then 
-		t[#t+1] = "Move"
-	end
-	
+
 	for i=1,#t do
 
 		-- Convert command to parameter
@@ -300,17 +296,50 @@ local function DefPar( params )
 
 	end
 
+	if p.TCV[1] ~= 0 or p.TCV[2] ~= 0 then
+		t = ParToCmd(p, t, { Index = "TCV", CmdString = "Move" })
+	end
+
 	t = ParToCmd(p, t, "Blend")
-	t = ParToCmd(p, t, "Color")
+	t = ParToCmd(p, t, "Alpha")
+	t = ParToCmd(p, t, "Mirror")
+	t = type(p.Color) == "table" and ParToCmd(p, t, "Color") or t
+	
 	t = ParToCmd(p, t, {
-		Index = "BGMirror",
-		CmdString = "Mirror"
+		Index = "Rot",
+		CmdString = "Rotation"
 	})
 
 	p.Commands = t
-	
+
 	p.Class = p.Class or "Sprite"
-	
+
+	if p.File then
+		local n = string.match( p.File, "%dx%d" )
+		if n then
+			n = { n:sub(1,1), n:sub(3,3) }
+			for i=1,#n do
+				n[i] = tonumber(n[i])
+			end
+			p.Sheet = n
+		end
+	end
+
+	if BGA_G.IsCmd( p, "Mirror" )
+	and not p.Mirror then
+		p.Mirror = { 1, 1 }
+	end
+
+	if p.Color
+	and type(p.Color[1]) == "number" then
+		p.Color = { p.Color }
+	end
+
+	if p.Color2 then
+		p.Color[2] = p.Color[2]
+	end
+	p.Color2 = nil
+
 end
 a.DefPar = DefPar
 
@@ -329,7 +358,6 @@ a.IsCmd = IsCmd
 
 local function Tile( frame, params )
 
-	--SCREENMAN:SystemMessage(DBG_E.ConcatTable({frame._Dir}))
 	if not params.Remove then
 
 		local f, p = frame, params
@@ -347,10 +375,31 @@ local function Tile( frame, params )
 			local t = p.File
 			if type(t) == "table" then
 
+				if p.TCV then
+					p.X_pos = p.TCV[1] * 0.75 / math.abs(p.TCV[1])  
+				end
+
 				f[#f+1] = Def.ActorFrame{}
 				f = f[#f]
 
+				-- Yes this is checked twice ( here and in DefPar )
+				p.Mirror = p.BGMirror and { 1, 0 } or p.Mirror
+				p.BGMirror = nil
+
+				local v = { 0, false }
 				for i=#t*2+1,1,-1 do
+
+					if p.Mirror 
+					and p.Mirror[1] ~= 0 then
+
+						v[1] = v[1] + 1
+
+						if v[1] >= #t then
+							v[2] = not v[2]
+							v[1] = 0
+						end
+
+					end
 
 					local pcopy = {}
 
@@ -362,7 +411,21 @@ local function Tile( frame, params )
 						i = i - #t
 					end
 
-					pcopy.File = t[i]
+					local val = i
+					
+					if v[2] then
+
+						if pcopy.Rot then
+							pcopy.Rot[2] = pcopy.Rot[2] - 180
+						else
+							pcopy.Rot = { 0, 180, 0 }
+						end
+
+						val = #t + 1 - i
+
+					end 
+
+					pcopy.File = t[val]
 
 					f[#f+1] = loadfile(s)(pcopy)
 
@@ -485,10 +548,11 @@ local wl = {
 local function ParTweak( params, tweaks ) 
 
 	local p, t = params, tweaks
-	
+
 	if t then
 
 		if t.Index then
+
 			if p.Index == t.Index then
 
 				if t.Cleanup then
@@ -565,18 +629,7 @@ local function SetStates( self, params )
 		end
 	end
 
-	local n
-	if p.File then
-		n = string.match( p.File, "%dx%d" )
-		if n then
-			n = { n:sub(1,1), n:sub(3,3) }
-			for i=1,#n do
-				n[i] = tonumber(n[i])
-			end
-			p.Sheet = n
-		end
-	end
-
+	local n = p.Sheet
 	if n then
 		if p.Frames["Type"] == 1 then
 
