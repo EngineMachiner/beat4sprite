@@ -1,6 +1,6 @@
 # PSX BGAnimations Project
 
-This branch is for all the content of DDR 5th BGAs.
+This branch has scripts and resources to work with the master branch library.
 
-* The Original files are 320x240.
-* Double Scaled are 640x480.
+* The original PSX files are 320x240.
+* Double Scaled are 640x480 using waifu2x.
