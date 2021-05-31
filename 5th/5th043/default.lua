@@ -32,13 +32,13 @@ local tweaks = {
 
 	BGA_G.ParTweak( tweaks, replace )
 
-	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th001A/default.lua" )( tweaks )
 	t[#t+1] = BGA_G.IDest_Quad()
 
 	tweaks[1]["File"] = "/BGAnimations/Resources/5th/Sprites/HSV/D 5x4.png"
 	tweaks[1]["Commands"] = { "FramePerSprite", "Pulse" }
 
-	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th001A/default.lua" )( tweaks )
 
 local params_2 = {}
 
@@ -48,6 +48,6 @@ local params_2 = {}
 	params_2["Color"] = "Rainbow"
 	params_2["Commands"] = { "Pulse", "Fade", "Blend" }
 
-	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params_2 )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params_2 )
 
 return Def.ActorFrame{ t }

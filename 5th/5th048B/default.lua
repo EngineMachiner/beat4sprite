@@ -19,6 +19,6 @@ return Def.ActorFrame{
 
 	},
 
-	LoadActor("../5th048A", { Index = 2, Remove = true } )..{}
+	loadfile("/BGAnimations/5th048A/default.lua" )( { Index = 2, Remove = true } )
 	
 }

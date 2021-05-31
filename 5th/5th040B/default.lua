@@ -1,6 +1,6 @@
 
 return Def.ActorFrame{
 
-	LoadActor("../5th040", { Index = 1, Delay = 2 } )..{}
+	loadfile("/BGAnimations/5th040/default.lua" )( { Index = 1, Delay = 2 } )
 
 }

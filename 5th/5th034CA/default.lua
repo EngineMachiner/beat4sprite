@@ -6,7 +6,8 @@ return Def.ActorFrame{
 	LoseFocusCommand=function(self)
 		BGA_G.Stop( self )
 	end,
-	LoadActor( "/BGAnimations/5th034C" )..{
+	Def.ActorFrame{
+		loadfile( "/BGAnimations/5th034C/default.lua" )(),
 		OnCommand=function(self)
 			self:rainbow()
 			self:effectperiod(8)

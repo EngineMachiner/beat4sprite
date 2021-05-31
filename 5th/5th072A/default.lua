@@ -1,10 +1,11 @@
 
+local s = "/BGAnimations/Resources"
 local params = {
 
 	File = { 
-		"/BGAnimations/Resources/5th/Backgrounds/CABCD.png",
-		"/BGAnimations/Resources/5th/Backgrounds/C.png",
-   		"/BGAnimations/Resources/5th/Backgrounds/CA.png"
+		s .. "/5th/Backgrounds/CABCD.png",
+		s .. "/5th/Backgrounds/C.png",
+   		s .. "/5th/Backgrounds/CA.png"
    	},
    	Sleep = 1, -- Beat
    	Alphas = { 1, 2 } --[[ The backgrounds that are not 
@@ -13,5 +14,5 @@ local params = {
 }
 
 return Def.ActorFrame{
-	LoadActor("../Resources/Scripts/SplitScreen.lua", params )..{}
+	loadfile( s .. "/Scripts/SplitScreen.lua" )( params )
 }

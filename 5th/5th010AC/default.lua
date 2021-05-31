@@ -28,6 +28,6 @@ local a = params_2[1]
 	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
-	LoadActor("/BGAnimations/5th010AA", params)..{},
-	LoadActor("/BGAnimations/5th010AA", params_2 )..{}
+	loadfile( "/BGAnimations/5th010AA/default.lua" )( params ),
+	loadfile( "/BGAnimations/5th010AA/default.lua" )( params_2 )
 }

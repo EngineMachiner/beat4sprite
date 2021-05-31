@@ -16,7 +16,7 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/M 7x1.png",
+		File = "/BGAnimations/Resources/1st/Sprites/M 5x4.png",
 		Script = "/BGAnimations/Resources/Scripts/1st/SpaceEffects/Stairs.lua",
 		Zoom = 0.5,
 		Commands = "FramePerSprite",
@@ -26,6 +26,6 @@ local params = {
 } 
 
 	BGA_G.Tile( t, params[1] )
-	t[#t+1] = LoadActor( params[2]["Script"], params[2] )
+	t[#t+1] = loadfile( params[2]["Script"])( params[2] )
 
 return Def.ActorFrame{ t }

@@ -1,1 +1,5 @@
-return LoadActor( "../5thBG000B", { Index = 1, X_coord = 1, HurryTweenBy = 0.5 } )..{}
+return Def.ActorFrame{
+    loadfile( "/BGAnimations/5thBG000B/default.lua" )( { 
+        Index = 1, X_coord = 1, HurryTweenBy = 0.5 
+    } )
+}

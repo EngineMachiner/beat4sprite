@@ -1,8 +1,9 @@
-
-return LoadActor( "../5th057A", {
-	{ 
-		Index = 2, 
-		Script = "../Resources/Scripts/LineXY.lua",
-		Frame_i = 9
-	}
-} )..{}
+return Def.ActorFrame{
+	loadfile( "/BGAnimations/5th057A/default.lua" )( {
+		{ 
+			Index = 2, 
+			Script = "/BGAnimations/Resources/Scripts/LineXY.lua",
+			Frame_i = 9
+		}
+	} )..{}
+}

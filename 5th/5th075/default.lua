@@ -43,7 +43,7 @@ return Def.ActorFrame{
 		end
 	},
 
-	LoadActor( "../5th001A", params )..{},
-	LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{}
+	loadfile( "/BGAnimations/5th001A/default.lua" )( params ),
+	loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params_2 )
 
 }

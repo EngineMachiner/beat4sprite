@@ -8,5 +8,5 @@ local replace = {
 }
 
 return Def.ActorFrame{
-	LoadActor( "/BGAnimations/5th032AA", replace )..{},
+	loadfile( "/BGAnimations/5th032AA/default.lua" )( replace )
 }

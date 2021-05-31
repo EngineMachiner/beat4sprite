@@ -1,11 +1,12 @@
 
 local tweaks = ...
 
+local s = "/BGAnimations/Resources"
 local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
+		File = s .. "/5th/Sprites/CAB 5x4.png",
 		X_num = 5,
 		Y_num = { -2, 1 },
 		Frame_i = 10,
@@ -14,14 +15,14 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
+		File = s .. "/5th/Sprites/CAB 5x4.png",
 		Frame_i = 1,
 		Clockwise = true
 	},
 
 	{	
 		Index = 3,
-		File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
+		File = s .. "/5th/Sprites/CAB 5x4.png",
 		Frame_i = 1,
 		Dir = "Out",
 		Clockwise = false
@@ -33,8 +34,10 @@ local params = {
 	
 return Def.ActorFrame{
 
-	LoadActor("../Resources/Scripts/TileTool.lua", params[1])..{},
-	LoadActor("../Resources/Scripts/SpaceEffects/Spiral.lua", params[2])..{
+	loadfile( s .. "/Scripts/TileTool.lua" )( params[1] ),
+	
+	Def.ActorFrame{
+		loadfile( s .. "/Scripts/SpaceEffects/Spiral.lua" )( params[2] ),
 		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')
@@ -47,7 +50,9 @@ return Def.ActorFrame{
 			self:queuecommand("Repeat")
 		end		
 	},
-	LoadActor("../Resources/Scripts/SpaceEffects/Spiral.lua", params[3])..{
+
+	Def.ActorFrame{
+		loadfile( s .. "/Scripts/SpaceEffects/Spiral.lua" )( params[3] ),
 		OnCommand=function(self)
 			self:set_tween_uses_effect_delta(true)
 			self:effectclock('beat')

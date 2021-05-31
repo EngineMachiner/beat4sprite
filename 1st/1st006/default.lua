@@ -10,11 +10,12 @@ local t = Def.ActorFrame{
 	end
 }
 
+local s = "/BGAnimations/Resources"
 local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/1st/Sprites/HComb 1x3.png",
+		File = s .. "/1st/Sprites/HComb 1x3.png",
 		Zoom = 0.5,
 		X_num = 1,
 		Y_num = 3,
@@ -24,7 +25,7 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/HComb2 1x3.png",
+		File = s .. "/1st/Sprites/HComb2 1x3.png",
 		Zoom = 1.5,
 		Frame_i = 1,
 		Frame_l = 3,
@@ -35,9 +36,9 @@ local params = {
 
 	{
 		Index = 3,
-		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
+		File = s .. "/1st/Sprites/H 5x4.png",
 		Frame_i = 17,
-		Script = "/BGAnimations/Resources/Scripts/SpaceEffects/Line",
+		Script = s .. "/Scripts/SpaceEffects/Line.lua",
 		Num = 4
 	}
 
@@ -76,6 +77,6 @@ local params = {
 		end
 	}
 
-	t[#t+1] = LoadActor( params[3]["Script"], params[3] )
+	t[#t+1] = loadfile( params[3]["Script"] )( params[3] )
 
 return Def.ActorFrame{ t }

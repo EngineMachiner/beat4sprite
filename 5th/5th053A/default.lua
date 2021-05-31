@@ -21,6 +21,6 @@ local params_2 = {	Index = 1 }
 
 
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
-	LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{}
+	loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params ),
+	loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params_2 )
 }

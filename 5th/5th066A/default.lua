@@ -1,9 +1,10 @@
 
 local replace = ...
 
+local s = "/BGAnimations/Resources"
 local params = {
 	Index = 1,
-	File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
+	File = s .. "/5th/Sprites/CAB 5x4.png",
 	X_num = { -6, 5 },
 	Y_num = { -2, 1 },
 	Frame_i = 4,
@@ -16,7 +17,7 @@ local params = {
 
 return Def.ActorFrame{
 
-	LoadActor( "../5th042A", { Index = 3, Remove = true } )..{},
-	LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params )..{}
+	loadfile( "/BGAnimations/5th042A/default.lua" )( { Index = 3, Remove = true } ),
+	loadfile( s .. "/Scripts/TileTool.lua" )( params )
 
 }

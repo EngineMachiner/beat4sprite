@@ -22,12 +22,12 @@ local params = {
 		Index = 2,
 		File = "/BGAnimations/Resources/1st/Sprites/H 5x4.png",
 		Frame_i = 2,
-		Script = "../Resources/Scripts/WallBumps.lua",
+		Script = "/BGAnimations/Resources/Scripts/WallBumps.lua",
 	}
 
 } 
 
 	BGA_G.Tile( t, params[1] )
-	t[#t+1] = LoadActor( params[2]["Script"], params[2] )..{}
+	t[#t+1] = loadfile( params[2]["Script"])( params[2] )..{}
 
 return Def.ActorFrame{ t }

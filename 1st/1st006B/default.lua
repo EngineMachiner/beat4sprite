@@ -10,7 +10,7 @@ local params = {
 	Color = color("#f80060")
 } 
 
-	t[#t+1] = LoadActor("../1st006")..{}
+	t[#t+1] = loadfile("/BGAnimations/1st006/default.lua")()
 	BGA_G.Tile( t, params )
 
 return Def.ActorFrame{ t }

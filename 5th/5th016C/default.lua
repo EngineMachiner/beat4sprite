@@ -20,9 +20,10 @@ return Def.ActorFrame{
 		BGA_G.Stop( self )
 	end,
 
-	LoadActor("/BGAnimations/5th016A")..{},
+	loadfile("/BGAnimations/5th016A/default.lua")(),
 
-	LoadActor("/BGAnimations/5th012A")..{
+	Def.ActorFrame{
+		loadfile("/BGAnimations/5th012A/default.lua")(),
 		OnCommand=function(self)
 			Beat(self)
 			self:GetParent():queuecommand("Repeat")
@@ -32,7 +33,7 @@ return Def.ActorFrame{
 			self:diffusealpha(0):sleep(d)
 			self:diffusealpha(1):sleep(d)
 			self:queuecommand("Repeat")
-		end,
+		end
 	}
 
 }

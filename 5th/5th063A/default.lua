@@ -1,10 +1,11 @@
 
 local replace = ...
 
+local s = "/BGAnimations/Resources"
 local params = {
 	Index = 1,
-	Script = "../Resources/Scripts/Particles.lua",
-	File = "/BGAnimations/Resources/5th/Sprites/BA 4x3.png",
+	Script = s .. "/Scripts/Particles.lua",
+	File = s .. "/5th/Sprites/BA 4x3.png",
 	Frame_i = 1,
 	Frame_l = 4,
 	Dir = "Right"
@@ -13,5 +14,5 @@ local params = {
 	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
-	LoadActor( "../5th052", params )..{}
+	loadfile( "/BGAnimations/5th052/default.lua" )( params )
 }

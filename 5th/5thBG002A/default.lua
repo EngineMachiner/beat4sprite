@@ -10,6 +10,7 @@ local params = {
 
 	BGA_G.ParTweak( params, replace )
 
+local s = "/BGAnimations/Resources/Scripts/WarpingEffects/Smooth+Alpha.lua"
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/WarpingEffects/Smooth+Alpha.lua", params )..{}
+	loadfile( s )( params )
 }

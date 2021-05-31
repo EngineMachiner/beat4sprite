@@ -30,7 +30,6 @@ local params = {
 		Dir = "Out",
 		ZSpacing = 3,
 		Slices = 4,
-		FrmDelay = 0.5,
 		Zoom = 1.5,
 		Commands = "Blend",
 		Blend = "BlendMode_Add",
@@ -45,7 +44,7 @@ local params = {
 	params_3["SpinAng"] = 180
 
 	BGA_G.Tile( t, params[1] )
-	t[#t+1] = LoadActor( params[2]["Script"], params[2] )
-	t[#t+1] = LoadActor( params_3["Script"], params_3 )..{}	
+	t[#t+1] = loadfile( params[2]["Script"])( params[2] )
+	t[#t+1] = loadfile( params_3["Script"] )( params_3 )	
 
 return Def.ActorFrame{ t }

@@ -1,6 +1,5 @@
-
-local ScaleVar = _screen.h/480
-
 return Def.ActorFrame{
-	LoadActor( "../5th067A", { Index = 1, Commands = "SpinXY" } )..{}
+	loadfile( "/BGAnimations/5th067A/default.lua" )( { 
+		Index = 1, Commands = "SpinXY" 
+	} )
 }

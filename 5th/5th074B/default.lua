@@ -1,9 +1,10 @@
 
+local s = "/BGAnimations/Resources"
 local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/5th/Sprites/DABCDE 4x3.png",
+		File = s .. "/5th/Sprites/DABCDE 4x3.png",
 		Cleanup = true,
 		Y_num = { -2, 1 },
 		X_num = { -4, 3 },
@@ -53,8 +54,8 @@ return Def.ActorFrame{
 		end
 	},
 
-	LoadActor( "../5th001A", params )..{},
-	LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{},
-	LoadActor( "../Resources/Scripts/TileTool.lua", params_3 )..{}
+	loadfile( "/BGAnimations/5th001A/default.lua" )( params ),
+	loadfile( s .. "/Scripts/TileTool.lua" )( params_2 ),
+	loadfile( s .. "/Scripts/TileTool.lua", params_3 )
 
 }

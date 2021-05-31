@@ -16,13 +16,13 @@ local params_2 = {	Index = 1 }
 	params_2["Frame_i"] = 1
 	params_2["Frame_l"] = 2
 	params_2["Speed"] = 2
-	params_2["Script"] = "../Resources/Scripts/TileTool.lua"
+	params_2["Script"] = "/BGAnimations/Resources/Scripts/TileTool.lua"
 	params_2["Commands"] = "SpinXY"
 
 	BGA_G.ParTweak( params_2, replace )
 
 
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
-	LoadActor( params_2.Script, params_2 )..{}
+	loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params ),
+	loadfile( params_2.Script )( params_2 )
 }

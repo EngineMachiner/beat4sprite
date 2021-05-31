@@ -1,10 +1,11 @@
 
+local s = "/BGAnimations/Resources"
 local tweaks = {
 
 	Index = 2,
 	Cleanup = true,
-	Script = "../Resources/Scripts/TileTool.lua",
-	File = "/BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
+	Script = s .. "/Scripts/TileTool.lua",
+	File = s .. "/5th/Sprites/BAB 4x4.png",
 	Delay = 0.5,
 	X_num = { -4, 5 },
 	Y_num = 2,
@@ -17,5 +18,5 @@ local tweaks = {
 }
 
 return Def.ActorFrame{
-	LoadActor("../5th060A", tweaks)..{}
+	loadfile( "/BGAnimations/5th060A/default.lua" )( tweaks )
 }

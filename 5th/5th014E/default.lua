@@ -9,7 +9,7 @@ local params = {
 
 return Def.ActorFrame{
 
-	LoadActor("/BGAnimations/5th014A")..{},
-	LoadActor("../Resources/Scripts/SpaceEffects/Whirl", params)..{}
+	loadfile( "/BGAnimations/5th014A/default.lua" )(),
+	loadfile( "/BGAnimations/Resources/Scripts/SpaceEffects/Whirl.lua" )( params )
 
 }

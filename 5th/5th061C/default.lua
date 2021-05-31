@@ -1,9 +1,9 @@
 
 local tweaks = {
 	Index = 2,
-	Script = "../Resources/Scripts/LineXY.lua"
+	Script = "/BGAnimations/Resources/Scripts/LineXY.lua"
 }
 
 return Def.ActorFrame{
-	LoadActor( "../5th061A", tweaks )..{}
+	loadfile( "/BGAnimations/5th061A/default.lua" )( tweaks )
 }

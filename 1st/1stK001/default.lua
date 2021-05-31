@@ -19,7 +19,7 @@ local params = {
 		Remainder = 8,
 		Rot = true,
 		Speed = 2,
-		Script = "../Resources/Scripts/1st/SpaceEffects/Spiral.lua"
+		Script = "/BGAnimations/Resources/Scripts/1st/SpaceEffects/Spiral.lua"
 	}
 
 } 
@@ -30,8 +30,9 @@ local params = {
 	params_3["SpinAng"] = 180
 	params_3["IRot"] = 90
 
-    t[#t+1] = LoadActor( "../Resources/Scripts/Kaleidoscopes/Main.lua", params[1] )..{}	
-	t[#t+1] = LoadActor( params[2]["Script"], params[2] )..{}
-	t[#t+1] = LoadActor( params_3["Script"], params_3 )..{}	
+	local s = "/BGAnimations/Resources/Scripts/Kaleidoscopes/Main.lua"
+    t[#t+1] = loadfile( s )( params[1] )
+	t[#t+1] = loadfile( params[2]["Script"] )( params[2] )
+	t[#t+1] = loadfile( params_3["Script"] )( params_3 )
 
 return Def.ActorFrame{ t }

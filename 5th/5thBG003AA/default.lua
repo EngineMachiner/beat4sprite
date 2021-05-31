@@ -18,5 +18,5 @@ local params = {
     BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
-    LoadActor("../Resources/Scripts/SplitScreen.lua", params )..{}
+    loadfile("/BGAnimations/Resources/Scripts/SplitScreen.lua" )( params )
 }

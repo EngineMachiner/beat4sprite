@@ -6,10 +6,10 @@ local params = {
 
 }
 
-
+local s = "/BGAnimations/Resources"
 local params_2 = {
 
-	File = "/BGAnimations/Resources/5th/Sprites/DABC 4x4.png",
+	File = s .. "/5th/Sprites/DABC 4x4.png",
 	Frame_i = 9,
 	Frame_l = 10,
 	Commands = "TwoSprites"
@@ -19,7 +19,7 @@ local params_2 = {
 
 return Def.ActorFrame{
 
-	LoadActor( "../5th035A", params )..{},
-	LoadActor( "/BGAnimations/Resources/Scripts/LineXY.lua", params_2 )..{}
+	loadfile( "/BGAnimations/5th035A/default.lua" )( params ),
+	loadfile( s .. "/Scripts/LineXY.lua" )( params_2 )
 
 }

@@ -8,14 +8,14 @@ local tweaks = {
 			without Cross parameter it just divides by horizontally. ]]
 }
 
-local t = LoadActor( "/BGAnimations/5th006B", tweaks )..{}
+local t = loadfile( "/BGAnimations/5th006B/default.lua" )( tweaks )
 
 	tweaks.File = "/BGAnimations/Resources/5th/Sprites/HSV/DABCD2 1x4.png"
 	tweaks.Commands = { "StairsStates", "Move" }
 
 return Def.ActorFrame{
 
-	LoadActor( "/BGAnimations/5th006B", tweaks )..{},
+	loadfile( "/BGAnimations/5th006B/default.lua" )( tweaks ),
 	t
 
 }

@@ -24,7 +24,7 @@ local params = {
 	
 	BGA_G.ParTweak( params, replace )
 
-	t[#t+1] = LoadActor( "/BGAnimations/5th001A", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th001A/default.lua" )( params )
 
 
 	params = {
@@ -39,7 +39,7 @@ local params = {
 
 	BGA_G.ParTweak( params, replace )
 
-	t[#t+1] = LoadActor( params.Script, params )..{}
+	t[#t+1] = loadfile( params.Script )( params )
 
 
 return Def.ActorFrame{ t }

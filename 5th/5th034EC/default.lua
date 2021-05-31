@@ -18,7 +18,7 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor( "/BGAnimations/5th034A", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th034A/default.lua" )( params )
 
 local params = {
 	File = "/BGAnimations/Resources/5th/Sprites/DABCDE 4x3.png",
@@ -32,6 +32,6 @@ local params = {
 	Commands = { "Move" }
 }
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )
 
 return Def.ActorFrame{ t }

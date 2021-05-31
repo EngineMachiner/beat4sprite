@@ -14,7 +14,7 @@ local params = {
 
 return Def.ActorFrame{
 
-	LoadActor( "/BGAnimations/5th008AA", tweaks )..{},
-	LoadActor( "../Resources/Scripts/LineXY.lua", params )..{}
+	loadfile( "/BGAnimations/5th008AA/default.lua" )( tweaks ),
+	loadfile( "/BGAnimations/Resources/Scripts/LineXY.lua" )( params )
 
 }

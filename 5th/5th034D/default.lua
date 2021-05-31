@@ -1,7 +1,7 @@
 
 local t = Def.ActorFrame{}
 
-	t[#t+1] = LoadActor( "../5th034C" )..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th034C/default.lua" )()
 
 local p2, p3 = {}, {}
 local params = {
@@ -40,6 +40,6 @@ local params_2 = {}
 	params_2["Commands"] = { "Fade", "Blend" }
 
 	
-	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params_2 )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params_2 )
 
 return Def.ActorFrame{ t }

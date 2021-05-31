@@ -22,7 +22,8 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor("/BGAnimations/5th001A", params)..{}
+	local s = "/BGAnimations/5th001A/default.lua"
+	t[#t+1] = loadfile( s )( params )
 
 
 	params[1]["Color"] = Color.Red
@@ -33,7 +34,7 @@ local params = {
 	params[1]["Class"] = "Quad"
 	params[1]["Commands"] = { "Move", "Fade", "Blend" }
 
-	t[#t+1] = LoadActor("/BGAnimations/5th001A", params)..{}
+	t[#t+1] = loadfile( s )( params )
 
 
 local params = {
@@ -44,7 +45,7 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor("../Resources/Scripts/LineXY.lua", params)..{}
+	t[#t+1] = loadfile("/BGAnimations/Resources/Scripts/LineXY.lua" )( params )
 
 
 return Def.ActorFrame{ t }

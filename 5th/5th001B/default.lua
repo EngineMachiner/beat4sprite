@@ -6,6 +6,6 @@ local tweaks = {
 	X_coord = 1
 }
 
-	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th001A/default.lua" )( tweaks )
 
 return Def.ActorFrame{ t }

@@ -1,11 +1,12 @@
 
+local s = "/BGAnimations/Resources"
 local t = Def.ActorFrame{}
 
 	local params = {
 
 		{
 			Index = 1,
-			File = "/BGAnimations/Resources/5th/Sprites/DABC 4x4.png",
+			File = s .. "/5th/Sprites/DABC 4x4.png",
 			X_num = { -4, 3 },
 			Y_num = { -2, 1 },
 			Frame_i = 13,
@@ -19,10 +20,10 @@ local t = Def.ActorFrame{}
 
 	}
 
-	t[#t+1] = LoadActor("../5th001A",params)..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th001A/default.lua" )( params )
 
 	params = {
-		File = "/BGAnimations/Resources/5th/Sprites/DABC 4x4.png",
+		File = s .. "/5th/Sprites/DABC 4x4.png",
 		X_num = { -4, 3 },
 		Y_num = { -2, 1 },
 		BGMirror = true,
@@ -31,7 +32,8 @@ local t = Def.ActorFrame{}
 		Frame_l = 8
 	}
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{
+	t[#t+1] = Def.ActorFrame{
+		loadfile( s .. "/Scripts/TileTool.lua" )( params ),
 		OnCommand=function(self)
 			self:queuecommand("Repeat")
 			self:effectclock("beat")
@@ -46,7 +48,8 @@ local t = Def.ActorFrame{}
 		end
 	}
 	
-	t[#t+1] = LoadActor("../5th041A")..{
+	t[#t+1] = Def.ActorFrame{
+		loadfile("/BGAnimations/5th041A/default.lua")(),
 		OnCommand=function(self)
 			self:queuecommand("Repeat")
 			self:effectclock("beat")
@@ -61,13 +64,13 @@ local t = Def.ActorFrame{}
 	}
 
 	params = {
-		File = "/BGAnimations/Resources/5th/Sprites/X1 5x1.png",
+		File = s .. "/5th/Sprites/X1 5x1.png",
 		X_num = 5,
 		Frame_i = 1,
 		Frame_l = 5,
 		Commands = { "StairsStates", "SpinX" }
 	}
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = loadfile( s .. "/Scripts/TileTool.lua" )( params )
 
 return t

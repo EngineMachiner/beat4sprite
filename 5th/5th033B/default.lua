@@ -14,7 +14,7 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )
 
 local params_2 = {}
 
@@ -24,6 +24,6 @@ local params_2 = {}
 	params_2["Commands"] = { "Move", "StairsStates", "Fade", "Blend" }
 
 	
-	t[#t+1] = LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params_2 )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params_2 )
 
 return Def.ActorFrame{ t }

@@ -1,11 +1,11 @@
 
 local tweaks = {
 	Index = 2,
-	Script = "../Resources/Scripts/SpaceEffects/Line.lua",
+	Script = "/BGAnimations/Resources/Scripts/SpaceEffects/Line.lua",
 	Dir = "In",
 	Shade = true
 }
 
 return Def.ActorFrame{
-	LoadActor( "../5th061A", tweaks )..{}
+	loadfile( "/BGAnimations/5th061A/default.lua" )( tweaks )
 }

@@ -1,9 +1,10 @@
 
+local s = "/BGAnimations"
 local scripts = {
-	"../5thR003B/default.lua",
-	"../5thR003C/default.lua",
-	"../5thR003D/default.lua",
-	"../5thR003E/default.lua"
+	s .. "/5thR003B/default.lua",
+	s .. "/5thR003C/default.lua",
+	s .. "/5thR003D/default.lua",
+	s .. "/5thR003E/default.lua"
 }
 
 local t = Def.ActorFrame{
@@ -23,7 +24,8 @@ local t = Def.ActorFrame{
 }
 
 for i=#scripts,1,-1 do
-	t[#t+1] = LoadActor(scripts[i])..{
+	t[#t+1] = Def.ActorFrame{
+		loadfile(scripts[i])(),
 		OnCommand=function(self)
 			self:effectclock("beat")
 			self:set_tween_uses_effect_delta(true)

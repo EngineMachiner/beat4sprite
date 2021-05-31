@@ -24,6 +24,6 @@ local tweaks = {
 
 return Def.ActorFrame{
 
-	LoadActor( "/BGAnimations/5th001A", tweaks )..{}
+	loadfile( "/BGAnimations/5th001A/default.lua" )( tweaks )
 
 }

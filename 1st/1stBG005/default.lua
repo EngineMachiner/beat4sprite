@@ -27,16 +27,15 @@ local params = {
 		Frame_l = 4,
 		Delay = 0.25,
 		BGMirror = true,
-		Blend = "BlendMode_Add",
-		Commands = { "Mirror", "Blend" }
+		Commands = { "Mirror" }
 	}
 }
 
-	BGA_G.ParTweak( params, tweaks )
 	BGA_G.Tile( t, params[1] )
 	
 	params[2]["Color"] = Color.Black
 	params[2]["Commands"] = { "Mirror", "Color" }
+	BGA_G.ParTweak( params, tweaks )
 	BGA_G.Tile( t, params[2] )
 
 

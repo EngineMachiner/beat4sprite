@@ -1,7 +1,7 @@
 
 local replace = ...
 
-local tweaks = {
+local params = {
 	Index = 1,
 	Frame_i = 2
 }
@@ -9,5 +9,5 @@ local tweaks = {
 	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
-	LoadActor("../5th056B", tweaks)..{}
+	loadfile( "/BGAnimations/5th056B/default.lua" )( params )
 }

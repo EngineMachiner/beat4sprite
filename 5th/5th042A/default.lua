@@ -22,7 +22,7 @@ local tweaks = {
 }
 
 	BGA_G.ParTweak( tweaks, replace )
-	t[#t+1] = LoadActor( "/BGAnimations/5th001A", tweaks )..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th001A/default.lua" )( tweaks )
 
 local params_2 = {
 
@@ -30,11 +30,11 @@ local params_2 = {
 	File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 	Frame_i = 3,
 	Spin = true,
-	Script = "../Resources/Scripts/SpaceEffects/Stairs.lua"
+	Script = "/BGAnimations/Resources/Scripts/SpaceEffects/Stairs.lua"
 
 }
 
 	BGA_G.ParTweak( params_2, replace )
-	t[#t+1] = LoadActor( params_2.Script, params_2 )..{}
+	t[#t+1] = loadfile( params_2.Script )( params_2 )
 
 return Def.ActorFrame{ t }

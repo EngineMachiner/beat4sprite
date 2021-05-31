@@ -1,12 +1,13 @@
 
 local replace = ...
 
+local s = "/BGAnimations/Resources"
 local tweaks = {
 
 	{
 		Index = 1,
 		Cleanup = true,
-		File = "/BGAnimations/Resources/5th/Backgrounds/AB.png",
+		File = s .. "/5th/Backgrounds/AB.png",
 		X_num = 1,
 		Commands = "Mirror",
 		BGMirror = true
@@ -15,10 +16,10 @@ local tweaks = {
 	{
 		Index = 2,
 		Cleanup = true,
-		File = "/BGAnimations/Resources/5th/Sprites/ABCD 4x3.png",
+		File = s .. "/5th/Sprites/ABCD 4x3.png",
 		Frame_l = 12,
 		Dir = "Out",
-		Script = "../Resources/Scripts/SpaceEffects/Stairs.lua"
+		Script = s .. "/Scripts/SpaceEffects/Stairs.lua"
 	}
 
 }
@@ -26,5 +27,5 @@ local tweaks = {
 	BGA_G.ParTweak( tweaks, replace )
 
 return Def.ActorFrame{
-	LoadActor( "../5th060A", tweaks )..{}
+	loadfile( "/BGAnimations/5th060A/default.lua" )( tweaks )
 }

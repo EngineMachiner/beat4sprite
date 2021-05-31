@@ -1,3 +1,5 @@
 return Def.ActorFrame{
-	LoadActor( "../5thBG005A", { Index = 1, Commands = { "Mirror", "Rainbow" } } )..{}
+	loadfile( "/BGAnimations/5thBG005A/default.lua" )( { 
+		Index = 1, Commands = { "Mirror", "Rainbow" } 
+	} )
 }

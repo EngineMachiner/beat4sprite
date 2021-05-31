@@ -1,1 +1,5 @@
-return LoadActor( "../5th057A", { Index = 2, Dir = "Right" } )..{}
+return Def.ActorFrame{
+    loadfile( "/BGAnimations/5th057A/default.lua" )( { 
+        Index = 2, Dir = "Right" 
+    } )
+}

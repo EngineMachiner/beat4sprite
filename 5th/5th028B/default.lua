@@ -29,7 +29,7 @@ local params_2 = {
 	Frame_l = 12,
 	Commands = "TwoSprites",
 	Rotation = true,
-	Script = "../Resources/Scripts/SpiralStaticTrace.lua"
+	Script = "/BGAnimations/Resources/Scripts/SpiralStaticTrace.lua"
 	
 }
 
@@ -38,8 +38,8 @@ local params_2 = {
 
 local t = Def.ActorFrame{
 
-	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor(params_2.Script,params_2)..{}
+	loadfile( "/BGAnimations/5th001A/default.lua" )( params ),
+	loadfile( params_2.Script )( params_2 )
 
 }
 

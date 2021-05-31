@@ -5,9 +5,9 @@ local tweaks = {
 	Cleanup = true,
 	Frame_i = 11,
 	Frame_l = 11+4,
-	Script = "../Resources/Scripts/LineXY.lua"
+	Script = "/BGAnimations/Resources/Scripts/LineXY.lua"
 }
 
 return Def.ActorFrame{
-	LoadActor( "../5th068A", tweaks )..{}
+	loadfile( "/BGAnimations/5th068A/default.lua" )( tweaks )
 }

@@ -18,4 +18,6 @@ local params = {
 
 	BGA_G.ParTweak( params, replace )
 
-return LoadActor( "../5th056A", params )..{}
+return Def.ActorFrame{
+	loadfile( "/BGAnimations/5th056A/default.lua" )( params )
+}

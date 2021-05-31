@@ -14,15 +14,15 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/1st/Sprites/M 7x1.png",
+		File = "/BGAnimations/Resources/1st/Sprites/M 5x4.png",
 		Frame_i = 7,
-		Zoom = 0.25,
-		Script = "../Resources/Scripts/SpiralStaticTrace.lua",
+		Default = 20,
+		Script = "/BGAnimations/Resources/Scripts/SpiralStaticTrace.lua",
 	}
 
 } 
 
 	BGA_G.Tile( t, params[1] )
-	t[#t+1] = LoadActor( params[2]["Script"], params[2] )..{}
+	t[#t+1] = loadfile( params[2]["Script"])( params[2] )..{}
 
 return Def.ActorFrame{ t }

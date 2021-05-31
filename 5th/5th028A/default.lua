@@ -26,7 +26,7 @@ local params_2 = {
 	Frame_i = 11,
 	Frame_l = 12,
 	Commands = "TwoSprites",
-	Script = "../Resources/Scripts/LineXY.lua"
+	Script = "/BGAnimations/Resources/Scripts/LineXY.lua"
 	
 }
 
@@ -34,8 +34,8 @@ local params_2 = {
 
 local t = Def.ActorFrame{
 
-	LoadActor("/BGAnimations/5th001A",params)..{},
-	LoadActor(params_2.Script,params_2)..{}
+	loadfile( "/BGAnimations/5th001A/default.lua" )( params ),
+	loadfile( params_2.Script )( params_2 )
 
 }
 

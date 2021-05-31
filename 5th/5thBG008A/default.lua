@@ -9,8 +9,9 @@ local params = {
 	BGMirror = true
 }
 
-	BGA_G.ParTweak( params, replace )
+BGA_G.ParTweak( params, replace )
 
+local s = "/BGAnimations/Resources/Scripts/WarpingEffects/Bob2.lua"
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/WarpingEffects/Bob2.lua", params )..{}
+	loadfile( s )( params )
 }

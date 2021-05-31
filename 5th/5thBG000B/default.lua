@@ -4,14 +4,12 @@ local t = Def.ActorFrame{}
 
 local params = {
 	Index = 1,
-	File = { 
-		GAMESTATE:GetCurrentSong():GetBackgroundPath(),
-		GAMESTATE:GetCurrentSong():GetBackgroundPath()
-	},
+	File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
+	X_num = { -2, 2 },
+	MultipleFiles = { 3, 2 },
 	Commands = { "Mirror", "Move" },
 	BGMirror = true,
-	X_coord = -1,
-
+	X_coord = -1
 }
 
 	BGA_G.ParTweak( params, replace )

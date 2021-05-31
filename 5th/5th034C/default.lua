@@ -1,4 +1,4 @@
 return Def.ActorFrame{
-	LoadActor( "/BGAnimations/5th034A", params )..{},
+	loadfile( "/BGAnimations/5th034A/default.lua" )(),
 	BGA_G.IDest_Quad()
 }

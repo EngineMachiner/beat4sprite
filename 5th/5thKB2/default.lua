@@ -12,6 +12,6 @@ local params_2 = {
 	}
 
 return Def.ActorFrame{
-    LoadActor( "../Resources/Scripts/Kaleidoscopes/Comb.lua", params )..{},
-    LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{}
+    loadfile( "/BGAnimations/Resources/Scripts/Kaleidoscopes/Comb.lua" )( params ),
+    loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params_2 )
 }

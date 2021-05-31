@@ -13,5 +13,5 @@ local params = {
 }
 
 return Def.ActorFrame{
-	LoadActor("../Resources/Scripts/SplitScreen.lua", params )..{}
+	loadfile("/BGAnimations/Resources/Scripts/SplitScreen.lua" )( params )
 }

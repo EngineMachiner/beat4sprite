@@ -12,7 +12,7 @@ local params = {
 		Y_num = { -1, 0 },
 		Frame_l = 30,
 		Zoom = 3,
-		Delay = 0.25,
+		Delay = 0.5,
 		Commands = { "Mirror" }
 	},
 
@@ -32,6 +32,6 @@ local params = {
 } 
 
 	BGA_G.Tile( t, params[1] )
-	t[#t+1] = LoadActor( params[2]["Script"], params[2] )
+	t[#t+1] = loadfile( params[2]["Script"] )( params[2] )
 
 return Def.ActorFrame{ t }

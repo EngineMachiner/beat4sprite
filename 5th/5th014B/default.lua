@@ -23,7 +23,7 @@ local params_2 = {
 
 return Def.ActorFrame{
 
-	LoadActor("/BGAnimations/5th014AB",params)..{},
-	LoadActor("../Resources/Scripts/SpaceEffects/RoundTrace.lua",params_2)..{}
+	loadfile( "/BGAnimations/5th014AB/default.lua" )( params ),
+	loadfile( "/BGAnimations/Resources/Scripts/SpaceEffects/RoundTrace.lua" )( params_2 )
 
 }

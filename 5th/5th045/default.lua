@@ -1,11 +1,14 @@
 
 local tweaks = ...
+
 local count = 0
 local t = Def.ActorFrame{}
 
+local s = "/BGAnimations/Resources"
+
 local params = {
 
-	File = "/BGAnimations/Resources/5th/Sprites/HSV/DAB2 4x4.png",
+	File = s .. "/5th/Sprites/HSV/DAB2 4x4.png",
 	X_num = { -4, 3 },
 	Y_num = { -2, 1 },
 	Frame_i = 8,
@@ -15,19 +18,19 @@ local params = {
 
 } 
  	
- 	count = count + 1
- 	params.Index = count
-	BGA_G.ParTweak( params, tweaks )
-	BGA_G.Tile( t, params )
+count = count + 1
+params.Index = count
+BGA_G.ParTweak( params, tweaks )
+BGA_G.Tile( t, params )
 
-	params = {
+params = {
 
-		File = "/BGAnimations/Resources/5th/Sprites/DABC 4x4.png",
-		Frame_i = 1,
-		Frame_l = 2
+	File = s .. "/5th/Sprites/DABC 4x4.png",
+	Frame_i = 1,
+	Frame_l = 2
 
-	}
+}
 
-	t[#t+1] = LoadActor("../Resources/Scripts/SpiralStaticTrace.lua", params)..{}
+t[#t+1] = loadfile( s .. "/Scripts/SpiralStaticTrace.lua" )( params )
 
 return Def.ActorFrame{ t }

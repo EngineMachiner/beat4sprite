@@ -2,7 +2,7 @@ local tweaks = {
 
 	{
 		Index = 3,
-		Script = "../Resources/Scripts/SpaceEffects/Whirl"
+		Script = "/BGAnimations/Resources/Scripts/SpaceEffects/Whirl.lua"
 	},
 
 	{
@@ -15,6 +15,6 @@ local tweaks = {
 	
 }
 
-return Def.ActorFrame{ 
-	LoadActor("/BGAnimations/5th028B",tweaks)..{}
- }
+return Def.ActorFrame{
+	loadfile( "/BGAnimations/5th028B/default.lua" )( tweaks )
+}

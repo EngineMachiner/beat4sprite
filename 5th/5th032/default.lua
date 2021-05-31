@@ -22,7 +22,7 @@ local params_2 = {
 
 return Def.ActorFrame{
 
-	LoadActor( "/BGAnimations/5th031A", params )..{},
-	LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params_2 )..{}
+	loadfile( "/BGAnimations/5th031A/default.lua" )( params ),
+	loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params_2 )
 
 }

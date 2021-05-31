@@ -25,6 +25,6 @@ params_2["X_pos"] = 0
 	BGA_G.ParTweak(params_2, replace)
 
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/TileTool.lua", params )..{},
-	LoadActor( "../Resources/Scripts/TileTool.lua", params_2 )..{}
+	loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params ),
+	loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params_2 )
 }

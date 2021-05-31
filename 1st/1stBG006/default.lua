@@ -34,7 +34,8 @@ local params = {
 
 } 
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/Kaleidoscopes/Main.lua", params[1] )..{}	
+	local s = "/BGAnimations/Resources/Scripts/Kaleidoscopes/Main.lua"
+	t[#t+1] = loadfile( s )( params[1] )
 	BGA_G.Tile( t, params[2] )
 
 return Def.ActorFrame{ t }

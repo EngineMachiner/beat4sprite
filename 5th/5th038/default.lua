@@ -6,13 +6,15 @@ local params = {
 	Y_num = { -2, 1 }
 }
 
-local function Beat(self)
-	self:set_tween_uses_effect_delta(true)
-	self:effectclock('beat')
-end
-
 return Def.ActorFrame{
 
+	OnCommand=function(af)
+		af:RunCommandsOnChildren(function(c)
+			c:set_tween_uses_effect_delta(true)
+			c:effectclock('beat')
+		end)
+		af:queuecommand("Repeat")
+	end,
 	GainFocusCommand=function(self)
 		BGA_G.Stop( self, true )
 	end,
@@ -20,46 +22,38 @@ return Def.ActorFrame{
 		BGA_G.Stop( self )
 	end,
 
-	LoadActor("/BGAnimations/5th037B")..{},
+	loadfile("/BGAnimations/5th037B/default.lua")(),
 
-	LoadActor("/BGAnimations/5th012A")..{
-		OnCommand=function(self)
-			Beat(self)
-			self:GetParent():queuecommand("Repeat")
-		end,
+	Def.ActorFrame{
+		loadfile("/BGAnimations/5th012A/default.lua")(),
 		RepeatCommand=function(self)
 			local d = BGA_G.GetDelay(self, params)[2]
 			self:diffusealpha(0):sleep(d)
 			self:diffusealpha(1):sleep(d)
 			self:diffusealpha(0):sleep( 2 * d )
 			self:queuecommand("Repeat")
-		end,
+		end
 	},
 
-	LoadActor("/BGAnimations/5th016A")..{
-		OnCommand=function(self)
-			Beat(self)
-			self:GetParent():queuecommand("Repeat")
-		end,
+	Def.ActorFrame{
+		loadfile("/BGAnimations/5th016A/default.lua")(),
 		RepeatCommand=function(self)
 			local d = BGA_G.GetDelay(self, params)[2]
 			self:diffusealpha(0):sleep(2*d)
 			self:diffusealpha(1):sleep(d)
 			self:diffusealpha(0):sleep(d)
 			self:queuecommand("Repeat")
-		end,
+		end
 	},
 
-	LoadActor("../Resources/Scripts/TileTool.lua", params)..{
-		OnCommand=function(self)
-			Beat(self)
-		end,
+	Def.ActorFrame{
+		loadfile("/BGAnimations/Resources/Scripts/TileTool.lua" )( params ),
 		RepeatCommand=function(self)
 			local d = BGA_G.GetDelay(self, params)[2]
 			self:diffusealpha(0):sleep(3*d)
 			self:diffusealpha(1):sleep(d)
 			self:queuecommand("Repeat")
-		end,
+		end
 	}
 
 }

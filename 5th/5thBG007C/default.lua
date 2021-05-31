@@ -1,5 +1,5 @@
 return Def.ActorFrame{
-	LoadActor( "../5th065", { 
+	loadfile( "/BGAnimations/5th065/default.lua" )( { 
 
 		{
 			Index = 1, 
@@ -11,5 +11,5 @@ return Def.ActorFrame{
 			File = "/BGAnimations/Resources/5th/Backgrounds/AB.png"		
 		}
 
-	} )..{}
+	} )
 }

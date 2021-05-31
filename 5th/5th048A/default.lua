@@ -22,7 +22,7 @@ local params = {
 
 	BGA_G.ParTweak( params, replace )
 
-	t[#t+1] = LoadActor( "../5th001A", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th001A/default.lua" )( params )
 
 
 	params = {
@@ -36,7 +36,7 @@ local params = {
 
 	}
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )
 
 
 	params = {
@@ -51,7 +51,7 @@ local params = {
 
 	}
 
-	t[#t+1] = LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}
+	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )
 
 
 return Def.ActorFrame{ t }

@@ -23,5 +23,5 @@ local tweaks = {
 	BGA_G.ParTweak( tweaks, replace )
 
 return Def.ActorFrame{
-	LoadActor( "../5th001A", tweaks )..{}
+	loadfile( "/BGAnimations/5th001A/default.lua" )( tweaks )
 }

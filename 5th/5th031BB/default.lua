@@ -10,6 +10,6 @@ local params = {
 
 return Def.ActorFrame{
 
-	LoadActor( "/BGAnimations/5th031B", params )..{}
+	loadfile( "/BGAnimations/5th031B/default.lua" )( params )
 
 }

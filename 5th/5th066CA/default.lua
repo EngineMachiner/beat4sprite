@@ -32,7 +32,7 @@ local tweaks = {
 
 return Def.ActorFrame{
 
-	LoadActor( "../5th042A", tweaks )..{},
-	LoadActor( "/BGAnimations/Resources/Scripts/TileTool.lua", params )..{}
+	loadfile( "/BGAnimations/5th042A/default.lua" )( tweaks ),
+	loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )
 
 }

@@ -1,11 +1,12 @@
 
 local replace = ...
 
+local s = "/BGAnimations/Resources"
 local params = {
 
 	{ 
 		Index = 2, 
-		File = "/BGAnimations/Resources/5th/Backgrounds/CA.png",
+		File = s .. "/5th/Backgrounds/CA.png",
 		Cleanup = true,
 		Frame_i = 1,
 		Commands = "Mirror",
@@ -15,7 +16,7 @@ local params = {
 
 	{
 		Index = 1, 
-		File = "/BGAnimations/Resources/5th/Sprites/CA 4x3.png",
+		File = s .. "/5th/Sprites/CA 4x3.png",
 		Frame_i = 8,
 		Cleanup = true,
 		X_num = { -4, 3 },
@@ -28,5 +29,5 @@ local params = {
 	BGA_G.ParTweak( params, replace )
 
 return Def.ActorFrame{
-	LoadActor( "../5th051A", params )..{}
+	loadfile( "/BGAnimations/5th051A/default.lua" )( params )
 }

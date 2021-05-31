@@ -11,6 +11,7 @@ local params = {
 
 	BGA_G.ParTweak( params, replace )
 
+local s = "/BGAnimations/Resources/Scripts/WarpingEffects/Wag.lua"
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/WarpingEffects/Wag.lua", params )..{}
+	loadfile( s )( params )
 }

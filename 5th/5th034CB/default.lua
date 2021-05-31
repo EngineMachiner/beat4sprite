@@ -8,6 +8,6 @@ local params = {
 }
 
 return Def.ActorFrame{
-	LoadActor( "../5th034A", params ),
+	loadfile( "/BGAnimations/5th034A/default.lua" )( params ),
 	BGA_G.IDest_Quad()
 }

@@ -7,6 +7,6 @@ local params = {
 }
 
 return Def.ActorFrame{ 
-	LoadActor("../5th039A")..{},
-	LoadActor( "../Resources/Scripts/LineXY.lua", params )..{}
+	loadfile( "/BGAnimations/5th039A/default.lua" )(),
+	loadfile( "/BGAnimations/Resources/Scripts/LineXY.lua" )( params )
 }

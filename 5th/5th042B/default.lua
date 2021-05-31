@@ -15,7 +15,7 @@ local tweaks = {
 
 return Def.ActorFrame{
 
-	LoadActor( "../5th042A", tweaks )..{},
-	LoadActor( "../Resources/Scripts/SpaceEffects/Spiral.lua", params )..{}
+	loadfile( "/BGAnimations/5th042A/default.lua" )( tweaks ),
+	loadfile( "/BGAnimations/Resources/Scripts/SpaceEffects/Spiral.lua" )( params )
 
 }

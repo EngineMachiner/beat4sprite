@@ -1,11 +1,12 @@
 
 local replace = ...
 
+local s = "/BGAnimations/Resources"
 local params = {
 
 	{
 		Index = 1,
-		File = "/BGAnimations/Resources/5th/Sprites/A 4x3.png",
+		File = s .. "/5th/Sprites/A 4x3.png",
 		Frame_i = 7,
 		Frame_l = 8,
 		X_num = { -4, 3 },
@@ -16,7 +17,7 @@ local params = {
 
 	{
 		Index = 2,
-		File = "/BGAnimations/Resources/5th/Sprites/AB 4x4.png",
+		File = s .. "/5th/Sprites/AB 4x4.png",
 		Frame_i = 1,
 		Frame_l = 2,
 		X_num = 4,
@@ -31,9 +32,10 @@ local params = {
 
 }
 
-	BGA_G.ParTweak( params, replace )
+BGA_G.ParTweak( params, replace )
 
+s = s .. "/Scripts/TileTool.lua"
 return Def.ActorFrame{
-	LoadActor( "../Resources/Scripts/TileTool.lua", params[1] )..{},
-	LoadActor( "../Resources/Scripts/TileTool.lua", params[2] )..{}
+	loadfile( s )( params[1] ),
+	loadfile( s )( params[2] )
 }

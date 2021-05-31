@@ -58,8 +58,8 @@ local params_3 = {
 
 return Def.ActorFrame{
 
-	LoadActor( "/BGAnimations/5th001A", params )..{},
-	LoadActor( "/BGAnimations/5th001A", params_2 )..{},
-	LoadActor( "/BGAnimations/5th001A", params_3 )..{}
+	loadfile( "/BGAnimations/5th001A/default.lua" )( params ),
+	loadfile( "/BGAnimations/5th001A/default.lua" )( params_2 ),
+	loadfile( "/BGAnimations/5th001A/default.lua" )( params_3 )
 
 }

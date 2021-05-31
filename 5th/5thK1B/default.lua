@@ -8,6 +8,6 @@ local params = {
 }
 
 return Def.ActorFrame{
-    LoadActor( "../5thK1A" )..{},
-    LoadActor( "../Resources/Scripts/TileTool.lua", params )..{}	
+    loadfile( "/BGAnimations/5thK1A/default.lua" )(),
+    loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )	
 }

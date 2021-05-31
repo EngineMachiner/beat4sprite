@@ -1,7 +1,7 @@
 
 local params = {
 	Index = 1,
-	Script = "../Resources/Scripts/SpaceEffects/Spiral.lua",
+	Script = "/BGAnimations/Resources/Scripts/SpaceEffects/Spiral.lua",
 	File = "/BGAnimations/Resources/5th/Sprites/CAB 5x4.png",
 	Frame_i = 2,
 	Dir = "Out"
@@ -9,7 +9,7 @@ local params = {
 
 return Def.ActorFrame{
 
-	LoadActor("../5th069A")..{},
-	LoadActor( params.Script, params )..{}
+	loadfile( "/BGAnimations/5th069A/default.lua" )(),
+	loadfile( params.Script )( params )
 
 }

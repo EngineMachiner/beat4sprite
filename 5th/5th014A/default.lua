@@ -24,6 +24,6 @@ if replace then BGA_G.ParTweak(params, replace) end
 
 return Def.ActorFrame{
 
-	LoadActor("/BGAnimations/5th001A",params)..{}
+	loadfile( "/BGAnimations/5th001A/default.lua" )( params )
 
 }

@@ -19,7 +19,7 @@ local params = {
 
 return Def.ActorFrame{
 
-	LoadActor( "../5th047A", tweaks )..{},
-	LoadActor( "../Resources/Scripts/Particles.lua", params )..{}
+	loadfile( "/BGAnimations/5th047A/default.lua" )( tweaks ),
+	loadfile( "/BGAnimations/Resources/Scripts/Particles.lua" )( params )
 
 }

@@ -4,5 +4,5 @@ local params = {
 }
 
 return Def.ActorFrame{
-    LoadActor( "../Resources/Scripts/Kaleidoscopes/Main.lua", params )..{}	
+    loadfile( "/BGAnimations/Resources/Scripts/Kaleidoscopes/Main.lua" )( params )
 }

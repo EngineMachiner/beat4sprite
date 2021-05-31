@@ -1,5 +1,6 @@
 local t = Def.ActorFrame{}
 
+local s = "/BGAnimations/Resources"
 local d = ...
 
 if not d then 
@@ -20,7 +21,7 @@ end
 local params = {
 
 	Index = 1,
-	File = "/BGAnimations/Resources/5th/Backgrounds/BABC 2x2.png",
+	File = s .. "/5th/Backgrounds/BABC 2x2.png",
 	CustomFrames = g,
 	X_num = { -2, 1 },
 	Y_num = { -1, 0 },
@@ -28,7 +29,7 @@ local params = {
 
 }
 
-	t[#t+1] = LoadActor("../5th037", params)..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th037/default.lua" )( params )
 
 
 	f = { 9, 10 }
@@ -41,7 +42,7 @@ end
 	params = {
 
 	Index = 1,
-	File = "/BGAnimations/Resources/5th/Sprites/BAB 4x4.png",
+	File = s .. "/5th/Sprites/BAB 4x4.png",
 	CustomFrames = g,
 	X_num = { -4, 3 },
 	Y_num = { -2, 1 },
@@ -49,7 +50,7 @@ end
 
 }
 
-	t[#t+1] = LoadActor("../5th037", params)..{}
+	t[#t+1] = loadfile( "/BGAnimations/5th037/default.lua" )( params )
 
 
 return Def.ActorFrame{ t }
