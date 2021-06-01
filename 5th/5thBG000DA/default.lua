@@ -6,7 +6,6 @@ local params = {
 	Index = 1,
 	File = GAMESTATE:GetCurrentSong():GetBackgroundPath(),
 	Commands = { "Mirror", "Move" },
-	BGMirror = true,
 	X_num = 1,
 	Y_num = 1,
 	HurryTweenBy = 0.5,
