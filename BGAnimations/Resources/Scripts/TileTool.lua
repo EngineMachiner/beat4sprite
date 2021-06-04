@@ -226,6 +226,10 @@ for i=x[1],x[2] do
 				self.InitPos = { self:GetX(), self:GetY() }
 				BGA_G.PlayCmds(self, p)
 
+				if type(p.Alpha) == "number" then
+					self:diffusealpha(p.Alpha)
+				end
+
 			end,
 
 			MoveCommand=function(self)

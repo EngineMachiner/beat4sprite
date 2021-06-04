@@ -299,9 +299,13 @@ local function DefPar( params )
 	if p.TCV[1] ~= 0 or p.TCV[2] ~= 0 then
 		t = ParToCmd(p, t, { Index = "TCV", CmdString = "Move" })
 	end
-
+	
 	t = ParToCmd(p, t, "Blend")
-	t = ParToCmd(p, t, "Alpha")
+
+	if p.Alpha == true then
+		t = ParToCmd(p, t, "Alpha")
+	end
+	
 	t = ParToCmd(p, t, "Mirror")
 	t = type(p.Color) == "table" and ParToCmd(p, t, "Color") or t
 	
@@ -333,6 +337,8 @@ local function DefPar( params )
 	if p.Color
 	and type(p.Color[1]) == "number" then
 		p.Color = { p.Color }
+	elseif p.Color == "Rainbow" then
+		t[#t+1] = "Rainbow"
 	end
 
 	if p.Color2 then

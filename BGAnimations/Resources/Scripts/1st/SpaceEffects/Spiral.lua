@@ -88,14 +88,14 @@ for i = 0, total, 360 * d / n  do
 							self:effectclock('beat')
 							self:Load(p.File)
 							BGA_G.SetStates(self, p)
-
+							
 							self:zoom(1)
 							self:rotationz( i_rot )
 
 							if p.Rot then
 								self:rotationz( self:GetRotationZ() + 90 - i * cw )
 							end
-
+							
 						end,
 
 						InitStateCommand=function(self)
@@ -112,7 +112,6 @@ for i = 0, total, 360 * d / n  do
 							local pa = self:GetParent():GetParent()
 							pa:SetUpdateFunction(function()
 		
-								local d = self:GetEffectDelta()
 								local e = p.Dir
 
 								if pa:GetZ() < e[2] and e[2] < 0
@@ -163,7 +162,7 @@ for i = 0, total, 360 * d / n  do
 						end,
 
 						ColorCommand=function(self)
-							self:diffuse(p.Color)
+							self:diffuse(p.Color[1])
 						end
 
 					}

@@ -81,6 +81,11 @@ for i=0,4 + params.Add do
 
                     BGA_G.SetStates(self, params)
 
+                    if BGA_G.IsCmd( params, "Blend" ) then
+                        params.Blend = params.Blend or "BlendMode_Modulate"
+                        self:blend( params.Blend )
+                    end
+
                     self:GetParent():x( SCREEN_CENTER_X+self:GetZoomedWidth()*0.75*ScaleVar*o )
                     self:GetParent():y( SCREEN_CENTER_Y+self:GetZoomedHeight()*0.75*ScaleVar*o )
                     self:GetParent():z( - (o+5) * 50 )

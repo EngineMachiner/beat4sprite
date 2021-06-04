@@ -131,7 +131,7 @@ for i=1,num do
 
 			if BGA_G.IsCmd( p, "Color" )
 			and type(p.Color) == "table" then
-				self:diffuse(p.Color)
+				self:diffuse(p.Color[1])
 			end
 
 			if BGA_G.IsCmd( p, "Alpha" ) then
