@@ -123,8 +123,7 @@ local function GetDelay(self, params)
 	local bpm = GAMESTATE:GetSongBPS() * 60
 	if bpm > 200
 	and not p.NoDelayTweaking then
-		d = math.floor( bpm * 0.01 ) * 0.5
-		d = d * p.FrmDelay
+		d = d * math.floor( bpm * 0.01 ) * 0.5
 	end
 
 	--SCREENMAN:SystemMessage(DBG_E.ConcatTable({ d / n, d }))
