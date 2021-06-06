@@ -124,7 +124,7 @@ local function GetDelay(self, params)
 	if bpm > 200
 	and not p.NoDelayTweaking then
 		d = math.floor( bpm * 0.01 ) * 0.5
-		d = d * frmd
+		d = d * p.FrmDelay
 	end
 
 	--SCREENMAN:SystemMessage(DBG_E.ConcatTable({ d / n, d }))
