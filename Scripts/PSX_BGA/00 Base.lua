@@ -19,6 +19,16 @@ local function IDest_Quad()
 end
 a.IDest_Quad = IDest_Quad
 
+function LoadThemeModule( theme, ModuleName, ... )
+	
+	local Path = "Appearance/Themes/"..theme.."/Modules/"..ModuleName
+	
+	if ... then
+		return loadfile(Path)(...)
+	end
+	return loadfile(Path)()
+
+end
 
 -- Sprite initial state
 local function InitState( self, tbl )
