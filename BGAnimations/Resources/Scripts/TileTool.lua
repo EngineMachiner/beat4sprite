@@ -4,9 +4,6 @@ local p = params
 
 local t = Def.ActorFrame{}
 
--- Set default values in case they are missing
-BGA_G.DefPar( p )
-
 local x, y = p.X_num, p.Y_num
 
 -- Matrix description
@@ -14,25 +11,22 @@ local matrix = {
 	math.abs(x[1]) + math.abs(x[2]) + 1,
 	math.abs(y[1]) + math.abs(y[2]) + 1
 }
+
+-- Case: One sprite / row / column spacing and position
+if x[1] == x[2] then 
+	matrix[1] = 1	p.X_pos = p.X_pos + x[1]
+	p.X_pos = p.X_pos * p.Spacing[1]
+end
+
+if y[1] == y[2] then 
+	matrix[2] = 1	p.Y_pos = p.Y_pos + y[1]
+	p.Y_pos = p.Y_pos * p.Spacing[2]
+end
+
 p.Matrix = matrix
 
 -- Total number of sprites
 p.Total = matrix[1] + matrix[2]
-
--- Sample
-if p.Class == "Quad" then
-	t[#t+1] = Def.Sprite{
-		Name="Sample",
-		InitCommand=function(self)
-			self:Load(p.File)
-			BGA_G.SetStates(self, p)
-		end,
-		OnCommand=function(self)
-			self:diffusealpha(0) 
-			self:animate(false)
-		end
-	}
-end
 
 x[1] = - math.floor( ( matrix[1] - 1 ) * 0.5 )
 x[2] = math.ceil( ( matrix[1] - 1 ) * 0.5 )
@@ -40,24 +34,34 @@ x[2] = math.ceil( ( matrix[1] - 1 ) * 0.5 )
 y[1] = - math.floor( ( matrix[2] - 1 ) * 0.5 )
 y[2] = math.ceil( ( matrix[2] - 1 ) * 0.5 )
 
+-- Sample
+if p.Class == "Quad" then
+	t[#t+1] = Def.Sprite{
+		Name="Sample",
+		InitCommand=function(self)
+			self.Name = "Sample"
+			BGA_G.ObjFuncs(self)
+			self:Load(p.File)
+			self:SetStates(p)
+		end,
+		OnCommand=function(self)
+			self:diffusealpha(0)
+			self:animate(false)
+		end
+	}
+end
+
 for i=x[1],x[2] do
 	for j=y[1],y[2] do
-		
-		t[#t+1] = Def.ActorFrame{
-			GainFocusCommand=function(self)
-				BGA_G.Stop( self, true )
-			end,
-			LoseFocusCommand=function(self)
-				BGA_G.Stop( self )
-			end,
+
+		t[#t+1] = BGA_G.Frame() .. {
 			OnCommand=function(self)
-				self:effectclock("beat")
-				self:set_tween_uses_effect_delta(true)
+				BGA_G.ObjFuncs(self)
+				local t2 = t
 				local t = p.MultipleFiles
 				if t and p.TCV[1] == 0 then
 					if t[1] == t[2] * 2 + 1
 					or t[1] == 1 then
-						self:stoptweening()
 						self:RemoveAllChildren()
 						self = nil
 					end
@@ -70,11 +74,12 @@ for i=x[1],x[2] do
 		a[#a+1] = Def[p.Class]{
 
 			InitCommand=function(self)
-			
+
 				local classes = {
 
 					Quad = function(self)
-						p.Sample = self:GetParent():GetParent():GetChild("Sample")
+						local parent = self:GetParent():GetParent()
+						p.Sample = parent:GetChild("Sample")
 						local s = p.Sample
 						self:SetSize( s:GetZoomedWidth(), s:GetZoomedHeight() )
 					end,
@@ -89,44 +94,52 @@ for i=x[1],x[2] do
 
 				}
 				
-				for k,v in pairs( classes ) do
-					if p.Class == k then
-						v(self)
-					end
+				for k,f in pairs( classes ) do
+					if p.Class == k then f(self) end
 				end
 
 			end,	
 
 			OnCommand=function(self)
 
+				BGA_G.ObjFuncs(self)
+				
 				self.UniqueEffect = true
-				self:effectclock("beat")
-				self:set_tween_uses_effect_delta(true)
 
-				if BGA_G.IsCmd( p, "Rainbow" ) then
-					self:rainbow()
-					self:effectperiod( 16 * BGA_G.GetDelay(self)[2] )
-				elseif BGA_G.IsCmd( p, "Color" )
-				and type(p.Color) == "table" then
-					self:diffuse(p.Color[1])
+				if p.Color ~= "RainbowFlash" then
+
+					if p:IsCmd( "Rainbow" ) then
+						self:rainbow()
+						self:effectperiod( 16 * self:GetDelay(2) )
+					elseif p:IsCmd( "Color" )
+					and type(p.Color) == "table" then
+						self:diffuse(p.Color[1])
+					end
+
+				else
+					if p.Class == "Quad" then
+						self.UpdateData = {}
+						self:GetParent():SetUpdateFunction( function()
+							BGA_G.Update(self, p)
+						end )
+					end
 				end
 
-				if BGA_G.IsCmd( p, "Blend" ) then
-					p.Blend = p.Blend or "BlendMode_Modulate"
+				if p:IsCmd( "Blend" ) then
 					self:blend( p.Blend )
 				end
 
-				if BGA_G.IsCmd( p, "Blink" ) then
-					self:diffuseramp():effectperiod(1)
+				if p:IsCmd( "Blink" ) then
+					self:diffuseramp()
 				end
 
-				if BGA_G.IsCmd( p, "Rotation" ) then
+				if p:IsCmd( "Rotation" ) then
 					self:rotationx(p.Rot[1])
 					self:rotationy(p.Rot[2])
 					self:rotationz(p.Rot[3])
 				end
 
-				if BGA_G.IsCmd( p, "SpinFrame" ) then
+				if p:IsCmd( "SpinFrame" ) then
 					if math.abs(i) % 2 == 0 then
 						self:rotationy(180)
 					end
@@ -136,33 +149,34 @@ for i=x[1],x[2] do
 				end
 
 				if p.Class == "Sprite" then
-					
-					if p.Frames["Type"] then
+
+					if p.Frames.Type then
 						self.matrix = { i, j }
 					end
-					BGA_G.SetStates(self, p)
+					self:SetStates(p)
 
-					if BGA_G.IsCmd( p, "StairsStates" )
+					if p:IsCmd( "StairsStates" )
 					and not p.StopAtFrame then
-						local n = BGA_G.InitState( self, { i+x[2], j+y[2] } )
-						if p.Frames["Type"] == 2 then 
+						local n = self:InitState( { i+x[2], j+y[2] } )
+						if p.Frames.Type == "RowSkip" then 
 							local x = p.Sheet[1]
-							n = BGA_G.InitState( self, { 1, (j+1)*x } )
+							n = self:InitState( { 1, (j+1)*x } )
 						end
 						self:setstate( n )
 					end
 
-					if BGA_G.IsCmd( p, "LineStates" ) then
+					if p:IsCmd( "LineStates" ) then
 						local n = self:GetNumStates()
 						n = i % n
 						self:setstate( n )
 					end
 
-					if BGA_G.IsCmd( p, "RandomDelays" ) then
+					if p:IsCmd( "RandomDelays" ) then
 						local n = self:GetNumStates()
 						if n > 1 then
-							n = n * 100
-							self.IDelay = math.random(15,100-15) * 0.01
+							local o = 100
+							n = n * o
+							self.IDelay = math.random(15,o-15) * 0.01
 							self.IDelay = self.IDelay + math.random( n, n * 2 ) * 0.001
 							self.IDelay = self.IDelay * 0.75
 						end
@@ -173,7 +187,25 @@ for i=x[1],x[2] do
 					end
 
 				end
+
+				if p.ZoomXYZ then
+					self:zoomx( self:GetZoomX() * p.ZoomXYZ[1] )
+					self:zoomy( self:GetZoomY() * p.ZoomXYZ[2] )
+					self:zoomz( self:GetZoomZ() * p.ZoomXYZ[3] )
+				end
 				
+				if p:IsCmd( "K2x2" ) then
+					p.Spacing = { 0.5, 0.5 }
+				end
+
+				if p.Offset then
+					self:effectoffset(p.Offset)
+				end
+
+				if p.Period then
+					self:effectperiod(p.Period)
+				end
+
 				self:queuecommand("Pos")
 
 			end,
@@ -184,7 +216,6 @@ for i=x[1],x[2] do
 				local h = self:GetZoomedHeight()
 				local pa = self:GetParent()
 
-				pa:stoptweening()
 				pa:Center()
 
 				local offsets = { 0, 0 }
@@ -201,15 +232,23 @@ for i=x[1],x[2] do
 
 				-- If Move cmd is active
 
-				local dir = p.TCV[1] ~= 0 and p.TCV[1] / math.abs(p.TCV[1]) or 0
-				d = matrix[1] - ( 640 / w ) - math.ceil( matrix[1] * 0.5 )
+				local base_w = 640
+				if p.ZoomXYZ then
+					base_w = p.ZoomXYZ[1] >= 2 and SCREEN_WIDTH or base_w
+				end
+
+				local dir = {
+					p.TCV[1] ~= 0 and p.TCV[1] / math.abs(p.TCV[1]) or 0,
+					p.TCV[2] ~= 0 and p.TCV[2] / math.abs(p.TCV[2]) or 0
+				}
+
+				d = matrix[1] - ( base_w / w ) - math.ceil( matrix[1] * 0.5 )
 				d = d - math.ceil( matrix[1] * 0.5 ) % 2
-				d = d * 0.5 * dir
+				d = d * 0.5 * dir[1]
 				offsets[1] = offsets[1] - d
 
-				dir = p.TCV[2] ~= 0 and p.TCV[2] / math.abs(p.TCV[2]) or 0
 				d = matrix[2] - ( SCREEN_HEIGHT / h )
-				d = d * 0.5 * dir
+				d = d * 0.5 * dir[2]
 				offsets[2] = offsets[2] - d
 
 				------------------------------
@@ -224,129 +263,143 @@ for i=x[1],x[2] do
 
 			 	self:xy( x, y )
 				self.InitPos = { self:GetX(), self:GetY() }
-				BGA_G.PlayCmds(self, p)
-
-				if type(p.Alpha) == "number" then
-					self:diffusealpha(p.Alpha)
-				end
+				self:PlayCmds(p)
 
 			end,
 
 			MoveCommand=function(self)
 				
-				local pa, c = self:GetParent()
-				for i=1,#p.TCV do
-					if p.TCV[i] ~= 0 then 
-						c = true
+				local TCV = {
+					p.TCV[1] ~= 0 and 1 / p.TCV[1] or 0,
+					p.TCV[2] ~= 0 and 1 / p.TCV[2] or 0
+				}
+			
+				local pa = self:GetParent()
+				local w = self:GetZoomedWidth()
+				local h = self:GetZoomedHeight()
+
+				pa:Center()
+
+				local scl = h / SCREEN_HEIGHT
+				if p.ZoomXYZ then
+
+					if p.ZoomXYZ[1] >= 2 then
+						w = w + SCREEN_WIDTH * TCV[1]
+						scl = scl * p.ZoomXYZ[1]
 					end
+
+					if p.ZoomXYZ[2] >= 2 then
+						h = h + SCREEN_HEIGHT * TCV[2]
+					end
+						
+				end
+					
+				local n = p.Class == "Quad" and p.Sample:GetNumStates()
+				n = n or self:GetNumStates()
+
+				scl = BGA_G.NoteSync and scl * 7.5 or scl
+
+				local endpos = { 
+					pa:GetX() + w * TCV[1],
+					pa:GetY() + h * TCV[2]
+				}
+
+				if params:IsCmd( "StairsStates" ) then
+					scl = ( n + p.FrmDelay ) * 2
+					n = p.StopAtFrame or n
+					n = p.SkipFrame or n
+					endpos = {
+						pa:GetX() + w * n * TCV[1],
+						pa:GetY() + h * n * TCV[2]
+					}		
 				end
 
-				if c then 
-					
-					p.TCV[1] = p.TCV[1] ~= 0 and 1 / p.TCV[1] or 0
-					p.TCV[2] = p.TCV[2] ~= 0 and 1 / p.TCV[2] or 0
+				local a = p.MultipleFiles
+				if a then
 
-					local w = self:GetZoomedWidth()
-					local h = self:GetZoomedHeight()
-					local n = p.Class == "Quad" and p.Sample:GetNumStates()
-					n = n or self:GetNumStates()
+					local x = w * TCV[1]
+					local y = h * TCV[2]
 
-					pa:Center()
+					local d = a[2] - a[1]
 
-					local scl = h / SCREEN_HEIGHT
-					scl = BGA_G.NoteSync and scl * 7.5 or scl
+					local r = { 0, 0 }
+					if p.Reversed then
+						r = { - x * 1.167, - y * 1.167 }
+					end
 
-					local endpos = { 
-						pa:GetX() + w * p.TCV[1],
-						pa:GetY() + h * p.TCV[2]
+					local b = {
+						pa:GetX() + x * ( d - 1 ) - r[1],
+						pa:GetY() + y * d - r[2]
 					}
 
-					if BGA_G.IsCmd( params, "StairsStates" ) then
-						scl = ( n + p.FrmDelay ) * 2
-						n = p.StopAtFrame or n
-						n = p.Cut or n
-						endpos = {
-							pa:GetX() + w * n * p.TCV[1],
-							pa:GetY() + h * n * p.TCV[2]
-						}		
-					end
-
-					local a = p.MultipleFiles
-					if a then
-
-						local x = w * p.TCV[1]
-						local y = h * p.TCV[2]
-
-						local d = a[2] - a[1]
-
-						local r = { 0, 0 }
-						if p.Reversed then
-							r = {
-								x * 0.833,
-								y * 0.833
-							}
-						end
-
-						local b = {
-							pa:GetX() + x * d - r[1],
-							pa:GetY() + y * d - r[2]
-						}
-
-						pa:x( b[1] )
-						pa:y( b[2] )
+					pa:xy( b[1],	b[2] )
 						
-						endpos[1] = endpos[1] + x * d - r[1] * 2.2
-						endpos[1] = endpos[1] + x * math.floor( a[2] * 0.5 )
+					endpos[1] = endpos[1] + x * ( d - 1 ) - r[1] * 0.1425
+					endpos[1] = endpos[1] + x * math.floor( a[2] * 0.5 )
 
-						endpos[2] = endpos[2] + y * d - r[2] * 2.2
-						endpos[2] = endpos[2] + y * math.floor( a[2] * 0.5 )
+					endpos[2] = endpos[2] + y * d - r[2] * 0.1425
+					endpos[2] = endpos[2] + y * math.floor( a[2] * 0.5 )
 
-						if p.Reversed and pa.R then
-							pa:xy( endpos[1], endpos[2] )
-							endpos = b
-						end
-
-						local v = p.Reversed and 0.5 or 1
-						scl = scl * a[2] * v
-
-					end
-
-					local d = BGA_G.GetDelay(self, p)[2]
-					scl = scl * d
-					
-					if p.SleepMove then
-						local x = w * p.TCV[1]
-						local y = h * p.TCV[2]
-						for i=1,n do
-							pa:sleep( n * d )
-							pa:x( pa:GetX() + x * i / n )
-							pa:y( pa:GetY() + y * i / n )
-						end
-					else
-						local tween = p.HurryTweenBy
-						tween = p.Cut and tween * 2 / n or tween
-						pa:linear(scl)
+					if p.Reversed and pa.R then
 						pa:xy( endpos[1], endpos[2] )
-						pa:hurrytweening( tween )
-						pa:queuecommand("MoveEffect")
+						endpos = b
 					end
 
-					if p.Reversed and i == x[1] then
-						pa.R = pa.R or false
-						pa.R = not pa.R
-					end
-
-					pa:queuecommand("Move")
+					local v = p.Reversed and 0.5 or 1
+					scl = scl * a[2] * v
 
 				end
+
+				-- Single File reverse case
+				if not a and p.Reversed then
+
+					local x = w * TCV[1]
+					local y = h * TCV[2]
+
+					local b = { pa:GetX(), pa:GetY() }
+
+					if p.Reversed and pa.R then
+						pa:xy( endpos[1], endpos[2] )
+						endpos = b
+					end
+
+				end
+
+				local d = self:GetDelay(2)
+				scl = scl * d
+					
+				if p.SleepMove then
+					local x = w * TCV[1]
+					local y = h * TCV[2]
+					for i=1,n do
+						pa:sleep( n * d )
+						pa:x( pa:GetX() + x * i / n )
+						pa:y( pa:GetY() + y * i / n )
+					end
+				else
+					local tween = p.HurryTweenBy
+					tween = p.SkipFrame and tween * 2 / n or tween
+					scl = scl * tween
+					pa:linear(scl)
+					pa:xy( endpos[1], endpos[2] )
+				end
+
+				if p.Reversed and
+				TCV[1] ~= 0 and i == x[1]
+				or TCV[2] ~= 0 and j == y[1] then
+					pa.R = pa.R or false
+					pa.R = not pa.R
+				end
+
+				pa:queuecommand("MoveEffect")
+				pa:queuecommand("Move")
 
 			end,
 
 			MoveEffectCommand=function(self)
 				local eo = self.EffectOffset
-				if BGA_G.IsCmd( p, "Fade" )
-				and eo then
-					local p = p.EffectOffset or 1	
+				if p:IsCmd( "Fade" ) and eo then
+					local p = p.EffectOffset or 0
 					eo = eo + p
 					self:effectoffset(eo)
 					self.EffectOffset = eo
@@ -355,26 +408,26 @@ for i=x[1],x[2] do
 
 			FadeCommand=function(self)
 
-				p.Fade = p.Fade or { 1, 1 }
-				p.FadePeriodBy = p.FadePeriodBy or 1
-
-				local n = p.Sample and p.Sample:GetNumStates()
-				local d = BGA_G.GetDelay(self, p)[2]
+				local n, d = 1, self:GetDelay(2)
 				
-				n = n or self:GetNumStates()
-				n = p.StopAtFrame or n
+				if p.TCV and ( p.TCV[1] ~= 0 or p.TCV[2] ~= 0 ) then
+					n = p.Sample and p.Sample:GetNumStates()
+					n = n or self:GetNumStates()
+					n = p.StopAtFrame or n
+				end
 
 				local beat = p.HurryTweenBy + d
-				beat = beat * n * p.FadePeriodBy
-
-				if type(p.Color) == "table" then
+				beat = beat * n * p.FadePeriodBy * 2
+				
+				if p.Color  ~= "Rainbow" then
+					p.Color = p.Color or {}
+					p.Color[1] = p.Color[1] or Color.Black
+					p.Color[2] = p.Color[2] or Color.White
 					if p.Ramp then
 						self:diffuseramp()
 						self:effectcolor1(p.Color[1])
 						self:effectperiod(beat)
 					else
-						p.Color[1] = p.Color[1] or Color.Black
-						p.Color[2] = p.Color[2] or Color.White
 						self:diffuseshift()
 						self:effectcolor1(p.Color[1])
 						self:effectcolor2(p.Color[2])
@@ -382,27 +435,23 @@ for i=x[1],x[2] do
 					end
 				end
 
-				local o
-				if p.Fade then
-					if p.Color == "Rainbow" then
-						self:rainbow()
-						o = - p.Fade[1] * i - p.Fade[2] * j 
-						o = o * beat / p.Total
-					else
-						beat = beat * 0.5
-						o = - p.Fade[1] * i - p.Fade[2] * j
-						o = o * beat * 2 / p.Total
-					end
-					self:effectperiod(beat)
-					self:effectoffset(o)
-					self.EffectOffset = o
+				local o = - p.Fade[1] * i - p.Fade[2] * j
+				if p.Color == "Rainbow" then
+					o = - p.Fade[1] * i - p.Fade[2] * j 
+					o = o * beat / p.Total
+				else
+					beat = beat * 0.5
+					o = o * beat * 2 / p.Total
 				end
+				self:effectperiod(beat)
+				self:effectoffset(o)
+				self.EffectOffset = o
 
 			end,
 
 			FourScreensCommand=function(self)
 
-				local d = BGA_G.GetDelay(self, p)[2]
+				local d = self:GetDelay(2)
 				if j == 0 then
 
 					-- Repeat twice
@@ -454,6 +503,18 @@ for i=x[1],x[2] do
 
 			end,
 
+			K2x2Command=function(self)
+
+				self:zoom( self:GetZoom() * 0.5 )
+
+				local w = self:GetZoomedWidth()
+				self:x( self:GetX() - w * 0.5 )
+				
+				p.Mirror = { 1, 1 }
+				self:queuecommand("Mirror")
+
+			end,
+
 			MirrorCommand=function(self)
 
 				local x = self:GetRotationX()
@@ -469,10 +530,10 @@ for i=x[1],x[2] do
 		
 				y = self:GetRotationY()
 
-				if BGA_G.IsCmd( params, "MirrorY" )
+				if params:IsCmd( "MirrorY" )
 				and j % 2 == 0 then
 					self:rotationy( y + 180 * p.Mirror[1] )
-				end				
+				end
 
 			end,
 
@@ -500,22 +561,33 @@ for i=x[1],x[2] do
 			CrossCommand=function(self)
 				
 				local val = p.Cross or x[2]
-				val = p.CType == 2 and x[2] or val
-				val = val + 1
+				val = p.CrossType == 2 and x[2] or val
 
-				for o=-val,val,2 do
+				if type(val) == "number" then
+					val = val + 1
+					for o = - val, val, 2 do
 
-					if j == o + i then
-						self:visible(false) 
+						if j == o + i then
+							self:visible(false)
+						end
+
+						if p.CrossType == 2 then
+							if math.abs(j) > 1 
+							or j == 0 then 
+								self:visible(false)
+							end
+						end
+
 					end
+				end
 
-					if p.CType == 2 then
-						if math.abs(j) > 1 
-						or j == 0 then 
+				if p.CrossType == "Y" then
+					local x = p.Cross
+					for i2=1,#x do
+						if i == x[i2] then
 							self:visible(false)
 						end
 					end
-
 				end
 
 			end,
@@ -524,7 +596,8 @@ for i=x[1],x[2] do
 
 				p.State = p.State or 0
 				local n = self:GetNumStates()
-				local s = i + 3 + j * p.Sheet[1] + p.Sheet[2] + p.State
+				local s = i + 3 + j * p.Sheet[1]
+				s = s + p.Sheet[2] + p.State
 				s = p.Animate and p.State or s
 
 				while s > n - 1 do
@@ -544,19 +617,19 @@ for i=x[1],x[2] do
 
 			SpinXYCommand=function(self)
 
-				local d = BGA_G.GetDelay(self)[2] 
-				d = d * 2 * p.HurryTweenBy
+				local d = self:GetDelay(2)
+				d = d * p.HurryTweenBy
 
 				local val = p.SpinC and { 90, 0 } or { 0, 90 }
-				
+
 				self:rotationx(0)
-				self:rotationy(val[1]):linear(d*0.5)
-				self:rotationy(val[2]):linear(d*0.5)
+				self:rotationy(val[1]):linear(d)
+				self:rotationy(val[2]):linear(d)
 				self:rotationy(val[1]):sleep(0)
 
 				self:rotationx(val[1])
-				self:rotationy(0):linear(d*0.5)
-				self:rotationx(val[2]):linear(d*0.5)
+				self:rotationy(0):linear(d)
+				self:rotationx(val[2]):linear(d)
 				self:rotationx(val[1]):sleep(0)
 
 				self:queuecommand( "SpinXY" )
@@ -564,7 +637,7 @@ for i=x[1],x[2] do
 			end,
 
 			SpinXCommand=function(self)
-				local d = BGA_G.GetDelay(self)[2] 
+				local d = self:GetDelay(2)
 				d = d * 2 * p.HurryTweenBy
 				self:rotationy(0):linear(d)
 			   	self:rotationy(90):linear(d)
@@ -573,7 +646,7 @@ for i=x[1],x[2] do
 		   	end,
 
 			SpinYCommand=function(self)
-				local d = BGA_G.GetDelay(self)[2] 
+				local d = self:GetDelay(2)
 				d = d * 2 * p.HurryTweenBy
 				self:rotationx(0):linear(d)
 			  	self:rotationx(90):linear(d)
@@ -606,7 +679,7 @@ for i=x[1],x[2] do
 
 			PulseCommand=function(self)
 				local z = self:GetZoom()
-				local d = BGA_G.GetDelay(self)[2]
+				local d = self:GetDelay(2)
 				self:smooth(d):zoom(0)
 				self:smooth(d):zoom(z)
 				self:queuecommand("Pulse")
@@ -619,7 +692,7 @@ for i=x[1],x[2] do
 
 			Z2Command=function(self)
 				local z = self:GetZoom()
-				local d = BGA_G.GetDelay(self)[2] * 2
+				local d = self:GetDelay(2) * 2
 				self:zoom(z):linear(d)
 				self:zoom( z * 1.5 ):linear(d)
 				self:zoom(z)
@@ -627,12 +700,19 @@ for i=x[1],x[2] do
 			end,
 
 			AlphaCommand=function(self)
-				local d = BGA_G.GetDelay(self)[2] * 2
+
+				if type(p.Alpha) == "number" then
+					self:diffusealpha(p.Alpha)
+					return
+				end
+
+				local d = self:GetDelay(2) * 2
 				d = p.HurryTweenBy and p.HurryTweenBy * d or d
 				self:diffusealpha(1):linear(d)
 				self:diffusealpha(0):linear(d)
 				self:diffusealpha(1)
 				self:queuecommand("Alpha")
+
 			end
 
 		}
@@ -640,8 +720,6 @@ for i=x[1],x[2] do
 	end
 end
 
-if params.Remove then
-	t = nil
-end
+t = not params.Remove and t
 
 return Def.ActorFrame{ t }

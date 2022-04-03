@@ -1,22 +1,29 @@
 
 local params = ...
+params.Angle = params.Angle or 0
 
-BGA_G.DefPar( params )
+local t = BGA_G.Frame()
 
-local t = Def.ActorFrame{}
+t[#t+1] = Def.ActorFrame{
+	OnCommand=function(self)
+		self:Center()
+		self:rotationz( params.Angle )
+	end
+}
+local a = t[#t]
+
+a[#a+1] = Def.ActorFrame{
+	OnCommand=function(self)
+		local scale = math.rad( params.Angle )
+		scale = 1 + math.abs( math.sin( scale ) )
+		self:x( - SCREEN_CENTER_X * scale )
+		self:y( - SCREEN_CENTER_Y * scale )
+		self:zoom( scale )
+	end
+}
+a = a[#a]
 
 for i=1,13 do 
-
-	t[#t+1] = Def.ActorFrame{
-		GainFocusCommand=function(self)
-			BGA_G.Stop( self, true )
-		end,
-		LoseFocusCommand=function(self)
-			BGA_G.Stop( self )
-		end
-	}
-
-	local a = t[#t]
 
 	a[#a+1] = Def.Sprite{
 
@@ -25,10 +32,9 @@ for i=1,13 do
 		end,
 
 		OnCommand=function(self)
-			self:set_tween_uses_effect_delta(true)
-			self:effectclock("beat")
-			BGA_G.SetStates(self, params)
-			BGA_G.PlayCmds(self, params)
+			BGA_G.ObjFuncs(self)
+			self:SetStates(params)
+			self:PlayCmds(params)
 			self:queuecommand("Repeat")
 		end,
 
@@ -41,7 +47,7 @@ for i=1,13 do
 
 		RepeatCommand=function(self)
 
-			local d = BGA_G.GetDelay(self)[2]
+			local d = self:GetDelay(2)
 			local n = self:GetNumStates()
 
 			if n > 1
@@ -85,8 +91,6 @@ for i=1,13 do
 
 end
 
-if params.Remove then
-	t = nil
-end
+t = not params.Remove and t
 
 return Def.ActorFrame{ t }

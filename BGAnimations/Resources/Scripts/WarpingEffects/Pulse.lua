@@ -1,69 +1,63 @@
 local params = ...
-local ScaleVar = _screen.h/480
-		
-local t = Def.ActorFrame{
-	GainFocusCommand=function(self)
-		BGA_G.Stop( self, true )
-	end,
-	LoseFocusCommand=function(self)
-		BGA_G.Stop( self )
-	end
-}
 
-	BGA_G.DefPar( params )
-	
-	t[#t+1] = loadfile( "/BGAnimations/Resources/Scripts/TileTool.lua" )( params )
+local t = BGA_G.Frame()
 
-if not params.Beat then params.Beat = 2 end
+BGA_G.BGSet(params):Load(t)
 
-for i = 3,9 do
+local tween = params.HurryTweenBy
+local num = params.Num or 20
+local fade = 0.0625 * 0.125
+
+for i = 1,num do
 	t[#t+1] = Def.ActorFrame{
 
 		OnCommand=function(self)
+			BGA_G.ObjFuncs(self)
 			if i == 3 then
-				params.Beat = params.Beat * BGA_G.GetDelay(self, params)[2]
+				local d = self:GetDelay()
+				tween = tween * d
 			end
-			self:effectclock("beat")
-			self:set_tween_uses_effect_delta(true)
-			BGA_G.PlayCmds(self, params)
+			self:PlayCmds(params)
 		end,
 
-		Def.Sprite{
+		RainbowCommand=function(self)
+			self:rainbow()
+			self:effectperiod( 16 * self:GetDelay() )
+		end,
+
+		Def.Sprite{	
+			
 			OnCommand=function(self)
 
 				self:Load(params.File)
 
-				self:effectclock("beat")
-				self:set_tween_uses_effect_delta(true)
 				self:Center()
-				BGA_G.SetStates(self, params)
+				BGA_G.ObjFuncs(self)
+				self:SetStates(params)
 
-				self:fadeleft(0.025)
-				self:fadetop(0.025)
-				self:fadebottom(0.025)
-				self:faderight(0.025)
-				self:diffusealpha(0.5)
+				self:fadeleft(fade)
+				self:fadetop(fade)
+				self:fadebottom(fade)
+				self:faderight(fade)
+
+				local amp = 2
+				local c = i * amp * 0.0125
+				local r = SCREEN_WIDTH / SCREEN_HEIGHT
+				self:croptop(c / r)
+				self:cropbottom(c / r)
+				self:cropleft(c)
+				self:cropright(c)
+
+				self:diffusealpha(0.75)
 				self:blend("BlendMode_Normal")
 
-				if i < 2 then
-					self:pulse():effectperiod(params.Beat)
-						:effectmagnitude( 1, 1.015625, 0 )
-				else
-					self:pulse():effectperiod(params.Beat)
-						:effectmagnitude( 1, 1.03125 + ( 1/32 ) * ( i - 2 ), 0 )
-					self:croptop( (1/32) * i )
-					self:cropbottom( (1/32) * i )
-					self:cropleft( (1/32) * i )
-					self:cropright( (1/32) * i )
-				end
+				local tween = tween * 2
+				self:pulse():effectoffset(0.125)
+				self:effectperiod(tween)
+				self:effectmagnitude( 1, 1 + i * 0.25 / ( num * 0.5 ), 0 )
 
 			end
-		},
-
-		RainbowCommand=function(self)
-			self:rainbow()
-			self:effectperiod( 16 * BGA_G.GetDelay(self)[2] )
-		end
+		}
 		
 	}
 end

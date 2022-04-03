@@ -1,39 +1,22 @@
 
+-- TO REDO AS RADIAL
 
 local params = ...
 local p = params
 
-local sprites = p.File
-
-local t = Def.ActorFrame{
-	OnCommand=function(self)
-		self:fov(120)
-		self:zbuffer(true)
-	end,
-	GainFocusCommand=function(self)
-		BGA_G.Stop( self, true )
-	end,
-	LoseFocusCommand=function(self)
-		BGA_G.Stop( self )
-	end	
-}
+local t = BGA_G.Frame()
+t.OnCommand=function(self)
+	self:fov(120)
+	self:zbuffer(true)
+end
 
 p.Alpha = p.Alpha or 1
 
-BGA_G.DefPar( p )
-
 local num = p.Num or 18
-
-local ang = { -360, 360 }
-
-if not p.Spin then 
-	ang[1] = 0
-	ang[2] = 0
-end
+local ang = p.Spin and { -360, 360 } or { 0, 0 }
 
 local comd = "MoveY"
-if p.Dir == "Left" 
-or p.Dir == "Right" then
+if p.Dir == "Left" or p.Dir == "Right" then
 	comd = "MoveX"
 end
 
@@ -41,32 +24,21 @@ p.Dir = p.Dir or "Down"
 
 for i=1,num do	
 
-	local a = Def.ActorFrame{
-		GainFocusCommand=function(self)
-			BGA_G.Stop( self, true )
-		end,
-		LoseFocusCommand=function(self)
-			BGA_G.Stop( self )
-		end
-	}
-
-	-- Rainbow Pattern AF
-	t[#t+1] = Def.ActorFrame{ a }
+	local a = BGA_G.Frame()		t[#t+1] = a
 
 	a[#a+1] = Def.Sprite{
 
 		InitCommand=function(self)
-			if type(sprites) == "table" then 
-				self:Load(sprites[math.random(1,#sprites)])
-			else
-				self:Load(sprites)
+			local files = p.File
+			if type(p.File) == "string" then 
+				files = { files }
 			end
+			local file = math.random( 1, #files )
+			file = files[file]
+			self:Load(file)
 		end,
 
 		OnCommand=function(self)
-
-			self:set_tween_uses_effect_delta(true)
-			self:effectclock("beat")
 
 			local scale = _screen.h / 480
 			local z = math.random( -500, 0 ) * scale
@@ -75,11 +47,8 @@ for i=1,num do
 
 			if p.Shade then
 				local s = col .. ","
-				for i=1,2 do
-					s = s .. s
-				end
-				s = s .. "1"
-				self:diffuse( color(s) )
+				for i=1,2 do s = s .. s end
+				self:diffuse( color(s .. "1") )
 			end		
 
 			self:diffusealpha(0)
@@ -95,50 +64,28 @@ for i=1,num do
 				self:setstate( n )
 			end
 
-			BGA_G.SetStates(self, p)
-			BGA_G.PlayCmds(self, p)
+			BGA_G.ObjFuncs(self)
+			self:SetStates(p)
+			self:PlayCmds(p)
 
-			if BGA_G.IsCmd( p, "Rainbow" )
-			or p.Color == "Rainbow" then
-
-				if p.RainbowPattern == 2 then
-					self:GetParent():GetParent():SetUpdateFunction(function(af)
-
-						local d = self:GetEffectDelta()
-						af.clock = af.clock and af.clock + d or 0
-
-						if af.clock > 1 then
-							local n = {}
-							for i=1,3 do
-								n[i] = math.random(0,1000) * 0.001
-								n[i] = tostring(n[i]) .. ","
-							end
-							af:diffuse(color(n[1]..n[2]..n[3].."1"))
-							af.clock = 0
-						end
-
-					end)
-				else
-					self:rainbow()
-					self:effectperiod( 16 * BGA_G.GetDelay(self)[2] )
-				end
-				
+			if p:IsCmd( "Rainbow" ) then
+				self:rainbow()
+				self:effectperiod( 16 * self:GetDelay(2) )
 			end
 
-			local d = BGA_G.GetDelay(self)[2]
+			local d = self:GetDelay(2)
 			self:sleep( i * 0.5 * d )
 			self:diffusealpha(1)	
 
-			if BGA_G.IsCmd( p, "Color" )
-			and type(p.Color) == "table" then
+			if p:IsCmd( "Color" ) then
 				self:diffuse(p.Color[1])
 			end
 
-			if BGA_G.IsCmd( p, "Alpha" ) then
+			if p:IsCmd( "Alpha" ) then
 				self:diffusealpha( p.Alpha )
 			end
 
-			if BGA_G.IsCmd( p, "Blend" ) then
+			if p:IsCmd( "Blend" ) then
 				p.Blend = p.Blend or "BlendMode_Modulate"
 				self:blend( p.Blend )
 			end
@@ -154,11 +101,11 @@ for i=1,num do
 		end,
 
 		SleepCommand=function(self)
-			local d = BGA_G.GetDelay(self)[2]
+			local d = self:GetDelay(2)
 			self:diffusealpha(0)
 			self:sleep(2*d)
 			self:diffusealpha(1)
-			if BGA_G.IsCmd( p, "Alpha" ) then
+			if p:IsCmd( "Alpha" ) then
 				self:diffusealpha( p.Alpha )
 			end
 			self:queuecommand(comd)
@@ -169,7 +116,7 @@ for i=1,num do
 			local w = self:GetZoomedWidth() * 0.5
 			local h = self:GetZoomedHeight() * 0.5
 			local d = self.d
-			local d_2 = BGA_G.GetDelay(self)[2]
+			local d_2 = self:GetDelay(2)
 
 			local Dirs = {}
 
@@ -207,7 +154,7 @@ for i=1,num do
 			local w = self:GetZoomedWidth() * 0.5
 			local h = self:GetZoomedHeight() * 0.5
 			local d = self.d
-			local d_2 = BGA_G.GetDelay(self)[2]
+			local d_2 = self:GetDelay(2)
 
 			local Dirs = {}
 
@@ -244,8 +191,6 @@ for i=1,num do
 
 end
 
-if p.Remove then
-	t = nil
-end
+t = not p.Remove and t
 
 return Def.ActorFrame{ t }

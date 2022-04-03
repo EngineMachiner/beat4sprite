@@ -4,14 +4,8 @@ local p = params
 
 local random = math.random( 10,100 ) * 0.01
 
-local t = Def.ActorFrame{
+local t = BGA_G.Frame() .. {
 
-	GainFocusCommand=function(self)
-		BGA_G.Stop( self, true )
-	end,
-	LoseFocusCommand=function(self)
-		BGA_G.Stop( self )
-	end,
 	Def.Quad{
 		OnCommand=function(self)
 			self:SetSize(SCREEN_WIDTH,SCREEN_HEIGHT)
@@ -19,11 +13,11 @@ local t = Def.ActorFrame{
 			self:diffuse(Color.Black)
 		end
 	}
-
+	
 }
 
 p.Reversed = p.Reversed and - 1 or 1
-BGA_G.DefPar( p )
+
 
 local w, h
 local ang = 360/6
@@ -56,7 +50,7 @@ for j=0,5 do
 
 		-- Center Kaleidoscope
 
-		t[#t+1] = Def.Sprite{
+		t[#t+1] = Def.Sprite{	
 			InitCommand=function(self)
 				self:Load(p.File, "stretch")
 			end,
@@ -78,7 +72,7 @@ for j=0,5 do
 
 		-- Cropped Outer Kaleidoscopes (2)
 
-		t[#t+1] = Def.Sprite{
+		t[#t+1] = Def.Sprite{	
 			InitCommand=function(self)
 				self:Load(p.File, "stretch")
 			end,
@@ -99,7 +93,7 @@ for j=0,5 do
 			end
 		}
 
-		t[#t+1] = Def.Sprite{
+		t[#t+1] = Def.Sprite{	
 			InitCommand=function(self)
 				self:Load(p.File, "stretch")
 			end,
@@ -120,7 +114,7 @@ for j=0,5 do
 			end
 		}
 
-		t[#t+1] = Def.Sprite{
+		t[#t+1] = Def.Sprite{	
 			InitCommand=function(self)
 				self:Load(p.File, "stretch")
 			end,
@@ -144,8 +138,6 @@ for j=0,5 do
 	end
 end
 
-if params.Remove then
-	t = nil
-end
+t = not params.Remove and t
 
 return Def.ActorFrame{ t }

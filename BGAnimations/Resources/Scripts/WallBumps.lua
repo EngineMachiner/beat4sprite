@@ -3,8 +3,6 @@ local params = ...
 
 local t = Def.ActorFrame{}
 
-BGA_G.DefPar( params )
-
 local function UnitVec()
 
 	local x = math.random(-1000,1000) * 0.001
@@ -23,25 +21,18 @@ for k=1,3 do
 
 		if k < 3 or i < 2 and k == 3 then
 
-			local f = Def.ActorFrame{ 
-				GainFocusCommand=function(self)
-					BGA_G.Stop( self, true )
-				end,
-				LoseFocusCommand=function(self)
-					BGA_G.Stop( self )
-				end
-			}	
+			local f = BGA_G.Frame()
 		
 			t[#t+1] = Def.ActorFrame{ f }
 
-			f[#f+1] = Def.Sprite{
-				
+			f[#f+1] = Def.Sprite{		
 				InitCommand=function(self)
 					self:Load(params.File)
 				end,
 
 				OnCommand=function(self)
-					BGA_G.SetStates(self, params)
+					BGA_G.ObjFuncs(self)
+					self:SetStates(params)
 
 					self.dir = UnitVec()
 					count = count + 0.1
@@ -49,17 +40,14 @@ for k=1,3 do
 					local w = self:GetZoomedWidth()
 					local h = self:GetZoomedHeight()
 					local n = self:GetNumStates()
-					local d = BGA_G.GetDelay(self)[2]
+					local d = self:GetDelay(2)
 
 					if n > 1 then 
 						local s = math.random( 0, ( n - 1 ) )
 						self:setstate( s )
 					end
 
-					self:effectclock("beat")
-					self:set_tween_uses_effect_delta(true)
-
-					BGA_G.PlayCmds(self, params)
+					self:PlayCmds(params)
 
 					self:x( w * 0.75 * i )
 					self:y( h * 0.75 + h * 0.5 * ( k - i * 0.25 ) )
@@ -84,16 +72,16 @@ for k=1,3 do
 					end
 
 					local function HBorder(w)
-						if self:GetX() + w * 0.5 >= SCREEN_WIDTH
-						or self:GetX() - w * 0.5 <= 0 then 
+						if self:GetX() + w * 0.5 > SCREEN_WIDTH
+						or self:GetX() - w * 0.5 < 0 then 
 							return true
 						end
 						return false
 					end
 
 					local function VBorder(h)
-						if self:GetY() + h * 0.5 >= SCREEN_HEIGHT
-						or self:GetY() - h * 0.5 <= 0 then 
+						if self:GetY() + h * 0.5 > SCREEN_HEIGHT
+						or self:GetY() - h * 0.5 < 0 then 
 							return true
 						end
 						return false
@@ -163,8 +151,6 @@ for k=1,3 do
 	end
 end
 
-if params.Remove then
-	t = nil
-end
+t = not params.Remove and t
 
 return Def.ActorFrame{ t }

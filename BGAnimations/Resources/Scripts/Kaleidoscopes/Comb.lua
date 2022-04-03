@@ -2,14 +2,7 @@
 local params = ...
 local scl = _screen.h/480
 
-local t = Def.ActorFrame{
-	GainFocusCommand=function(self)
-		BGA_G.Stop( self, true )
-	end,
-	LoseFocusCommand=function(self)
-		BGA_G.Stop( self )
-	end
-}
+local t = BGA_G.Frame()
 
 
 local w, h
@@ -29,13 +22,12 @@ local function Settings( self, j )
 	self:SetSize(h,h)
 	self:rotationz( 90 - ang * 2 * j )
 	
-
 end
 
 for x=-2,2 do
 	for y=-1,1 do
 		for j=0,5 do
-			t[#t+1] = Def.Sprite{
+			t[#t+1] = Def.Sprite{		
 				InitCommand=function(self)
 					self:Load(params.File, "stretch")
 				end,
@@ -62,7 +54,7 @@ for x=-2,2 do
 	end
 	for y=-1,2 do
 		for j=0,5 do
-			t[#t+1] = Def.Sprite{
+			t[#t+1] = Def.Sprite{		
 				InitCommand=function(self)
 					self:Load(params.File, "stretch")
 				end,
@@ -88,5 +80,7 @@ for x=-2,2 do
 		end
 	end
 end
+
+t = not params.Remove and t
 
 return Def.ActorFrame{ t }

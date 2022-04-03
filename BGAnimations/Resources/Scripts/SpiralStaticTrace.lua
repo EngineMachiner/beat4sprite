@@ -2,8 +2,6 @@
 local params =  ...
 local p = params
 
-BGA_G.DefPar( p )
-
 local t = Def.ActorFrame{}
 
 if p.Frames[1] == p.Frames[2] then
@@ -54,27 +52,18 @@ end
 
 for i = 1,m do
 	
-	t[#t+1] = Def.ActorFrame{
-		GainFocusCommand=function(self)
-			BGA_G.Stop( self, true )
-		end,
-		LoseFocusCommand=function(self)
-			BGA_G.Stop( self )
-		end
-	}
+	t[#t+1] = BGA_G.Frame()
 
 	local t = t[#t]
 	
 	t[#t+1] = Def.Sprite{
 		OnCommand=function(self)
 
-			self:set_tween_uses_effect_delta(true)
-			self:effectclock("beat")
-
 			self:Load(p.File)
-			BGA_G.SetStates(self, p)
+			BGA_G.ObjFuncs(self)
+			self:SetStates(p)
 
-			local d = BGA_G.GetDelay(self)[2]
+			local d = self:GetDelay(2)
 			local w = self:GetZoomedWidth()
 			local h = self:GetZoomedHeight()
 			self.firstZoom = self:GetZoom()
@@ -130,13 +119,12 @@ for i = 1,m do
 				
 			end
 
-			self:x( pos[1] )
-			self:y( pos[2] )
+			self:xy( pos[1], pos[2] )
 
 			self:x( self:GetX() - ( ( p.Sheet[1] + 1 ) % 2 ) * w * 0.5 )
 			self:y( self:GetY() - ( p.Sheet[2] % 2 ) * h * 0.5 )
 
-			BGA_G.PlayCmds(self, p)
+			self:PlayCmds(p)
 			
 			self:zoom(0)
 			self:sleep( 4 * d * (i-1) / m )
@@ -152,7 +140,7 @@ for i = 1,m do
 			self:setstate(i % self:GetNumStates())
 		end,
 		RepeatCommand=function(self)
-			local d = BGA_G.GetDelay(self)[2]
+			local d = self:GetDelay(2)
 			local s = 4 * d * (m-1) / m
 			self:linear(0.25)
 			self:zoom(self.firstZoom)
@@ -165,8 +153,6 @@ for i = 1,m do
 
 end
 
-if p.Remove then
-	t = nil
-end
+t = not p.Remove and t
 
 return Def.ActorFrame{ t }

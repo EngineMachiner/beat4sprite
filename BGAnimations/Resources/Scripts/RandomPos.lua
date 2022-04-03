@@ -1,18 +1,7 @@
 
 local params = ...
 
-local ScaleVar = _screen.h/480
-
-local t = Def.ActorFrame{
-	GainFocusCommand=function(self)
-		BGA_G.Stop( self, true )
-	end,
-	LoseFocusCommand=function(self)
-		BGA_G.Stop( self )
-	end
-}
-
-	BGA_G.DefPar( params )
+local t = BGA_G.Frame()
 
 for i=1,24 do
 	t[#t+1] = Def.Sprite{
@@ -21,20 +10,18 @@ for i=1,24 do
 
 			self.UniqueEffect = true
         	self:Load( params.File )
-		  	self:effectclock("beat")
-		  	self:set_tween_uses_effect_delta(true)
-		  	BGA_G.PlayCmds(self, params)
-		  	BGA_G.SetStates(self, params)
+			BGA_G.ObjFuncs(self)
+		  	self:PlayCmds(params)
+		  	self:SetStates(params)
 		  	self:queuecommand("Go")
 
 		end,
 		GoCommand=function(self)
 
-			self:stoptweening()
 		 	self:zoom( self:GetZoom() * 0.25 * math.random(1,3) )
-			self:x(math.random(0, _screen.w))
-			self:y(math.random(0, _screen.h))
-			self:sleep(2 * BGA_G.GetDelay(self)[2])
+			self:x( math.random(0, _screen.w) )
+			self:y( math.random(0, _screen.h) )
+			self:sleep( 2 * self:GetDelay(2) )
 			self:queuecommand("Go")
 
 		  	if self:GetNumStates() > 1 then 
@@ -44,7 +31,7 @@ for i=1,24 do
 		end,
 		RainbowCommand=function(self)
 			self:rainbow():effectoffset(i*0.12)
-			self:effectperiod( 16 * BGA_G.GetDelay(self)[2] )
+			self:effectperiod( 16 * self:GetDelay(2) )
 		end,
 		RotationCommand=function(self)
 			self:rotationz(math.random(0,360))
@@ -53,8 +40,6 @@ for i=1,24 do
 	}
 end	
 
-if params.Remove then
-	t = nil
-end
+t = not params.Remove and t
 
 return Def.ActorFrame{ t }
