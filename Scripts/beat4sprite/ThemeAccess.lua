@@ -5,7 +5,10 @@
 ]]
 
 local function ChangeThemePath(path, s)
-	return path:gsub( THEME:GetCurThemeName(), s )
+	-- Escape chars
+	local name = THEME:GetCurThemeName()
+	name = name:gsub( "(%p)", "%%%1" )
+	return path:gsub( name, s )
 end
 
 local function GetThemesPath()
