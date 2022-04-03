@@ -20,26 +20,12 @@ this project evolved.
 I tried to do a lot of code maintenance and debugging too, 
 checking my code and performance testing in-game.
 
-If you're interested you might want to check:
+If you're interested you might want to check examples:
 https://github.com/EngineMachiner/beat4sprite-Collections
 
 ### INSTALLATION
 
-  Download one of the releases or do the following if you want the latest version:
-
-  1. Clone/Download this branch and drop it somewhere.
-  2. Clone/Download the "Resources" branch.
-  * Choose the game version you want in the "Resources" branch, same for the Original or Double Scaled graphics. 
-  3. Copy the contents of the folder you chose ("the ones that are XthXXX") in your BGAnimations folder.
-  4. Copy either Original or Double Scaled contents in the "/BGAnimations".
-  5. Copy the videos. Videos are sorted (by game) in the Resources folder.
-  
-  Must check:
-  
-  * That the Resources folder has the Nth game folder with the Sprites, Backgrounds, Videos folders and the libraries.
-  	(Example: "/BGAnimations/Resources/Nth")
-  * That the NthXXX folders are at "/BGAnimations/" and that PSX-BGA-Scripts.lua is at "/Scripts" (root directory folder) so it loads 		the file when starting the game.
-  * When you start SM, press Ctrl + F2 to load the PSX-BGA-Scripts.lua in case it didn't.
+  1. Drop BGAnimations and the Scripts folder in your StepMania root folder.
 
 ### CREDITS
 
