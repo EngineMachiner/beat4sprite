@@ -1,4 +1,3 @@
-
 local params = ...
 
 local HT = params.HurryTweenBy or 1
@@ -8,31 +7,16 @@ HT = HT / X
 local t = Def.ActorFrame{}
 
 -- Texture 
-local params_2 = BGA_G.Create( {
-	TCV = { -1, 0 },
-	Reversed = true,
-	ZoomXYZ = { X, 1, 1 },
-	HurryTweenBy = HT,
-	X_pos = 1
+local params_2 = params:Copy( {
+	X_pos = 0.24 * 0.75,
+	Mirror = true,		X_num = 1,
+	TCV = { -1, 0 },	Reversed = true,
+	ZoomXYZ = { X, 1, 1 },	HurryTweenBy = HT,
+	Script = "TileTool.lua",
+	Commands = "Mirror",
 } )
 
-t[#t+1] = Def.ActorFrame{
-	Def.ActorFrameTexture{
-		Def.ActorFrame{
-			BGA_G.Load( {
-				File = params.File, X_num = 1,
-				Commands = "Mirror"
-			} )
-		},
-		InitCommand=function(self)
-			self:setsize( SCREEN_WIDTH, SCREEN_HEIGHT )
-			self:EnableAlphaBuffer(true)
-			self:Create()
-			p.Texture = self:GetTexture()
-		end
-	},
-	params_2:Load()
-}
+t[#t+1] = params_2:Load()
 
 -- Mask
 local t2 = t[#t]
@@ -52,7 +36,7 @@ t2[#t2+1] = Def.Quad{
 		self:queuecommand("On")
 	end,
 	RepeatCommand=function(self)
-		local d = self:GetDelay(2)
+		local d = self:GetFullDelay(params)
 		d = d * HT * X * 7.5
 		self:linear( d )
 		self:x( SCREEN_WIDTH * 0.5 )

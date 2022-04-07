@@ -4,8 +4,7 @@ local params = ...
 local num, fov = params.Num or 12, 150
 
 if params.File:match("1st/") then
-	num = num * 2
-	fov = 170
+	num = num * 2		fov = 170
 end
 
 local t = BGA_G.Frame() .. {
@@ -21,6 +20,16 @@ for i=1,num do
 	t[#t+1] = Def.ActorFrame{
 		OnCommand=function(self)
 			BGA_G.ObjFuncs(self)
+			local d = self:GetFullDelay(params) * 6 / num
+			self:sleep( ( i - 1 ) * d )
+			self:queuecommand("Repeat")
+		end,
+		RepeatCommand=function(self)
+			local d = self:GetFullDelay(params)
+			local t1, t2 = d * 0.5, d * 4
+
+			self:z(- 600):linear(t1 * 2 + t2):z(0)
+			self:queuecommand("Repeat")
 		end
 	}
 	local a = t[#t]
@@ -28,20 +37,18 @@ for i=1,num do
 	a[#a+1] = Def.ActorFrame{
 
 		OnCommand=function(self)
-			BGA_G.ObjFuncs(self)
-			self:diffusealpha(0):sleep(i)
-			self:queuecommand("Repeat")
+			BGA_G.ObjFuncs(self)	self:diffusealpha(0)
 		end,
 		RepeatCommand=function(self)
-			local p = self:GetParent()
-			local p2 = self:GetDelay()
-			p2 = p2 + params.HurryTweenBy
-			local tween, t2 = p2 * fov * 0.2 / num, 0.25
+			
+			local d = self:GetFullDelay(params)
+			local t1, t2 = d * 0.5, d * 4
+
+			self:stoptweening()
 			self:queuecommand("Bump")
-			self:linear(t2):diffusealpha(1)
-			self:sleep(tween):linear(t2):diffusealpha(0)
-			p:z(-600):linear(tween+t2*3):z(0)
-			p:queuecommand("Repeat")
+			self:linear(t1):diffusealpha(1)
+			self:sleep(t2):linear(t1):diffusealpha(0)
+
 		end,
 
 		Def.Sprite{	
@@ -71,12 +78,13 @@ for i=1,num do
 				local h = self:GetZoomedHeight()
 				local a = { - SCREEN_WIDTH * 0.5, SCREEN_WIDTH * 1.5 }
 
-				self:y(SCREEN_HEIGHT - h)
+				self:y( SCREEN_HEIGHT - h )
 				self:x( math.random( a[1], a[2] ) )
 
-				local mag = - h * 1.5
-				local off = math.random(0,1000) * 0.001
-				local per = self:GetDelay(2)
+				local mag = - h * 1.5 - ( i * 10 )
+				mag = mag - math.random(100,1000) * 0.1
+				local off = ( i - 1 ) * 2 / num
+				local per = self:GetFullDelay(params) * 1.25
 
 				if params.File:match("/Resources/1st/") then
 					mag = mag * 2	off = off * 2

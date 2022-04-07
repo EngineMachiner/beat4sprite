@@ -18,15 +18,16 @@ local t = BGA_G.Frame() .. {
 t[#t+1] = Def.ActorFrameTexture{
         
     Def.Sprite{
+        Texture = params.File,
         InitCommand=function(self)
             self.p = self:GetParent()
-            self:Load(params.File)
             BGA_G.ObjFuncs(self)
             self:SetStates(params)
             self.p:SetWidth( self:GetZoomedWidth() * 4.25 )
             self.p:SetHeight( self:GetZoomedHeight() * 4.25 )
         end,
         OnCommand=function(self)
+            BGA_G.ObjFuncs(self)
             self:SetStates(params)
 
             self:animate(false)
@@ -36,7 +37,8 @@ t[#t+1] = Def.ActorFrameTexture{
 
             self:spin()
             if params.SpinMag then 
-                local r = params.SpinMag
+                local r = params.SpinMag 
+                for i=1,#r do r[i] = r[i] * self:GetFullDelay(params) end
                 self:effectmagnitude(r[1],r[2],r[3])
             end
         end

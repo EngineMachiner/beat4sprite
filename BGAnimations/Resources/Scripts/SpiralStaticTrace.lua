@@ -63,7 +63,7 @@ for i = 1,m do
 			BGA_G.ObjFuncs(self)
 			self:SetStates(p)
 
-			local d = self:GetDelay(2)
+			local d = self:GetFullDelay(p)
 			local w = self:GetZoomedWidth()
 			local h = self:GetZoomedHeight()
 			self.firstZoom = self:GetZoom()
@@ -125,14 +125,10 @@ for i = 1,m do
 			self:y( self:GetY() - ( p.Sheet[2] % 2 ) * h * 0.5 )
 
 			self:PlayCmds(p)
-			
+
 			self:zoom(0)
 			self:sleep( 4 * d * (i-1) / m )
 			self:queuecommand("Repeat")
-
-			if p.HurryTweenBy then 
-				self:hurrytweening( p.HurryTweenBy )
-			end
 
 		end,
 		TwoSpritesCommand=function(self)
@@ -140,13 +136,11 @@ for i = 1,m do
 			self:setstate(i % self:GetNumStates())
 		end,
 		RepeatCommand=function(self)
-			local d = self:GetDelay(2)
+			local d = self:GetFullDelay(p)
 			local s = 4 * d * (m-1) / m
 			self:linear(0.25)
 			self:zoom(self.firstZoom)
-			self:sleep(s)
-			self:linear(0.25):zoom(0)
-			self:sleep(s)
+			self:sleep(s):linear(0.25):zoom(0):sleep(s)
 			self:queuecommand("Repeat")
 		end
 	}

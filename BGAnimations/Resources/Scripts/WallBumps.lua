@@ -26,10 +26,7 @@ for k=1,3 do
 			t[#t+1] = Def.ActorFrame{ f }
 
 			f[#f+1] = Def.Sprite{		
-				InitCommand=function(self)
-					self:Load(params.File)
-				end,
-
+				Texture = params.File,
 				OnCommand=function(self)
 					BGA_G.ObjFuncs(self)
 					self:SetStates(params)
@@ -40,7 +37,7 @@ for k=1,3 do
 					local w = self:GetZoomedWidth()
 					local h = self:GetZoomedHeight()
 					local n = self:GetNumStates()
-					local d = self:GetDelay(2)
+					local d = self:GetFullDelay(params)
 
 					if n > 1 then 
 						local s = math.random( 0, ( n - 1 ) )
@@ -125,14 +122,14 @@ for k=1,3 do
 
 								if HBorder(w) then
 									self.dir[1] = - self.dir[1]
-									self:x( self:GetX() + self.dir[1] * w * 0.25 * 0.01 )
+									self:x( self:GetX() + self.dir[1] * d * 2 )
 								else
 									self:x( self:GetX() + self.dir[1] * d )
 								end
 		
 								if VBorder(h) then
 									self.dir[2] = - self.dir[2] 
-									self:y( self:GetY() - self.dir[2] * h * 0.25 * 0.01 )
+									self:y( self:GetY() - self.dir[2] * d * 2 )
 								else
 									self:y( self:GetY() - self.dir[2] * d )
 								end	

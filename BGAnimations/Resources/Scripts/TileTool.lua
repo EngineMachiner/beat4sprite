@@ -110,7 +110,7 @@ for i=x[1],x[2] do
 
 					if p:IsCmd( "Rainbow" ) then
 						self:rainbow()
-						self:effectperiod( 16 * self:GetDelay(2) )
+						self:effectperiod( 16 * self:GetDelay() )
 					elseif p:IsCmd( "Color" )
 					and type(p.Color) == "table" then
 						self:diffuse(p.Color[1])
@@ -278,13 +278,21 @@ for i=x[1],x[2] do
 				local w = self:GetZoomedWidth()
 				local h = self:GetZoomedHeight()
 
-				pa:Center()
-
 				local scl = h / SCREEN_HEIGHT
+				local a = p.MultipleFiles
+
+				if p:IsCmd("Mirror")
+				and not p.Reversed then
+					w = w * 2	h = h * 2
+					scl = scl * 2
+				end
+
+				pa:Center()
+				
 				if p.ZoomXYZ then
 
 					if p.ZoomXYZ[1] >= 2 then
-						w = w + SCREEN_WIDTH * TCV[1]
+						w = w - w * 0.25 * 1.25 * TCV[1]
 						scl = scl * p.ZoomXYZ[1]
 					end
 
@@ -300,8 +308,7 @@ for i=x[1],x[2] do
 				scl = BGA_G.NoteSync and scl * 7.5 or scl
 
 				local endpos = { 
-					pa:GetX() + w * TCV[1],
-					pa:GetY() + h * TCV[2]
+					pa:GetX() + w * TCV[1],		pa:GetY() + h * TCV[2]
 				}
 
 				if params:IsCmd( "StairsStates" ) then
@@ -314,7 +321,6 @@ for i=x[1],x[2] do
 					}		
 				end
 
-				local a = p.MultipleFiles
 				if a then
 
 					local x = w * TCV[1]
@@ -365,7 +371,7 @@ for i=x[1],x[2] do
 
 				end
 
-				local d = self:GetDelay(2)
+				local d = self:GetDelay()
 				scl = scl * d
 					
 				if p.SleepMove then
@@ -379,16 +385,12 @@ for i=x[1],x[2] do
 				else
 					local tween = p.HurryTweenBy
 					tween = p.SkipFrame and tween * 2 / n or tween
-					scl = scl * tween
-					pa:linear(scl)
+					scl = scl * tween		pa:linear(scl)
 					pa:xy( endpos[1], endpos[2] )
 				end
 
-				if p.Reversed and
-				TCV[1] ~= 0 and i == x[1]
-				or TCV[2] ~= 0 and j == y[1] then
-					pa.R = pa.R or false
-					pa.R = not pa.R
+				if p.Reversed then
+					pa.R = pa.R or false		pa.R = not pa.R
 				end
 
 				pa:queuecommand("MoveEffect")
@@ -408,7 +410,7 @@ for i=x[1],x[2] do
 
 			FadeCommand=function(self)
 
-				local n, d = 1, self:GetDelay(2)
+				local n, d = 1, self:GetDelay()
 				
 				if p.TCV and ( p.TCV[1] ~= 0 or p.TCV[2] ~= 0 ) then
 					n = p.Sample and p.Sample:GetNumStates()
@@ -451,7 +453,7 @@ for i=x[1],x[2] do
 
 			FourScreensCommand=function(self)
 
-				local d = self:GetDelay(2)
+				local d = self:GetDelay()
 				if j == 0 then
 
 					-- Repeat twice
@@ -617,7 +619,7 @@ for i=x[1],x[2] do
 
 			SpinXYCommand=function(self)
 
-				local d = self:GetDelay(2)
+				local d = self:GetDelay()
 				d = d * p.HurryTweenBy
 
 				local val = p.SpinC and { 90, 0 } or { 0, 90 }
@@ -637,7 +639,7 @@ for i=x[1],x[2] do
 			end,
 
 			SpinXCommand=function(self)
-				local d = self:GetDelay(2)
+				local d = self:GetDelay()
 				d = d * 2 * p.HurryTweenBy
 				self:rotationy(0):linear(d)
 			   	self:rotationy(90):linear(d)
@@ -646,7 +648,7 @@ for i=x[1],x[2] do
 		   	end,
 
 			SpinYCommand=function(self)
-				local d = self:GetDelay(2)
+				local d = self:GetDelay()
 				d = d * 2 * p.HurryTweenBy
 				self:rotationx(0):linear(d)
 			  	self:rotationx(90):linear(d)
@@ -679,7 +681,7 @@ for i=x[1],x[2] do
 
 			PulseCommand=function(self)
 				local z = self:GetZoom()
-				local d = self:GetDelay(2)
+				local d = self:GetDelay()
 				self:smooth(d):zoom(0)
 				self:smooth(d):zoom(z)
 				self:queuecommand("Pulse")
@@ -692,7 +694,7 @@ for i=x[1],x[2] do
 
 			Z2Command=function(self)
 				local z = self:GetZoom()
-				local d = self:GetDelay(2) * 2
+				local d = self:GetDelay() * 2
 				self:zoom(z):linear(d)
 				self:zoom( z * 1.5 ):linear(d)
 				self:zoom(z)
@@ -706,7 +708,7 @@ for i=x[1],x[2] do
 					return
 				end
 
-				local d = self:GetDelay(2) * 2
+				local d = self:GetDelay() * 2
 				d = p.HurryTweenBy and p.HurryTweenBy * d or d
 				self:diffusealpha(1):linear(d)
 				self:diffusealpha(0):linear(d)

@@ -1,4 +1,8 @@
 
+-- Reminder all sprites created with a loop should have their
+-- own ActorFrame to get proper delay animation control
+-- (tfw I forgot about this and lost a day debugging)
+
 BGA_G = {
 	RPath = "/BGAnimations/Resources/",
 	SPath = "/BGAnimations/Resources/Scripts/",
@@ -114,10 +118,10 @@ local function ScreenPreview(self, params)
 
 	if IsScreenAvailable("Preview") then
 
-		if tostring(self):match("Sprite") then
+		if tostring(self):match("Sprite ") then
 			local n = self:GetNumStates()
 			if n > 1 then
-				local d = params.FrmDelay / n 
+				local d = params.FrmDelay / n
 				self:SetAllStateDelays(d)
 			end
 		end
@@ -151,9 +155,8 @@ local function GetDelay(self, i, params)
 
 	local s = self
 	local p = params or BGA_G.Create( {} )
-	local d = p.FrmDelay or 1
-	d = d * p.InternalDelay
-	
+	local d = p.FrmDelay * p.InternalDelay
+
 	local bpm = GAMESTATE:GetSongBPS() * 60
 	if bpm > 200 then
 		d = d * math.floor( bpm * 0.01 ) * 0.5
@@ -167,7 +170,9 @@ local function GetDelay(self, i, params)
 	n = n or s:GetNumStates()
 	if n == 0 then n = 1 end
 
-	return ( { d / n, d } )[i]
+	if not i then i = 1 end
+
+	return ( { d, d / n } )[i]
 
 end
 
@@ -424,8 +429,8 @@ local function DefPar( params )
 	if #t == 0 then t = nil end
 	p.Commands = t
 
-	if p:IsCmd( "Mirror" )
-	and not p.Mirror then
+	if p.Mirror == true
+	or p:IsCmd( "Mirror" ) and not p.Mirror then
 		p.Mirror = { 1, 1 }
 	end
 
@@ -702,15 +707,7 @@ end
 local function Load( params, frame )
 	
 	-- Optional p as parent
-	local p = frame or Def.ActorFrame{
-		GainFocusCommand=function(self)
-			BGA_G.ObjFuncs(self)
-			self:ResumeOrStop()
-		end,
-		LoseFocusCommand=function(self)
-			self:ResumeOrStop("Stop")
-		end
-	}
+	local p = frame or BGA_G.Frame()
 
 	-- Do not set default parameters 
 	--	if we already have a base script
@@ -797,7 +794,7 @@ local function Update(self, params)
 		if n > 1 then
 
 			local id = self.IDelay or 1
-			local d = self:GetDelay(1, params) * id
+			local d = self:GetDelay(2, params) * id
 			local dataSD = data.StateDelay
 
 			if not dataSD or dataSD ~= d then
@@ -981,21 +978,6 @@ local function PlayCmds( self, params )
 
 end
 
--- Stop behaviour
-local function ResumeOrStop( self, stop )
-	if not stop then
-		self:visible(true)
-	else
-		self:stoptweening()
-		self:visible(false)
-		self:RunCommandsOnChildren(function(c)
-			c:stoptweening()
-			c:animate(false)
-		end)
-
-	end
-end
-
 -- Shadows depending on Z.
 local function ZShade( self )
 
@@ -1024,7 +1006,7 @@ local function ZShade( self )
 	local color1 = concat( c[1].."," ) .. "1"
 	local color2 = concat( c[2].."," ) .. "1"
 
-	self:stoptweening()
+	local p = self:GetParent():GetParent()
 	self:diffuse( color( color1 ) )
 	self:linear( self:GetParent():GetParent().Tween )
 	self:diffuse( color( color2 ) )
@@ -1041,12 +1023,30 @@ local function Center3D(self, scale)
 	end
 end
 
+-- Stop behaviour
+local function ResumeOrStop( self, stop )
+	
+	if tostring(self):match("Sprite ") then
+		self:texcoordvelocity(0,0)
+	end
+
+	self:visible(false)
+	if not stop then
+		self:visible(true)
+	end
+
+end
+
 local function ObjFuncs(self)
 
 	if IsScreenAvailable("Gameplay") then
+		--self:stoptweening()
 		self:set_tween_uses_effect_delta(true)
 		self:effectclock('beat')
-		self:stoptweening()
+	end
+
+	self.GetFullDelay = function(self, p, i)
+		return self:GetDelay(i) * p.HurryTweenBy
 	end
 
 	self.GetDelay = GetDelay
@@ -1069,7 +1069,7 @@ local function ObjFuncs(self)
 	}
 
 	for k,v in pairs(t) do
-		if tostring(self):match(k) then v() end
+		if tostring(self):match(k .. " ") then v() end
 	end
 
 end
@@ -1170,8 +1170,8 @@ local funcs = {
 	Details = Details,
 	SetStates = SetStates,
 	PlayCmds = PlayCmds,
-	ResumeOrStop = ResumeOrStop,
 	ZShade = ZShade,
+	ResumeOrStop = ResumeOrStop,
 	ObjFuncs = ObjFuncs,
 	Copy = Copy,
 	BGSet = BGSet

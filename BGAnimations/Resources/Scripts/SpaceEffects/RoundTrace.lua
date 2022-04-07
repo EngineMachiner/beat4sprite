@@ -1,4 +1,9 @@
 
+-- This script is the example to just let each object control
+-- their own tween schedule if you don't want issues on replay or desync
+-- (ActorFrame with the same sleep as the Sprite)
+-- No idea if that's a bug or not
+
 local params = ...
 
 local t = BGA_G.Frame() .. {
@@ -29,7 +34,7 @@ params.Slices = params.Slices or 9
 params.Waves = params.Waves or 3
 
 params.Waves = math.floor( params.Waves )
-params.Slices = math.floor( params.Slices )
+params.Slices = math.floor( params.Slices + 1 )
 
 if params.Type == "Whirl" then
 	params.Slices = 15	params.Waves = 1
@@ -38,7 +43,7 @@ end
 local ang = 360 / params.Slices
 
 local cw = 1
-local val1 = 360 * params.Waves - ang
+local val1 = math.ceil( 360 * params.Waves - ang )
 local loop = { 0, val1, ang }
 if params.Clockwise then 
 	cw = -1		loop = { val1, 0, -ang }
@@ -49,25 +54,50 @@ if params.StaticAngle then
 	params.SprtSpin = 360 * cw
 end
 
-local tween = params.HurryTweenBy
-
 local offset = 14
 for i = 1, params.Slices do offset = offset - 2 end
 
 -- FramePerSprite empty space state skipping
 local skip_i = loop[1]
 
+local tweenT = 4
+local fadeT = 0.25
+
 for i = loop[1], loop[2], loop[3] do
 
 	local a = t[#t]
 
 	a[#a+1] = Def.ActorFrame{
-		Def.ActorFrame{ Def.ActorFrame{} }
+		OnCommand=function(self)
+			-- Frame offset angle
+			if params.Type == "Spiral"
+			and params.AngleOffset then
+				self:rotationz(params.AngleOffset)
+			end
+		end,
+		Def.ActorFrame{ Def.ActorFrame{
+			OnCommand=function(self)
+				BGA_G.ObjFuncs(self)
+				self:diffusealpha(0)
+				local s = i * tweenT
+				s = s / ( math.abs(loop[3]) * params.Slices )
+				self:sleep( s * self:GetFullDelay(params) )
+				self:queuecommand("Fade")
+			end,
+			FadeCommand=function(self)
+				local d = self:GetFullDelay(params) * tweenT
+				local t = d * ( params.Waves - 1 ) * 1.25
+				self:linear(d * fadeT):diffusealpha(1):sleep(t)
+				self:linear(d * fadeT):diffusealpha(0)
+				self:queuecommand("Fade")
+			end
+		} }
 	}
 
 	for i=1,3 do a = a[#a] end
 
 	a[#a+1] = Def.Sprite{
+		Texture = params.File,
 		OnCommand=function(self)
 
 			BGA_G.ObjFuncs(self)
@@ -76,20 +106,15 @@ for i = loop[1], loop[2], loop[3] do
 
 			for i=1,3 do
 				p = p and p:GetParent() or self:GetParent()
-				BGA_G.ObjFuncs(p)
 				frames[#frames+1] = p
+				if i > 1 then BGA_G.ObjFuncs(p) end
 			end
 
 			self.Main = frames[3]
 			self.SpriteFrame = frames[2]
-			self.FadeFrame = frames[1]
 
 			self.Main:Center()
 
-			local d = self:GetDelay(2)
-			self.FadeT = 0.25 * d
-
-			self:Load(params.File)
 			self:SetStates(params)
 
 			self:rotationz( i * cw + 90 )
@@ -106,18 +131,12 @@ for i = loop[1], loop[2], loop[3] do
 				self:blend(params.Blend)
 			end
 
-			-- Frame offset angle
-			if params.Type == "Spiral"
-			and params.AngleOffset then
-				self.Main:rotationz(params.AngleOffset)
-			end
-
-			self.FadeFrame:diffusealpha(0)
-
 			self:PlayCmds(params)
 
-			local s = math.rad( i + 45 ) * 0.5 * d
-			self:sleep( s )
+
+			local s = i * tweenT
+			s = s / ( math.abs(loop[3]) * params.Slices )
+			self:sleep( s * self:GetFullDelay(params) )
 			self:queuecommand("Repeat")
 			
 		end,
@@ -156,9 +175,9 @@ for i = loop[1], loop[2], loop[3] do
 		end,
 		SpinCommand=function(self)
 
-			local d = self:GetDelay(2)
-			local t = ( d + tween ) * 4 * params.Waves / 3
-			t = t + self.FadeT
+			local d = self:GetFullDelay(params) * tweenT
+			local t = d * ( params.Waves - 1 ) * 1.25
+			t = t + d * fadeT * 2
 
 			if params.SprtSpin then
 				local p = self.SpriteFrame
@@ -169,8 +188,7 @@ for i = loop[1], loop[2], loop[3] do
 
 			local p = self.Main
 			local rot = p:GetRotationZ()
-			p:linear(t)
-			p:rotationz(rot - 360 * cw)
+			p:linear(t):rotationz(rot - 360 * cw)
 
 		end,
 		RepeatCommand=function(self)
@@ -181,33 +199,22 @@ for i = loop[1], loop[2], loop[3] do
 
 			if params.InitRot then
 				local a = params.InitRot
-				self:rotationx(a[1])
-				self:rotationy(a[2])
+				self:rotationx(a[1]):rotationy(a[2])
 				self:rotationz(a[3])
 			end
 
 			local dir_x = math.cos(math.rad(i))
 			local dir_y = math.sin(math.rad(i)) * cw
 			local h = self:GetZoomedHeight()
-			local d = self:GetDelay(2)
-
-			-- Whirl is a bit tight
-			local b = params.Type == "Whirl" and 3.5 or 3
-			local t = ( d + tween ) * 4 * params.Waves / b
+			local d = self:GetFullDelay(params) * tweenT
 
 			local p = self.SpriteFrame
-
 			p:x( h * 1.5 * dir_x )
 			p:y( h * 1.5 * dir_y )
 
-			local f = self.FadeFrame
-			f:linear(self.FadeT):diffusealpha(1)
-			f:sleep(t):linear(self.FadeT):diffusealpha(0)
-
+			local t = d * ( params.Waves - 1 ) * 1.25
 			self:z(params.Dir[1])
-			self:sleep(self.FadeT * 0.5)
-			self:linear( self.FadeT + t):z(params.Dir[2])
-			self:sleep( self.FadeT * 0.5 + d + params.Waves / 3 - 1 )
+			self:linear(t + d * fadeT * 2):z(params.Dir[2])
 			self:queuecommand("Repeat")
 
 		end

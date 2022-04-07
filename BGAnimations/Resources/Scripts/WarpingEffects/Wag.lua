@@ -16,7 +16,7 @@ for i = 1,num do
 		OnCommand=function(self)
 			BGA_G.ObjFuncs(self)
 			if i == 1 then
-				local d = self:GetDelay()
+				local d = self:GetFullDelay(params)
 				tween = tween * d
 			end
 			self:PlayCmds(params)
@@ -24,7 +24,7 @@ for i = 1,num do
 
 		RainbowCommand=function(self)
 			self:rainbow()
-			self:effectperiod( 16 * self:GetDelay() )
+			self:effectperiod( 16 * self:GetFullDelay(params) )
 		end,
 
 		Def.Sprite{	
@@ -35,9 +35,6 @@ for i = 1,num do
 				self:Center()
 				BGA_G.ObjFuncs(self)
 				self:SetStates(params)
-
-				self:effectclock('beat')
-				self:set_tween_uses_effect_delta(true)
 
 				self:blend("BlendMode_Normal")
 

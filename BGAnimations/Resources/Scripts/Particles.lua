@@ -70,10 +70,10 @@ for i=1,num do
 
 			if p:IsCmd( "Rainbow" ) then
 				self:rainbow()
-				self:effectperiod( 16 * self:GetDelay(2) )
+				self:effectperiod( 16 * self:GetDelay() )
 			end
 
-			local d = self:GetDelay(2)
+			local d = self:GetDelay()
 			self:sleep( i * 0.5 * d )
 			self:diffusealpha(1)	
 
@@ -101,7 +101,7 @@ for i=1,num do
 		end,
 
 		SleepCommand=function(self)
-			local d = self:GetDelay(2)
+			local d = self:GetDelay()
 			self:diffusealpha(0)
 			self:sleep(2*d)
 			self:diffusealpha(1)
@@ -116,7 +116,7 @@ for i=1,num do
 			local w = self:GetZoomedWidth() * 0.5
 			local h = self:GetZoomedHeight() * 0.5
 			local d = self.d
-			local d_2 = self:GetDelay(2)
+			local d_2 = self:GetDelay()
 
 			local Dirs = {}
 
@@ -154,7 +154,7 @@ for i=1,num do
 			local w = self:GetZoomedWidth() * 0.5
 			local h = self:GetZoomedHeight() * 0.5
 			local d = self.d
-			local d_2 = self:GetDelay(2)
+			local d_2 = self:GetDelay()
 
 			local Dirs = {}
 

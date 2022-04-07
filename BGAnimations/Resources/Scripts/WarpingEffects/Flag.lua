@@ -44,7 +44,7 @@ for i = num, 1, -1 do
 		OnCommand=function(self)
 			BGA_G.ObjFuncs(self)
 			if i == num then
-				local d = self:GetDelay()
+				local d = self:GetFullDelay(params)
 				tween = tween * d
 			end
 			self:PlayCmds(params)
@@ -52,11 +52,13 @@ for i = num, 1, -1 do
 
 		RainbowCommand=function(self)
 			self:rainbow()
-			self:effectperiod( 16 * self:GetDelay() )
+			self:effectperiod( 16 * self:GetFullDelay(params) )
 		end,
 
 		Def.Sprite{	
 			
+			Texture = params.File,
+
 			Type1Command=function(self)
 				self:croptop( val )
 				self:cropbottom( val2 )
@@ -75,7 +77,6 @@ for i = num, 1, -1 do
 
 				self:effectclock('beat')
 				self:set_tween_uses_effect_delta(true)
-				self:Load(params.File)
 				self:Center()
 				BGA_G.ObjFuncs(self)
 				self.GetPos = GetPos
@@ -105,8 +106,8 @@ for i = num, 1, -1 do
 				self.Angle = self.Angle + 90
 				self:x( SCREEN_CENTER_X - self:GetPos(1) )
 				self:y( SCREEN_CENTER_Y - self:GetPos(2) )
-				self:linear( self:GetDelay(1) * 0.25 )
-				self:sleep( self:GetDelay(1) * 0.75 )
+				self:linear( self:GetFullDelay(params) * 0.25 )
+				self:sleep( self:GetFullDelay(params) * 0.75 )
 				self:queuecommand("Skipping")
 
 			end,

@@ -62,12 +62,11 @@ t[#t+1] = Def.Sprite{
 	OnCommand=function(self)
 		
 		BGA_G.ObjFuncs(self)
-
 		self:Load(params.File[c])
 		self:SetStates( params )
 
 		self:Center()
-		self:sleep( params.Sleep * self:GetDelay(2) )
+		self:sleep( params.Sleep * self:GetFullDelay(params) )
 		c = Switch(c)
 		self:queuecommand("On")
 
@@ -84,7 +83,7 @@ for i=1,4 do
 
 			BGA_G.ObjFuncs(self)
 
-			self:sleep( params.Sleep * self:GetDelay() )
+			self:sleep( params.Sleep * self:GetFullDelay(params) )
 			if i == 1 then c2 = Switch(c2) end
 			self:queuecommand("On")
 
@@ -94,7 +93,6 @@ for i=1,4 do
 			OnCommand=function(self)
 				
 				BGA_G.ObjFuncs(self)
-
 				self:Load(params.File[c2])
 				self:SetStates( params )
 
@@ -110,7 +108,7 @@ for i=1,4 do
 
 				local w = self:GetZoomedWidth()
 				local h = self:GetZoomedHeight()
-				local l = 4 * self:GetDelay(2)
+				local l = 4 * self:GetFullDelay(params)
 				if BGA_G.IsScreenAvailable("Preview") then
 					l = l * 0.75
 				end

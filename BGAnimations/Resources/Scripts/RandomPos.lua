@@ -21,7 +21,7 @@ for i=1,24 do
 		 	self:zoom( self:GetZoom() * 0.25 * math.random(1,3) )
 			self:x( math.random(0, _screen.w) )
 			self:y( math.random(0, _screen.h) )
-			self:sleep( 2 * self:GetDelay(2) )
+			self:sleep( 2 * self:GetFullDelay(params) )
 			self:queuecommand("Go")
 
 		  	if self:GetNumStates() > 1 then 
@@ -31,7 +31,7 @@ for i=1,24 do
 		end,
 		RainbowCommand=function(self)
 			self:rainbow():effectoffset(i*0.12)
-			self:effectperiod( 16 * self:GetDelay(2) )
+			self:effectperiod( 16 * self:GetFullDelay(params) )
 		end,
 		RotationCommand=function(self)
 			self:rotationz(math.random(0,360))

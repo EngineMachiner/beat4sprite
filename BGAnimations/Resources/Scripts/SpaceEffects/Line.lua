@@ -9,19 +9,16 @@ if params.Type == "CustomDir" then
 end
 
 local t = BGA_G.Frame() .. {
-
     OnCommand=function(self)
         BGA_G.ObjFuncs(self)
         self:Center3D()
         self:zbuffer(true)
-        self:SortByDrawOrder()
-        self:fov(170)
+        self:SortByDrawOrder():fov(170)
     end
-
 }
 
-
-local val1, val2 = 590, 10
+local val1, val2 = 590, 0
+if params.Type == "CustomDir" then val2 = 75 end
 
 params.ZoomXYZ = params.ZoomXYZ or { 1, 1, 0 }
 if params.Flat then
@@ -42,6 +39,7 @@ local tween = params.HurryTweenBy
 
 if string.match(params.File, "%/5th%/") then
     tween = tween * 0.666
+    params.HurryTweenBy = tween
     params.Lines = params.Lines or 2
     if params.Type == "CustomDir" then
         params.Lines = params.Lines - 1
@@ -52,7 +50,6 @@ else
     params.Lines = math.ceil(params.Lines)
 end
 
-local amp = 6
 for k = 1, params.Lines do
 
     t[#t+1] = Def.ActorFrame{
@@ -60,14 +57,11 @@ for k = 1, params.Lines do
         OnCommand=function(self)
 
             BGA_G.ObjFuncs(self)
-            self:set_tween_uses_effect_delta(true)
-            self:effectclock('beat')
 
-            local p = self:GetDelay()
-            self.Tween = p * tween * amp * 2
+            local d = self:GetFullDelay(params)
+            d = d * 12 / params.Lines
 
-            local amp2 = self.Tween / params.Lines
-            self:diffusealpha(0):sleep( (k - 1) * amp2 )
+            self:diffusealpha(0):sleep( ( k - 1 ) * d )
 
             self:PlayCmds(params)
             self:queuecommand("Depth")
@@ -75,14 +69,16 @@ for k = 1, params.Lines do
         end,
 
         DepthCommand=function(self)
+
+            local d = self:GetFullDelay(params) * 12
+
             self:playcommand(params.Type)
-            self:playcommand("Fade")
-            if params:IsCmd( "Shade" ) then
-                self:playcommand("Shade")
-            end
+
             self:diffusealpha(1)
-            self:z(zpos[1]):linear(self.Tween):z(zpos[2])
+            self:z(zpos[1]):linear(d):z(zpos[2])
+
             self:queuecommand("Depth")
+            
         end,
 
         CustomDirCommand=function(self)
@@ -108,11 +104,20 @@ for k = 1, params.Lines do
 
         a[#a+1] = Def.ActorFrame{ 
 
-            OnCommand=function(self) BGA_G.ObjFuncs(self) end,
+            OnCommand=function(self) 
+                if params:IsCmd( "Shade" ) then
+                    BGA_G.ObjFuncs(self)
+                    local d = self:GetFullDelay(params)
+                    d = d * 12 / params.Lines
+                    d = ( k - 1 ) * d
+                    self:sleep(d):queuecommand("Shade")
+                end
+            end,
 
             ShadeCommand=function(self)
 
                 local P = self:GetParent()
+                local d = self:GetFullDelay(params) * 12
                 local shadowColors = { Color.White, Color.Black }
 
                 if type(params.Shade) == "table" then
@@ -124,7 +129,8 @@ for k = 1, params.Lines do
                 end
 
                 self:diffuse(shadowColors[1])
-                self:linear(P.Tween):diffuse(shadowColors[2])
+                self:linear(d):diffuse(shadowColors[2])
+                self:queuecommand("Shade")
                 
             end
 
@@ -133,29 +139,40 @@ for k = 1, params.Lines do
 
         a[#a+1] = Def.ActorFrame{
 
-            OnCommand=function(self) BGA_G.ObjFuncs(self) end,
+            OnCommand=function(self) 
+                BGA_G.ObjFuncs(self) 
+                local d = self:GetFullDelay(params)
+                d = d * 12 / params.Lines
+                d = ( k - 1 ) * d
+                self:sleep(d):queuecommand("Fade")
+            end,
     
             FadeCommand=function(self)
 
-                local tweenL = 0.5 * tween
+                local d = self:GetFullDelay(params)
 
-                local tweenAll = self:GetParent():GetParent()
-                tweenAll = tweenAll.Tween
+                local tweenL = d * 0.5
+                local tweenAll = d * 12
 
                 local tweenIn, tweenOut = 0, 0
                 if params.Type == "CustomDir" then
-                    tweenIn = i * 0.5 * tween
-                    tweenOut = ( p - i ) * 0.5 * tween
+                    tweenIn = ( i - 1 ) * tweenL
+                    tweenOut = ( p - i ) * tweenL
                 end
-                local dir = { In = tweenOut, Out = tweenIn }
 
-                tweenAll = tweenAll - tweenL - tweenIn - tweenOut
-    
-                dir = params.Dir and dir[params.Dir] or tweenOut
+                local dir = { In = tweenOut, Out = tweenIn }
+                tweenAll = tweenAll - tweenL * 2 - tweenIn - tweenOut
+
+                dir = { tweenOut, tweenIn }
+                if params.Dir then 
+                    dir = { tweenIn, tweenOut }
+                end
 
                 self:diffusealpha(0)
-                self:sleep(dir):linear(tweenL * 0.5):diffusealpha(1)
-                self:sleep(tweenAll):linear(tweenL * 0.5):diffusealpha(0)
+                self:sleep(dir[1]):linear(tweenL):diffusealpha(1)
+                self:sleep(tweenAll):linear(tweenL):diffusealpha(0)
+                self:sleep(dir[2])
+                self:queuecommand("Fade")
     
             end
     
@@ -164,15 +181,16 @@ for k = 1, params.Lines do
 
         a[#a+1] = Def.Sprite{
 
+            Texture = params.File,
             OnCommand=function(self)
 
                 self.Index = i
                 BGA_G.ObjFuncs(self)
-                self:set_tween_uses_effect_delta(true)
-                self:effectclock('beat')
-                if params.Spin then self:spin() end
+                if params.Spin then 
+                    local per = self:GetFullDelay(params)
+                    self:spin():effectperiod( per * 8 )
+                end
 
-                self:Load(params.File)
                 self:SetStates(params)
                 self.states = self:GetNumStates()
 

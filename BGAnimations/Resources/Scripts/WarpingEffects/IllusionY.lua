@@ -1,7 +1,6 @@
 
 local params = ...
 
-params.X_num = { -1, 1 }
 local HT = params.HurryTweenBy or 1
 local Y = params.ZoomY or SCREEN_HEIGHT * 0.05
 HT = HT / Y
@@ -11,8 +10,9 @@ local t = Def.ActorFrame{}
 -- Texture 
 
 local params_2 = params:Copy( {
+	X_num = { -1, 1 },
 	TCV = { 0, -1 },	Reversed = true,
-	HurryTweenBy = HT,	Commands = "Mirror",
+	HurryTweenBy = HT,	Mirror = true,
 	ZoomXYZ = { 1, Y, 1 },	Script = "TileTool.lua"
 } ):Load(t)
 
@@ -34,7 +34,7 @@ t2[#t2+1] = Def.Quad{
 		self:queuecommand("On")
 	end,
 	RepeatCommand=function(self)
-		local d = self:GetDelay(2)
+		local d = self:GetFullDelay(params)
 		d = d * HT * Y * 7.5
 		self:linear( d )
 		self:y( SCREEN_HEIGHT * 0.5 )
@@ -51,12 +51,11 @@ t[#t+1] = Def.ActorFrame{
 }
 
 -- Background
-
-params.Mirror = { 1, 1 }
-params.Commands = { "Mirror" }
-params.Script = nil
 local t2 = t[#t]
-params:Load(t2)
+BGA_G.Create( { 
+	File = params.File, 
+	X_num = 1, 	Mirror = true
+} ):Load(t2)
 
 return BGA_G.Frame() .. {
 

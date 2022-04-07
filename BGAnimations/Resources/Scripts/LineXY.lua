@@ -25,11 +25,12 @@ a = a[#a]
 
 for i=1,13 do 
 
+	a[#a+1] = Def.ActorFrame{}
+	a = a[#a]
+
 	a[#a+1] = Def.Sprite{
 
-		InitCommand=function(self)
-			self:Load(params.File)
-		end,
+		Texture = params.File,
 
 		OnCommand=function(self)
 			BGA_G.ObjFuncs(self)
@@ -47,11 +48,10 @@ for i=1,13 do
 
 		RepeatCommand=function(self)
 
-			local d = self:GetDelay(2)
+			local d = self:GetDelay()
 			local n = self:GetNumStates()
 
-			if n > 1
-			and not self.NoRandom then 
+			if n > 1 and not self.NoRandom then 
 				n = math.random( 0, ( n - 1 ) )
 				self:setstate( n )
 			end
@@ -70,6 +70,7 @@ for i=1,13 do
 			local a = ( i % 2 )
 			local b = ( ( i + 1 ) % 2 )
 
+			self:hurrytweening( params.HurryTweenBy )
 			self:sleep(s):diffusealpha(1)
 			if i < 5 then
 				self:x( SCREEN_RIGHT - SCREEN_RIGHT * a - w * v )
@@ -83,7 +84,6 @@ for i=1,13 do
 				self:y( SCREEN_BOTTOM - SCREEN_BOTTOM * b + h * v )
 			end
 
-			self:hurrytweening( params.HurryTweenBy )
 			self:queuecommand("Repeat")
 
 		end	
