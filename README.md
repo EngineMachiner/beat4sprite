@@ -6,26 +6,24 @@
 beat4sprite is a **library** to draw different things in the SM5 engine
 inspired on the classic DDR PSX backgrounds and sprite animations.
 
-This is a personal project I began back in 2013, back when 
-I used to play with cheap and simple BGAnimations or 
-RandomMovies (Gameplay backgrounds) on StepMania 3.9. 
-Mostly stuff from DDR or ITG. So around that time 
-I started to create my custom videos to use while on gameplay.
+### HOW TO USE
 
-Then my idea changed because of video encoding, quality and 
-size mostly. I moved to scripting and writing code so I could draw 
-my own BGAnimations. So while I was learning Lua through SM and other games
-this project evolved.
+  1. Drop the beat4sprite folder into the Modules folder of _fallback.
+  2. Load the beat4sprite.lua module in OutFox.
 
-I tried to do a lot of code maintenance and debugging too, 
-checking my code and performance testing in-game.
+### ORIGIN
 
-If you're interested you might want to check examples:
-https://github.com/EngineMachiner/beat4sprite-Collections
+beat4sprite began as a personal project in 2013. 
+I used to play with simple BGAnimations or RandomMovies ( Gameplay backgrounds ) on StepMania 3.9, mostly stuff from DDR or ITG.
+I was interested in the structure of the sprites and how the game read them.
 
-### INSTALLATION
+I got inspired and I wanted to use the retro PSX animations so I tried making videos of them and that didn't blend that well with the song beat.
 
-  1. Drop BGAnimations and the Scripts folder in your StepMania root folder.
+Then I considered video encoding, quality and file size not being the best so I moved to scripting and writing code (visually scripting) so I could draw 
+my own animations.
+
+Examples made with this library can be found in my profile.
+For more information about the API check the Wiki.
 
 ### CREDITS
 
@@ -37,7 +35,4 @@ MadkaT
 leadbman
 Retrozaid
 
-Project Moondance dev team (general help and engine info)
-
-Please tell me if I missed someone.
-- Engine_Machiner
+Project Moondance dev team (general help and engine information)
