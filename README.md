@@ -8,6 +8,7 @@ inspired on the classic DDR PSX backgrounds and sprite animations.
 
 ### HOW TO USE
 
+  0. Make sure you have tapLua. ( https://github.com/EngineMachiner/tapLua )
   1. Drop the beat4sprite folder into the Modules folder of _fallback.
   2. Load the beat4sprite.lua module in OutFox. ( LoadModule("beat4sprite/beat4sprite.lua") in the initial screen )
 
