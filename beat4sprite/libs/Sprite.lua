@@ -288,6 +288,13 @@ local function bitEyeAnimation(self)
 	local states = p.States			local type = states.Types
 	local n, rate = self:GetNumStates(), states.Rate
 	
+	-- Set rate back if it's on bitEye.
+	local rateByPath = p.Config.RateByPath
+	if rateByPath and rateByPath ~= "bitEye" then 
+		states.Rate = states.Rate / rateByPath
+		p.Config.RateByPath = "bitEye"
+	end
+	
 	if tapLua.Table.contains( type, "Random Delays" ) then 
 		rate = math.random( 500, 1500 ) * 0.001
 	end
