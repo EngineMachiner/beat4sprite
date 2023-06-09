@@ -6,7 +6,7 @@ inspired by the classic DDR PSX backgrounds and sprite sheet animations.
 
 ## How to install
   0. Make sure you have [tapLua](https://github.com/EngineMachiner/tapLua).
-  1. Clone / Download and drop the beat4sprite folder into the Modules folder of fallback.
+  1. Copy the beat4sprite folder into the Modules folder of fallback.
   2. Load the tapLua and beat4sprite module once in OutFox through fallback's first screen. <br>
   
 For example the ScreenInit overlay script should look like this using LoadModule(): <br><br>
