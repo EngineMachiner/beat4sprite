@@ -12,6 +12,10 @@ inspired on the classic DDR PSX backgrounds and sprite animations.
   1. Drop the beat4sprite folder into the Modules folder of _fallback.
   2. Load the beat4sprite.lua module in OutFox. ( LoadModule("beat4sprite/beat4sprite.lua") in the initial screen )
 
+## HOW TO CREATE
+
+If you want to create your own animations you can check the Wiki.
+
 ### ORIGIN
 
 beat4sprite began as a personal project in 2013. 
