@@ -108,7 +108,7 @@ local function checkRateByPath(p)
 
 	local file = p.File
 
-	if type(file) == "table" or not beat4sprite.GAMESTATE.isOnGameplay() then return end
+	if type(file) == "table" then return end
 
 	if p.Config.RateByPath or not file then return end
 
@@ -116,7 +116,7 @@ local function checkRateByPath(p)
 
 		if file:match(name) and not p.Config.RateByPath then
 			p.States.Rate = p.States.Rate * rate
-			p.Config.RateByPath = true				return
+			p.Config.RateByPath = rate				return
 		end
 
 	end
