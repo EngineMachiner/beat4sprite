@@ -355,8 +355,10 @@ local function fade(p)
 	
 	local amplitude = p.FadeAmplitude or 0.125
 	if fade and not p.Config.FadeAmplitude then 
-		p.FadeAmplitude = 1 / amplitude		p.Config.FadeAmplitude = true
+		amplitude = 1 / amplitude		p.Config.FadeAmplitude = true
 	end
+	
+	p.FadeAmplitude = amplitude
 	
 	-- If not fade or fade was already defined by direction.
 	local b = not fade and not p:hasCommand("Fade") or type(fade) == "string"
