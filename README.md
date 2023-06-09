@@ -6,8 +6,11 @@ inspired by the classic DDR PSX backgrounds and sprite sheet animations.
 
 ## How to install
   0. Make sure you have [tapLua](https://github.com/EngineMachiner/tapLua).
-  1. Drop the beat4sprite folder into the Modules folder of fallback.
-  2. Load the beat4sprite.lua module in OutFox. ( LoadModule("beat4sprite/beat4sprite.lua") in the initial screen.
+  1. Clone / Download and drop the beat4sprite folder into the Modules folder of fallback.
+  2. Load the tapLua and beat4sprite module once in OutFox through fallback's first screen. <br>
+  
+For example the ScreenInit overlay script should look like this using LoadModule(): <br><br>
+<img src="https://github.com/EngineMachiner/beat4sprite/assets/15896027/1673b41d-981c-462c-b33f-23442b308f5f" width=400>
 
 ## How to create
 If you want to create your own animations you can check the [Wiki](https://github.com/EngineMachiner/beat4sprite/wiki).
@@ -27,7 +30,6 @@ For more information about the API check the Wiki.
 
 ## CREDITS
 - Project Moondance developers
-- Engine_Machiner
 - RenTheHumanCat
 - MadkaT
 - leadbman
