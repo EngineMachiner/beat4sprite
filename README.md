@@ -17,8 +17,7 @@ If you want to create your own animations you can check the [Wiki](https://githu
 
 ## Origin
 beat4sprite began as a personal project in 2013. <br>
-I used to play with simple BGAnimations or RandomMovies ( Gameplay backgrounds ) on StepMania 3.9, mostly stuff from DDR or ITG. <br>
-I was interested in the structure of the sprites and how the game read them.
+I used to play with simple BGAnimations or RandomMovies ( Gameplay backgrounds ) on StepMania 3.9, mostly stuff from DDR or ITG. I was interested in the structure of the sprites and how the game read them.
 
 I got inspired and I wanted to use the retro PSX animations so I tried making videos of them and that didn't blend that well with the song beat.
 
