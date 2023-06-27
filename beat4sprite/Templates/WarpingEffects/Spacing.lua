@@ -1,10 +1,10 @@
 
-local params = ...							local p = params
+local parameters = ...							local p = parameters
 
 local t = Def.ActorFrame{}					beat4sprite.Sprite.bgTemplate(p):Load(t)
 
 local layers = p.Layers or 20				local length = p.Length or 35
-local fade = 0.03							local type = params.Type or 1
+local fade = 0.03							local type = parameters.Type or 1
 
 local direction = p.Direction or "UpRight"	
 direction = tapLua.Vector.getByName(direction)

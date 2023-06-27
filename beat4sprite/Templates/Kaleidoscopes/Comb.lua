@@ -1,5 +1,5 @@
 
-local params = ...		local p = params
+local parameters = ...		local p = parameters
 
 local numberOf = { x = SCREEN_WIDTH * 0.0078 * 0.5 + 1, y = 6 } 
 

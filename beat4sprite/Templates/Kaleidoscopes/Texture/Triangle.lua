@@ -1,5 +1,5 @@
 
-local params = ...		local p = params
+local parameters = ...		local p = parameters
 
 local defaultPosition = { x = 0, y = 0 }
 for k,v in pairs( defaultPosition ) do

@@ -22,12 +22,12 @@ local function getBGAFile( bgaName, file )
 
 end
 
-local function randomBGA() loadfile( beat4sprite.Paths.Templates .. "RandomBGA.lua" )() end
+local function randomBGA() return loadfile( beat4sprite.Paths.Templates .. "RandomBGA.lua" )() end
 
 local function store( from ) tapLua.Table.store( beat4sprite, from ) end
 beat4sprite.store = store
 
-store { Paths = { getBGAFile = getBGAFile,	randomBGA = randomBGA } }
+store { Paths = { getBGAFile = getBGAFile }, randomBGA = randomBGA }
 
 -- Load everything once.
 local loadedFirst = { "Parameters/Meta.lua", "GameState.lua", "Sprite.lua", "Update.lua" }

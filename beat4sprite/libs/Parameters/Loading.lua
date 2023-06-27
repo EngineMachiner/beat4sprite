@@ -1,23 +1,32 @@
 
+-- "main" in the function parameters are either a single parameter set 
+-- or many nested sets in a table.
+
 local setDefaults = function() end
 
--- Load actors in the Actor parameter table.
-local function loadExtraActors( parameter, frame )
+-- Create and insert actors in a frame.
+local function insert( parameters, frame )
+
+	local child = Def.ActorFrame{}			frame[#frame+1] = child
+
+	beat4sprite.add( parameters, child )
+
+end
+
+local function loadExtraActors( parameters, frame )
 
 	local back, front = frame.Back, frame.Front
-	local actors = parameter.Actors or {}
+	local actors = parameters.Actors or {}
 
-	for k,v in pairs(actors) do
+	for _, actor in pairs(actors) do
 		
-		if not v.Added then
+		if not actor.Added then
 
 			local selected = front
 
-			if v.onBackground then selected = back end
+			if actor.onBackground then selected = back end
 
-			selected[#selected+1] = v
-
-			v.Added = true
+			selected[#selected+1] = actor		actor.Added = true
 
 		end
 		
@@ -25,7 +34,6 @@ local function loadExtraActors( parameter, frame )
 
 end
 
--- Scripts that need a files table.
 local function needsFiles(parameters)
 
 	local script = parameters.Script
@@ -33,39 +41,38 @@ local function needsFiles(parameters)
 
 end
 
-local function addSets( tree, frame )
+-- Add nested parameter sets.
+local function addSets( sets, frame )
 
-	for _,set in ipairs(tree) do
+	for _, set in ipairs(sets) do
 
-		if type(set) == "table" then
-
-			local child = Def.ActorFrame{}			frame[#frame+1] = child
-			beat4sprite.add(set, child)
-
-		end
+		if type(set) == "table" then insert( set, frame ) end
 
 	end
 
 end
 
 -- Algorithm that creates actors according to the parameters.
-local function add( parameters, frame )
+-- This function is used for parameter sets.
+local function add( main, frame )
 
-	local p, f = parameters, frame
+	local p, f = main, frame
 
 	if #p == 0 and p.getInternals then p = p:getInternals() end
 
-	local file = p.File				local tweakScript = p.tweakScript
+	local tweakScript = p.tweakScript
 
-	if tweakScript and parameters.getInternals then p = parameters end
-	
+	if tweakScript and main.getInternals then p = main end
+
 	if p.Remove == true then return end
+
+	local file = p.File
 
 	if #p > 0 and not tweakScript then addSets(p, f) else
 
-		-- A multiple files set.
-
 		if type(file) == "table" and not needsFiles(p) then
+
+			-- A multiple files set case.
 
 			if p.Columns[1] == p.Columns[2] and not tapLua.Vector.isZero( p.Scroll ) then
 				p.Columns[2] = p.Columns[2] + 2			p.Rows[2] = p.Rows[2] + 1
@@ -80,42 +87,47 @@ local function add( parameters, frame )
 			local actors = {}		-- To store examples of the files.
 
 			-- Load files set.
+
 			for i = 1, #file do
 
 				local single = p:copy()
 
-				single.File = p.File[i]
+				single.File = file[i]
 				single.FileData = { index = i, numberOf = #file }
 
-				setDefaults(single, true)
+				setDefaults( single, true )
 
-				-- This is unique. Not just a tweak or copy.
-				single:getInternals().Set = actors	
+				-- This is a unique list, accessible. Not just a tweak or copy.
+				single:getInternals().Set = actors
 
-				local child = Def.ActorFrame{}		f[#f+1] = child
-				beat4sprite.add( single, child )
+				insert( single, f )
 
 			end
 
 		else
 
 			-- Just one file and one script.
+			-- 3 layers in case there's extra actors in the sets.
 
 			-- Remove index so they don't mess with internal scripts.
-			parameters.Index, p.Index = nil
-			parameters.Cleanup, p.Cleanup = nil
+
+			main.Index, p.Index = nil
+			main.Cleanup, p.Cleanup = nil
 
 			local script = p.Script
 
-			--
+			-- Extra actors.
 			
 			local actors = p.Actors
+
 			if actors and #actors > 0 then
+
 				f.Back = Def.ActorFrame{}	f.Front = Def.ActorFrame{}
-				loadExtraActors(p, f)
+				loadExtraActors( p, f )
+
 			end
 
-			--
+			-- Middle layer with main set stuff.
 
 			local middle = Def.ActorFrame{}
 
@@ -125,13 +137,13 @@ local function add( parameters, frame )
 			
 			if not script and not tweakScript then error("Missing script.") end
 
-			if p.File and script or tweakScript or isCyclic then 
+			if file and script or tweakScript or isCyclic then 
 				middle[#middle+1] = loadfile(script)(p) 
 			end
 
 			f.Middle = middle
 
-			--
+			-- Add the layers to the frame.
 
 			f[#f+1] = f.Back		f[#f+1] = middle		f[#f+1] = f.Front
 
@@ -144,12 +156,10 @@ end
 -- Keep link between inputs and internals.
 local function LinkInternals(parameters)
 
-	local p = parameters
-
-	if p.getInternals then return end
+	local p = parameters		if p.getInternals then return end
 
 	local template = { __index = beat4sprite.template }
-	
+
 	local internals = setmetatable( beat4sprite.deepCopy(p), template )
 
 	internals.getRawInput = function() return p end
@@ -158,13 +168,18 @@ local function LinkInternals(parameters)
 end
 
 local operations = { "Load", "tweak", "copy" }
-local function addOperations(parameters)
-	local p = parameters
-	if not p.Load then for _,v in ipairs(operations) do p[v] = beat4sprite[v] end end
+local function addOperations(main)
+
+	local p = main		if p.Load then return end		-- Do not create if it's already there.
+
+	for _, key in ipairs(operations) do p[key] = beat4sprite[key] end
+
 end
 
 -- Sets metatable defaults, operations and links internals and raw inputs.
-setDefaults = function( p, isFinal )
+setDefaults = function( main, isFinal )
+
+	local p = main
 
 	if #p == 0 then
 
@@ -183,31 +198,28 @@ setDefaults = function( p, isFinal )
 end
 
 -- Every input parameter set has a copy that will do all the processing based on the inputs.
-local function create( parameters, isFinal )
+local function create( main, isFinal )
 
-	if not parameters then isFinal = true end
+	if not main then isFinal = true end
 
 	-- These are already added to the sprite template.
-	parameters = parameters or {}		setDefaults( parameters, isFinal )			
+	main = main or {}		setDefaults( main, isFinal )			
 	
-	return parameters
+	return main
 	
 end
 
 -- Gets final and direct internals.
-local function createInternals( parameters ) return create( parameters, true ):getInternals() end
+local function createInternals(main) return create( main, true ):getInternals() end
 
 -- Load is the main function to create any set.
-local function Load( parameters, frame )
+local function Load( main, frame )
 
-	if parameters.getRawInput then parameters = parameters.getRawInput() end
+	if main.getRawInput then main = main.getRawInput() end
 
-	frame = frame or Def.ActorFrame{}
-
-	create(parameters, true)						
+	frame = frame or Def.ActorFrame{}		create( main, true )						
 	
-	if #parameters == 0 then parameters = { parameters } end
-	add(parameters, frame)
+	if #main == 0 then main = { main } end		add( main, frame )
 
 	return beat4sprite.ActorFrame() .. {
 
@@ -230,7 +242,8 @@ local function Load( parameters, frame )
 
 end
 
-beat4sprite.storeAll { Load = Load }			
+beat4sprite.storeAll { Load = Load }
+			
 beat4sprite.store { 
 	create = create, createInternals = createInternals,
 	add = add, LinkInternals = LinkInternals

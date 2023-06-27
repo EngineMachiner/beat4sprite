@@ -4,6 +4,7 @@
 local function Square(parameters)
 
 	local p = parameters
+
 	return beat4sprite.Actor(p) .. {
 		InitCommand=function(self) self:Load( p.File, "stretch" ) end,
 		OnCommand=function(self) self:init():SetWidth( self:GetHeight() ) end
@@ -76,7 +77,7 @@ end
 
 local function getSmallestInSheet(parameters)
 
-	local smallest, p = {}, parameters
+	local p = parameters		local smallest = {}
 
 	for k,v in pairs( p.Sheet ) do
 		local value = smallest.Value
@@ -99,24 +100,19 @@ local function sortFrames( parameters, tweaks )
 
 end
 
-local function roundState( sprite, a )
+local function roundState( sprite, stateNumber )
 
-	a = math.round(a)		-- Sometimes the state "s" can be a float.
-	-- So we better round it. Example: RoundTrace.lua
+	-- Sometimes the state number can be a float. Example: RoundTrace.lua
+	-- So better to round it.
 
-	local n = sprite:GetNumStates()
-
-	while a < 0 do a = a + n end		while a > n - 1 do a = a - n end
-
-	return a
+	return math.round(stateNumber) % sprite:GetNumStates()
 
 end
 
 local function getStairsState( sprite, states )
 
 	local a = sprite:GetState()
-	local i, j = states[1], states[2]
-	-- { starting state, ending state }
+	local i, j = states[1], states[2] -- { starting state, ending state }
 
 	a = sprite:roundState( a + i )		a = sprite:roundState( a + j )
 
@@ -128,7 +124,7 @@ local function hasAnimationType( parameters, name )
 
 	local p = parameters		local types = p.States.Types
 
-	for _, v in ipairs(types) do if v == name then return true end end
+	for _, typeName in ipairs(types) do if typeName == name then return true end end
 
 	return false
 
@@ -227,8 +223,10 @@ local function setStates(self)
 
 	local n = self:GetNumStates()
 	local isRandom = tapLua.Table.contains( p.States.Types, "Random" )
-	local s = isRandom and math.random( 0, n - 1 ) or 0
-	self:setstate(s)
+
+	n = isRandom and math.random( 0, n - 1 ) or 0
+
+	self:setstate(n)
 
 	return self
 
@@ -262,18 +260,17 @@ end
 
 local function scale(self)
 
-	local parameters = self.Parameters
-	local h = self:GetTexture():GetSourceHeight()
+	local p = self.Parameters		local h = self:GetTexture():GetSourceHeight()
 	
-	if parameters.Texture then
-		local zoom = h * parameters.numberOf.y		zoom = SCREEN_HEIGHT / zoom
+	if p.Texture then
+		local zoom = h * p.numberOf.y		zoom = SCREEN_HEIGHT / zoom
 		self:zoom(zoom)		return self
 	end
 
 	--[[ Theme scale ]]		local scale = SCREEN_HEIGHT / 480
 	--[[ Image scale ]]		scale = scale * ( 480 / h )
 
-	self:zoom( scale * parameters.Zoom )
+	self:zoom( scale * p.Zoom )
 
 	return self
 
@@ -286,15 +283,17 @@ local function bitEyeAnimation(self)
 
 	local p = self.Parameters
 	local states = p.States			local type = states.Types
-	local n, rate = self:GetNumStates(), states.Rate
-	
+	local n = self:GetNumStates()
+
 	-- Set rate back if it's on bitEye.
 	local rateByPath = p.Config.RateByPath
 	if rateByPath and rateByPath ~= "bitEye" then 
 		states.Rate = states.Rate / rateByPath
 		p.Config.RateByPath = "bitEye"
 	end
-	
+
+	local rate = states.Rate
+
 	if tapLua.Table.contains( type, "Random Delays" ) then 
 		rate = math.random( 500, 1500 ) * 0.001
 	end
@@ -324,12 +323,12 @@ local function init(self)
 
 end
 
-local add = {
+local toStore = {
 	sortFrames = sortFrames, hasAnimationType = hasAnimationType,
 	getSmallestInSheet = getSmallestInSheet
 }
 
-local add2 = {
+local toStore2 = {
 
 	colorQuad = colorQuad,			blendQuad = blendQuad,			
 	bgTemplate = bgTemplate,		Square = Square,
@@ -341,6 +340,6 @@ local add2 = {
 
 }
 
-beat4sprite.template.store(add)
+beat4sprite.template.store(toStore)
 
-beat4sprite.store { Sprite = add }		beat4sprite.store { Sprite = add2 }
+beat4sprite.store { Sprite = toStore }		beat4sprite.store { Sprite = toStore2 }

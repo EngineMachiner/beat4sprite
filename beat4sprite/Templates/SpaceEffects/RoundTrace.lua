@@ -1,5 +1,5 @@
 
-local params = ...				local p = params			local file = p.File
+local parameters = ...				local p = parameters			local file = p.File
 
 p.tweenRate = p.tweenRate * 1.625
 

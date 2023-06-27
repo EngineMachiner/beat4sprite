@@ -1,5 +1,5 @@
 
-local params = ...          local p = params            local file = p.File
+local parameters = ...          local p = parameters            local file = p.File
 
 local t = beat4sprite.ActorFrame() .. { OnCommand=function(self) 
     self:zbuffer(true):SortByDrawOrder():fov(170) 

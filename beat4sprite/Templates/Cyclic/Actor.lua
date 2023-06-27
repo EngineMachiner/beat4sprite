@@ -1,4 +1,4 @@
-local params = ...                              local p = params
+local parameters = ...                              local p = parameters
 
 local set = p.Set                               local totalTime = p.TotalTime
 

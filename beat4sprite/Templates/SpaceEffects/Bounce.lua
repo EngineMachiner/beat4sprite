@@ -1,5 +1,5 @@
 
-local params = ...		local p = params
+local parameters = ...		local p = parameters
 
 local fov, file = 150, p.File		local numberOf = p.numberOf or 12
 

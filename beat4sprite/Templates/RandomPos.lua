@@ -1,5 +1,5 @@
 
-local params = ...						local p = params
+local parameters = ...						local p = parameters
 
 local numberOf = p.numberOf or 24		local t = beat4sprite.ActorFrame()
 

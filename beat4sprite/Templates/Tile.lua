@@ -1,5 +1,5 @@
 
-local t = Def.ActorFrame{}		local params = ...		local p = params
+local t = Def.ActorFrame{}		local parameters = ...		local p = parameters
 
 local mirror = p.Mirror
 local rangeX, rangeY = p.Columns, p.Rows		local numberOf = p.numberOf
@@ -44,7 +44,7 @@ if p.Class == "Quad" then
 		InitCommand=function(self) p.Sample = self end,
 		
 		OnCommand=function(self)
-			self:Load(p.File):init():visible(false):animate(false)
+			self:Load( p.File ):init():visible(false):animate(false)
 			self:GetParent():GetParent():playcommand("Quad")
 		end
 
@@ -220,9 +220,11 @@ for j = rangeY[1], rangeY[2] do			for i = rangeX[1], rangeX[2] do
 
 		StatePerSpriteCommand=function(self)
 
-			local s = i + 2 + j * p.Sheet.x
-			s = s + p.Sheet.y + p.States[1] + 1
-			s = p.Animate and p.States[1] + 1 or s
+			local isStatic = tapLua.Table.contains( p.States.Types, "Static" )
+
+			local s = p.States[1] + 1
+			if isStatic then s = s + i + j * p.Sheet.x + p.Sheet.y end
+			
 			s = self:roundState(s)		self:setstate(s)
 
 		end,

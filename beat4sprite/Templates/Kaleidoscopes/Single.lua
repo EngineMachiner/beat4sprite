@@ -1,5 +1,5 @@
 
-local params = ...      local p = params
+local parameters = ...      local p = parameters
 
 p.RadialScroll = p.RadialScroll ~= nil and p.RadialScroll or true
 

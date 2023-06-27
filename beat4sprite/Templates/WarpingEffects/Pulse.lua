@@ -1,4 +1,4 @@
-local params = ...				local p = params
+local parameters = ...				local p = parameters
 
 local t = Def.ActorFrame{}		beat4sprite.Sprite.bgTemplate(p):Load(t)
 

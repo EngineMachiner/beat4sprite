@@ -25,7 +25,7 @@ local function setMetaTables( to, meta, isTailCall )
 
 	meta = meta or nestedDefaults
 
-	for k,v in pairs( meta ) do
+	for k, v in pairs( meta ) do
 
 		if not to[k] then to[k] = {} end			local value = to[k]
 

@@ -1,5 +1,5 @@
 
-local params = ...		local p = params
+local parameters = ...		local p = parameters
 
 local force = 60
 local function randomDirection()
@@ -136,6 +136,7 @@ for j=1,3 do		for i=1,4 do
 				local w, h = self:GetZoomedWidth(),	self:GetZoomedHeight()
 				local d = self:GetEffectDelta()
 
+				-- Limit if there is a big frame delta.
 				if d < 0.5 then skippy(self) move(self) end
 						
 			end )

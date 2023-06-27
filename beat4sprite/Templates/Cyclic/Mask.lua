@@ -1,7 +1,7 @@
 
 -- Mostly the animation rate and cycling time should be the same. ( 1st005B )
 
-local params = ...      local p = params		local set = p.Set
+local parameters = ...      local p = parameters		local set = p.Set
 
 --[[
 

@@ -1,4 +1,4 @@
-local params = ...          local p = params
+local parameters = ...          local p = parameters
 
 p:tweak { Script = "Tile" }
 

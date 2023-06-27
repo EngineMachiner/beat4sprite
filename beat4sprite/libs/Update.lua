@@ -19,26 +19,6 @@ local function onRainbowFlashing(self)
 
 end
 
--- On using the actor engine function rainbow().
--- Might be just deprecated.
---[[
-local function onRainbow(self, params)
-
-	local p = params
-
-	if not p.Rainbow then return end
-
-	local s = self:GetParent()
-
-	local delay, period = s:getEffectRate(p), s.RainbowPeriod
-
-	if not period or period ~= delay then
-		s:effectperiod( 16 * delay ) 		s.RainbowPeriod = delay 
-	end
-
-end
-]]
-
 -- Update the rainbow update function offset.
 -- Check Tile.lua fade command.
 local function onRainbow( self, offset )
@@ -87,8 +67,7 @@ local function rainbow(self)
 	self:diffuse( color[1], color[2], color[3], 1 )
 	]]
 
-	while clock < 0 do clock = clock + 360 end
-	while clock > 360 do clock = clock - 360 end	self.Clocks.Rainbow = clock
+	self.Clocks.Rainbow = clock % 360
 
 	if self:GetTweenTimeLeft() ~= 0 then self = self:GetParent() end
 

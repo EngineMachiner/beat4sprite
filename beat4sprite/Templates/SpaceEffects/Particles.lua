@@ -1,7 +1,7 @@
 
 local scale = SCREEN_HEIGHT / 480
 
-local params = ...			local p = params
+local parameters = ...			local p = parameters
 
 local numberOf = p.numberOf or 18			local alpha = p.Alpha or 1
 local direction = p.Move or { x = 1, y = 0 }

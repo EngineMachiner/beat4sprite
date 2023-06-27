@@ -1,5 +1,5 @@
 
-local params = ...                          local p = params
+local parameters = ...                          local p = parameters
 
 local mainAngle = p.Angle or 0
 
@@ -7,7 +7,7 @@ local numberOf = p.numberOf or { x = 5, y = 4 }
 
 local amplitude = p.AmplitudeAngle
 
--- Maybe consider renaming to SkipBy
+-- Maybe consider renaming to SkipBy.
 local cross = p.Cross or 0              local set = p.Set
 
 local t = beat4sprite.ActorFrame() .. {

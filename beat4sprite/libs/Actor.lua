@@ -30,34 +30,34 @@ end
 -- Load additional bones.
 local function onModel(self)
 
-	local params = self.Parameters
+	local p = self.Parameters
 
-	local bones = params.Bones
-	if params.Class ~= "Model" or not self.LoadBones or not bones then return end
+	local bones = p.Bones
+	if p.Class ~= "Model" or not self.LoadBones or not bones then return end
 
 	for k,v in pairs(bones) do self:LoadBones( k, v ) end
 
 	-- Maybe temporal for outfox.
-	local modelSize = params.Size
+	local modelSize = p.Size
 	if modelSize then self:setsize( modelSize.x, modelSize.y ) end
 
 end
 
 local updateFunctions = { Sprite = beat4sprite.Sprite.update }
 local modelKeys = { "Meshes", "Materials", "Bones" }
-local function Actor(params)
+local function Actor(parameters)
 
-	params = params or beat4sprite.create():getInternals()
+	local p = parameters or beat4sprite.create():getInternals()
 	
-	local class = params.Class
+	local class = p.Class
 
 	local preActor = Def[class] {
 
 		InitCommand=function(self)
 
-			self.Parameters = params
+			self.Parameters = p
 
-			if params.Rainbow then self.Rainbow = true end
+			if p.Rainbow then self.Rainbow = true end
 
 			onModel(self)
 
@@ -81,7 +81,7 @@ local function Actor(params)
 	}
 
 	if class == "Model" then
-		for _,v in ipairs(modelKeys) do preActor[v] = params.File end
+		for _,v in ipairs(modelKeys) do preActor[v] = p.File end
 	end
 
 	return preActor
@@ -105,17 +105,8 @@ local spriteKeys = { "scale", "bitEyeAnimation", "roundState", "setStates", "get
 local objectFunctions = {
 
 	ActorFrame = function(self)
-
 		self.play = function(self) self:visible(true) 	return self end
-		
-		self.stop = function(self)
-
-			if tostring(self):match("Sprite") then self:texcoordvelocity(0,0) end
-
-			self:visible(false)			return self
-
-		end
-
+		self.stop = function(self) self:visible(false)	return self end
 	end,
 
 	Sprite = function(self)
@@ -125,15 +116,7 @@ local objectFunctions = {
 		self.Clocks.States = {}
 
 		local init = self.init
-		self.init = function(self)
-
-			local params = self.Parameters		-- Just considering as an alternative.
-
-			init(self)		sprite.init(self)		
-			
-			return self
-
-		end
+		self.init = function(self) init(self) sprite.init(self) return self end
 
 		for _, key in ipairs(spriteKeys) do self[key] = sprite[key] end
 
@@ -143,9 +126,9 @@ local objectFunctions = {
 
 local function init(self)
 
-	local params = self.Parameters
+	local p = self.Parameters
 
-	if not params.Filtering then self:SetTextureFiltering(false) end
+	if not p.Filtering then self:SetTextureFiltering(false) end
 	
 end
 
@@ -163,6 +146,6 @@ local function setFunctions(self)
 end
 
 beat4sprite.store {
-	ActorFrame = ActorFrame,	Actor = Actor,		setFunctions = setFunctions,
-	mainCommand = mainCommand
+	Actor = Actor,					ActorFrame = ActorFrame,
+	mainCommand = mainCommand,		setFunctions = setFunctions
 }

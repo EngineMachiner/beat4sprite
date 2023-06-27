@@ -11,10 +11,14 @@ end
 
 local function getDelay(self)
 
-	local p = self.Parameters
-	local delay = p and p.States.Rate or 1
+	local p = self.Parameters		local delay = p and p.States.Rate or 1
 
-	if not beat4sprite.GAMESTATE.isOnGameplay() then return delay * bitEye.Config.Delay end
+	if not beat4sprite.GAMESTATE.isOnGameplay() then
+
+		if bitEye then return delay * bitEye.Config.Delay end
+		return delay
+		
+	end
 
 	local bpm = GAMESTATE:GetSongBPS() * 60
 	if bpm > 200 then delay = delay * math.floor( bpm * 0.01 ) * 0.5 end
@@ -25,8 +29,7 @@ end
 
 local function getEffectRate( self, effectName )
 
-	local p = self.Parameters
-	local period = p and p.EffectPeriod or 1
+	local p = self.Parameters		local period = p and p.EffectPeriod or 1
 
 	if not beat4sprite.GAMESTATE.isOnGameplay() and self.Rainbow then 
 		period = period * 0.25 
@@ -46,8 +49,7 @@ end
 
 local function getTweenRate(self)
 
-	local p = self.Parameters
-	local tweenRate = p and p.tweenRate or 1
+	local p = self.Parameters		local tweenRate = p and p.tweenRate or 1
 
 	return self:getDelay() * tweenRate
 

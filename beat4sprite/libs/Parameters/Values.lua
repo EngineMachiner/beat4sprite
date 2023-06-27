@@ -1,5 +1,5 @@
 
-local filter = { "BGAnimations/", "Songs/", "Themes/" }
+local paths = { "BGAnimations/", "Songs/", "Themes/" }
 local function parsePaths(parameters)
 
 	local p = parameters
@@ -13,7 +13,7 @@ local function parsePaths(parameters)
 		if type(file) == "table" then output[k] = parsePaths( file ) else
 
 			local isPathComplete = false
-			for _, hint in ipairs( filter ) do if file:match(hint) then isPathComplete = true end end
+			for _, hint in ipairs(paths) do if file:match(hint) then isPathComplete = true end end
 
 			if not isPathComplete then file = beat4sprite.Paths.Graphics .. file end
 
@@ -23,19 +23,20 @@ local function parsePaths(parameters)
 
 	end
 
-	p.File = output
-
-	return p		-- Because of recursion.
+	p.File = output			return p -- Because of recursion.
 
 end
 
-local function fileData(p)
+local function fileData(parameters)
 
+	local p = parameters
 	local file = p.File			if not file then return end
 
 	-- Store the sprite sheet matrix.
 	if type(file) == "string" and p.Class == "Sprite" then
 
+		-- Store the sprite sheet matrix.
+		
 		-- We do a little pattern string magic.
 		local n = file:match(" %d*x%d*")
 
@@ -61,19 +62,23 @@ end
 
 -- Matrix range just for Tile.lua.
 
-local function compare( p, name )
-	local value = p[name]
-	if value[1] > value[2] then p[name] = { value[2], value[1] } end
+local function checkOrder( tbl, name )
+
+	local value = tbl[name]
+	if value[1] > value[2] then tbl[name] = { value[2], value[1] } end
+
 end
 
 -- The tile range is started from the center and mirrored.
 local rangePairs = { x = "Columns", y = "Rows" }
 local scripts = { "Tile.lua", "Texture.lua", "Kaleidoscope" }
-local function tileRange(p)
+local function tileRange(parameters)
 
+	local p = parameters
+	
 	local shouldStore = false
-	for _, v in ipairs(scripts) do
-		if p.Script:match(v) then shouldStore = true break end
+	for _, name in ipairs(scripts) do
+		if p.Script:match(name) then shouldStore = true break end
 	end
 
 	if not shouldStore then return end
@@ -85,7 +90,7 @@ local function tileRange(p)
 		if type(range) == "number" then p[v] = { - math.abs(range), math.abs(range) } end		range = p[v]
 
 		-- Flip the limits if they are not in the right order ( ascending order from left to right )
-		compare( p, v )
+		checkOrder( p, v )
 
 		-- Store number of items.
 		numberOf[k] = range[2] - range[1] + 1
@@ -104,7 +109,9 @@ end
 
 -- Global config custom animation rate per path / folder.
 local rateByPath = beat4sprite.Config.rateByPath
-local function checkRateByPath(p)
+local function checkRateByPath(parameters)
+
+	local p = parameters
 
 	local file = p.File
 
@@ -127,7 +134,9 @@ local statesPairs = {
 	AnimationRate = "Rate", AnimationOffset = "Offset", AnimationTypes = "Types"
 }
 
-local function states(p)
+local function states(parameters)
+
+	local p = parameters
 
 	if p.Class ~= "Sprite" then p.States.Types = p.States.Types or {} return end
 
@@ -190,7 +199,9 @@ local function states(p)
 
 end
 
-local function scripts(p)
+local function scripts(parameters)
+
+	local p = parameters
 
 	local script, path = p.Script, beat4sprite.Paths.Templates
 
@@ -203,11 +214,19 @@ local function scripts(p)
 
 end
 
-local function effects(p) p.EffectMagnitude = tapLua.Vector.toCoords( p.EffectMagnitude ) end
+local function effects(parameters)
+
+	local p = parameters
+
+	p.EffectMagnitude = tapLua.Vector.toCoords( p.EffectMagnitude )
+
+end
 
 local posPairs = { x = "posX", y = "posY" }
-local function positions(p)
+local function positions(parameters)
 
+	local p = parameters
+	
 	for k,v in pairs(posPairs) do
 		local value = p[v]		if value then p.Pos[k] = value end		p[v] = nil
 	end
@@ -216,7 +235,9 @@ local function positions(p)
 
 end
 
-local function spacing(p)
+local function spacing(parameters)
+
+	local p = parameters
 
 	local n = p.Spacing
 	if type(n) == "number" then p.Spacing = { x = 1 + n, 		y = 1 + n } end		
@@ -226,7 +247,9 @@ local function spacing(p)
 end
 
 local mirrorPairs = { x = "Rows", y = "Columns" }
-local function mirror(p)
+local function mirror(parameters)
+
+	local p = parameters
 
 	if p.Script:match("SpecialMirror") then p.Mirror = true end
 
@@ -268,7 +291,9 @@ local function mirror(p)
 end
 
 local scrollPairs = { x = "scrollX", y = "scrollY" }
-local function scroll(p)
+local function scroll(parameters)
+
+	local p = parameters
 
 	if not p.Script:match("Tile") then return end
 
@@ -294,7 +319,9 @@ local function scroll(p)
 
 end
 
-local function shade(p)
+local function shade(parameters)
+
+	local p = parameters
 
 	if not p.Script:match("SpaceEffects") then return end
 
@@ -314,14 +341,14 @@ local function shade(p)
 end
 
 local rainbows = { "Rainbow", "RainbowFlashing" }
-local function colors(p)
+local function colors(parameters)
 
-	local color = p.Color
+	local p = parameters		local color = p.Color
 
 	if type(color) == "string" then
 
 		local key
-		for _,v in pairs(rainbows) do if color == v then key = v end end
+		for _, v in pairs(rainbows) do if color == v then key = v end end
 
 		if not key then p.Color = { color(color) }
 		else p[key] = true		p.Color = nil end
@@ -340,7 +367,9 @@ local function colors(p)
 
 end
 
-local function blend(p) 
+local function blend(parameters) 
+
+	local p = parameters
 
 	-- Not Kaleidoscope Texture folder.
 	if p.Script:match("Texture.lua") then return end
@@ -349,9 +378,9 @@ local function blend(p)
 
 end
 
-local function fade(p)
+local function fade(parameters)
 
-	local fade = p.Fade
+	local p = parameters		local fade = p.Fade
 	
 	local amplitude = p.FadeAmplitude or 0.125
 	if fade and not p.Config.FadeAmplitude then 
@@ -367,13 +396,13 @@ local function fade(p)
 
 	if fade == true or p:hasCommand("Fade") and not fade then fade = { x = 0, y = 0 } end
 
-	fade = tapLua.Vector.toCoords(fade)
-	
-	p.Fade = tapLua.Vector.toUnit(fade)
+	fade = tapLua.Vector.toCoords(fade)			p.Fade = tapLua.Vector.toUnit(fade)
 
 end
 
-local function zoom(p)
+local function zoom(parameters)
+
+	local p = parameters
 
 	local zoomXYZ = p.ZoomXYZ			if not zoomXYZ then return end
 
@@ -381,8 +410,10 @@ local function zoom(p)
 
 end
 
-local function cross(p)
+local function cross(parameters)
 	
+	local p = parameters
+
 	if p.Script:match("Cyclic/") then return end
 
 	local cross = p.Cross
@@ -392,7 +423,9 @@ local function cross(p)
 end
 
 local directionParameters = { "Fade", "Scroll", "Move" }
-local function directions(p)
+local function directions(parameters)
+
+	local p = parameters
 
 	for k,v in ipairs(directionParameters) do
 		if type( p[v] ) == "string" then p[v] = tapLua.Vector.getByName( p[v] ) end
@@ -400,9 +433,9 @@ local function directions(p)
 
 end
 
-local function oneCommand(p)
+local function oneCommand(parameters)
 
-	local commands = p.Commands
+	local p = parameters		local commands = p.Commands
 	
 	if type(commands) == "string" then p.Commands = { commands } end
 
@@ -410,9 +443,9 @@ end
 
 -- To be used with table.sort()
 local last = { "SpecialMirror", "Scroll" }
-local function commandSorter(tbl1)
+local function commandSorter(tbl)
 
-	for _,v1 in ipairs(tbl1) do for _,v2 in ipairs(last) do 
+	for _, v1 in ipairs(tbl) do for _, v2 in ipairs(last) do 
 		if v == v2 then return true end 
 	end end
 
@@ -429,7 +462,9 @@ local stateTypeCommands = {
 	RandomStates = "Random"
 }
 
-local function parameters(p)
+local function parameters(parameters)
+
+	local p = parameters
 
 	for k,v in ipairs(commandToParameter) do beat4sprite.Commands.toParameter(p, v) end
 
@@ -446,7 +481,9 @@ local parameterToCommand = {
 	"Scroll", "Alpha", "Cross", "Shade", "Fade", "Mirror", "Pulse"
 }
 
-local function commands(p)
+local function commands(parameters)
+
+	local p = parameters
 
 	local commands = p.Commands		if not commands then return end
 
@@ -463,19 +500,21 @@ local function commands(p)
 
 end
 
-local function actors(p)
-	local actors = p.Actors
+local function actors(parameters)
+	local p = parameters		local actors = p.Actors
 	if actors and actors.Class then p.Actors = { actors } end
 end
 
-local function pulse(p)
+local function pulse(parameters)
 
-	local type = p.Pulse
+	local p = parameters		local type = p.Pulse
 	if type == true or p:hasCommand("Pulse") and not type then p.Pulse = 1 end
 
 end
 
-local function cyclic(p)
+local function cyclic(parameters)
+
+	local p = parameters
 
 	if not p.Script:match("Cyclic/") then return end
 
@@ -483,7 +522,7 @@ local function cyclic(p)
 
 	if not set then
 
-		if not file then error("Files missing!") else
+		if not file then error("File missing!") else
 			set = {}		for k,v in pairs(file) do set[k] = { File = v } end
 		end
 
@@ -512,7 +551,9 @@ local function cyclic(p)
 
 end
 
-local function adjust(p)
+local function adjust(parametersSet)
+
+	local p = parametersSet
 
 	scripts(p)			tileRange(p)		fileData(p)
 

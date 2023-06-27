@@ -1,77 +1,82 @@
 
 -- Useful to remove commands -> onCross() in Values.lua
-local function has( params, command )
+local function has( parameters, command )
 
-	local commands = params.Commands
+	local commands = parameters.Commands
 	
-	if not params or params and not commands then return false end
+	if not parameters or parameters and not commands then return false end
 
-	return tapLua.Table.contains( commands, command )		-- Returns index if found.
-
-end
-
-local function add( params, command )
-
-	local hasCommand = has( params, command )
-	local commandList = params.Commands
-
-	if not hasCommand then commandList[ #commandList + 1 ] = command end
+	return tapLua.Table.contains( commands, command ) -- Returns index if found.
 
 end
 
-local function remove( params, commandName )
+local function add( parameters, command )
 
-	local index = has( params, commandName )
-	local commands = params.Commands
+	local commands = parameters.Commands
+	local hasCommand = has( parameters, command )
+	
+	if not hasCommand then commands[#commands+1] = command end
+
+end
+
+local function remove( parameters, commandName )
+
+	local commands = parameters.Commands
+	local index = has( parameters, commandName )
 
 	if index then table.remove( commands, index ) end
 
 end
 
--- Sets the commands table based on the parameters
-local function toCommand( params, paramToCmd )
+-- Reads parameters to be set in the commands list.
+local function toCommand( parameters, parseList )
 
-	local cmds = params.Commands		local s = paramToCmd
+	local commands = parameters.Commands		local s = parseList
 
-	if type(s) == "string" then paramToCmd = { Parameter = s,	Command = s } end
+	if type(s) == "string" then parseList = { Parameter = s,	Command = s } end
 
-	local k, v = paramToCmd.Parameter, paramToCmd.Command
+	local k, v = parseList.Parameter, parseList.Command
 
-	-- if the parameter exists and the command doesn't then...
-	if params[k] and not has( params, v ) then
-		cmds[#cmds+1] = v
-	end
+	-- If the parameter exists and the command doesn't then...
+	if parameters[k] and not has( parameters, v ) then commands[#commands+1] = v end
 	
 end
 
 -- Command to parameter.
-local function toParameter( params, cmdToParam )
+local function toParameter( parameters, parseList )
 
-	local cmds = params.Commands		local t = cmdToParam
+	if type(parseList) == "string" then
+		parseList = { Command = parseList,	Parameter = parseList } 
+	end
 
-	if type(t) == "string" then cmdToParam = { Command = t,	Parameter = t } end
+	local k, v = parseList.Command, parseList.Parameter
 
-	local k, v = cmdToParam.Command, cmdToParam.Parameter
+	local commands = parameters.Commands
 
-	-- If the command exists and the parameter doesn't then...
-	local index = has( params, k )
-	if not params[v] and index then
+	local index = has( parameters, k )
 
-		params[v] = cmdToParam.Value or true		table.remove(cmds, index)
-			
+	if not parameters[v] and index then
+
+		parameters[v] = parseList.Value or true		table.remove(commands, index)
+
 	end
 
 end
 
-beat4sprite.template.store { hasCommand = has, addCommand = add, removeCommand = remove }
+beat4sprite.template.store {
+
+	hasCommand = has,		addCommand = add,		removeCommand = remove
+
+}
 
 beat4sprite.store {
 
 	Parameters = { toCommand = toCommand },
 
-	Commands = { 
-		has = has, add = add, remove = remove, 
-		toParameter = toParameter
+	Commands = {
+
+		has = has,		add = add,		remove = remove, 		toParameter = toParameter
+	
 	}
 
 }

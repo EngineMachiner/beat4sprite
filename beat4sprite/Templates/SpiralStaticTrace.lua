@@ -1,7 +1,7 @@
 
 -- We basically have to build a new matrix and use that as the order.
 
-local params =  ...			local p = params
+local parameters =  ...			local p = parameters
 
 local columns, rows = p.Columns, p.Rows
 

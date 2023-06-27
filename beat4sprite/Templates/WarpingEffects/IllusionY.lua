@@ -1,5 +1,5 @@
 
-local params = ...							local p = params
+local parameters = ...							local p = parameters
 
 local textureFrame = Def.ActorFrame{}		local t = textureFrame
 

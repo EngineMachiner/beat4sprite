@@ -1,5 +1,5 @@
 
-local params = ...                              local p = params
+local parameters = ...                              local p = parameters
 
 local step = p.Step or 1                        if p.Backwards then step = -1 end
 
