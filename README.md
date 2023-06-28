@@ -7,12 +7,21 @@ inspired by the classic DDR PSX backgrounds and sprite sheet animations.
 beat4sprite has been tested through from StepMania 5.0.12 to 5.3 / OutFox.
 
 ## How to install
+
   0. Make sure you have [tapLua](https://github.com/EngineMachiner/tapLua).
+
+### OutFox
+
   1. Copy the beat4sprite folder into the Modules folder of fallback.
   2. Load the tapLua and beat4sprite module once in OutFox through fallback's first screen. <br>
   
 For example the ScreenInit overlay script should look like this using LoadModule(): <br><br>
 <img src="https://github.com/EngineMachiner/beat4sprite/assets/15896027/1673b41d-981c-462c-b33f-23442b308f5f" width=400>
+
+### StepMania
+
+  1. Copy the beat4sprite folder in your "Stepmania/Scripts" folder.
+  2. Reload scripts once at first screen if something goes wrong.
 
 ## How to create
 If you want to create your own animations you can check the [Wiki](https://github.com/EngineMachiner/beat4sprite/wiki).
