@@ -4,6 +4,8 @@
 beat4sprite is a **library** to draw different things in the StepMania engine
 inspired by the classic DDR PSX backgrounds and sprite sheet animations.
 
+beat4sprite has been tested through from StepMania 5.0.12 to 5.3 / OutFox.
+
 ## How to install
   0. Make sure you have [tapLua](https://github.com/EngineMachiner/tapLua).
   1. Copy the beat4sprite folder into the Modules folder of fallback.
