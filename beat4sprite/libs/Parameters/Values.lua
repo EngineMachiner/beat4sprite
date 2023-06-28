@@ -1,5 +1,8 @@
 
 local paths = { "BGAnimations/", "Songs/", "Themes/" }
+
+if tonumber( VersionDate() ) < 20191216 then paths[4] = "Scripts/" end
+
 local function parsePaths(parameters)
 
 	local p = parameters
@@ -441,12 +444,28 @@ local function oneCommand(parameters)
 
 end
 
--- To be used with table.sort()
+-- commandSorter is to be used with table.sort().
+
 local last = { "SpecialMirror", "Scroll" }
+
+-- This seems to not work in minor version compared to Lua 5.3. 
+-- As a workaround I'll use the next function.
+
+local function olderSort(value)
+
+	for _, v2 in ipairs(last) do if value == v2 then return true end end
+
+	return false
+
+end
+
 local function commandSorter(tbl)
 
+	-- Might compare to Lua version instead. Soon™️.
+	if tonumber( VersionDate() ) < 20191216 then return olderSort(tbl) end
+
 	for _, v1 in ipairs(tbl) do for _, v2 in ipairs(last) do 
-		if v == v2 then return true end 
+		if v1 == v2 then return true end 
 	end end
 
 	return false

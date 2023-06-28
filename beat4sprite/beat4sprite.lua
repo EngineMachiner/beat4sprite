@@ -6,6 +6,13 @@
 
 local Path = "/Appearance/Themes/_fallback/Modules/beat4sprite/"
 
+if tonumber( VersionDate() ) < 20191216 then
+
+    LoadModule = function(s) loadfile( "Scripts/" .. s )() end
+	Path = "/Scripts/beat4sprite/"
+
+end
+
 beat4sprite = { 
 
 	Paths = {
