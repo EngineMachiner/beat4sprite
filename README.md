@@ -6,6 +6,8 @@ inspired by the classic DDR PSX backgrounds and sprite sheet animations.
 
 beat4sprite has been tested through from StepMania 5.0.12 to 5.3 / OutFox.
 
+[beat4sprite on Youtube](https://youtu.be/NKW4aDbaQvM)
+
 ## How to install
 
   0. Make sure you have [tapLua](https://github.com/EngineMachiner/tapLua).
