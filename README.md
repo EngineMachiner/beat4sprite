@@ -1,8 +1,8 @@
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W32691S)
 
 # beat4sprite
-beat4sprite is a **library** to draw different things in the StepMania engine
-inspired by the classic DDR PSX backgrounds and sprite sheet animations.
+beat4sprite is a **library** to create animations in the StepMania engine
+inspired by the classic DDR PSX background animations and sprites.
 
 beat4sprite has been tested through from StepMania 5.0.12 to 5.3 / OutFox.
 
