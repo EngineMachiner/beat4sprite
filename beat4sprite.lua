@@ -61,7 +61,7 @@ astro.merge( beat4sprite, {
 } )
 
 
-local LoadDirectory = tapLua.FILEMAN.LoadDirectory              local directories = { "Actor", "Builder" }
+local LoadDirectory = tapLua.FILEMAN.LoadDirectory              local directories = { "Actor", "Builder", "Modules" }
 
 for i,v in ipairs(directories) do LoadDirectory( path .. v .. '/' ) end
 
