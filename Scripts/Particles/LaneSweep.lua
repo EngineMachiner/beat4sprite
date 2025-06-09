@@ -1,11 +1,11 @@
 
--- Positioning based on tapLua screen matrix and Tile.lua algorithms.
+-- Positioning based on the tapLua algorithm to fit sprites in the screen.
 
 local Vector = Astro.Vector             local maxCoordinate = Vector.maxCoordinate
 
 local astro = Astro.Layout              local quantityIn = astro.quantityIn
 
-local offsets = astro.centerOffsets
+local offset = astro.centerOffset
 
 
 local builder = ...             local Texture = builder.Texture
@@ -20,16 +20,14 @@ local max = tapLua.screenSize()             max = maxCoordinate(max).value
 
 local Scale = SCREEN_HEIGHT / 240           local size = 60 * Scale
 
-local n = quantityIn( max, size )           offsets = offsets(n)
+local n = quantityIn( max, size )           offset = offset(n)
 
-
-local half, even = offsets.half, offsets.even
 
 local function Particle(t) return beat4sprite.Sprite(t) .. Sprite end
 
 for i = 1, n do
 
-    local x = max           local offset = i - half - even
+    local x = max           local offset = i - offset
     
     t[#t+1] = Particle {
 

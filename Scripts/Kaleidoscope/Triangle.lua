@@ -1,10 +1,7 @@
 
-local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
+local Vector = Astro.Vector             local builder = ...         local Texture = builder.Texture
 
-
-local builder = ...             local Texture = builder.Texture             local Sides = builder.Sides
-
-local Scroll = builder.Scroll or Vector(1)
+local Sides = builder.Sides             local Scroll = builder.Scroll or Vector(1)
 
 
 local Angle = 180 / Sides

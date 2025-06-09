@@ -26,7 +26,7 @@ local function setSize(self)
 end
 
 
--- Add spiral index function.
+-- Add spiral traversing function.
 
 local spiral = tapLua.Load( "Sprite/Spiral" )
 

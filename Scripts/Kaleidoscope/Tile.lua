@@ -46,6 +46,8 @@ return tapLua.ActorFrame {
     
     tapLua.ActorFrameTexture {
 
+        Hexagons,
+
         OnCommand=function(self)
 
             local size = tapLua.screenSize() - Vector( offsetX * 2 )
@@ -54,7 +56,7 @@ return tapLua.ActorFrame {
 
             Texture = self:GetTexture()         self:GetParent():queuecommand("LoadHexagon")
         
-        end,    Hexagons
+        end
         
     },
 

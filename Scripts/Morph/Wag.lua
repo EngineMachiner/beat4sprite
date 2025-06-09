@@ -1,7 +1,6 @@
 
 local Vector = Astro.Vector             local defaultLayers = beat4sprite.Config.MorphLayers
 
-
 local builder = ...             local Texture = builder.Texture           local Effect = builder.Effect
 
 local Layers = Effect.Layers or defaultLayers               local Fade = 0.03
@@ -21,8 +20,9 @@ for i = 1, Layers do
 
 		OnCommand=function(self)
 
-			self:init(builder):fitInScreen():fadeHorizontally(Fade):fadeVertically(Fade)
-
+			self:init(builder):fitInScreen()
+            
+            self:fadeHorizontally(Fade):fadeVertically(Fade)
             self:cropHorizontally(crop):cropVertically(crop)
 
 

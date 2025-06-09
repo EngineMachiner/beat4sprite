@@ -3,9 +3,7 @@
 
 local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
 
-
 local builder = ...             local Texture = builder.Texture             local Type = builder.Type or 2
-
 
 local directions = { Vector(1), Vector { y = 1 } }              local direction = directions[Type]
 

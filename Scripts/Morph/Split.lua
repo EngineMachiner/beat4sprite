@@ -10,11 +10,10 @@
 
 ]]
 
-local Vector = Astro.Vector
+local Vector = Astro.Vector             local builder = ...
 
-local builder = ...             local reversed = builder.Reversed
+local reversed = builder.Reversed
 
-local t = Def.ActorFrame {}
 
 local Crop = {
 
@@ -26,6 +25,8 @@ local Crop = {
 
 }
 
+
+local t = Def.ActorFrame {}
 
 local function direction(x) return x * 2 - 3 end
 

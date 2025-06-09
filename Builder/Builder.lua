@@ -1,9 +1,9 @@
 
 -- It's a builder that returns actors based on different keys and values.
 
-local isTable = Astro.Type.isTable
+local Vector = Astro.Vector
 
-local astro = Astro.Table           local Vector = Astro.Vector
+local astro = Astro.Table               local deepCopy = astro.Copy.deep
 
 
 local Builder = {}
@@ -78,13 +78,11 @@ local function defaults()
 
 end
 
--- TODO: Remove Retro, Background, SongBackground access.
+local metaBuilder
 
 create = function(input)
 
-    local Builder = beat4sprite.Builder
-
-    local meta = { __index = Builder, input = input }
+    local meta = { __index = metaBuilder, input = input }
 
 
     local builder = tapLua.deepMerge( defaults(), input )
@@ -146,7 +144,7 @@ function Builder:merge(input)
 
     if not input then return self end
 
-    local copy = DeepCopy( self:input() )           return astro.deepMerge( copy, input )
+    local copy = deepCopy( self:input() )           return astro.deepMerge( copy, input )
 
 end
 
@@ -165,12 +163,10 @@ end
 beat4sprite.Builder = Builder
 
 
-local directory = beat4sprite.Path .. "Builder/"
+tapLua.FILEMAN.LoadDirectory( beat4sprite.Path .. "Builder/" )
 
-tapLua.FILEMAN.LoadDirectory( directory, "Builder" )
+metaBuilder = deepCopy(Builder)
 
-
--- Should I add Retro.Load?
 
 local function Retro(input)
 
@@ -181,7 +177,7 @@ local function Retro(input)
 end
 
 
--- Actors created through the builder.
+-- Builder templates for easy creation.
 
 local function Background( Texture )
 

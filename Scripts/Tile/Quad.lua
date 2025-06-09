@@ -1,10 +1,7 @@
 
 local astro = Astro.Table           local Builder = beat4sprite.Builder
 
-
-local builder = ...
-
-local Quad = builder.Quad           local isQuad = Quad == true
+local builder = ...                 local Quad = builder.Quad           local isQuad = Quad == true
 
 
 local function quadActor()
@@ -33,4 +30,4 @@ local function onQuad(self)
 end
 
 
-return quadActor, onQuad, isQuad
+return quadActor, onQuad

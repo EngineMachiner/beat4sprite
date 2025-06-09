@@ -5,13 +5,11 @@ local astro = Astro.Table
 local function hasAnimationType( self, name ) return self.beat4sprite:hasAnimationType(name) end
 
 
--- TODO: Use tapLua.spriteMatrix
-
 local function pathMatrix(self)
 
     local path = self:GetTexture():GetPath()        if not FILEMAN:DoesFileExist(path) then return end    
     
-    local x, y = path:match("(%d+)x(%d+)")          return Vector( tonumber(x), tonumber(y) )
+    return tapLua.spriteMatrix(path)
 
 end
 

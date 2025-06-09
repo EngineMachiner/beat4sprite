@@ -1,12 +1,10 @@
 
--- TODO: Write a function that converts the command name and removes it.
-
 local astro = Astro.Type
 
 local isTable = astro.isTable          local isString = astro.isString
 
 
-local astro = Astro.Table               local Meta = astro.Meta
+local astro = Astro.Table
 
 local Vector = Astro.Vector             local isVector = Vector.isVector
 
@@ -39,7 +37,6 @@ if Direction then Scroll.Direction = Vector.unit( Direction ) end
 
 local MatrixOffset = builder.MatrixOffset
 
-
 local Texture = builder.Texture             local States = builder.States
 
 
@@ -50,10 +47,7 @@ if Scroll then Display = Display or Scroll.Direction end
 
 local Rotation = builder.Rotation or Vector()
 
-
-local Blend = builder.Blend             local Effect = builder.Effect
-
-local Colors = builder.Colors
+local Blend = builder.Blend             local Colors = builder.Colors
 
 
 local Mirror = builder.Mirror           local Zoom = builder:zoom()
@@ -70,7 +64,7 @@ local function tileUtil( path, ... )
 end
 
 
-local quadActor, onQuad, isQuad = tileUtil("Quad")
+local quadActor, onQuad = tileUtil("Quad")
 
 local positionState, scrollStates = tileUtil("States")
 

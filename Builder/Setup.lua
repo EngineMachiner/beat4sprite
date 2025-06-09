@@ -1,18 +1,9 @@
 
--- 1st MIX builder set to double the rate, FOV to 170, double depth particles?
-
 local isColor = tapLua.Color.isColor        local Config = beat4sprite.Config
-
 
 local astro = Astro.Type            local isString = astro.isString
 
-local isTable = astro.isTable
-
-
 astro = Astro.Table           local Meta = astro.Meta
-
-local Vector = Astro.Vector             local isVector = Vector.isVector
-
 
 local Builder = beat4sprite.Builder
 

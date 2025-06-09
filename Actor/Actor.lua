@@ -1,6 +1,4 @@
 
-local Vector = Astro.Vector
-
 local astro = Astro.Table           local resolvePath = tapLua.resolvePath
 
 local merge = tapLua.Actor.merge
@@ -36,8 +34,6 @@ Actor.extend = extend
 
 local function actor( beat4sprite, input )
 
-    local class = input.Class           local Actor = tapLua[class] or tapLua.Actor
-
     local base = {
 
         InitCommand=function(self)
@@ -52,6 +48,8 @@ local function actor( beat4sprite, input )
 
     }
 
+    local class = input.Class               local Actor = tapLua[class] or tapLua.Actor
+
     input = merge( base, input )            return Actor(input)
 
 end
@@ -63,15 +61,11 @@ local Sprite = {}        beat4sprite.Sprite = Sprite
 
 local function sprite( beat4sprite, input )
 
-    input.Class = "Sprite"        input.Texture = resolvePath( input.Texture )
+    input.Texture = resolvePath( input.Texture )
 
     local base = {
         
-        InitCommand=function(self)
-            
-            for k,v in pairs( beat4sprite ) do self[k] = v end
-
-        end,
+        InitCommand=function(self) for k,v in pairs( beat4sprite ) do self[k] = v end end,
 
         UpdateFunctionCommand=function(self)
             
@@ -81,7 +75,7 @@ local function sprite( beat4sprite, input )
     
     }
 
-    input = merge( base, input )            return Actor(input)
+    input.Class = "Sprite"        input = merge( base, input )        return Actor(input)
 
 end
 
@@ -98,7 +92,7 @@ local function ActorProxy( input ) input.Class = "ActorProxy"       return Actor
 
 local function Text( input )
     
-    input.Class = "BitmapText"          input.Font = resolvePath( input.Font )          return Actor(input) 
+    input.Class = "BitmapText"      input.Font = resolvePath( input.Font )      return Actor(input) 
 
 end
 

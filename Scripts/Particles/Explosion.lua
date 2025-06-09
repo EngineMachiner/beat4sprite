@@ -6,10 +6,9 @@ local Vector = Astro.Vector             local maxCoordinate = Vector.maxCoordina
 local planeAxes = Vector.planeAxes
 
 
-local builder = ...             local Texture = builder.Texture             local Sprite = builder.Sprite or {}
+local builder = ...             local Texture = builder.Texture
 
-
-local t = beat4sprite.ActorFrame { OnCommand=function(self) self:Center() end }
+local Sprite = builder.Sprite or {}
 
 
 local max = tapLua.screenSize()             max = maxCoordinate(max).value
@@ -18,6 +17,8 @@ local Scale = SCREEN_HEIGHT / 240               local size = Vector( 64, 60 ) * 
 
 
 local n = 0
+
+local t = beat4sprite.ActorFrame { OnCommand=function(self) self:Center() end }
 
 for j = 1, 4 do for i = 1, 5 do
 
@@ -31,13 +32,13 @@ for j = 1, 4 do for i = 1, 5 do
 
             self.TilePos = Vector( i, j )
 
-            self:initParticle( builder, n )             local direction = Vector( i - 3, j - 2.5 )
+            self:initParticle( builder, n )                 local direction = Vector( i - 3, j - 2.5 )
 
             local size = self:GetZoomedSize() * 2           local pos = Vector( max, max ) + size
 
-            for i,v in ipairs( planeAxes ) do pos[v] = pos[v] * direction[v] end            self.Pos = pos
-
-            self:playcommand("Prepare"):queuecommand("Motion")
+            for i,v in ipairs( planeAxes ) do pos[v] = pos[v] * direction[v] end
+            
+            self.Pos = pos              self:playcommand("Prepare"):queuecommand("Motion")
 
         end,
 

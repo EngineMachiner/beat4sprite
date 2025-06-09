@@ -14,11 +14,11 @@ local scale = SCREEN_HEIGHT / 720
 local function z(offset)    local depth = 250           local i = 1 + offset         return depth * i * scale   end
 
 
--- TODO: Saturation is not supported.
+-- TODO: Color saturation config is not supported.
 
 beat4sprite.Config = {
     
-    ScrollSync = false,       Saturation = 1,        PreviewRate = 0.5,       MorphLayers = 64,
+    ScrollSync = false,       PreviewRate = 0.5,       MorphLayers = 64,
 
     Depth = {   Range = { - z(3),     z( - 0.75 ) },         FOV = 160   }
 
@@ -66,7 +66,7 @@ local LoadDirectory = tapLua.FILEMAN.LoadDirectory              local directorie
 for i,v in ipairs(directories) do LoadDirectory( path .. v .. '/' ) end
 
 
--- Need to add this vector function... ( temporarily? )
+-- Should this be added to Astro?
 
 local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
 

@@ -1,10 +1,8 @@
 
-local astro = Astro.Type
-
-local isNumber = astro.isNumber
-local isString = astro.isString
+local astro = Astro.Type            local isNumber = astro.isNumber             local isString = astro.isString
 
 local Builder = beat4sprite.Builder
+
 
 local function onStatesNumber(self)
 
