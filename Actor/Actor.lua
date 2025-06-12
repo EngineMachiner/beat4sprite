@@ -128,9 +128,7 @@ local function ScreenQuad(color)
 
 	local Quad = tapLua.ScreenQuad(color)
 
-    Quad.OnCommand = Quad.InitCommand           Quad.InitCommand = nil
-
-    return Quad .. { OnCommand=function(self) extend(self) end }
+    return Quad .. { OnCommand=function(self) self:queuecommand("Init") extend(self) end }
 	
 end
 
