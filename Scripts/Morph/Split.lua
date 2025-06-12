@@ -12,7 +12,7 @@
 
 local Vector = Astro.Vector             local builder = ...
 
-local reversed = builder.Reversed
+local Reversed = builder.Reversed
 
 
 local Crop = {
@@ -51,8 +51,6 @@ local function add( row, column )
 
         Texture = builder.Texture,
 
-        ReverseCommand=function(self) reversed = true end,
-
         OnCommand=function(self)
             
             self:init(builder):fitInScreen()            local crop = Crop[i]    crop(self)
@@ -60,7 +58,7 @@ local function add( row, column )
 
             local endPos = endPos(self)         positions = { startPos, endPos }
             
-            if reversed then positions = { endPos, startPos } end
+            if Reversed then positions = { endPos, startPos } end
 
 
             self:playcommand("Prepare")

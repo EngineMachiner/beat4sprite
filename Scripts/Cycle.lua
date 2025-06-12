@@ -1,61 +1,50 @@
 
 local builder = ...             local Actors = builder.Actors           local Reversed = builder.Reversed
 
-
-local function getTime(tbl) return tbl.Time or 1 end
-
-local function getOffset(tbl) return tbl.Offset or 0 end
-
-local function total(tbl) return getTime(tbl) + getOffset(tbl) end
-
-
-local time = 0
-
-for i,v in ipairs(Actors) do time = time + total(v) end
-
-
-local offset = getOffset(builder)           local parent
-
 local t = beat4sprite.ActorFrame {
+    
+    OnCommand=function(self)
 
-    InitCommand=function(self) parent = self end,
-
-    OnCommand=function(self) self:init(builder):sleep(offset):queuecommand("Cycle") end
+        self:init(builder):playcommand("CycleSetup"):queuecommand("FinishCycleSetup")
+    
+    end
 
 }
 
 
-local left = time        time = 0
+local time = 0          local times = {}
+
+local function cycleTimeLeft(i)
+
+    local t = 0          local a = i + 1         local b = #times
+    
+    for i = a, b do if times[i] then t = t + times[i] end end
+
+    return t
+
+end
 
 for i,v in ipairs(Actors) do
 
-    local on = time + getOffset(v)          local off = left
+    local sleep = {}        if not Reversed then i = #Actors - i + 1 end
     
-    if not Reversed then i = #Actors - i + 1 end
-
-
     t[i] = v .. {
 
-        InitCommand=function(self) if Reversed then self:playcommand("Reverse") end end,
+        CycleSetupCommand=function(self)
 
-        OnCommand=function(self) self:onGameplay() end,
+            local timeLeft = self:GetTweenTimeLeft()                times[i] = timeLeft
 
-        CycleCommand=function(self)
+            sleep[1] = time         time = time + timeLeft          self:stoptweening()
 
-            local rate = parent:tweenRate()
+        end,
 
-            local on = on * rate            self:sleep(on):queuecommand("CycleOn")
-            
-            local off = off * rate          self:sleep(off):queuecommand("CycleOff")
-            
-            self:queuecommand("Cycle")
+        FinishCycleSetupCommand=function(self)
+
+            sleep[2] = cycleTimeLeft(i)         self.CycleTimes = sleep             self.Index = i
 
         end
 
     }
-
-
-    local t = total(v)           time = time + t         left = left - t
 
 end
 

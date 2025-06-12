@@ -95,7 +95,7 @@ local function setEffect( self, effectKey )
 
 end
 
-local function setEffectVector( self, vector )
+local function setEffectOffset( self, vector )
 
     self.Effect.Offset = - vector.x + vector.y            return self
 
@@ -107,12 +107,6 @@ end
 
 local function delayFromVector( self, vector ) return vector.x + vector.y end
 
-
-local function getZoom(self) 
-    
-    local beat4sprite = self.beat4sprite            return beat4sprite:zoom()
-
-end
 
 local function scaleToScreen(self)
 
@@ -134,7 +128,7 @@ local function init( self, builder )
     local beat4sprite = builder            self.beat4sprite = builder
     
 
-    local filter = beat4sprite.Filter or false              local alpha = beat4sprite.Alpha or 1
+    local filter = beat4sprite.Filter           local alpha = beat4sprite.Alpha or 1
 
     self:SetTextureFiltering(filter)            self:GetParent():diffusealpha(alpha)
 
@@ -152,11 +146,11 @@ local merge = {
 
     init = init,        isOnGameplay = isOnGameplay,        onGameplay = onGameplay,
     
-    setupEffect = setupEffect,      setEffect = setEffect,      setEffectVector = setEffectVector,
+    setupEffect = setupEffect,      setEffect = setEffect,      setEffectOffset = setEffectOffset,
 
-    getZoom = getZoom,      scaleToScreen = scaleToScreen,          fitInScreen = fitInScreen,
+    scaleToScreen = scaleToScreen,          fitInScreen = fitInScreen,              delayFromVector = delayFromVector,
     
-    delayFromVector = delayFromVector,          rate = rate,        statesRate = statesRate,        tweenRate = tweenRate,
+    rate = rate,        statesRate = statesRate,        tweenRate = tweenRate,
     
     periodRate = periodRate,        periodSetup = periodSetup
 

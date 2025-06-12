@@ -100,19 +100,9 @@ function Builder:setBlend()
 
 end
 
-function Builder:onCyclic()
+function Builder:setFilter()
 
-    if not self.Script:match("Cyclic/") then return end
-
-
-    local cycle = self.Cycle            local __index = { Time = { Layer = 4 }, Offset = 0 }
-
-    self.Cycle = Meta.setIndex( cycle, __index )
-
-
-    -- Calculate total time.
-
-    cycle.Time.Total = cycle.Time.Layer * #self.Layers
+    local filter = self.Filter          if filter == nil then self.Filter = true end
 
 end
 
@@ -126,7 +116,7 @@ function Builder:setup()
 
     if wasSetup(self) then return self end
 
-    self:setPaths():setSpriteStates()         self:onDepth():setColors():setBlend()
+    self:setPaths():setSpriteStates()         self:onDepth():setColors():setBlend():setFilter()
 
     finishSetup(self) return self
 

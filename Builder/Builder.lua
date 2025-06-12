@@ -33,7 +33,7 @@ local function merge( builders, input )
 
     if not input then return builders end        local wrap = wrap(input)
 
-    local merged = astro.deepMerge( builders, wrap )
+    local merged = tapLua.deepMerge( builders, wrap )
 
     return Builder(merged)
 
@@ -119,9 +119,9 @@ function Builder:Load()
     morphBackground(self)
 
 
-    local builder = self            local layers = builder.Layers
+    local Builder = self                    local layers = Builder.Layers
 
-    local main = loadfile( builder.Script )(builder)
+    local Script = Builder.Script           local main = loadfile(Script)(Builder)
 
     return beat4sprite.BaseFrame {
 
@@ -133,6 +133,8 @@ function Builder:Load()
 
         end,
 
+        OnCommand=function(self) self:init(Builder) end,
+
         layers.Back,       main,       layers.Front
 
     }
@@ -142,9 +144,9 @@ end
 
 function Builder:merge(input)
 
-    if not input then return self end
-
-    local copy = deepCopy( self:input() )           return astro.deepMerge( copy, input )
+    if not input then return self end           local copy = deepCopy( self:input() )
+    
+    tapLua.deepMerge( copy, input )             return Builder(copy)
 
 end
 
@@ -171,8 +173,8 @@ metaBuilder = deepCopy(Builder)
 local function Retro(input)
 
     local scale = SCREEN_HEIGHT / 240           input.Scale = scale
-    
-    return Builder(input)
+
+    input.Filtering = false             return Builder(input)
 
 end
 

@@ -126,7 +126,11 @@ end
 
 local function ScreenQuad(color)
 
-	return tapLua.ScreenQuad(color) .. { InitCommand=function(self) extend(self) end }
+	local Quad = tapLua.ScreenQuad(color)
+
+    Quad.OnCommand = Quad.InitCommand           Quad.InitCommand = nil
+
+    return Quad .. { OnCommand=function(self) extend(self) end }
 	
 end
 
@@ -134,7 +138,7 @@ local function ScreenBlend(blend)
 
     blend = blend or Blend.Add
 
-	return ScreenQuad() .. { InitCommand=function(self) self:blend(blend) end }
+	return ScreenQuad() .. { OnCommand=function(self) self:blend(blend) end }
 	
 end
 

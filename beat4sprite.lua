@@ -6,7 +6,7 @@ local animationsDirectory = "/BGAnimations/"            local path = "/Appearanc
 
 if tapLua.isLegacy() then path = "/Modules/beat4sprite/" end
 
-beat4sprite = { Path = path }
+beat4sprite = { Path = path,        Modules = {} }
 
 
 local scale = SCREEN_HEIGHT / 720
