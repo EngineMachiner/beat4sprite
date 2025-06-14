@@ -23,7 +23,7 @@ local function percent(z) local z = z - min       return z / length end
 
 local function random(y) return math.random( -y, y ) end
 
-local angle = Direction.y / Direction.x             angle = math.atan(angle)            angle = math.deg(angle)
+local angle = Vector.angle( Direction )
 
 
 local t = beat4sprite.ActorFrame { OnCommand=function(self) self:setupDepth(FOV):rotationz(angle) end }
