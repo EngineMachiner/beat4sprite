@@ -187,9 +187,9 @@ local function Background( Texture )
 
 end
 
-local function SongBackground( Texture )
+local function SongBackground()
     
-    local Texture = beat4sprite.songBackgroundPath()            return background(Texture)
+    local Texture = beat4sprite.songBackgroundPath()            return Background(Texture)
 
 end
 

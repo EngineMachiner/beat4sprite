@@ -35,7 +35,7 @@ local Direction = Scroll.Direction
 if Direction then Scroll.Direction = Vector.unit( Direction ) end
 
 
-local MatrixOffset = builder.MatrixOffset
+local Matrix = builder.Matrix
 
 local Texture = builder.Texture             local States = builder.States
 
@@ -192,7 +192,7 @@ local isComposed = isTable(Texture)
 local Sprite3 = builder.Output or {}
 
 
-local input = { Texture = Texture,          Sprite = Sprite,    Zoom = Zoom,        MatrixOffset = MatrixOffset }
+local input = { Texture = Texture,          Sprite = Sprite,    Zoom = Zoom,        Matrix = Matrix }
 
 
 local Renderer = tapLua.Sprite.Renderer             local isScreenScale = builder.ScreenScale
@@ -212,13 +212,13 @@ local function onPreload()
 
     -- Check mirror when the texture is oversized.
 
-    if MatrixOffset or not Display then return end               local w, h = Renderer:GetZoomedSize(true)
+    if Matrix or not Display then return end               local w, h = Renderer:GetZoomedSize(true)
 
     local displayX = w >= SCREEN_WIDTH and Display.x ~= 0             local displayY = h >= SCREEN_HEIGHT and Display.y ~= 0
 
     local offset = displayX and Vector(1) or Vector()                if displayY then offset.y = 1 end
 
-    input.MatrixOffset = offset
+    input.Matrix = function(matrix) return matrix + offset end
 
 end
 
