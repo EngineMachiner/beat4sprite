@@ -101,11 +101,13 @@ local function initStates(self)
 
 end
 
-Commands = { "Visible", "States", "On" }
+Commands = { "Visible", "States" }
 
 local Sprite = beat4sprite.Sprite {
 
-    InitCommand=function(self)
+    InitCommand=function(self) self:queuecommand("On") end,
+
+    OnCommand=function(self)
 
         self:init(builder):initSprite()           initStates(self)          self:queueCommands(Commands)
 
@@ -401,7 +403,7 @@ end
 
 local Width, AFT            local Renderer = tapLua.Sprite.Renderer
 
-local childPath= beat4sprite.Path .. "Scripts/Tile/Child.lua"
+local childPath = beat4sprite.Path .. "Scripts/Tile/Child.lua"
 
 return beat4sprite.ActorFrame {
 

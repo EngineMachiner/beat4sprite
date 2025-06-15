@@ -1,4 +1,6 @@
 
+local Vector = Astro.Vector
+
 local builder = ...            local States = builder.States
 
 local Position = States.Position            if Position == true then Position = Vector( 1, 1 ) end
