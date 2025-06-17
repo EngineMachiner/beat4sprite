@@ -235,7 +235,11 @@ local function ActorFrameTexture( input )
 
         CreateTextureCommand=function(self)
         
+            if self.Created then return end    -- Check if bitEye preview texture was already created.
+
             self:EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()
+
+            self.Created = true
         
         end
     
