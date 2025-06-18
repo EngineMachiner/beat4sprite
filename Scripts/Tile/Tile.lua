@@ -308,6 +308,8 @@ local function Composition()
 
             Texture = Texture[1],
 
+            OnCommand=function(self) self:init(builder) end,
+
             ComposeCommand=function(self)
 
                 local p = self:GetParent()          local AFT = p:GetParent()
