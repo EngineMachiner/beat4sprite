@@ -123,17 +123,21 @@ local function queueCommands(self)
 
 end
 
+local function setAlpha(self)
+
+    local alpha = self.beat4sprite.Alpha            self:diffusealpha(alpha)
+
+    return self
+
+end
+
 local function init( self, builder )
     
-    local beat4sprite = builder            self.beat4sprite = builder
+    local beat4sprite = builder                     self.beat4sprite = builder
     
+    local filter = beat4sprite.Filter               self:SetTextureFiltering(filter)
 
-    local filter = beat4sprite.Filter           local alpha = beat4sprite.Alpha or 1
-
-    self:SetTextureFiltering(filter)            self:GetParent():diffusealpha(alpha)
-
-
-    self:setupTimers():onGameplay(self)         setupEffect(self):periodSetup()   queueCommands(self)
+    self:setupTimers():onGameplay(self)             setupEffect(self):periodSetup()             queueCommands(self)
     
     return self
 
@@ -142,7 +146,7 @@ end
 
 local merge = { 
     
-    configRate = configRate,        BPM_Rate = BPM_Rate,
+    configRate = configRate,        BPM_Rate = BPM_Rate,            setAlpha = setAlpha,
 
     init = init,        isOnGameplay = isOnGameplay,        onGameplay = onGameplay,
     

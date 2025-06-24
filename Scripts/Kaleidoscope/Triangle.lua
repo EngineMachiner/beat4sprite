@@ -73,6 +73,8 @@ return tapLua.ActorFrame {
 
             self:SetTexture(subTexture)             self:init(builder):scaleToScreen():invertedMaskDest()
         
+            self:setAlpha()
+
         end
     
     }

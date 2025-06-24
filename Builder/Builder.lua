@@ -66,7 +66,7 @@ local function defaults()
 
         Scale = SCREEN_HEIGHT / 720, -- The graphics scale, 720p being the default.
 
-        Zoom = 1,   Rate = 1,           Colors = {},
+        Zoom = 1,   Rate = 1,           Colors = {},            Alpha = 1,
         
         States = { First = 1, Last = 1, Rate = 1, Types = {} },
         
@@ -112,6 +112,14 @@ local function morphBackground(self)
 
 end
 
+local textureScripts = {
+    
+    "Kaleidoscope/Tile.lua",       "Kaleidoscope/Triangle.lua",
+    
+    "Morph/Stretch.lua",        "Tile/Tile.lua"
+
+}
+
 function Builder:Load()
 
     if not self.Load then return Load(self) end -- If Builder.Load(builders) happens.
@@ -119,9 +127,29 @@ function Builder:Load()
     morphBackground(self)
 
 
-    local Builder = self                    local layers = Builder.Layers
+    local Builder = self                    local Layers = Builder.Layers
 
-    local Script = Builder.Script           local main = loadfile(Script)(Builder)
+    local Script = Builder.Script           local Main = loadfile(Script)(Builder)
+
+
+    local Alpha = Builder.Alpha
+
+    local function isValid( k, v ) return Script:match(v) end
+
+    local isTexture = astro.contains( textureScripts, isValid )
+
+    Main = Def.ActorFrame {
+        
+        Main,
+        
+        OnCommand=function(self)
+            
+            if not isTexture then self:diffusealpha(Alpha) end 
+        
+        end
+    
+    }
+
 
     return beat4sprite.BaseFrame {
 
@@ -135,7 +163,7 @@ function Builder:Load()
 
         OnCommand=function(self) self:init(Builder) end,
 
-        layers.Back,       main,       layers.Front
+        Layers.Back,       Main,       Layers.Front
 
     }
 

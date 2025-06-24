@@ -58,7 +58,7 @@ return tapLua.ActorFrame {
 
         OnCommand=function(self)
             
-            self:SetTexture(subTexture):invertedMaskDest()             self:init(builder):initSprite()
+            self:SetTexture(subTexture):invertedMaskDest()             self:init(builder):initSprite():setAlpha()
 
             local rectangle = Vector( 1, 1 ) - direction                self:customtexturerect( 0, 0, rectangle:unpack() )
 

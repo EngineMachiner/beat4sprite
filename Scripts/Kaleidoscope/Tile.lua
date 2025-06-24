@@ -60,7 +60,9 @@ return tapLua.ActorFrame {
         
     },
 
-    tapLua.ActorFrame {
+    beat4sprite.ActorFrame {
+
+        OnCommand=function(self) self:init(builder):setAlpha() end,
 
         LoadHexagonCommand=function(self)
 

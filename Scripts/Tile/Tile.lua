@@ -433,7 +433,7 @@ return beat4sprite.ActorFrame {
 
     beat4sprite.Sprite {
 
-        OnCommand=function(self) self:Center():init(builder):initSprite() end,
+        OnCommand=function(self) self:Center():init(builder):initSprite():setAlpha() end,
 
         LoadSpriteCommand=function(self)
 
