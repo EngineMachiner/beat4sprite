@@ -46,3 +46,5 @@ You can also check out examples in:
 - [MadkaT](https://github.com/MadkaT182)
 - [RenTheHumanCat](https://zenius-i-vanisher.com/v5.2/user?userid=18775)
 - [Retrozaid](https://zenius-i-vanisher.com/v5.2/user?userid=21434)
+
+Thank you to everyone who contributed to the development of this project!
