@@ -57,7 +57,7 @@ end
 
 local n = 0
 
-local aspectRatio = SCREEN_WIDTH / SCREEN_HEIGHT            local maxSprites = 7 * aspectRatio
+local aspectRatio = GetScreenAspectRatio()            local maxSprites = 7 * aspectRatio
 
 for j = 1, 3 do for i = 1, 4 do
 

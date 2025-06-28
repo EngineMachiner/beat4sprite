@@ -4,7 +4,7 @@ local builder = ...             builder.Sides = builder.Sides or 8              
 if Sides < 3 then error("A polygon must have more than 2 sides!") end
 
 
-local zoom = SCREEN_WIDTH / SCREEN_HEIGHT
+local zoom = GetScreenAspectRatio()
 
 local t = tapLua.ActorFrame {
 

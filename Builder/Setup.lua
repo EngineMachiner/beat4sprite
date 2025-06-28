@@ -72,7 +72,7 @@ local function scaleQuantity(self)
 
     local n = self.Quantity          if self.Centered then return n end            
 
-    n = n * SCREEN_WIDTH / SCREEN_HEIGHT        n = math.ceil(n)        self.Quantity = n
+    n = n * GetScreenAspectRatio()        n = math.ceil(n)        self.Quantity = n
 
     return n
 
