@@ -29,7 +29,7 @@ echo "LoadModule(\"beat4sprite/beat4sprite.lua\")" | { grep -xFv -f "$TAPLUA" >>
 
 echo "Clone animations?"
 
-select animations in "OutFox" "Exit"; do
+select animations in "OutFox" "Exit" < /dev/tty; do
 
     case $animations in
 
