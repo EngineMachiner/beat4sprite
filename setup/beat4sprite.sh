@@ -15,7 +15,7 @@ if [ -d "$FALLBACK/$MODULES" ]; then MODULES="$FALLBACK/$MODULES"; fi
 
 REPOSITORY="https://github.com/EngineMachiner/beat4sprite.git"
 
-#git clone "$REPOSITORY" "$MODULES/beat4sprite"
+git clone "$REPOSITORY" "$MODULES/beat4sprite"
 
 
 # Add to init script.
