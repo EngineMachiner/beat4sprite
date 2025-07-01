@@ -24,3 +24,5 @@ cp -r "$DIRECTORY/Modules" "$MODULES"
 
 
 rm -rf "$DIRECTORY"
+
+echo "Done.";    echo "Please select an option."
