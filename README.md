@@ -23,6 +23,8 @@ curl -o beat4sprite.sh https://raw.githubusercontent.com/EngineMachiner/beat4spr
 
 ```
 
+---
+
 Or it can be installed manually:
 
 Be aware that to successfully install beat4sprite in your game build, it's important to have a basic understanding of **scripting and theme structure**.
