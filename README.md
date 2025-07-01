@@ -18,7 +18,7 @@ beat4sprite can be installed using the next bash commands in the game directory:
 ```console
 
 curl -o OutFox.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite-OutFox/refs/heads/soundwaves/setup.sh
-curl -o beat4sprite.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite/refs/heads/master/setup/beat4sprite.sh
+curl -o beat4sprite.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite/refs/heads/master/beat4sprite.sh
 ./beat4sprite.sh; rm beat4sprite.sh OutFox.sh
 
 ```
