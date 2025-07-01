@@ -15,7 +15,7 @@ if [ -d "$FALLBACK/$MODULES" ]; then MODULES="$FALLBACK/$MODULES"; fi
 
 REPOSITORY="https://github.com/EngineMachiner/beat4sprite-OutFox.git"
 
-#git clone "$REPOSITORY" "$DIRECTORY"
+git clone "$REPOSITORY" "$DIRECTORY"
 
 
 echo "Moving files...";             cp -r "$DIRECTORY/BGAnimations" "./"
