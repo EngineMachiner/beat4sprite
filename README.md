@@ -29,7 +29,7 @@ Or it can be installed manually:
 
 Be aware that to successfully install beat4sprite in your game build, it's important to have a basic understanding of **scripting and theme structure**.
 
-### Outfox
+### OutFox
 
   2. Clone the repository in the fallback's Modules folder.
   3. Load tapLua first and then load bitEye just once through a script.
