@@ -7,11 +7,25 @@ beat4sprite is tested mainly on **[OutFox](https://github.com/TeamRizu/OutFox)**
 
 [Youtube Video](https://youtu.be/NKW4aDbaQvM)
 
-## Usage
+## Installation
+
+1. Install [tapLua](https://github.com/EngineMachiner/tapLua).
+
+### Bash
+
+beat4sprite can be installed using the next bash commands in the game directory:
+
+```console
+
+curl -o OutFox.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite/refs/heads/master/setup/OutFox.sh
+curl -o beat4sprite.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite/refs/heads/master/setup/beat4sprite.sh
+./beat4sprite.sh; rm beat4sprite.sh OutFox.sh
+
+```
+
+Or it can be installed manually:
 
 Be aware that to successfully install beat4sprite in your game build, it's important to have a basic understanding of **scripting and theme structure**.
-
-  1. Use [tapLua](https://github.com/EngineMachiner/tapLua).
 
 ### Outfox
 
