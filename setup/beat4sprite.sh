@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# curl -o OutFox.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite/refs/heads/master/setup/OutFox.sh
+# curl -o beat4sprite.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite/refs/heads/master/setup/beat4sprite.sh
+# ./beat4sprite.sh
+
 FALLBACK="Appearance/Themes/_fallback";         SCRIPTS="$FALLBACK/Scripts"
 
 MODULES="Modules"
