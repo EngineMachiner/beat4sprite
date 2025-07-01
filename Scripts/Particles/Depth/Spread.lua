@@ -8,7 +8,10 @@ local builder = ...             local Texture = builder.Texture             loca
 
 local Direction = builder.Direction or Vector("Right")          local Colors = builder.Colors
 
-local FOV = builder.FOV             local verticalFOV = tapLua.verticalFOV(FOV)
+
+local FOV = builder.FOV             FOV = tapLua.scaleFOV(FOV)
+
+local verticalFOV = tapLua.verticalFOV(FOV)         verticalFOV = tapLua.scaleFOV(verticalFOV)
 
 
 builder.Quantity = builder.Quantity or 12           local n = builder:scaleQuantity()

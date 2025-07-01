@@ -55,7 +55,7 @@ local function onBounds(self)
 end
 
 
-local n = 0
+local n = 0             local scale = SCREEN_HEIGHT / 720
 
 local aspectRatio = GetScreenAspectRatio()            local maxSprites = 7 * aspectRatio
 
@@ -99,7 +99,7 @@ for j = 1, 3 do for i = 1, 4 do
 
             local rate = self:tweenRate()               local x = Skip and 12 or 1 / rate
             
-            direction = direction * d * x * 500
+            direction = direction * d * x * scale * 500
 
             
             local pos = self:GetPos() + direction           self:setPos(pos)    onBounds(self)

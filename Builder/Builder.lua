@@ -40,7 +40,7 @@ local function merge( builders, input )
 end
 
 
-local __index = { Load = Load, merge = merge }
+local __index = { Load = Load, merge = merge }              local keys = { "Scale", "Filter" }
 
 local function __call( Builder, input )
 
@@ -48,7 +48,12 @@ local function __call( Builder, input )
 
     for i,v in ipairs(wrap) do
         
-        v.Scale = v.Scale or input.Scale                wrap[i] = create(v)
+        -- Sub builders inherit keys from the main builder.
+
+        for i,k in ipairs(keys) do v[k] = v[k] ~= nil and v[k] or input[k] end
+        
+        
+        wrap[i] = create(v)
     
     end
 
@@ -202,7 +207,7 @@ local function Retro(input)
 
     local scale = SCREEN_HEIGHT / 240           input.Scale = scale
 
-    input.Filtering = false             return Builder(input)
+    input.Filter = false             return Builder(input)
 
 end
 

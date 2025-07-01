@@ -2,9 +2,11 @@
 local Vector = Astro.Vector             local defaultLayers = beat4sprite.Config.MorphLayers
 
 
-local builder = ...             local Texture = builder.Texture           local Effect = builder.Effect
+local builder = ...             local Texture = builder.Texture
 
-local Layers = Effect.Layers or defaultLayers * 0.5           local Displacement = Effect.Displacement or Vector(1.5)
+local Effect = builder.Effect           local Layers = Effect.Layers or defaultLayers * 0.5
+
+local moveBy = Effect.moveBy or Vector(1.5)             moveBy = moveBy * SCREEN_HEIGHT / 720
 
 
 local Fade = 0.03           local Step = 0.75 / Layers
@@ -38,9 +40,9 @@ for i = 1, Layers do
 
 			local time = self:periodRate() * 0.5
 
-            local Displacement = i % 2 == 0 and - Displacement or Displacement
+            local moveBy = i % 2 == 0 and - moveBy or moveBy
 
-			self:linear(time):setPos( Displacement ):smooth(time):setPos( - Displacement )
+			self:linear(time):setPos( moveBy ):smooth(time):setPos( - moveBy )
 
 			self:queuecommand("Cycle")
 

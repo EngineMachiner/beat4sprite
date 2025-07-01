@@ -6,7 +6,7 @@ local builder = ...             local FOV = builder.FOV             local Textur
 
 local Reversed = builder.Reversed           local colors = builder.Colors           
 
-local n = builder:scaleQuantity()
+local n = builder:scaleQuantity()           FOV = tapLua.scaleFOV(FOV)
 
 
 local min, max = table.unpack(z)                local depthLength = max - min

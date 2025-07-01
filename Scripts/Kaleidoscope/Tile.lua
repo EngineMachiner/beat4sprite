@@ -7,7 +7,7 @@ local builder = ...             builder.Sides = 6               builder.Scroll =
 builder.Zoom = 0.25
 
 
-local Hexagon           local offsetX = 16.5
+local Hexagon           local offsetX = 16.5 * SCREEN_HEIGHT / 720
 
 local function proxy( f )
     

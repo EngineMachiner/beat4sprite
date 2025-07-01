@@ -9,12 +9,9 @@ if tapLua.isLegacy() then path = "/Modules/beat4sprite/" end
 beat4sprite = { Path = path,        Modules = {} }
 
 
-local scale = SCREEN_HEIGHT / 720
-
-local function z(offset)    local depth = 250           local i = 1 + offset         return depth * i * scale   end
-
-
 -- TODO: Color saturation config is not supported.
+
+local function z(offset) local depth = 250           local i = 1 + offset         return depth * i end
 
 beat4sprite.Config = {
     

@@ -8,7 +8,10 @@ local builder = ...                 local Texture = builder.Texture             
 
 local Colors = builder.Colors       local Rotation = builder.Rotation               Rotation = Rotation == nil and true or Rotation
 
-local FOV = builder.FOV             local verticalFOV = tapLua.verticalFOV(FOV)
+
+local FOV = builder.FOV             FOV = tapLua.scaleFOV(FOV)
+
+local verticalFOV = tapLua.verticalFOV(FOV)         verticalFOV = tapLua.scaleFOV(verticalFOV)
 
 
 builder.Quantity = builder.Quantity or 12           local n = builder:scaleQuantity()
