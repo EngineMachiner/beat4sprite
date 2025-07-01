@@ -46,5 +46,5 @@ select animations in "OutFox" "Exit"; do
 done
 
 
-echo "Done!"
+echo "Exiting..."
 
