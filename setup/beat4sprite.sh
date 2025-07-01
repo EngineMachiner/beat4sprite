@@ -37,7 +37,7 @@ select animations in "OutFox" "Exit"; do
 
     case $animations in
 
-        "OutFox") ./OutFox.sh; break ;;
+        "OutFox") ./OutFox.sh ;;
 
         "Exit") break ;;
 
