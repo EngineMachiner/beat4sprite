@@ -1,14 +1,17 @@
 #!/bin/bash
 set -e
 
-FALLBACK="Appearance/Themes/_fallback";         SCRIPTS="$FALLBACK/Scripts"
+FALLBACK="Themes/_fallback";         MODULES="Modules"
 
-MODULES="Modules"
+# Check modules folder
 
+if [ -d "Appearance" ]; then
 
-# Check modules folder.
+    FALLBACK="Appearance/$FALLBACK";        MODULES="$FALLBACK/$MODULES"
 
-if [ -d "$FALLBACK/$MODULES" ]; then MODULES="$FALLBACK/$MODULES"; fi
+fi
+
+SCRIPTS="$FALLBACK/Scripts"
 
 
 # Clone repository.
