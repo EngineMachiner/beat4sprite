@@ -9,11 +9,11 @@ beat4sprite is tested mainly on **[OutFox](https://github.com/TeamRizu/OutFox)**
 
 ## Installation
 
-1. Install [tapLua](https://github.com/EngineMachiner/tapLua).
+  1. Install [tapLua](https://github.com/EngineMachiner/tapLua).
 
-### Bash
+### Linux
 
-beat4sprite can be installed using the next bash commands in the game directory:
+  2. Run the next commands in the game directory:
 
 ```console
 
@@ -27,24 +27,10 @@ curl -o beat4sprite.sh https://raw.githubusercontent.com/EngineMachiner/beat4spr
 
 Or it can be installed manually:
 
-Be aware that to successfully install beat4sprite in your game build, it's important to have a basic understanding of **scripting and theme structure**.
-
-### OutFox
-
-  2. Clone the repository in the fallback's Modules folder.
-  3. Load tapLua first and then load beat4sprite just once through a script.
+  2. Clone the repository in the modules folder.
+  3. Load it after tapLua.
   ```lua
-    LoadModule("tapLua/tapLua.lua")
-    LoadModule("beat4sprite/beat4sprite.lua")
-  ```
-
-### Legacy
-
-  2. Clone the repository in the same Modules folder following the same steps for tapLua cloning.
-  3. Load tapLua first and then load beat4sprite just once through a script.
-  ```lua
-    dofile("Modules/tapLua/tapLua.lua")
-    LoadModule("beat4sprite/beat4sprite.lua")
+    LoadModule("beat4sprite/beat4sprite.lua") -- After loading tapLua...
   ```
 
 ---
