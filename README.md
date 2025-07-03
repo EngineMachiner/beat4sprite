@@ -32,7 +32,7 @@ Be aware that to successfully install beat4sprite in your game build, it's impor
 ### OutFox
 
   2. Clone the repository in the fallback's Modules folder.
-  3. Load tapLua first and then load bitEye just once through a script.
+  3. Load tapLua first and then load beat4sprite just once through a script.
   ```lua
     LoadModule("tapLua/tapLua.lua")
     LoadModule("beat4sprite/beat4sprite.lua")
