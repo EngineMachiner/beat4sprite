@@ -216,7 +216,7 @@ end
 
 local function Background( Texture )
 
-    return beat4sprite.Builder { Texture = Texture,          Mirror = true,         ScreenScale = true }
+    return Builder { Texture = Texture,          Mirror = true,         ScreenScale = true }
 
 end
 
