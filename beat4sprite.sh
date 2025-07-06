@@ -30,13 +30,23 @@ echo "LoadModule(\"beat4sprite/beat4sprite.lua\")" | { grep -xFv -f "$TAPLUA" >>
 
 # Clone collections.
 
+function cloneOutFox {
+
+    curl -o beat4sprite-OutFox.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite-OutFox/refs/heads/main/setup.sh
+    
+    ./beat4sprite-OutFox.sh;  rm beat4sprite-OutFox.sh
+
+}
+
+
+
 echo "Clone animations?"
 
 select animations in "OutFox" "Exit"; do
 
     case $animations in
 
-        "OutFox") ./OutFox.sh ;;
+        "OutFox") cloneOutFox ;;
 
         "Exit") break ;;
 
