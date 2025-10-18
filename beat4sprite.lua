@@ -21,10 +21,11 @@ beat4sprite.Config = {
 
 }
 
+-- To do tail calls in Lua 5.1 properly without it panicking I have to store the returned value in a variable first.
 
 local function Load(name)
 
-    return loadfile( path .. "Scripts/" .. name .. ".lua" )
+    local loaded = loadfile( path .. "Scripts/" .. name .. ".lua" );            return loaded
 
 end
 

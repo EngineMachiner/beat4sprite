@@ -32,7 +32,7 @@ local function setPath( self, key, folder )
 
     local value = self[key]         if not value or isObject(value) then return value end
 
-    if not isTable(value) then self[key] = path( self, key, folder ) end
+    if not isTable(value) then self[key] = path( self, key, folder ) return end
 
 
     for i,v in ipairs(value) do value[i] = path( value, i, folder ) end
