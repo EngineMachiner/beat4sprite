@@ -38,6 +38,17 @@ You can also check out examples in:
 - [beat4sprite-OutFox](https://github.com/EngineMachiner/beat4sprite-OutFox)
 - [beat4sprite-Collections](https://github.com/EngineMachiner/beat4sprite-Collections)
 
+---
+
+Remember, if you're having problems with the texture being white, not showing up 
+and you're using legacy builds, you should enable only OpenGL as renderer in 
+your `Preferences.ini` due to D3D not being able to render textures in these builds.
+```
+VideoRenderers=opengl
+```
+
+---
+
 ## Credits
 
 - [TeamRizu](https://github.com/TeamRizu)
