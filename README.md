@@ -37,8 +37,8 @@ Consider that scripts using actor frame textures to create dynamic textures (Til
 If you want create your own animations you can check the [wiki](https://github.com/EngineMachiner/beat4sprite/wiki).
 
 You can also check out examples in:
-- [beat4sprite-OutFox](https://github.com/EngineMachiner/beat4sprite-OutFox)
-- [beat4sprite-Collections](https://github.com/EngineMachiner/beat4sprite-Collections)
+- [beat4sprite-Animations](https://github.com/EngineMachiner/beat4sprite-Animations)
+- [beat4sprite-Legacy](https://github.com/EngineMachiner/beat4sprite-Legacy)
 
 ## Credits
 
@@ -49,3 +49,4 @@ You can also check out examples in:
 - [Retrozaid](https://zenius-i-vanisher.com/v5.2/user?userid=21434)
 
 Thank you to everyone who contributed to the development of this project!
+
