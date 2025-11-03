@@ -28,11 +28,13 @@ local function lib(keys)
 
 end
 
-Actor.extend = function( actor, keys )
+local function extend( actor, keys )
 
     local lib = lib(keys)       astro.merge( actor, lib )       return actor
 
 end
+
+Actor.extend = extend
 
 
 local function actor( beat4sprite, input )
