@@ -1,7 +1,7 @@
 
 -- Should the matrix be filled according to the screen?
 
-local Vector = Astro.Vector             local maxCoordinate = Vector.maxCoordinate
+local Vector = Astro.Vector             local maxComponent = Vector.maxComponent
 
 local planeAxes = Vector.planeAxes
 
@@ -11,7 +11,7 @@ local builder = ...             local Texture = builder.Texture
 local Sprite = builder.Sprite or {}
 
 
-local max = tapLua.screenSize()             max = maxCoordinate(max).value
+local max = tapLua.screenSize()             max = maxComponent(max).value
 
 local Scale = SCREEN_HEIGHT / 240               local size = Vector( 64, 60 ) * Scale -- 5x4 matrix in 320x240.
 

@@ -16,11 +16,6 @@ local function path( table, key, directory )
     if isAbsolute then return path end
 
 
-    local isRelative = astro:startsWith("%.[\\/]")
-
-    if isRelative then return tapLua.resolvePath(path) end
-
-
     return beat4sprite.Path .. directory  .. path
 
 end

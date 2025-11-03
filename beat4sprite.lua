@@ -25,15 +25,13 @@ beat4sprite.Config = {
 
 local function Load(name)
 
-    local loaded = loadfile( path .. "Scripts/" .. name .. ".lua" );            return loaded
+    local loaded = loadfile( path .. "Scripts/" .. name .. ".lua" )         return loaded
 
 end
 
 local function filePath( name, file )
 
-	file = file or "default.lua"
-
-	return animationsDirectory .. name .. "/" .. file
+	file = file or "default.lua"            return animationsDirectory .. name .. "/" .. file
 
 end
 
@@ -41,9 +39,7 @@ local function randomAnimation()
     
     local animations = FILEMAN:GetDirListing( animationsDirectory, true )
 
-    local path = astro.random(animations)         path = filePath(path)
-
-    return loadfile(path)()
+    local path = astro.random(animations)         path = filePath(path)         return loadfile(path)()
 
 end
 
@@ -59,27 +55,10 @@ astro.merge( beat4sprite, {
 } )
 
 
-local LoadDirectory = tapLua.FILEMAN.LoadDirectory              local directories = { "Actor", "Builder", "Modules" }
+local FILEMAN = tapLua.FILEMAN
 
-for i,v in ipairs(directories) do LoadDirectory( path .. v .. '/' ) end
+local directories = { "Builder", "Modules" }
 
+for i,v in ipairs(directories) do FILEMAN.LoadDirectory( path .. v .. '/' ) end
 
--- Should this be added to Astro?
-
-local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
-
-Vector.maxCoordinate = function(vector)
-
-    local maxKey, maxValue
-
-    for i,v in ipairs(planeAxes) do
-        
-        local value = vector[v]
-
-        if not maxKey or value > maxValue then maxKey = v      maxValue = value end
-    
-    end
-
-    return astro.pair( maxKey, maxValue )
-
-end
+FILEMAN.LoadModule( "beat4sprite/Actor/Actor.lua" )

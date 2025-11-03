@@ -1,5 +1,5 @@
 
-local maxCoordinate = Astro.Vector.maxCoordinate
+local maxComponent = Astro.Vector.maxComponent
 
 
 -- Returns the tapLua tile actor.
@@ -10,9 +10,9 @@ local function setSize(self)
 
     local screenSize = tapLua.screenSize()          local size = self:GetSize()
 
-    local max = maxCoordinate(size)         local k, length = max.key, max.value
+    local max = maxComponent(size)                  local k, length = max.key, max.value
 
-    local screenLength = screenSize[k]          local isBigger = length > screenLength
+    local screenLength = screenSize[k]              local isBigger = length > screenLength
 
 
     local zoom = isBigger and screenLength / length or 1
@@ -34,7 +34,7 @@ local function spiralIndex(self)
 
     local p = self:GetParent()          p.Spiral = p.Spiral or spiral(p)          local spiral = p.Spiral
 
-    local i = self.Index          return spiral[i]
+    local i = self.Index                return spiral[i]
 
 end
 

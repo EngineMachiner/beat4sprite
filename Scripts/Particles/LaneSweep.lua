@@ -1,7 +1,7 @@
 
 -- Positioning based on the tapLua algorithm to fit sprites in the screen.
 
-local Vector = Astro.Vector             local maxCoordinate = Vector.maxCoordinate
+local Vector = Astro.Vector             local maxComponent = Vector.maxComponent
 
 local astro = Astro.Layout              local quantityIn = astro.quantityIn
 
@@ -16,7 +16,7 @@ local Sprite = builder.Sprite or {}
 local t = beat4sprite.ActorFrame { OnCommand=function(self) self:Center() end }
 
 
-local max = tapLua.screenSize()             max = maxCoordinate(max).value
+local max = tapLua.screenSize()             max = maxComponent(max).value
 
 local Scale = SCREEN_HEIGHT / 240           local size = 60 * Scale
 

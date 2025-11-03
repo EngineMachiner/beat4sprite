@@ -87,10 +87,9 @@ local metaBuilder
 
 create = function(input)
 
-    local meta = { __index = metaBuilder, input = input }
-
-
     local builder = tapLua.deepMerge( defaults(), input )
+
+    local meta = { __index = metaBuilder, input = input }
 
     setmetatable( builder, meta )
 
@@ -119,9 +118,8 @@ end
 
 local textureScripts = {
     
-    "Kaleidoscope/Tile.lua",       "Kaleidoscope/Triangle.lua",
-    
-    "Morph/Stretch.lua",        "Tile/Tile.lua"
+    "Kaleidoscope/Tile.lua",        "Kaleidoscope/Triangle.lua",
+    "Morph/Stretch.lua",            "Tile/Tile.lua"
 
 }
 
@@ -145,13 +143,7 @@ function Builder:Load()
 
     Main = Def.ActorFrame {
         
-        Main,
-        
-        OnCommand=function(self)
-            
-            if not isTexture then self:diffusealpha(Alpha) end 
-        
-        end
+        Main,       OnCommand=function(self) if not isTexture then self:diffusealpha(Alpha) end end
     
     }
 

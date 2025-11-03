@@ -10,7 +10,7 @@ local Builder = beat4sprite.Builder
 
 function Builder:setCommands(Commands)
 
-    for i,v in ipairs(Commands) do   if self[v] then self.Commands:add(v) end   end
+    for i,v in ipairs(Commands) do if self[v] then self.Commands:add(v) end end
 
     return self
 

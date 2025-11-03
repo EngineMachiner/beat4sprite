@@ -1,81 +1,75 @@
 
-local astro = Astro.Table           local resolvePath = tapLua.resolvePath
+local Actor = tapLua.Actor              local merge = Actor.merge
 
-local merge = tapLua.Actor.merge
+local Meta = Actor.Meta                 local resolvePath = Meta.resolvePath
+
+local setMeta = Meta.setMeta            local InitCommand = Meta.InitCommand
+
+local texture = Meta.texture
+
+astro = Astro.Table                     local copy = astro.Copy.deep
 
 
-local Actor = {}        beat4sprite.Actor = Actor
+local Actor = {}                        beat4sprite.Actor = Actor
+local Sprite = {}                       beat4sprite.Sprite = Sprite
 
+tapLua.FILEMAN.LoadDirectory( beat4sprite.Path .. "Actor/" )
 
-local function setMeta( f, tbl )
-
-    local meta = { __call = f }         setmetatable( tbl, meta )
-
-end
+local metaActor = copy(Actor)           metaActor.Commands = nil
 
 
 local function lib(keys)
 
     if not keys then return Actor end
 
-    local function isValid( k, v ) return astro.contains( Actor, k ) end
+    local function isValid( k, v ) return astro.contains( keys, k ) end
 
     return astro.filter( Actor, isValid )
 
 end
 
-local function extend( actor, keys )
+Actor.extend = function( actor, keys )
 
     local lib = lib(keys)       astro.merge( actor, lib )       return actor
 
 end
 
-Actor.extend = extend
 
 local function actor( beat4sprite, input )
 
     local base = {
 
-        InitCommand=function(self)
-
-            for k,v in pairs( beat4sprite ) do self[k] = v end
-
-            self.extend, self.Commands = nil -- It's not logical.
-
-        end,
-
-        UpdateFunctionCommand=function(self) self:runTimers() end
+        InitCommand = InitCommand( beat4sprite ),       UpdateFunctionCommand=function(self) self:runTimers() end
 
     }
 
-    local class = input.Class               local Actor = tapLua[class] or tapLua.Actor
+    input = merge( base, input )
+    
 
-    input = merge( base, input )            return Actor(input)
+    local class = input.Class           input.Class = nil
+
+    local actor = tapLua[class] or tapLua.Actor             return actor(input)
 
 end
 
 setMeta( actor, Actor )
 
 
-local Sprite = {}        beat4sprite.Sprite = Sprite
-
 local function sprite( beat4sprite, input )
 
-    input.Texture = resolvePath( input.Texture )
-
     local base = {
-        
-        InitCommand=function(self) for k,v in pairs( beat4sprite ) do self[k] = v end end,
+
+        Class = "Sprite",           Texture = texture( input.Texture ),         InitCommand = InitCommand( beat4sprite ),
 
         UpdateFunctionCommand=function(self)
             
             if not self.beat4sprite then return end         self:updateRainbow():updateStateDelay()
         
         end
-    
+        
     }
 
-    input.Class = "Sprite"        input = merge( base, input )        return Actor(input)
+    input = merge( base, input )            return Actor(input)
 
 end
 
@@ -146,7 +140,7 @@ end
 astro.merge( beat4sprite, {
     
     BaseFrame = BaseFrame,      ActorFrame = ActorFrame,        ActorProxy = ActorProxy,
-    
+
     Text = Text,        Quad = Quad,        Square = Square,        ScreenQuad = ScreenQuad,
     
     ScreenBlend = ScreenBlend,          extend = extend

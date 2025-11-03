@@ -29,6 +29,8 @@ Background.Output = {
 }
 
 
+local subTexture
+
 return tapLua.ActorFrame {
 
     OnCommand=function(self) self:Center() end,
@@ -41,7 +43,7 @@ return tapLua.ActorFrame {
             
             -- Happy trigonometry =D...
 
-            local Angle = math.rad(Angle)           local w = self:GetHeight() * math.tan(Angle)           self:SetWidth(w)
+            local angle = math.rad(Angle)                   local w = self:GetHeight() * math.tan(angle)           self:SetWidth(w)
 
             self:MaskSource(true):scaleToScreen()           self:zoom( self:GetZoom() * 0.5 )--:SetTextureFiltering(false)
 

@@ -10,7 +10,9 @@ local Vector = Astro.Vector             local isVector = Vector.isVector
 
 local isZero = Vector.isZero          local planeAxes = Vector.planeAxes
 
-local maxCoordinate = Vector.maxCoordinate
+local maxComponent = Vector.maxComponent
+
+local componentVector = Vector.componentVector
 
 
 local Actor = tapLua.Actor
@@ -253,33 +255,20 @@ local function Composition()
 
     local Actor = Def.Actor { ComposeCommand = queueTile }
 
-
     -- Returns an ActorFrameTexture that composes static textures together from different files.
 
     if not isComposed then return Actor end
 
+    local function direction(component)
 
-    -- Could be added to Astro.Vector along with maxCoordinate.
-
-    local function componentVector( vector, component )
-        
-        for i,v in ipairs(planeAxes) do   if v ~= component then vector[v] = nil end   end
-
-        return vector
-
-    end
-
-
-    local function direction(coordinate)
-
-        local direction = Display[coordinate]            if direction ~= 0 then return 1 end
+        local direction = Display[component]            if direction ~= 0 then return 1 end
 
         if not isZero(Display) then return 0 end
 
 
-        local screenSize = tapLua.screenSize()          local max = maxCoordinate(screenSize)
+        local screenSize = tapLua.screenSize()          local max = maxComponent(screenSize)
 
-        if max.key == coordinate then return 1 end
+        if max.key == component then return 1 end
         
 
         return 0
@@ -327,12 +316,12 @@ local function Composition()
 
     -- Add the following textures in the display direction.
 
-    for i,v in ipairs(Texture) do      for a, coordinate in ipairs(planeAxes) do
+    for i,v in ipairs(Texture) do for _, component in ipairs(planeAxes) do
 
         
         if #Texture == 1 then break end
 
-        local direction = direction(coordinate)              local condition = direction ~= 0 and i > 1
+        local direction = direction(component)              local condition = direction ~= 0 and i > 1
 
 
         local a = tapLua.ActorFrame {}         t[#t+1] = a
@@ -345,13 +334,13 @@ local function Composition()
 
                 local p = self:GetParent()              local AFT = p:GetParent():GetParent()
 
-                local size = self:GetSize()             size = componentVector( size, coordinate )
+                local size = self:GetSize()             size = componentVector( size, component )
 
 
                 local newSize = AFT:GetSize() + size         AFT:setSizeVector(newSize)
 
 
-                newSize = componentVector( newSize, coordinate )
+                newSize = componentVector( newSize, component )
 
                 local pos = newSize - size           p:setPos(pos)
 
@@ -362,7 +351,7 @@ local function Composition()
 
         -- Add the textures in the missing spots followed by their sequence.
 
-        condition = condition and not isZero(Display) and coordinate == 'y'
+        condition = condition and not isZero(Display) and component == 'y'
 
         for j = 1, #Texture - 1 do
 
@@ -455,9 +444,9 @@ return beat4sprite.ActorFrame {
 
         ScrollCommand=function(self)
 
-            if not Scroll.Direction then return end           if onScrollSkipping(self) then return end
+            if not Scroll.Direction then return end         if onScrollSkipping(self) then return end
     
-            local velocity = scrollVelocity(self)       self:scrollTexture(velocity)        onReverseScroll(self)
+            local velocity = scrollVelocity(self)           self:scrollTexture(velocity)        onReverseScroll(self)
     
         end
     
