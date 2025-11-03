@@ -32,22 +32,13 @@ Or it can be installed manually:
 
 ---
 
+Consider that scripts using actor frame textures to create dynamic textures (Tile.lua) won't work properly in older legacy builds due to renderer incompatibility with non power of two textures.
+
 If you want create your own animations you can check the [wiki](https://github.com/EngineMachiner/beat4sprite/wiki).
 
 You can also check out examples in:
 - [beat4sprite-OutFox](https://github.com/EngineMachiner/beat4sprite-OutFox)
 - [beat4sprite-Collections](https://github.com/EngineMachiner/beat4sprite-Collections)
-
----
-
-Remember, if you're having problems with the texture being white, not showing up 
-and you're using legacy builds, you should enable only OpenGL as renderer in 
-your `Preferences.ini` due to D3D not being able to render textures in these builds.
-```
-VideoRenderers=opengl
-```
-
----
 
 ## Credits
 
