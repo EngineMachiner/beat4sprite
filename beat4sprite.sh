@@ -39,22 +39,11 @@ function cloneAnimations {
 }
 
 
+echo "Clone animations?"
 
-MSG="Clone animations?";        echo "$MSG"
+select OPTION in "Yes" "No"; do break; done
 
-select animations in "Yes" "No"; do
-
-    case $animations in
-
-        "Yes") cloneAnimations ;;
-
-        "No") break ;;
-
-    esac
-
-    if [[ $animations != "No" ]]; then echo "$MSG"; fi
-
-done
+if [ "$OPTION" == "Yes" ]; then cloneAnimations; fi
 
 
 echo "Exiting..."
