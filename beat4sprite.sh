@@ -40,7 +40,7 @@ function cloneOutFox {
 
 
 
-echo "Clone animations?"
+MSG="Clone animations?";        echo "$MSG"
 
 select animations in "OutFox" "Exit"; do
 
@@ -51,6 +51,8 @@ select animations in "OutFox" "Exit"; do
         "Exit") break ;;
 
     esac
+
+    if [[ $animations != "Exit" ]]; then echo "$MSG"; fi
 
 done
 
