@@ -44,7 +44,3 @@ echo "Clone animations?"
 select OPTION in "Yes" "No"; do break; done
 
 if [ "$OPTION" == "Yes" ]; then cloneAnimations; fi
-
-
-echo "Exiting..."
-
