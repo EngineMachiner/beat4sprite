@@ -30,11 +30,11 @@ echo "LoadModule(\"beat4sprite/beat4sprite.lua\")" | { grep -xFv -f "$TAPLUA" >>
 
 # Clone collections.
 
-function cloneOutFox {
+function cloneAnimations {
 
-    curl -o beat4sprite-OutFox.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite-OutFox/refs/heads/main/setup.sh
+    curl -o beat4sprite-Animations.sh https://raw.githubusercontent.com/EngineMachiner/beat4sprite-Animations/refs/heads/main/setup.sh
     
-    ./beat4sprite-OutFox.sh;  rm beat4sprite-OutFox.sh
+    ./beat4sprite-Animations.sh;  rm beat4sprite-Animations.sh
 
 }
 
@@ -42,17 +42,17 @@ function cloneOutFox {
 
 MSG="Clone animations?";        echo "$MSG"
 
-select animations in "OutFox" "Exit"; do
+select animations in "Yes" "No"; do
 
     case $animations in
 
-        "OutFox") cloneOutFox ;;
+        "Yes") cloneAnimations ;;
 
-        "Exit") break ;;
+        "No") break ;;
 
     esac
 
-    if [[ $animations != "Exit" ]]; then echo "$MSG"; fi
+    if [[ $animations != "No" ]]; then echo "$MSG"; fi
 
 done
 
