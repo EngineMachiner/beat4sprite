@@ -32,8 +32,6 @@ Or it can be installed manually:
 
 ---
 
-Consider that scripts using actor frame textures to create dynamic textures (Tile.lua) won't work properly in older legacy builds due to renderer incompatibility with non power of two textures.
-
 If you want create your own animations you can check the [wiki](https://github.com/EngineMachiner/beat4sprite/wiki).
 
 You can also check out examples in:
@@ -49,4 +47,5 @@ You can also check out examples in:
 - [Retrozaid](https://zenius-i-vanisher.com/v5.2/user?userid=21434)
 
 Thank you to everyone who contributed to the development of this project!
+
 
