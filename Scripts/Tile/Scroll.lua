@@ -24,7 +24,7 @@ local function scrollVelocity( self, isSkip )
 
     local direction = Scroll.Direction          local size = self:GetZoomedSize()
 
-    for i,v in ipairs(planeAxes) do velocity[v] = direction[v] / size[v] end
+    velocity = Vector.componentDivision( direction, size )
 
 
     local scrollSync = config.ScrollSync and self:isOnGameplay() and not isSkip
@@ -76,11 +76,9 @@ local function onScrollSkipping(self)
     for i,v in ipairs(planeAxes) do size[v] = math.min( size[v], 80 ) end
     
     
-    local offset = Vector()
-
     local direction = Scroll.Direction * orientation
     
-    for i,v in ipairs(planeAxes) do offset[v] = direction[v] * size[v] end
+    local offset = Vector.componentProduct( direction, size )
 
     self:moveTextureBy( - offset )
 

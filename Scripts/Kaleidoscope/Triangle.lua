@@ -31,7 +31,7 @@ Background.Output = {
 
 local subTexture
 
-return tapLua.ActorFrame {
+return beat4sprite.ActorFrame {
 
     OnCommand=function(self) self:Center() end,
 
@@ -47,7 +47,7 @@ return tapLua.ActorFrame {
 
             self:MaskSource(true):scaleToScreen()           self:zoom( self:GetZoom() * 0.5 )--:SetTextureFiltering(false)
 
-            local size = self:GetZoomedSize()               self:GetParent():setSizeVector(size):playcommand("PostInit")
+            local size = self:GetZoomedSize()               self:GetParent():setSizeVector(size):queuecommand("PostInit")
 
         end
         
@@ -56,6 +56,8 @@ return tapLua.ActorFrame {
     tapLua.ActorFrameTexture {
 
         OnCommand=function(self)
+
+            if self:GetTexture() then return end
 
             local size = tapLua.screenSize()        self:setSizeVector(size)
 

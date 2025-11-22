@@ -34,7 +34,7 @@ for i = 1, Layers do
 
 		OnCommand=function(self)
 
-            self:init(builder):fitInScreen()
+            self:init(builder):fitInScreen()        self.Index = i
 
 
             local cropVector = selected.Crop

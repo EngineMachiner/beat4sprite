@@ -36,21 +36,27 @@ local function configRate()
 
 end
 
-local function BPM_Rate()
+local function BPM_Rate( clamped ) -- If clamped it will sync to 4th beats.
 
-    if not isOnGameplay() then return 1 end
+    if clamped == nil then clamped = true end -- It's on by default.
 
-    local bpm = GAMESTATE:GetSongBPS() * 60         bpm = math.floor( bpm * 0.01 )
-
-    local rate = 1 + bpm            return math.ceil( rate * 0.5 )
+    local bpm = tapLua.currentBPM() * 0.01          if clamped then bpm = math.floor(bpm) end
+    
+    local rate = ( 1 + bpm ) / 2.75                 rate = math.max( 1, rate )
+    
+    return clamped and math.ceil(rate) or rate
 
 end
 
-local function rate(self) return self:configRate() * self:BPM_Rate() * 2 end
+-- statesRate() is used to delay sprite states and sync tweens with the clamping.
 
-local function tweenRate(self) return self.beat4sprite.Rate * self:rate() end
+local function statesRate( self, clamped ) return configRate() * BPM_Rate(clamped) * 2 end
 
-local function periodRate(self) return self.beat4sprite.Effect.Period * self:rate() end
+local function tweenRate( self, clamped ) return self.beat4sprite.Rate * statesRate( self, clamped ) end
+
+local function freeRate(self) return tweenRate( self, false ) end
+
+local function periodRate(self) return self.beat4sprite.Effect.Period * statesRate(self) end
 
 local function periodSetup(self) self.Effect.Period = periodRate(self) end
 
@@ -154,7 +160,7 @@ local merge = {
 
     scaleToScreen = scaleToScreen,          fitInScreen = fitInScreen,              delayFromVector = delayFromVector,
     
-    rate = rate,        statesRate = statesRate,        tweenRate = tweenRate,
+    statesRate = statesRate,      tweenRate = tweenRate,        freeRate = freeRate,
     
     periodRate = periodRate,        periodSetup = periodSetup
 

@@ -87,6 +87,10 @@ local function ActorFrame(i)
 
         OnCommand=function(self) self:SetDrawFunction(draw):zbuffer(true):queuecommand("Post") end,
 
+        BPMChangeCommand=function(self) self:stoptweening()     self.canDraw = false end,
+
+        BPMChange2Command=function(self) self:queuecommand("Post") end,
+        
         PostCommand=function(self)
 
             sleep = self.Sleep or 1             depth = self.Depth or 0
@@ -94,7 +98,7 @@ local function ActorFrame(i)
             if Reversed then depth = - depth end
 
 
-            local rate = self:tweenRate() * 2
+            local rate = self:freeRate() * 2
             
             local i = i - 1         i = i * sleep         i = rate * i / n
 
@@ -108,9 +112,9 @@ local function ActorFrame(i)
 
         MotionCommand=function(self)
             
-            local rate = self:tweenRate()       local z = z[1] - depth
+            local rate = self:freeRate()        local z = z[1] - depth
             
-            self:linear(rate):z(z)          self:queuecommand("Prepare"):queuecommand("Motion")
+            self:linear(rate):z(z)              self:queuecommand("Prepare"):queuecommand("Motion")
 
         end
 

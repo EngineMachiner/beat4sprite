@@ -1,7 +1,7 @@
 
 local Actor
 
-return tapLua.ActorFrame {
+return beat4sprite.ActorFrame {
 
     beat4sprite.Load( "Kaleidoscope/Triangle" )(...) .. {
 

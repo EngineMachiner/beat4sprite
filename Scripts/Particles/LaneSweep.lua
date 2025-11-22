@@ -27,7 +27,7 @@ local function Particle(t) return beat4sprite.Sprite(t) .. Sprite end
 
 for i = 1, n do
 
-    local x = max           local offset = i - offset
+    local x           local offset = i - offset
     
     t[#t+1] = Particle {
 
@@ -35,9 +35,9 @@ for i = 1, n do
 
         OnCommand=function(self)
 
-            self:initParticle( builder, i )         local rate = self:tweenRate() * i * 0.5
-            
-            x = x + self:GetZoomedHeight() * 2          x = i % 2 == 0 and - x or x
+            self:initParticle( builder, i )         local rate = self:freeRate() * i * 0.5
+
+            x = max + self:GetZoomedHeight() * 2          x = i % 2 == 0 and - x or x
 
             self:x( size * offset ):playcommand("Prepare"):sleep(rate):queuecommand("Cycle")
 
@@ -47,7 +47,7 @@ for i = 1, n do
 
         CycleCommand=function(self)
 
-            local rate = self:tweenRate() * 4           self:linear(rate):y( - x * 0.5 )
+            local rate = self:freeRate() * 4           self:linear(rate):y( - x * 0.5 )
             
             self:queuecommand("Prepare"):queuecommand("Cycle")
 
@@ -56,7 +56,7 @@ for i = 1, n do
     }
 
 
-    local x = max
+    local x
 
     t[#t+1] = Particle {
 
@@ -64,9 +64,9 @@ for i = 1, n do
 
         OnCommand=function(self)
 
-            self:initParticle( builder, i )         local rate = self:tweenRate() * i * 0.5
+            self:initParticle( builder, i )         local rate = self:freeRate() * i * 0.5
             
-            x = x + self:GetZoomedWidth() * 2          x = i % 2 == 0 and - x or x
+            x = max + self:GetZoomedWidth() * 2          x = i % 2 == 0 and - x or x
 
             self:y( size * offset ):playcommand("Prepare"):sleep(rate):queuecommand("Cycle")
 
@@ -76,7 +76,7 @@ for i = 1, n do
 
         CycleCommand=function(self)
 
-            local rate = self:tweenRate() * 4           self:linear(rate):x( - x * 0.5 )
+            local rate = self:freeRate() * 4           self:linear(rate):x( - x * 0.5 )
             
             self:queuecommand("Prepare"):queuecommand("Cycle")
 

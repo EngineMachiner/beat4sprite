@@ -42,7 +42,7 @@ for i = 1, n do
             self:initParticle( builder, i )     self:diffusealpha(0):rotationz( - angle )
             
 
-            local rate = self:tweenRate()           local i = i - 1         i = rate * i / n
+            local rate = self:freeRate()           local i = i - 1         i = rate * i / n
             
             self:queuecommand("Prepare"):sleep(i):diffusealpha(1):queuecommand("Motion")
         
@@ -75,7 +75,7 @@ for i = 1, n do
 
             local variation = math.random( 500, 1000 ) * 0.001
 
-            local rate = self:tweenRate() * variation           local x = self.NextPos
+            local rate = self:freeRate() * variation           local x = self.NextPos
 
             self:linear(rate):x(x)          self:queuecommand("Prepare"):queuecommand("Motion")
 

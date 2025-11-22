@@ -6,19 +6,6 @@ local builder = ...             local Texture = builder.Texture             loca
 local Sprite = builder.Sprite or {}
 
 
-local t = beat4sprite.ActorFrame {
-
-    OnCommand=function(self)
-   
-        local function onUpdate() self:playcommand("Update") end
-
-        self:SetUpdateFunction(onUpdate)
-    
-    end
-
-}
-
-
 local screenSize = tapLua.screenSize()
 
 local function direction()
@@ -40,11 +27,12 @@ local function check( self, k )
 
     local size = self:GetZoomedSize()           size = size[k] * 0.5
 
-    local isInBounds = pos > size and pos < screenDim - size
 
-    if isInBounds then return end               self.Direction[k] = - self.Direction[k]
+    local isInBounds = pos > size and pos < screenDim - size        if isInBounds then return end
+    
+    self.Direction[k] = - self.Direction[k]         self:setPos( self.pos )
 
-    if not Skip then return end                 local skip = skipOffset[k]          skip(self)
+    if not Skip then return end         local skip = skipOffset[k]          skip(self)
 
 end
 
@@ -54,6 +42,8 @@ local function onBounds(self)
 
 end
 
+
+local t = beat4sprite.ActorFrame {}
 
 local n = 0             local scale = SCREEN_HEIGHT / 720
 
@@ -70,23 +60,27 @@ for j = 1, 3 do for i = 1, 4 do
 		OnCommand=function(self)
 
 			self:initParticle( builder, n )
+            
+            -- Don't restart the position each time the animation is loaded!
+
+            local pos = self.pos        if pos then self:setPos(pos) return end
 
 
             local i = i - 2.5           local j = j - 2
 
             local size = self:GetZoomedSize()                   size = Vector( size.x * i, size.y * j )
 
-            local pos = tapLua.center() + size * 0.5            self:setPos(pos)
+            pos = tapLua.center() + size * 0.5                  self:setPos(pos)        self.pos = pos
 
 
             self.Time = 0           self.Direction = direction()
 
-            local n = Skip and n * 0.666 or n - 1           self.Sleep = self:tweenRate() * n * 0.75
+            local n = Skip and n * 0.666 or n - 1           self.Sleep = self:freeRate() * n * 0.75
             
 		end,
 
-		UpdateCommand=function(self)
-            
+		UpdateFunctionCommand=function(self)
+
             local hasTimeLeft = self:GetTweenTimeLeft() > 0             local direction = self.Direction
             
             if not direction or hasTimeLeft then return end
@@ -97,14 +91,14 @@ for j = 1, 3 do for i = 1, 4 do
             self.Time = self.Time + d                   if self.Time < self.Sleep then return end
 
 
-            local rate = self:tweenRate()               local x = Skip and 12 or 1 / rate
+            local rate = self:freeRate()                local x = Skip and 12 or 1 / rate
             
             direction = direction * d * x * scale * 500
 
             
-            local pos = self:GetPos() + direction           self:setPos(pos)    onBounds(self)
-
-            if Skip then self:sleep( rate * 0.5 ) end
+            self.pos = self:GetPos()            local pos = self:GetPos() + direction
+            
+            self:setPos(pos)    onBounds(self)      if Skip then self:sleep( rate * 0.5 ) end
 
         end
 

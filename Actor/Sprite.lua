@@ -58,7 +58,13 @@ end
 
 local function cycleState( self, state ) return math.ceil(state) % self:GetNumStates() end
 
-local function statesRate(self) return self.beat4sprite.States.Rate * self.statesDelay * self:rate() * 4 end
+local function statesRate(self)
+    
+    local statesRate = beat4sprite.Actor.statesRate
+
+    return self.beat4sprite.States.Rate * self.statesDelay * statesRate(self) * 4
+
+end
 
 
 local function initSprite(self)
@@ -75,13 +81,13 @@ end
 
 local function initParticle( self, builder, i )
 
-    local zoom = builder:zoom()             self:init(builder):initSprite():zoom(zoom)
+    local zoom = builder:zoom()                         self:init(builder):initSprite():zoom(zoom)
 
-    local properties = statesProperties(self)          self:SetStateProperties(properties)
+    local properties = statesProperties(self)           self:SetStateProperties(properties)
 
-    if not self:hasAnimationType("Position") then return end
+    if not self:hasAnimationType("Position") then return self end
     
-    local s = self:cycleState(i)            self:setstate(s)
+    local s = self:cycleState(i)            self:setstate(s)            return self
     
 end
 
@@ -92,11 +98,10 @@ local function updateStateDelay(self)
 
     local isIdle = self:hasAnimationType("Idle")          if isIdle then return self end
 
+    local n = self:GetNumStates()		        if n <= 1 then return self end
 
-    local n = self:GetNumStates()		if n <= 1 then return self end
 
-
-    local last = self.lastStatesDelay         local current = self:statesRate()
+    local last = self.lastStatesDelay           local current = self:statesRate()
 
     if last == current then return self end
         

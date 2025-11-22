@@ -41,7 +41,13 @@ local function actor( beat4sprite, input )
 
     local base = {
 
-        InitCommand = InitCommand( beat4sprite ),       UpdateFunctionCommand=function(self) self:runTimers() end
+        InitCommand = InitCommand( beat4sprite ),
+        
+        UpdateFunctionCommand=function(self)
+            
+            self:runTimers()    if not self.beat4sprite then return end     self:trackBPM()
+        
+        end
 
     }
 
@@ -83,8 +89,6 @@ local function Quad( input ) input.Class = "Quad"       return Actor(input) end
 local function ActorFrame( input ) input.Class = "ActorFrame"       return Actor(input) end
 
 local function ActorProxy( input ) input.Class = "ActorProxy"       return Actor(input) end
-
---local function ActorFrameTexture( input ) input.Class = "ActorFrameTexture"       return Actor(input) end
 
 local function Text( input )
     

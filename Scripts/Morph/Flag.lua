@@ -40,6 +40,8 @@ for i = 1, Layers do
 
         OnCommand=function(self)
 
+            self.Index = i
+
             self:init(builder):fitInScreen()        local cropVector = selected.Crop
 
             local fade = cropVector * Fade          self:fadeHorizontally( fade.x ):fadeVertically( fade.y )

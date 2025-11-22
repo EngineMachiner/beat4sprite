@@ -147,7 +147,7 @@ local Sprite = beat4sprite.Sprite {
         
             if not Mirror then break end            local mirror = Mirror[v] == true
             
-            local value = pos[v] + 1        value = value % 2
+            local value = pos[v] + 1                value = value % 2
     
             if mirror then a[v] = value * 180 end
         
@@ -236,12 +236,10 @@ local function ActorFrameTexture( input )
     return tapLua.ActorFrameTexture {
 
         CreateTextureCommand=function(self)
-        
-            if self.Created then return end    -- Check if bitEye preview texture was already created.
+
+            if self:GetTexture() then return end
 
             self:EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()
-
-            self.Created = true
         
         end
     
@@ -291,7 +289,7 @@ local function Composition()
 
     end
 
-    local t = tapLua.ActorFrame {
+    local t = beat4sprite.ActorFrame {
 
         Sprite {
 
@@ -324,7 +322,7 @@ local function Composition()
         local direction = direction(component)              local condition = direction ~= 0 and i > 1
 
 
-        local a = tapLua.ActorFrame {}         t[#t+1] = a
+        local a = beat4sprite.ActorFrame {}         t[#t+1] = a
 
         a[#a+1] = Sprite {
 
@@ -406,11 +404,13 @@ return beat4sprite.ActorFrame {
 
     ActorFrameTexture {
 
-        InitCommand=function(self) AFT = self end,
-        
         TileCommand=function(self)
 
-            beat4sprite.Arguments = input     self:AddChildFromPath(childPath)       beat4sprite.Arguments = nil
+            -- if AFT then self:queuecommand("Init") return end     -- It would be good if this worked? States don't work.
+            
+            self:RemoveAllChildren()        AFT = self
+
+            beat4sprite.Arguments = input     self:AddChildFromPath(childPath)      beat4sprite.Arguments = nil
         
             Width = Renderer:GetZoomedWidth()
 
@@ -422,12 +422,18 @@ return beat4sprite.ActorFrame {
 
     beat4sprite.Sprite {
 
-        OnCommand=function(self) self:Center():init(builder):initSprite():setAlpha() end,
+        OnCommand=function(self)
+            
+            -- Use customtexturerect() to fix issue with addimagecoords() offset.
+
+            self:Center():customtexturerect(0,0,1,1):init(builder):initSprite():setAlpha()
+        
+        end,
 
         LoadSpriteCommand=function(self)
 
             if Blend then self:blend(Blend) end
-
+            
 
             local texture = AFT:GetTexture()            self:SetTexture(texture)
 

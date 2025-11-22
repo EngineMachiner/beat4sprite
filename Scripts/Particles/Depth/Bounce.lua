@@ -21,9 +21,17 @@ for i = 1, n do
 
             local Magnitude = Effect.Magnitude              Magnitude.y = Magnitude.y - size.y * 1.5
 
-            Effect.Period = Effect.Period * 0.5             self:setEffect("bounce")
+            self:queuecommand("Bounce")
 
-        end
+        end,
+
+        BounceCommand=function(self)
+            
+            self.Effect.Period = self:periodRate() * 0.5        self:setEffect("bounce")
+
+        end,
+
+        BPMChangeCommand=function(self) self:queuecommand("Bounce") end
 
     }
 

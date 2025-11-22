@@ -1,17 +1,17 @@
 
 -- Should the matrix be filled according to the screen?
 
-local Vector = Astro.Vector             local maxComponent = Vector.maxComponent
+local Vector = Astro.Vector                     local maxComponent = Vector.maxComponent
 
 local planeAxes = Vector.planeAxes
 
 
-local builder = ...             local Texture = builder.Texture
+local builder = ...                             local Texture = builder.Texture
 
 local Sprite = builder.Sprite or {}
 
 
-local max = tapLua.screenSize()             max = maxComponent(max).value
+local max = tapLua.screenSize()                 max = maxComponent(max).value
 
 local Scale = SCREEN_HEIGHT / 240               local size = Vector( 64, 60 ) * Scale -- 5x4 matrix in 320x240.
 
@@ -30,24 +30,22 @@ for j = 1, 4 do for i = 1, 5 do
 
         OnCommand=function(self)
 
-            self.TilePos = Vector( i, j )
+            self.TilePos = Vector( i, j )                       self:initParticle( builder, n )
 
-            self:initParticle( builder, n )                 local direction = Vector( i - 3, j - 2.5 )
+            local size = self:GetZoomedSize() * 2               local pos = Vector( max, max ) + size
 
-            local size = self:GetZoomedSize() * 2           local pos = Vector( max, max ) + size
+            local direction = Vector( i - 3, j - 2.5 )          pos = Vector.componentProduct( pos, direction )
 
-            for i,v in ipairs( planeAxes ) do pos[v] = pos[v] * direction[v] end
-            
-            self.Pos = pos              self:playcommand("Prepare"):queuecommand("Motion")
+            self.Pos = pos
 
         end,
 
-        PrepareCommand=function(self) self:xy( 0, 0 ) end,
+        PrepareCommand=function(self) self:finishtweening():xy( 0, 0 ) end,
 
         MotionCommand=function(self)
 
             local rate = self:tweenRate() * 4           local pos = self.Pos
-            
+
             self:linear(rate):setPos(pos)
 
         end

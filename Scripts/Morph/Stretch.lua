@@ -10,7 +10,7 @@ local directions = { Vector(1), Vector { y = 1 } }              local direction 
 
 local subTexture, scroll, pos
 
-return tapLua.ActorFrame {
+return beat4sprite.ActorFrame {
 
     OnCommand=function(self) self:Center() end,
 
@@ -18,7 +18,7 @@ return tapLua.ActorFrame {
 
         OnCommand=function(self)
             
-            pos = - tapLua.screenSize()           for i,v in ipairs(planeAxes) do pos[v] = pos[v] * direction[v] end
+            pos = - tapLua.screenSize()           pos = Vector.componentProduct( pos, direction )
 
             self:init(builder):MaskSource(true):setPos(pos):queuecommand("Cycle")
 
@@ -42,6 +42,8 @@ return tapLua.ActorFrame {
 
         OnCommand=function(self) 
             
+            if self:GetTexture() then return end
+
             self:setSizeVector( tapLua.screenSize() )
 
             self:EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()

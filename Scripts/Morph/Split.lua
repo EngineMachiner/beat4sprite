@@ -26,7 +26,7 @@ local Crop = {
 }
 
 
-local t = Def.ActorFrame {}
+local t = beat4sprite.ActorFrame {}
 
 local function direction(x) return x * 2 - 3 end
 
@@ -53,6 +53,8 @@ local function add( row, column )
 
         OnCommand=function(self)
             
+            self.Index = i
+
             self:init(builder):fitInScreen()            local crop = Crop[i]    crop(self)
 
 
@@ -60,14 +62,11 @@ local function add( row, column )
             
             if Reversed then positions = { endPos, startPos } end
 
-
-            self:playcommand("Prepare")
-
         end,
 
         PrepareCommand=function(self)
 
-            local startPos = positions[1]           self:setPos(startPos)
+            local startPos = positions[1]           self:finishtweening():setPos(startPos)
 
         end,
 

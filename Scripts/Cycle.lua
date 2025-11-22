@@ -1,18 +1,23 @@
 
 local builder = ...             local Actors = builder.Actors           local Reversed = builder.Reversed
 
+
+local time, times
+
 local t = beat4sprite.ActorFrame {
     
     OnCommand=function(self)
 
-        self:init(builder):playcommand("CycleSetup"):queuecommand("FinishCycleSetup")
+        time, times = 0, {}         self:init(builder)
+
+        self:queuecommand("CycleSetup"):queuecommand("CycleSetup1"):queuecommand("CycleSetup2")
+        
+        self:queuecommand("CycleOn")
     
     end
 
 }
 
-
-local time = 0          local times = {}
 
 local function cycleTimeLeft(i)
 
@@ -26,11 +31,11 @@ end
 
 for i,v in ipairs(Actors) do
 
-    local sleep = {}        if not Reversed then i = #Actors - i + 1 end
+    local sleep = {}        if Reversed then i = #Actors - i + 1 end
     
     t[i] = v .. {
 
-        CycleSetupCommand=function(self)
+        CycleSetup1Command=function(self)
 
             local timeLeft = self:GetTweenTimeLeft()                times[i] = timeLeft
 
@@ -38,9 +43,14 @@ for i,v in ipairs(Actors) do
 
         end,
 
-        FinishCycleSetupCommand=function(self)
+        CycleSetup2Command=function(self)
 
             sleep[2] = cycleTimeLeft(i)         self.CycleTimes = sleep             self.Index = i
+
+
+            local isZero = sleep[1] == 0 and sleep[2] == 0
+
+            if isZero then error("Cycle failed critically because the tween duration between actors is 0!") end
 
         end
 

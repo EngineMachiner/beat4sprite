@@ -29,7 +29,7 @@ local function Load(name)
 
 end
 
-local function filePath( name, file )
+local function animationPath( name, file )
 
 	file = file or "default.lua"            return animationsDirectory .. name .. "/" .. file
 
@@ -39,7 +39,7 @@ local function randomAnimation()
     
     local animations = FILEMAN:GetDirListing( animationsDirectory, true )
 
-    local path = astro.random(animations)         path = filePath(path)         return loadfile(path)()
+    local path = astro.random(animations)         path = animationPath(path)         return loadfile(path)()
 
 end
 
@@ -48,7 +48,7 @@ local function songBackgroundPath() return GAMESTATE:GetCurrentSong():GetBackgro
 
 astro.merge( beat4sprite, {
 
-    Load = Load,        filePath = filePath,        randomAnimation = randomAnimation,
+    Load = Load,        animationPath = animationPath,        randomAnimation = randomAnimation,
 
     songBackgroundPath = songBackgroundPath
 

@@ -15,7 +15,7 @@ local function proxy( f )
 
 end
 
-local t = tapLua.ActorFrame {
+local t = beat4sprite.ActorFrame {
 
     beat4sprite.Load( "Kaleidoscope/Polygon" )( builder ) .. {
         
@@ -42,13 +42,15 @@ local Texture           local Hexagons = t .. { OnCommand=function(self) self:x(
 
 local Path = beat4sprite.Path .. "Scripts/Tile/Tile.lua"
 
-return tapLua.ActorFrame {
+return beat4sprite.ActorFrame {
     
     tapLua.ActorFrameTexture {
 
         Hexagons,
 
         OnCommand=function(self)
+
+            if self:GetTexture() then return end
 
             local size = tapLua.screenSize() - Vector( offsetX * 2 )
 
@@ -62,9 +64,9 @@ return tapLua.ActorFrame {
 
     beat4sprite.ActorFrame {
 
-        OnCommand=function(self) self:init(builder):setAlpha() end,
-
         LoadHexagonCommand=function(self)
+
+            self:init(builder):setAlpha()
 
             beat4sprite.Arguments = beat4sprite.Builder { Texture = Texture,        Zoom = 0.375 }
 

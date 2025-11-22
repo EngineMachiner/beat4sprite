@@ -6,7 +6,7 @@ if Sides < 3 then error("A polygon must have more than 2 sides!") end
 
 local zoom = GetScreenAspectRatio()
 
-local t = tapLua.ActorFrame {
+local t = beat4sprite.ActorFrame {
 
     OnCommand=function(self) self:Center():zoom( 0.425 + zoom ) end,
 

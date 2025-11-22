@@ -24,6 +24,8 @@ for i = 1, Layers do
 
 		OnCommand=function(self)
 
+            self.Index = i
+
             self:init(builder):scaleToScreen()           self:fadeHorizontally(Fade):fadeVertically(Fade)
 
 
