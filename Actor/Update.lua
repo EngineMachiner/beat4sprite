@@ -45,7 +45,7 @@ local function isValid( bpm, current )
 
 end
 
-local function trigger(self) -- Trigger command on next 4th beat.
+local function queue_BPM_Commands(self) -- Trigger command on next 4th beat.
 
     local b = GAMESTATE:GetSongBeat()           local s = 4 * math.ceil( b / 4 )        s = s - b
 
@@ -59,7 +59,7 @@ local function trackBPM(self)
     
     local BPM = beat4sprite.BPM                         local isValid = isValid( BPM, currentBPM )
     
-    if not isValid then return self end                 if BPM then trigger(self) end
+    if not isValid then return self end                 if BPM then queue_BPM_Commands(self) end
     
     beat4sprite.BPM = currentBPM                        return self
 

@@ -1,7 +1,6 @@
 
 local astro = Astro.Table
 
-
 local function hasAnimationType( self, name ) return self.beat4sprite:hasAnimationType(name) end
 
 
