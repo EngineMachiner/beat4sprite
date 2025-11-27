@@ -60,11 +60,13 @@ return beat4sprite.ActorFrame {
 
         OnCommand=function(self)
             
-            self:SetTexture(subTexture):invertedMaskDest()             self:init(builder):initSprite():setAlpha()
+            local texture = self:GetTexture()
+
+            self:SetTexture(subTexture):invertedMaskDest()              self:init(builder):initSprite():setAlpha()
 
             local rectangle = Vector( 1, 1 ) - direction                self:customtexturerect( 0, 0, rectangle:unpack() )
 
-            scroll = direction * 0.25 / self:periodRate()               self:texcoordvelocity( scroll:unpack() )
+            scroll = direction * 0.25 / self:periodRate()               if not texture then self:texcoordvelocity( scroll:unpack() ) end
         
         end,
 
