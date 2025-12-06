@@ -1,7 +1,7 @@
 
 local astro = Astro.Type            local isTable = astro.isTable
 
-local isObject = tapLua.Type.isObject            local resolvePath = tapLua.resolvePath
+local isObject = tapLua.Type.isObject
 
 
 local Builder = beat4sprite.Builder
