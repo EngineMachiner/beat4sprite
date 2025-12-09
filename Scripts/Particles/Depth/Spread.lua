@@ -33,20 +33,32 @@ local t = beat4sprite.ActorFrame { OnCommand=function(self) self:setupDepth(FOV)
 
 for i = 1, n do
 
-    t[i] = beat4sprite.Sprite {
+    t[i] = beat4sprite.ActorFrame { beat4sprite.Sprite {
 
         Texture = Texture,
             
         OnCommand=function(self)
             
-            self:initParticle( builder, i )     self:diffusealpha(0):rotationz( - angle )
-            
+            self:initParticle( builder, i )         self:diffusealpha(0):rotationz( - angle )
+
+            self:queuecommand("ParentSetup")        self.Index = i
+
 
             local rate = self:freeRate()           local i = i - 1         i = rate * i / n
             
             self:queuecommand("Prepare"):sleep(i):diffusealpha(1):queuecommand("Motion")
         
         end,
+
+        ParentSetupCommand=function(self)
+
+            local p = self:GetParent()      p:init(builder)
+
+            p.Effect = self.Effect          p.Rainbow = self.Rainbow          self.Rainbow = false
+
+        end,
+
+        UpdateFunctionCommand=function(self) self:GetParent():updateRainbow() end,
 
         PrepareCommand=function(self)
 
@@ -64,7 +76,7 @@ for i = 1, n do
 
             local percent = 1 - percent(z)
 
-            local color = lerp_color( percent, Colors[1], Colors[2] )       self:diffuse(color)
+            local color = lerp_color( percent, Colors[1], Colors[2] )           self:diffuse(color)
 
 
             self.NextPos = - x
@@ -75,13 +87,13 @@ for i = 1, n do
 
             local variation = math.random( 500, 1000 ) * 0.001
 
-            local rate = self:freeRate() * variation           local x = self.NextPos
+            local rate = self:freeRate() * variation            local x = self.NextPos
 
-            self:linear(rate):x(x)          self:queuecommand("Prepare"):queuecommand("Motion")
+            self:linear(rate):x(x):playcommand("Motion2")       self:queuecommand("Prepare"):queuecommand("Motion")
 
         end
 
-    } .. Sprite
+    } .. Sprite }
 
 end
 

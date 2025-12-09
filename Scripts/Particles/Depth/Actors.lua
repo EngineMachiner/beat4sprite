@@ -2,9 +2,11 @@
 local reverse = Astro.Table.Array.reverse           local z = beat4sprite.Config.Depth.Range
 
 
-local builder = ...             local FOV = builder.FOV             local Texture = builder.Texture
+local builder = ...                         local Sprite = builder.Sprite
 
-local Reversed = builder.Reversed           local colors = builder.Colors           
+local FOV = builder.FOV                     local Texture = builder.Texture
+
+local Reversed = builder.Reversed           local colors = builder.Colors
 
 local n = builder:scaleQuantity()           FOV = tapLua.scaleFOV(FOV)
 
@@ -50,7 +52,9 @@ local function drawParticle(self)
 
     local percent = z - min             percent = percent / depthLength             percent = 1 - percent
     
-    local color = lerp_color( percent, colors[1], colors[2] )           self:diffuse(color)
+    local color = lerp_color( percent, colors[1], colors[2] )
+    
+    if not self.Rainbow then self:diffuse(color) end
 
 
     local alpha = alpha(z)              alpha = math.max( 0, alpha )            alpha = math.min( 1, alpha )

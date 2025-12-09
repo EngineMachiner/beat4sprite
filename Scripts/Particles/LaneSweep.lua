@@ -39,17 +39,17 @@ for i = 1, n do
 
             x = max + self:GetZoomedHeight() * 2          x = i % 2 == 0 and - x or x
 
-            self:x( size * offset ):playcommand("Prepare"):sleep(rate):queuecommand("Cycle")
+            self:x( size * offset ):playcommand("Prepare"):sleep(rate):queuecommand("Motion")
 
         end,
 
         PrepareCommand=function(self) self:y( x * 0.5 ) end,
 
-        CycleCommand=function(self)
+        MotionCommand=function(self)
 
             local rate = self:freeRate() * 4           self:linear(rate):y( - x * 0.5 )
             
-            self:queuecommand("Prepare"):queuecommand("Cycle")
+            self:playcommand("Motion2"):queuecommand("Prepare"):queuecommand("Motion")
 
         end
         
@@ -68,17 +68,17 @@ for i = 1, n do
             
             x = max + self:GetZoomedWidth() * 2          x = i % 2 == 0 and - x or x
 
-            self:y( size * offset ):playcommand("Prepare"):sleep(rate):queuecommand("Cycle")
+            self:y( size * offset ):playcommand("Prepare"):sleep(rate):queuecommand("Motion")
 
         end,
 
         PrepareCommand=function(self) self:x( x * 0.5 ) end,
 
-        CycleCommand=function(self)
+        MotionCommand=function(self)
 
             local rate = self:freeRate() * 4           self:linear(rate):x( - x * 0.5 )
             
-            self:queuecommand("Prepare"):queuecommand("Cycle")
+            self:playcommand("Motion2"):queuecommand("Prepare"):queuecommand("Motion")
 
         end
         
