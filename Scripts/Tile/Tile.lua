@@ -203,7 +203,7 @@ local Renderer = tapLua.Sprite.Renderer             local isScreenScale = builde
 
 local function setScreenScale()
 
-    local w, h = Renderer:GetSize(true)             Renderer:zoom( SCREEN_HEIGHT / h )
+    local h = Renderer:GetHeight()             Renderer:zoom( SCREEN_HEIGHT / h )
 
 end
 
