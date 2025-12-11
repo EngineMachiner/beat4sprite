@@ -6,6 +6,8 @@ local builder = ...         local Texture = builder.Texture           local Effe
 
 local Type = builder.Type or 3            local Layers = Effect.Layers or defaultLayers -- Number of layers.
 
+local Sprite = builder.Sprite or {}
+
 
 local types = {
 
@@ -51,7 +53,7 @@ for i = 1, Layers do
 
 		end
 
-	}
+	} .. Sprite
 
 end
 

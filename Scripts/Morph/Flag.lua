@@ -6,7 +6,7 @@ local builder = ...             local Texture = builder.Texture           local 
 
 local Type = builder.Type or 1              local Layers = Effect.Layers or defaultLayers
 
-local Skip = builder.Skip           local Bob = builder.Bob
+local Skip = builder.Skip           local Bob = builder.Bob         local Sprite = builder.Sprite or {}
 
 
 local Fade = 0.03
@@ -28,11 +28,13 @@ local function cos(a) a = math.rad(a)       return math.cos(a) end
 local function sin(a) a = math.rad(a)       return math.sin(a) end
 
 
+local radius = 30
+
 local t = beat4sprite.ActorFrame {}
 
 for i = 1, Layers do
 
-    local angle = i * Step * 360             local radius = 30
+    local angle = i * Step * 360
 
     t[i] = beat4sprite.Sprite {
 
@@ -51,9 +53,8 @@ for i = 1, Layers do
 
             local x = crop( v.x )           self:cropleft( x[1] ):cropright( x[2] )
             local y = crop( v.y )           self:croptop( y[1] ):cropbottom( y[2] )
-
             
-            local command = Bob and "Bob" or "Cycle"            self:queuecommand(command)
+            local command = Bob and "Bob" or "Skip"            self:queuecommand(command)
 
         end,
 
@@ -66,30 +67,44 @@ for i = 1, Layers do
             
             local i = i / Layers            i = i * 0.75
 
-            Effect.Offset = Effect.Offset + i - 0.25
-
-
-            self:setEffect("bob")
+            Effect.Offset = Effect.Offset + i - 0.25            self:setEffect("bob")
 
         end,
 
-        CycleCommand=function(self)
+        SkipCommand=function(self)
+
+            if not Skip then return end
+
 
             local x, y = cos(angle), sin(angle)
             
             local pos = tapLua.center() + radius * Vector( x, y )
             
 
-            local step = Skip and Step * 32 or Step         local time = self:periodRate() * step
+            local time = self:tweenRate()
 
-            local tween = Skip and self.sleep or self.linear        tween( self, time )     self:setPos(pos)
+            self:sleep(time):setPos(pos):queuecommand("Skip")
+
+        end,
+
+        UpdateFunctionCommand=function(self)
+
+            local delta = self:GetEffectDelta() * 362.5 / self:periodRate()
+
+            angle = angle + delta         angle = angle % 360
+            
+            if Skip then return end
 
 
-            angle = angle + step * 360         angle = angle % 360          self:queuecommand("Cycle")
+            local x, y = cos(angle), sin(angle)
+            
+            local pos = tapLua.center() + radius * Vector( x, y )
+
+            self:setPos(pos)
 
         end
 
-    }
+    } .. Sprite
 
 end
 

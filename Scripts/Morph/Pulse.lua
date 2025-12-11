@@ -4,7 +4,7 @@ local Vector = Astro.Vector             local defaultLayers = beat4sprite.Config
 
 local builder = ...             local Texture = builder.Texture           local Effect = builder.Effect
 
-local Layers = Effect.Layers or defaultLayers               local Fade = 0.03
+local Layers = Effect.Layers or defaultLayers           local Fade = 0.03           local Sprite = builder.Sprite or {}
 
 local crop = beat4sprite.Load("Morph/Crop")("Centered")
 
@@ -38,7 +38,7 @@ for i = 1, Layers do
 
 		end
 
-	}
+	} .. Sprite
 	
 end
 

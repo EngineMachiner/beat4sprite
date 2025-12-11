@@ -8,6 +8,8 @@ local Effect = builder.Effect           local Layers = Effect.Layers or defaultL
 
 local moveBy = Effect.moveBy or Vector(1.5)             moveBy = moveBy * SCREEN_HEIGHT / 720
 
+local Sprite = builder.Sprite or {}
+
 
 local Fade = 0.03           local Step = 0.75 / Layers
 
@@ -50,7 +52,7 @@ for i = 1, Layers do
 
 		end
 
-	}
+	} .. Sprite
 	
 end
 
