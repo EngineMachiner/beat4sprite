@@ -36,7 +36,7 @@ for i = 1, Layers do
 
 		end
 
-	}
+	} .. Sprite
 	
 end
 
