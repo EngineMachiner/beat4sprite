@@ -2,7 +2,7 @@
 local reverse = Astro.Table.Array.reverse           local z = beat4sprite.Config.Depth.Range
 
 
-local builder = ...                         local Sprite = builder.Sprite
+local builder = ...                         local Sprite = builder.Sprite or {}
 
 local FOV = builder.FOV                     local Texture = builder.Texture
 
