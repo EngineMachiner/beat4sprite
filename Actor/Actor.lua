@@ -86,6 +86,8 @@ setMeta( sprite, Sprite )
 
 local function Quad( input ) input.Class = "Quad"       return Actor(input) end
 
+local function Model( input ) input.Class = "Model"       return Actor(input) end
+
 local function ActorFrame( input ) input.Class = "ActorFrame"       return Actor(input) end
 
 local function ActorProxy( input ) input.Class = "ActorProxy"       return Actor(input) end
@@ -149,6 +151,6 @@ astro.merge( beat4sprite, {
 
     Text = Text,        Quad = Quad,        Square = Square,        ScreenQuad = ScreenQuad,
     
-    ScreenBlend = ScreenBlend,          extend = extend
+    ScreenBlend = ScreenBlend,          Model = Model,          extend = extend
 
 } )
