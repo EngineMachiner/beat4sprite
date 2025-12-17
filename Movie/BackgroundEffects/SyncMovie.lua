@@ -1,2 +1,2 @@
 
-return beat4sprite.movie { File = Var "File1" }
+return beat4sprite.Movie { File = Var "File1" }

@@ -45,7 +45,7 @@ end
 
 local function songBackgroundPath() return GAMESTATE:GetCurrentSong():GetBackgroundPath() end
 
-local function movie(data)
+local function Movie(data)
     
     local loaded = loadfile( path .. "Movie/Actor.lua" )(data)          return loaded
 
@@ -56,7 +56,7 @@ astro.merge( beat4sprite, {
 
     Load = Load,        animationPath = animationPath,        randomAnimation = randomAnimation,
 
-    songBackgroundPath = songBackgroundPath,        movie = movie
+    songBackgroundPath = songBackgroundPath,        Movie = Movie
 
 } )
 
