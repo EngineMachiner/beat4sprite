@@ -86,7 +86,19 @@ setMeta( sprite, Sprite )
 
 local function Quad( input ) input.Class = "Quad"       return Actor(input) end
 
-local function Model( input ) input.Class = "Model"       return Actor(input) end
+local function Model( input )
+    
+    local base = {
+
+        Class = "Model",        OnCommand=function(self) self:texturewrapping(true) end
+
+        -- No idea why StepMania has texturewrapping set to false for models in this context.
+
+    }
+    
+    input = merge( base, input )        return Actor(input)
+
+end
 
 local function ActorFrame( input ) input.Class = "ActorFrame"       return Actor(input) end
 
