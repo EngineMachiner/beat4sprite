@@ -3,7 +3,7 @@ local Vector = Astro.Vector
 
 local function isOnGameplay()
 
-    local screen = SCREENMAN:GetTopScreen()
+    local screen = SCREENMAN:GetTopScreen()         if not screen then return false end
 
 
 	local isPlaying = not GAMESTATE:InStepEditor()

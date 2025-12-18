@@ -77,4 +77,4 @@ local t = beat4sprite.ActorFrame {
 
 }
 
-return Def.ActorFrame { t }
+return beat4sprite.BaseFrame { t }
