@@ -110,7 +110,7 @@ local function morphBackground(self)
     if not script:match("Morph/") or script:match("Morph/Split") then return end
 
 
-    local layers = self.Layers          if layers.Back then return end
+    local layers = self.Layers          if layers.Back == nil then return end
 
     local Texture = self.Texture        layers.Back = Builder.Background(Texture):Load()
 
