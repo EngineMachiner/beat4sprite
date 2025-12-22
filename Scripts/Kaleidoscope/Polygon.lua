@@ -1,7 +1,9 @@
 
 local builder = ...             builder.Sides = builder.Sides or 8              local Sides = builder.Sides
 
-if Sides < 3 then error("A polygon must have more than 2 sides!") end
+if tapLua.shadersEnabled() then return beat4sprite.Load( "Kaleidoscope/Shader" )( builder ) end
+
+if Sides < 3 then error("More than 2 sides supported only!") end
 
 
 local zoom = GetScreenAspectRatio()

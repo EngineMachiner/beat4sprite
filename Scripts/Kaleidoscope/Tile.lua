@@ -2,9 +2,17 @@
 local Vector = Astro.Vector
 
 
-local builder = ...             builder.Sides = 6               builder.Scroll = builder.Scroll or Vector( 1, -1 )
+local builder = ...             builder.Sides = 6
 
-builder.Zoom = 0.25
+builder.Scroll = builder.Scroll or Vector( 1, -1 )          builder.Zoom = 0.25
+
+if tapLua.shadersEnabled() then
+    
+    builder.Tiles = 3       builder.Zoom = 0.5
+    
+    return beat4sprite.Load( "Kaleidoscope/Shader" )( builder )
+
+end
 
 
 local Hexagon           local offsetX = 16.5 * SCREEN_HEIGHT / 720
