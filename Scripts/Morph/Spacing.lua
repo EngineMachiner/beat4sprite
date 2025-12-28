@@ -10,6 +10,14 @@ local moveBy = Effect.moveBy or Vector(1.5)             moveBy = moveBy * SCREEN
 
 local Sprite = builder.Sprite or {}
 
+if tapLua.shadersEnabled() then
+
+    builder.Frag = "Shaders/spacing.frag"
+
+    return beat4sprite.Load( "Morph/Shaders/Load" )( builder ) .. Sprite
+
+end
+
 
 local Fade = 0.03           local Step = 0.75 / Layers
 

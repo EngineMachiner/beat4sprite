@@ -23,6 +23,38 @@ local selected = types[Type]                local Step = 0.75 / Layers -- Layer 
 
 local crop = beat4sprite.Load("Morph/Crop")("Sliced")       crop = crop( Step, Fade )
 
+if tapLua.shadersEnabled() then
+
+    local Effect = builder.Effect           builder.Frag = "Shaders/flag.frag"
+
+    Effect.Magnitude = Effect.Magnitude + selected.Magnitude
+
+    local t = beat4sprite.Load( "Morph/Shaders/Load" )( builder ) .. Sprite
+
+    return t .. {
+        
+        OnCommand=function(self)
+
+            local shader = self:GetShader()             if Skip then self:queuecommand("Skip") end
+
+            shader:uniform1f( "type", Type )            shader:uniform1f( "bob", Bob and 1 or 0 )
+
+        end,
+
+        SkipCommand=function(self)
+
+            local time = self:tweenRate()           self:sleep(time):queuecommand("Skip")
+
+            local skip = self:isOnGameplay() and GAMESTATE:GetSongBeat() or GetTimeSinceStart() -- bitEye support.
+
+            self:GetShader():uniform1f( "skip", skip )
+
+        end
+    
+    }
+
+end
+
 
 local function cos(a) a = math.rad(a)       return math.cos(a) end
 local function sin(a) a = math.rad(a)       return math.sin(a) end

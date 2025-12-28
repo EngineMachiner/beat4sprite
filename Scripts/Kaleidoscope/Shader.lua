@@ -1,7 +1,7 @@
 
 local builder = ...         local Sides = builder.Sides         local Zoom = builder.Zoom
 
-local Tiles = builder.Tiles
+local Tiles = builder.Tiles or 1
 
 
 local Path = beat4sprite.Path .. "Scripts"          local Texture

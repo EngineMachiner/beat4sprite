@@ -4,9 +4,9 @@ local Vector = Astro.Vector             local defaultLayers = beat4sprite.Config
 
 local builder = ...         local Texture = builder.Texture           local Effect = builder.Effect
 
-local Type = builder.Type or 3            local Layers = Effect.Layers or defaultLayers -- Number of layers.
+builder.Type = builder.Type or 3            local Layers = Effect.Layers or defaultLayers -- Number of layers.
 
-local Sprite = builder.Sprite or {}
+local Sprite = builder.Sprite or {}         local Type = builder.Type
 
 
 local types = {
@@ -22,6 +22,17 @@ local types = {
 local selected = types[Type]            local Fade = 0.03
 
 local crop = beat4sprite.Load("Morph/Crop")("Centered")
+
+
+if tapLua.shadersEnabled() then
+
+    local Effect = builder.Effect           builder.Frag = "Shaders/bob.frag"
+
+    Effect.Magnitude = Effect.Magnitude + selected.Magnitude
+
+    return beat4sprite.Load( "Morph/Shaders/Load" )( builder ) .. Sprite
+
+end
 
 
 local t = beat4sprite.ActorFrame {}

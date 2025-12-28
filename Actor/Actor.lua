@@ -63,15 +63,51 @@ end
 setMeta( actor, Actor )
 
 
+local function shader(self)
+
+    if not self.GetShader then return end
+    
+    local shader = self:GetShader()         if not shader then return end
+
+    return shader
+
+end
+
+ -- bitEye shader support.
+
+local function bitEyeShaderSupport(self)
+
+    local shader = shader(self)         if not shader then return end
+
+    local isPreview = self:isOnGameplay() and 0 or 1
+
+    shader:uniform1f( "isPreview", isPreview )
+
+end
+
+local function updateTime(self)
+
+    if self:isOnGameplay() then return end
+
+    local shader = shader(self)         if not shader then return end
+
+    shader:uniform1f( "previewTime", GetTimeSinceStart() )
+
+end
+
 local function sprite( beat4sprite, input )
 
     local base = {
 
-        Class = "Sprite",           Texture = texture( input.Texture ),         InitCommand = InitCommand( beat4sprite ),
+        Class = "Sprite",           Texture = texture( input.Texture ),
+        
+        InitCommand = InitCommand( beat4sprite ),       OnCommand = bitEyeShaderSupport,
 
         UpdateFunctionCommand=function(self)
             
-            if not self.beat4sprite then return end         self:updateRainbow():updateStateDelay()
+            updateTime(self)        if not self.beat4sprite then return end
+            
+            self:updateRainbow():updateStateDelay()
         
         end
         
