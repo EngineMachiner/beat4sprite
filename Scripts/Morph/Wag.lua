@@ -8,6 +8,15 @@ local Layers = Effect.Layers or defaultLayers           local Fade = 0.03       
 local crop = beat4sprite.Load("Morph/Crop")("Centered")
 
 
+if tapLua.shadersEnabled() then
+
+    builder.Frag = "Shaders/wag.frag"
+
+    return beat4sprite.Load( "Morph/Shaders/Load" )( builder ) .. Sprite
+
+end
+
+
 local t = beat4sprite.ActorFrame {}
 
 for i = 1, Layers do

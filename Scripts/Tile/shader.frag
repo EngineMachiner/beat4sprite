@@ -1,5 +1,5 @@
 
-// This is only used for the kaleidoscope.
+// This is only used for the tiled kaleidoscope.
 // It is very improbable that a shader will be used for tiling because of custom behaviour.
 // Creates a mirrored symmetric texture.
 

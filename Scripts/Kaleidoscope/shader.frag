@@ -14,6 +14,8 @@ uniform float tiles;
 uniform float isPreview;
 uniform float previewTime;
 
+float pi = 3.142;
+
 vec2 mirror( vec2 uv ) {
 
     // Taken from the tile shader.
@@ -31,7 +33,7 @@ vec2 mirror( vec2 uv ) {
 
 void main() {
 
-    vec2 uv = textureCoord;         float t = bool(isPreview) ? previewTime : beat;
+    vec2 uv = textureCoord;             float t = bool(isPreview) ? previewTime : beat;
 
 
     // Tiling.
@@ -39,9 +41,11 @@ void main() {
     float n = max( 1, tiles );            uv = fract( uv * n ) - 0.5;
 
 
+    // Scale it, make it square.
+
     float aspect = textureSize.x / textureSize.y;
 
-    if ( aspect > 1 ) uv.x *= aspect; else uv.y /= aspect;  // Scale it, make it square.
+    if ( aspect > 1 ) uv.x *= aspect; else uv.y /= aspect;
 
     
     // Convert Cartesian (x, y) to Polar (radius, angle).
@@ -49,9 +53,9 @@ void main() {
     float r = length(uv);            float a = atan( uv.y, uv.x );
 
 
-    // Divide the circle into 'sides' segments. tau is 2pi
+    // Divide the circle into 'sides' segments.
 
-    float tau = 6.28318530718;          float slice = tau / sides;
+    float slice = 2 * pi / sides;
     
 
     // Reflect the angle to create the symmetry.
@@ -59,18 +63,23 @@ void main() {
     a = mod( a, slice );            if ( a > slice / 2 ) a = slice - a;
 
 
-    r *= zoom; // Zoom.
+    // Rate and zoom.
+
+    r *= zoom;          a += t * 0.2 / rate;
 
 
     // Convert back to Cartesian for texture sampling.
 
-    a += t * 0.2 / rate;         uv = r * vec2( cos(a), sin(a) );
+    float x = r * cos(a);       float y = r * sin(a);
+
+    uv = vec2( x, y );
     
 
-    // 5. Map back to [0, 1] range for texture sampling.
-    
+    // Map back to [0, 1] range for texture sampling.
     // Use mirror() to repeat the texture if zooming out far.
 
-    uv += 0.5;          gl_FragColor = texture2D( sampler0, mirror(uv) );
+    uv += 0.5;          uv = mirror(uv);
+    
+    gl_FragColor = texture2D( sampler0, uv );
 
 }

@@ -13,13 +13,15 @@ local Background = beat4sprite.Builder.Background(Texture)          Background.S
 
 local zoom = builder.Zoom * 0.75            Background.Rate = 4 / zoom            Background.Display = Vector( 1, 1 )
 
+Background.Filter = false
+
 
 local isOffset = math.random(2) == 2
 
 Background.Output = {
     
     LoadSpriteCommand=function(self)
-        
+
         self:customtexturerect( 0, 0, zoom, zoom )        if not isOffset then return end
 
         local size = self:GetSize()             self:moveTextureBy( - size * 0.25 )
@@ -77,7 +79,7 @@ return beat4sprite.ActorFrame {
 
             self:SetTexture(subTexture)             self:init(builder):scaleToScreen():invertedMaskDest()
         
-            self:setAlpha()
+            self:setAlpha():SetTextureFiltering(false)
 
         end
     

@@ -3,14 +3,61 @@
 
 local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
 
-local builder = ...             local Texture = builder.Texture             local Type = builder.Type or 2
+local builder = ...                     local Type = builder.Type or 2
 
 local directions = { Vector(1), Vector { y = 1 } }              local direction = directions[Type]
 
 
-local subTexture, scroll, pos
+local Texture
 
-return beat4sprite.ActorFrame {
+local ActorFrameTexture = tapLua.ActorFrameTexture {
+
+    OnCommand=function(self) 
+        
+        if self:GetTexture() then return end
+
+        self:setSizeVector( tapLua.screenSize() )
+
+        self:EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()
+
+        Texture = self:GetTexture()
+    
+    end,
+
+    beat4sprite.Builder.Background( builder.Texture ):Load()
+
+}
+
+if tapLua.shadersEnabled() then
+
+    builder.Frag = "Shaders/stretch.frag"
+
+    local t = beat4sprite.Load( "Morph/Shaders/Load" )( builder ) .. Sprite
+
+    return beat4sprite.ActorFrame {
+        
+        ActorFrameTexture,
+
+        t .. {
+            
+            OnCommand=function(self)
+                
+                self:SetTexture( Texture ):fitInScreen()
+                
+                self:GetShader():uniform1f( "type", Type )
+            
+            end
+        
+        }
+    
+    }
+
+end
+
+
+local scroll, pos
+
+local t = beat4sprite.ActorFrame {
 
     OnCommand=function(self) self:Center() end,
 
@@ -21,6 +68,8 @@ return beat4sprite.ActorFrame {
             pos = - tapLua.screenSize()           pos = Vector.componentProduct( pos, direction )
 
             self:init(builder):MaskSource(true):setPos(pos):queuecommand("Cycle")
+
+            self:SetTextureFiltering(false)
 
         end,
 
@@ -38,23 +87,7 @@ return beat4sprite.ActorFrame {
     
     },
 
-    tapLua.ActorFrameTexture {
-
-        OnCommand=function(self) 
-            
-            if self:GetTexture() then return end
-
-            self:setSizeVector( tapLua.screenSize() )
-
-            self:EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()
-
-            subTexture = self:GetTexture()
-        
-        end,
-
-        beat4sprite.Builder.Background(Texture):Load()
-
-    },
+    ActorFrameTexture,
 
     beat4sprite.Sprite {
 
@@ -62,12 +95,14 @@ return beat4sprite.ActorFrame {
             
             local texture = self:GetTexture()
 
-            self:SetTexture(subTexture):invertedMaskDest()              self:init(builder):initSprite():setAlpha()
+            self:SetTexture( Texture ):invertedMaskDest()               self:init(builder):initSprite():setAlpha()
 
             local rectangle = Vector( 1, 1 ) - direction                self:customtexturerect( 0, 0, rectangle:unpack() )
 
             scroll = direction * 0.25 / self:periodRate()               if not texture then self:texcoordvelocity( scroll:unpack() ) end
         
+            self:SetTextureFiltering(false)
+
         end,
 
         ReverseCommand=function(self)
@@ -77,5 +112,11 @@ return beat4sprite.ActorFrame {
         end
 
     }
+
+}
+
+return beat4sprite.ActorFrame {
+    
+    beat4sprite.Builder.Background( builder.Texture ):Load(),       t
 
 }

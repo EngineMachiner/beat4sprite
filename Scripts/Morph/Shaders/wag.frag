@@ -5,7 +5,7 @@ uniform sampler2D sampler0;
 varying vec2 textureCoord;
 uniform float beat;
 
-uniform vec2 magnitude;
+uniform vec3 magnitude;
 uniform float period;
 
 uniform float isPreview;
@@ -18,21 +18,24 @@ void main() {
     float t = bool(isPreview) ? previewTime : beat;
 
     vec2 uv = textureCoord;         vec2 center = uv - 0.5;
-    
+
+    vec3 mag = magnitude + 1;
+
 
     float x = abs( center.x );          float y = abs( center.y );
 
     float length = max( x, y ) * 2;
 
 
-    float step = 1 - smoothstep( 0.125, 1, length );
-    
-    float r = magnitude.y + 1;      r *= step * 0.5;
-    
-    float phase = 180 + t;          phase *= pi / period;       phase = cos(phase);
-    
+    float step = 1 - smoothstep( 0, 1, length );        float r = mag.z * step * 0.75;
 
-    float zoom = 1 + r * abs(phase);        uv = center / zoom + 0.5;
+    float phase = t * 2 * pi / period;          phase = cos(phase);
+
+
+    x = cos(r * phase );            y = sin( r * phase );
+
+    uv.x = center.x * x - center.y * y;
+    uv.y = center.x * y + center.y * x;         uv += 0.5;
 
     gl_FragColor = texture2D( sampler0, uv );
 

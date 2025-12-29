@@ -76,7 +76,7 @@ return beat4sprite.ActorFrame {
 
             self:init(builder):setAlpha()
 
-            beat4sprite.Arguments = beat4sprite.Builder { Texture = Texture,        Zoom = 0.375 }
+            beat4sprite.Arguments = beat4sprite.Builder { Texture = Texture,        Zoom = 0.375,       Filter = false }
 
             self:AddChildFromPath(Path)         beat4sprite.Arguments = nil         self:queuecommand("On")
 

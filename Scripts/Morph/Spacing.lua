@@ -1,4 +1,6 @@
 
+-- Maybe could be sliced vertically too?
+
 local Vector = Astro.Vector             local defaultLayers = beat4sprite.Config.MorphLayers
 
 

@@ -107,7 +107,9 @@ local function morphBackground(self)
 
     local script = self.Script
 
-    if not script:match("Morph/") or script:match("Morph/Split") then return end
+    if not script:match("Morph/") then return end
+
+    if script:match("Morph/Split") or script:match("Morph/Stretch") then return end
 
 
     local layers = self.Layers          if layers.Back ~= nil then return end
