@@ -8,12 +8,14 @@ local FOV = builder.FOV                     local Texture = builder.Texture
 
 local Reversed = builder.Reversed           local colors = builder.Colors
 
+local Alpha = builder.Alpha
+
+
 local n = builder:scaleQuantity()           FOV = tapLua.scaleFOV(FOV)
 
+local min, max = table.unpack(z)            local depthLength = max - min
 
-local min, max = table.unpack(z)                local depthLength = max - min
-
-if Reversed then z = reverse(z)         colors = reverse(colors) end
+if Reversed then z = reverse(z)     colors = reverse(colors) end
 
 
 local function Frame( table )
@@ -57,7 +59,7 @@ local function drawParticle(self)
     if not self.Rainbow then self:diffuse(color) end
 
 
-    local alpha = alpha(z)              alpha = math.max( 0, alpha )            alpha = math.min( 1, alpha )
+    local alpha = alpha(z)              alpha = math.max( 0, alpha )            alpha = math.min( Alpha, alpha )
 
     self:diffusealpha(alpha)
 

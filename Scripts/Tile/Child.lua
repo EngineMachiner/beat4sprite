@@ -53,7 +53,7 @@ return tapLua.Load( "Sprite/Tile", input ) .. {
 
         AFT = self:GetParent()      setSize(self)       local size = AFT:GetSize()
         
-        self:setPos( size * 0.5 )       if isQuad then return end       AFT:GetParent():queuecommand("LoadSprite")
+        self:setPos( size * 0.5 )       if isQuad then return end       AFT:GetParent():queuecommand("Texture")
 
     end
 

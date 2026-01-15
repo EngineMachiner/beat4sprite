@@ -6,7 +6,7 @@ local builder = ...             local Texture = builder.Texture           local 
 
 local Layers = Effect.Layers or defaultLayers           local Fade = 0.03           local Sprite = builder.Sprite or {}
 
-local crop = beat4sprite.Load("Morph/Crop")("Centered")
+local crop = tapLua.Load( "Sprite/Crop", "Centered" )
 
 
 if tapLua.shadersEnabled() then

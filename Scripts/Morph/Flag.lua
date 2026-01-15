@@ -2,32 +2,29 @@
 local Vector = Astro.Vector             local defaultLayers = beat4sprite.Config.MorphLayers
 
 
-local builder = ...             local Texture = builder.Texture           local Effect = builder.Effect
+local builder = ...                     local Texture = builder.Texture         local Effect = builder.Effect
 
-local Type = builder.Type or 1              local Layers = Effect.Layers or defaultLayers
+local Skip = builder.Skip               local Bob = builder.Bob                 local Sprite = builder.Sprite or {}
 
-local Skip = builder.Skip           local Bob = builder.Bob         local Sprite = builder.Sprite or {}
+local Type = builder.Type or 1          local Layers = Effect.Layers or defaultLayers
 
-
-local Fade = 0.03
 
 local types = {
     
-    { Crop = Vector { y = 1 },      Magnitude = Vector(1) },
-
-    { Crop = Vector(1),     Magnitude = Vector { y = 1 } },
+    { Magnitude = Vector(1) },          { Magnitude = Vector { y = 1 } }
 
 }
 
-local selected = types[Type]                local Step = 0.75 / Layers -- Layer slice.
+local Magnitude = types[Type].Magnitude
 
-local crop = beat4sprite.Load("Morph/Crop")("Sliced")       crop = crop( Step, Fade )
+local cropVector = Vector( Magnitude.y, Magnitude.x )
+
 
 if tapLua.shadersEnabled() then
 
     local Effect = builder.Effect           builder.Frag = "Shaders/flag.frag"
 
-    Effect.Magnitude = Effect.Magnitude + selected.Magnitude
+    Effect.Magnitude = Effect.Magnitude + Magnitude
 
     local t = beat4sprite.Load( "Morph/Shaders/Load" )( builder ) .. Sprite
 
@@ -56,17 +53,20 @@ if tapLua.shadersEnabled() then
 end
 
 
+local crop = tapLua.Load( "Sprite/Crop", "Matrix" )
+
 local function cos(a) a = math.rad(a)       return math.cos(a) end
 local function sin(a) a = math.rad(a)       return math.sin(a) end
 
+local matrix = cropVector * ( Layers - 1 ) + Vector(1,1)
 
-local radius = 30
+local fade = 0.03           local fadeVector = cropVector * fade
 
-local t = beat4sprite.ActorFrame {}
+local t = beat4sprite.ActorFrame {}         local radius = 30
 
 for i = 1, Layers do
 
-    local angle = i * Step * 360
+    local angle = i * 0.75 * 360 / Layers
 
     t[i] = beat4sprite.Sprite {
 
@@ -74,27 +74,27 @@ for i = 1, Layers do
 
         OnCommand=function(self)
 
-            self.Index = i
+            self.Index = i                              self:init(builder):fitInScreen()
 
-            self:init(builder):fitInScreen()        local cropVector = selected.Crop
-
-            local fade = cropVector * Fade          self:fadeHorizontally( fade.x ):fadeVertically( fade.y )
-
-
-            local v = cropVector * i / Layers
-
-            local x = crop( v.x )           self:cropleft( x[1] ):cropright( x[2] )
-            local y = crop( v.y )           self:croptop( y[1] ):cropbottom( y[2] )
             
+            local pos = cropVector * ( i - 1 ) + Vector(1,1)
+            
+            local crop = crop( matrix, pos, fade )            local x, y = crop.x, crop.y           
+
+            self:fadeHorizontally( fadeVector.x ):fadeVertically( fadeVector.y )
+
+            self:cropleft( x[1] ):cropright( x[2] ):croptop( y[1] ):cropbottom( y[2] )
+
+
             local command = Bob and "Bob" or "Skip"            self:queuecommand(command)
 
         end,
 
         BobCommand=function(self)
 
-            local Effect = self.Effect              local magnitude = selected.Magnitude * 32
+            local Effect = self.Effect
 
-            Effect.Magnitude = Effect.Magnitude + magnitude / self:aspectRatio()
+            Effect.Magnitude = Effect.Magnitude + Magnitude * 32 / self:aspectRatio()
 
             
             local i = i / Layers            i = i * 0.75

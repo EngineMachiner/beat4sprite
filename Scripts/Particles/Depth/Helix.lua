@@ -65,13 +65,11 @@ local function Particle( i, s )
 
     return Frame {
 
-        _Particle( i, s ) .. Sprite,
+        _Particle( i, s ),
         
         OnCommand=function(self)
 
-            self:GetChild("").Angle = Angle
-
-            if not Spin or not FixedAngle then return end
+            self:GetChild("").Angle = Angle         if not Spin or not FixedAngle then return end
 
             local Effect = self.Effect              local Magnitude = Effect.Magnitude
             
@@ -99,9 +97,9 @@ for x = 1, n do
 
         OnCommand=function(self)
 
-            local radius = SCREEN_CENTER_Y          self.Sleep = 0.5 / Waves
+            local radius = SCREEN_CENTER_Y              self.Sleep = 0.5 / Waves
 
-            local x = math.cos(angle)           local y = math.sin(angle)
+            local x = math.cos(angle)                   local y = math.sin(angle)
 
             local pos = radius * Vector( x, y )         self:setPos(pos)
 

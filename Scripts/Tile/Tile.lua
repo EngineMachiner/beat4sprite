@@ -1,21 +1,22 @@
 
-local astro = Astro.Type
+local astro = Astro.Type                local isOdd = Astro.Math.isOdd
 
-local isTable = astro.isTable          local isString = astro.isString
+local isTable = astro.isTable           local isString = astro.isString
 
 
 local astro = Astro.Table
 
 local Vector = Astro.Vector             local isVector = Vector.isVector
 
-local isZero = Vector.isZero          local planeAxes = Vector.planeAxes
+local isZero = Vector.isZero            local planeAxes = Vector.planeAxes
+
 
 local maxComponent = Vector.maxComponent
 
 local componentVector = Vector.componentVector
 
 
-local Actor = tapLua.Actor
+local Actor = tapLua.Actor              local screenSize = tapLua.screenSize()
 
 
 -- It's an advanced tiling script using the tapLua Tile.lua script.
@@ -37,14 +38,14 @@ local Direction = Scroll.Direction
 if Direction then Scroll.Direction = Vector.unit( Direction ) end
 
 
-local Matrix = builder.Matrix
-
 local Texture = builder.Texture             local States = builder.States
+
+local TextureScale = builder.TextureScale or 1
+
+local isComposed = isTable(Texture)
 
 
 local Display = builder.Display
-
-if Scroll then Display = Display or Scroll.Direction end
 
 
 local Rotation = builder.Rotation or Vector()
@@ -55,6 +56,11 @@ local Blend = builder.Blend             local Colors = builder.Colors
 local Mirror = builder.Mirror           local Zoom = builder:zoom()
 
 if Mirror == true then Mirror = { x = true, y = true } end
+
+
+local isScreenScale = builder.ScreenScale
+
+local Matrix = builder.Matrix               local Dynamic = builder.Dynamic
 
 
 local function tileUtil( path, ... )
@@ -190,8 +196,6 @@ if builder.Composition and isString(Texture) then Texture = { Texture } end
 
 Sprite2.ComposeCommand = Sprite2.InitCommand            Sprite2.InitCommand = nil
 
-local isComposed = isTable(Texture)
-
 
 local Sprite3 = builder.Output or {}
 
@@ -199,7 +203,7 @@ local Sprite3 = builder.Output or {}
 local input = { Texture = Texture,          Sprite = Sprite,    Zoom = Zoom,        Matrix = Matrix }
 
 
-local Renderer = tapLua.Sprite.Renderer             local isScreenScale = builder.ScreenScale
+local Renderer = tapLua.Sprite.Renderer
 
 local function setScreenScale()
 
@@ -209,20 +213,23 @@ end
 
 local function onPreload()
 
-    -- Check if should scale to screen height.
-
     if isScreenScale then setScreenScale() end
+    
 
+    local matrix = Dynamic and Renderer:screenMatrix() or Vector(1,1)
+    
+    Matrix = Matrix or matrix           input.Matrix = Matrix
 
-    -- Check mirror when the texture is oversized.
+    
+    if not Mirror then return end
 
-    if Matrix or not Display then return end               local w, h = Renderer:GetZoomedSize(true)
+    for i,v in ipairs(planeAxes) do
 
-    local displayX = w >= SCREEN_WIDTH and Display.x ~= 0             local displayY = h >= SCREEN_HEIGHT and Display.y ~= 0
+        if isOdd( Matrix[v] ) and Matrix[v] then Matrix[v] = Matrix[v] + 1 end
+    
+    end
 
-    local offset = displayX and Vector(1) or Vector()                if displayY then offset.y = 1 end
-
-    input.Matrix = function(matrix) return matrix + offset end
+    input.Matrix = Matrix
 
 end
 
@@ -264,12 +271,7 @@ local function Composition()
         if not isZero(Display) then return 0 end
 
 
-        local screenSize = tapLua.screenSize()          local max = maxComponent(screenSize)
-
-        if max.key == component then return 1 end
-        
-
-        return 0
+        local max = maxComponent(screenSize)            return max.key == component and 1 or 0
 
     end
 
@@ -394,7 +396,7 @@ end
 
 -- 3. Return the actors involved.
 
-local Width, AFT            local Renderer = tapLua.Sprite.Renderer
+local AFT, Zoom, RenderedSize, OffsetSize
 
 local childPath = beat4sprite.Path .. "Scripts/Tile/Child.lua"
 
@@ -411,12 +413,47 @@ return beat4sprite.ActorFrame {
             self:RemoveAllChildren()        AFT = self
 
             beat4sprite.Arguments = input     self:AddChildFromPath(childPath)      beat4sprite.Arguments = nil
-        
-            Width = Renderer:GetZoomedWidth()
+
+            RenderedSize = Renderer:GetZoomedSize()
 
         end,
 
-        LoadSpriteCommand=function(self) self:playcommand("CreateTexture") end
+        TextureCommand=function(self)
+
+            self:playcommand("CreateTexture")
+            
+            Zoom = 1 / self:GetZoom()       OffsetSize = RenderedSize / Zoom
+
+        end
+
+    },
+
+    ActorFrameTexture {
+
+        -- Legacy workaround stretching to power of two size.
+
+        Condition = tapLua.isLegacy(),
+
+        tapLua.Sprite {
+            
+            TextureCommand=function(self)
+                
+                local formerSize = AFT:GetSize()
+                
+                local Texture = AFT:GetTexture()        local size = tapLua.Texture.size(Texture)
+
+                self:SetTexture(Texture):setPos( size / 2 ):setSizeVector(size):SetTextureFiltering(false)
+
+
+                OffsetSize = Vector.componentDivision( size, Matrix )
+
+                AFT = self:GetParent()              AFT:setSizeVector(size)
+                
+                AFT.FormerSize = formerSize         AFT:playcommand("CreateTexture")
+
+            end
+        
+        }
 
     },
 
@@ -424,34 +461,54 @@ return beat4sprite.ActorFrame {
 
         OnCommand=function(self)
             
-            -- Use customtexturerect() to fix issue with addimagecoords() offset.
+            -- Use customtexturerect() to reset texture coords if using addimagecoords().
 
-            self:Center():customtexturerect(0,0,1,1):init(builder):initSprite():setAlpha()
+            self:Center()           self:init(builder):initSprite():setAlpha()
         
+            if Blend then self:blend(Blend) end
+
         end,
 
-        LoadSpriteCommand=function(self)
+        TextureCommand=function(self)
 
-            if Blend then self:blend(Blend) end
+            local Texture = AFT:GetTexture()            self:SetTexture(Texture)
             
+            local formerSize = AFT.FormerSize           if formerSize then self:setSizeVector(formerSize) end
 
-            local texture = AFT:GetTexture()            self:SetTexture(texture)
+            self:zoom(Zoom):playcommand("Rect"):playcommand("Scroll")
 
-            local zoom = 1 / AFT:GetZoom()              self:zoom(zoom):playcommand("Scroll")
+        end,
 
+        RectCommand=function(self)
 
-            -- Fit backgrounds easily. Maybe should offset on the y axis too.
+            local scale = 0.5 / TextureScale
 
-            if Width >= SCREEN_WIDTH or not isScreenScale then return end
+            local size = self:GetZoomedSize()           self.ScrollSize = size
 
-            local x = Width * 0.5           x = - x / zoom          self:addimagecoords( x, 0 )
+            if Dynamic then
+            
+                local x = scale * 2         self:customtexturerect( 0, 0, x, x )
+
+            else
+            
+                -- Frame, center and offset the texture.
+                
+                local rect = Vector(screenSize)
+
+                for i,v in ipairs(planeAxes) do rect[v] = rect[v] * scale / size[v] end
+
+                local w, h = screenSize:unpack()        local x, y = rect:unpack()
+
+                self:scaletoclipped( w, h ):customtexturerect( -x, -y, x, y ):moveTextureBy( OffsetSize / 2 )
+
+            end
 
         end,
 
         ScrollCommand=function(self)
 
             if not Scroll.Direction then return end         if onScrollSkipping(self) then return end
-    
+
             local velocity = scrollVelocity(self)           self:scrollTexture(velocity)        onReverseScroll(self)
     
         end

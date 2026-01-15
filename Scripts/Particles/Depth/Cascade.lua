@@ -1,7 +1,18 @@
 
-local Vector = Astro.Vector
+local Vector = Astro.Vector         local isNumber = Astro.Type.isNumber
 
-local builder = ...             builder.Quantity = builder.Quantity or 8
+local builder = ...                 builder.Quantity = builder.Quantity or 8 -- Quantity per group.
+
+
+local Quantity2 = builder.Quantity2 or function() return math.random( 2, 5 ) end
+
+if isNumber(Quantity2) then
+
+    local cached = Quantity2        Quantity2 = function() return cached end
+
+end
+
+builder.Quantity2 = Quantity2
 
 
 local Path = "Particles/Depth/Actors"
@@ -41,7 +52,7 @@ end
 
 for i = 1, n do
 
-    local n = math.random( 2, 5 )                local z = math.abs(z)
+    local n = Quantity2()                local z = math.abs(z)
     
     MainFrame[i] = ActorFrame(i) .. {
         

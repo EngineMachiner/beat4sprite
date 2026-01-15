@@ -1,5 +1,5 @@
 
-local astro = Astro.Table
+local astro = Astro.Table           local Array = astro.Array
 
 local function hasAnimationType( self, name ) return self.beat4sprite:hasAnimationType(name) end
 
@@ -30,11 +30,11 @@ end
 
 local Styles = {
 
-    pingPong = function(self)
+    PingPong = function(self)
     
-        local p = defaultStyle(self)            local reversed = astro.reversed(p)
+        local p = defaultStyle(self)            local reversed = Array.reverse(p)
     
-        astro.add( p, reversed )                return p
+        Array.add( p, reversed )                return p
 
     end
 

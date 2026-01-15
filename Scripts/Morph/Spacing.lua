@@ -3,12 +3,14 @@
 
 local Vector = Astro.Vector             local defaultLayers = beat4sprite.Config.MorphLayers
 
+local isEven = Astro.Math.isEven
+
 
 local builder = ...             local Texture = builder.Texture
 
 local Effect = builder.Effect           local Layers = Effect.Layers or defaultLayers * 0.5
 
-local moveBy = Effect.moveBy or Vector(1.5)             moveBy = moveBy * SCREEN_HEIGHT / 720
+local moveBy = Effect.moveBy or Vector(4)             moveBy = moveBy * SCREEN_HEIGHT / 720
 
 local Sprite = builder.Sprite or {}
 
@@ -21,14 +23,19 @@ if tapLua.shadersEnabled() then
 end
 
 
-local Fade = 0.03           local Step = 0.75 / Layers
+local cropVector = Vector(1)
 
-local crop = beat4sprite.Load("Morph/Crop")("Sliced")       crop = crop( Step, Fade )
+local crop = tapLua.Load( "Sprite/Crop", "Matrix" )
 
+local matrix = cropVector * ( Layers - 1 ) + Vector(1,1)
+
+local fade = 0.015           local fadeVector = cropVector * fade
 
 local t = beat4sprite.ActorFrame { OnCommand=function(self) self:Center() end }
 
 for i = 1, Layers do
+
+    local moveBy = isEven(i) and - moveBy or moveBy
 
 	t[i] = beat4sprite.Sprite {
 
@@ -36,12 +43,12 @@ for i = 1, Layers do
 
 		OnCommand=function(self)
 
-            self.Index = i
+            self.Index = i          self:init(builder):scaleToScreen()
+            
+            
+            self:fadeHorizontally(fade):fadeVertically(fade)
 
-            self:init(builder):scaleToScreen()           self:fadeHorizontally(Fade):fadeVertically(Fade)
-
-
-            local i = i / Layers            local crop = crop(i)
+            local pos = cropVector * ( i - 1 ) + Vector(1,1)            local crop = crop( matrix, pos, fade / 16 ).x
 
             self:croptop( crop[1] ):cropbottom( crop[2] )
 
@@ -53,8 +60,6 @@ for i = 1, Layers do
 		CycleCommand=function(self)
 
 			local time = self:periodRate() * 0.5
-
-            local moveBy = i % 2 == 0 and - moveBy or moveBy
 
 			self:linear(time):setPos( moveBy ):smooth(time):setPos( - moveBy )
 

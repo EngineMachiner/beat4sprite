@@ -1,14 +1,12 @@
 
 -- It's a builder that returns actors based on different keys and values.
 
-local Vector = Astro.Vector
+local Vector = Astro.Vector             local deepMerge = tapLua.deepMerge
 
 local astro = Astro.Table               local deepCopy = astro.Copy.deep
 
 
-local Builder = {}
-
-local create -- Create function for each builder.
+local Builder = {}          local create -- Create function for each builder.
 
 local function isSingle(tbl) return #tbl == 0 end
 
@@ -31,36 +29,30 @@ end
 
 local function merge( builders, input )
 
-    if not input then return builders end        local wrap = wrap(input)
+    if not input then return builders end               local wrap = wrap(input)
 
-    local merged = tapLua.deepMerge( builders, wrap )
-
-    return Builder(merged)
+    local merged = deepMerge( builders, wrap )          return Builder(merged)
 
 end
 
 
-local __index = { Load = Load, merge = merge }              local keys = { "Scale", "Filter" }
+local __index = { Load = Load, merge = merge }
+
+local function onCreation( builder ) return builder end
 
 local function __call( Builder, input )
 
+    -- Considering making this within the input metatable.
+
+    local onCreation = input.onCreation or onCreation           input.onCreation = nil
+
     local wrap = wrap(input)        astro.Meta.setIndex( wrap, __index )
 
-    for i,v in ipairs(wrap) do
-        
-        -- Sub builders inherit keys from the main builder.
-
-        for i,k in ipairs(keys) do v[k] = v[k] ~= nil and v[k] or input[k] end
-        
-        
-        wrap[i] = create(v)
-    
-    end
+    for i,v in ipairs(wrap) do v = create(v)        wrap[i] = onCreation(v) end
 
     return isSingle(input) and wrap[1] or wrap
 
 end
-
 
 setmetatable( Builder, { __call = __call } )
 
@@ -87,7 +79,7 @@ local metaBuilder
 
 create = function(input)
 
-    local builder = tapLua.deepMerge( defaults(), input )
+    local builder = deepMerge( defaults(), input )
 
     local meta = { __index = metaBuilder, input = input }
 
@@ -129,7 +121,7 @@ function Builder:Load()
 
     if not self.Load then return Load(self) end -- If Builder.Load(builders) happens.
 
-    morphBackground(self)
+    if not self.Texture then error("Missing texture!") end          morphBackground(self)
 
 
     local Builder = self                    local Layers = Builder.Layers
@@ -168,15 +160,13 @@ function Builder:Load()
 
 end
 
-
 function Builder:merge(input)
 
     if not input then return self end           local copy = deepCopy( self:input() )
     
-    tapLua.deepMerge( copy, input )             return Builder(copy)
+    deepMerge( copy, input )                    return Builder(copy)
 
 end
-
 
 function Builder:input() return getmetatable(self).input end
 
@@ -191,26 +181,26 @@ end
 
 beat4sprite.Builder = Builder
 
-
 tapLua.FILEMAN.LoadDirectory( beat4sprite.Path .. "Builder/" )
 
-metaBuilder = deepCopy(Builder)
-
-
-local function Retro(input)
-
-    local scale = SCREEN_HEIGHT / 240           input.Scale = scale
-
-    input.Filter = false             return Builder(input)
-
-end
+metaBuilder = deepCopy(Builder)         metaBuilder.Retro = nil
 
 
 -- Builder templates for easy creation.
 
 local function Background( Texture )
 
-    return Builder { Texture = Texture,          Mirror = true,         ScreenScale = true }
+    return Builder { Texture = Texture,     Mirror = true,      ScreenScale = true }
+
+end
+
+local function Background2( Texture ) -- Matrix must be defined in the input.
+
+    return Background(Texture):merge {
+        
+        Dynamic = true,     Output = { TextureCommand=function(self) self:scale_or_crop_background() end }
+    
+    }
 
 end
 
@@ -221,6 +211,6 @@ local function SongBackground()
 end
 
 
-local t = { Retro = Retro,          Background = Background,    SongBackground = SongBackground }
+local t = { Background = Background,    Background2 = Background2,      SongBackground = SongBackground }
 
 astro.merge( Builder, t )

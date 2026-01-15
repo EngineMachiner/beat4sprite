@@ -20,7 +20,7 @@ local isOffset = math.random(2) == 2
 
 Background.Output = {
     
-    LoadSpriteCommand=function(self)
+    TextureCommand=function(self)
 
         self:customtexturerect( 0, 0, zoom, zoom )        if not isOffset then return end
 

@@ -3,10 +3,10 @@ local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
 
 local normSqr = Vector.normSqr          local config = beat4sprite.Config
 
-local builder = ...             local Scroll = builder.Scroll
+local builder = ...                     local Scroll = builder.Scroll
 
 
-local orientation = 1           local skippedTime = 0
+local orientation = 1                   local skippedTime = 0
 
 local function scrollSpeed()
 
@@ -20,11 +20,9 @@ end
 
 local function scrollVelocity( self, isSkip )
 
-    local velocity = Vector()
+    local velocity = Scroll.Direction          local size = self.ScrollSize
 
-    local direction = Scroll.Direction          local size = self:GetZoomedSize()
-
-    velocity = Vector.componentDivision( direction, size )
+    velocity = Vector.componentDivision( velocity, size )
 
 
     local scrollSync = config.ScrollSync and self:isOnGameplay() and not isSkip

@@ -21,7 +21,7 @@ local types = {
 
 local selected = types[Type]            local Fade = 0.03
 
-local crop = beat4sprite.Load("Morph/Crop")("Centered")
+local crop = tapLua.Load( "Sprite/Crop", "Centered" )
 
 
 if tapLua.shadersEnabled() then

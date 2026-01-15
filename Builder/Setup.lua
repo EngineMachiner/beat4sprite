@@ -104,6 +104,8 @@ function Builder:setFilter()
 
     local filter = self.Filter          if filter == nil then self.Filter = true end
 
+    return self
+
 end
 
 
@@ -114,10 +116,10 @@ local function finishSetup(self) getmetatable(self).setup = true end
 
 function Builder:setup()
 
-    if wasSetup(self) then return self end
+    if wasSetup(self) then return self end          self:setPaths():setSpriteStates()
 
-    self:setPaths():setSpriteStates()         self:onDepth():setColors():setBlend():setFilter()
+    self:setColors():setBlend():setFilter()         self:onDepth()      finishSetup(self)
 
-    finishSetup(self) return self
+    return self
 
 end

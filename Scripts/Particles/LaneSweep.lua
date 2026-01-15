@@ -5,7 +5,7 @@ local Vector = Astro.Vector             local maxComponent = Vector.maxComponent
 
 local astro = Astro.Layout              local quantityIn = astro.quantityIn
 
-local offset = astro.centerOffset
+local offset = astro.centerOffset       local isEven = Astro.Math.isEven
 
 
 local builder = ...             local Texture = builder.Texture
@@ -37,7 +37,7 @@ for i = 1, n do
 
             self:initParticle( builder, i )         local rate = self:freeRate() * i * 0.5
 
-            x = max + self:GetZoomedHeight() * 2          x = i % 2 == 0 and - x or x
+            x = max + self:GetZoomedHeight() * 2          x = isEven(i) and - x or x
 
             self:x( size * offset ):playcommand("Prepare"):sleep(rate):queuecommand("Motion")
 
@@ -66,7 +66,7 @@ for i = 1, n do
 
             self:initParticle( builder, i )         local rate = self:freeRate() * i * 0.5
             
-            x = max + self:GetZoomedWidth() * 2          x = i % 2 == 0 and - x or x
+            x = max + self:GetZoomedWidth() * 2          x = isEven(i) and - x or x
 
             self:y( size * offset ):playcommand("Prepare"):sleep(rate):queuecommand("Motion")
 
