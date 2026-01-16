@@ -38,14 +38,14 @@ local Direction = Scroll.Direction
 if Direction then Scroll.Direction = Vector.unit( Direction ) end
 
 
-local Texture = builder.Texture             local States = builder.States
+local Texture = builder.Texture         local States = builder.States
 
 local TextureScale = builder.TextureScale or 1
 
 local isComposed = isTable(Texture)
 
 
-local Display = builder.Display
+local Display = builder.Display         local Spiral = builder.Spiral
 
 
 local Rotation = builder.Rotation or Vector()
@@ -200,7 +200,11 @@ Sprite2.ComposeCommand = Sprite2.InitCommand            Sprite2.InitCommand = ni
 local Sprite3 = builder.Output or {}
 
 
-local input = { Texture = Texture,          Sprite = Sprite,    Zoom = Zoom,        Matrix = Matrix }
+local input = {
+    
+    Texture = Texture,          Sprite = Sprite,    Zoom = Zoom,        Matrix = Matrix,        Spiral = Spiral
+
+}
 
 
 local Renderer = tapLua.Sprite.Renderer
