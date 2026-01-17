@@ -1,31 +1,35 @@
 
 -- A builder to create retro animations.
 
-local deepMerge = tapLua.deepMerge
+local deepMerge = tapLua.deepMerge          local Vector = Astro.Vector
 
-local Builder = beat4sprite.Builder         local Vector = Astro.Vector
+local Builder = beat4sprite.Builder         local Parent = getmetatable(Builder)
 
-local function onCreation( builder )
+local function __call( Retro, input ) return Parent.__call( Retro, input ) end
+
+local Retro = { Load = function(input) return Builder.Retro(input):Load() end }
+
+Retro.init = function( input )
+    
+    local builder = Builder.init( input )
+
     
     local scale = SCREEN_HEIGHT / 240
 
     builder = builder:merge { Scale = scale,    Filter = false }
 
-    local States = builder.States           States.Rate = States.Rate / 4
+    local States = builder.States               States.Rate = States.Rate / 4
+
+    
+    getmetatable(builder).Builder = Retro
 
     return builder
 
 end
 
-local function __call( Retro, input )
+setmetatable( Retro, { __call = __call } )
 
-    input.onCreation = onCreation         return Builder(input)
-
-end
-
-local Retro = { Load = function(input) return Builder.Retro(input):Load() end }
-
-setmetatable( Retro, { __call = __call } )          Builder.Retro = Retro
+Builder.Retro = Retro
 
 
 local function Background( input )

@@ -5,8 +5,10 @@ local Vector = Astro.Vector             local deepMerge = tapLua.deepMerge
 
 local astro = Astro.Table               local deepCopy = astro.Copy.deep
 
+local setIndex = astro.Meta.setIndex
 
-local Builder = {}          local create -- Create function for each builder.
+
+local Builder = {}
 
 local function isSingle(tbl) return #tbl == 0 end
 
@@ -27,28 +29,40 @@ local function Load( builders )
 
 end
 
+local function inputs( builders )
+
+    local inputs = {}
+    
+    for i,v in ipairs(builders) do
+        
+        local input = v:input()         inputs[i] = deepCopy(input)
+    
+    end
+
+    return inputs
+
+end
+
 local function merge( builders, input )
 
-    if not input then return builders end               local wrap = wrap(input)
+    if not input then return builders end
+    
+    local wrap = wrap(input)        local merged = deepCopy( builders )
+    
+    for k,v in pairs(wrap) do merged[k] = merged[k]:merge(v) end
 
-    local merged = deepMerge( builders, wrap )          return Builder(merged)
+    return merged
 
 end
 
 
-local __index = { Load = Load, merge = merge }
-
-local function onCreation( builder ) return builder end
+local __index = { Load = Load, merge = merge, inputs = inputs }
 
 local function __call( Builder, input )
 
-    -- Considering making this within the input metatable.
+    local wrap = wrap(input)        setIndex( wrap, __index )
 
-    local onCreation = input.onCreation or onCreation           input.onCreation = nil
-
-    local wrap = wrap(input)        astro.Meta.setIndex( wrap, __index )
-
-    for i,v in ipairs(wrap) do v = create(v)        wrap[i] = onCreation(v) end
+    for i,v in ipairs(wrap) do wrap[i] = Builder.init(v) end
 
     return isSingle(input) and wrap[1] or wrap
 
@@ -77,11 +91,11 @@ end
 
 local metaBuilder
 
-create = function(input)
+Builder.init = function( input )
 
     local builder = deepMerge( defaults(), input )
 
-    local meta = { __index = metaBuilder, input = input }
+    local meta = { __index = metaBuilder, input = input, Builder = Builder }
 
     setmetatable( builder, meta )
 
@@ -164,7 +178,9 @@ function Builder:merge(input)
 
     if not input then return self end           local copy = deepCopy( self:input() )
     
-    deepMerge( copy, input )                    return Builder(copy)
+    deepMerge( copy, input )                    local Builder = getmetatable(self).Builder
+
+    return Builder(copy)
 
 end
 
