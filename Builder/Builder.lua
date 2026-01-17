@@ -1,6 +1,8 @@
 
 -- It's a builder that returns actors based on different keys and values.
 
+local isNumber = Astro.Type.isNumber
+
 local Vector = Astro.Vector             local deepMerge = tapLua.deepMerge
 
 local astro = Astro.Table               local deepCopy = astro.Copy.deep
@@ -10,7 +12,7 @@ local setIndex = astro.Meta.setIndex
 
 local Builder = {}
 
-local function isSingle(tbl) return #tbl == 0 end
+local function isSingle(tbl) local key = next(tbl)        return not isNumber(key) end
 
 local function wrap(input) return isSingle(input) and { input } or input end
 
