@@ -3,9 +3,9 @@
 
 local deepMerge = tapLua.deepMerge          local Vector = Astro.Vector
 
-local Builder = beat4sprite.Builder         local Parent = getmetatable(Builder)
+local Builder = beat4sprite.Builder         local Meta = getmetatable(Builder)
 
-local function __call( Retro, input ) return Parent.__call( Retro, input ) end
+local function __call( Retro, input ) return Meta.__call( Retro, input ) end
 
 local Retro = { Load = function(input) return Builder.Retro(input):Load() end }
 
