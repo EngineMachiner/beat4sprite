@@ -252,7 +252,7 @@ local function FinishCommand(self)
 
 end
 
-local function Composition()
+local function CompositionActor()
 
     local Actor = Def.Actor { ComposeCommand = queueTile }
 
@@ -292,7 +292,7 @@ local childPath = beat4sprite.Path .. "Scripts/Tile/Child.lua"
 
 local Main = beat4sprite.ActorFrame {
 
-    OnCommand=function(self) self:queuecommand("Compose") end,      Composition(),
+    OnCommand=function(self) self:queuecommand("Compose") end,      CompositionActor(),
 
     ActorFrameTexture {
 
