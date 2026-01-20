@@ -23,7 +23,7 @@ local Actor = tapLua.Actor              local screenSize = tapLua.screenSize()
 
 local builder = ... or beat4sprite.Arguments
 
-local Commands = { "Mirror", "Quad" }           builder:setCommands( Commands )
+local Commands = { "Mirror", "Quad" }       builder:setCommands( Commands )
 
 
 builder.Scroll = builder.Scroll or {}       local Scroll = builder.Scroll
@@ -42,8 +42,8 @@ local Texture = builder.Texture         local States = builder.States
 
 local TextureScale = builder.TextureScale or 1
 
-local isComposed = isTable(Texture)
 
+local Quad = builder.Quad               local Composition = builder.Composition
 
 local Display = builder.Display         local Spiral = builder.Spiral
 
@@ -63,20 +63,18 @@ local isScreenScale = builder.ScreenScale
 local Matrix = builder.Matrix               local Dynamic = builder.Dynamic
 
 
-local function tileUtil( path, ... )
-    
-    local args = ... or builder
+local function util( path )
 
-    return beat4sprite.Load( "Tile/" .. path )(args)
+    return beat4sprite.Load( "Tile/" .. path )(builder)
 
 end
 
 
-local quadActor, onQuad = tileUtil("Quad")
+local quadActor, onQuad = util("Quad")
 
-local positionState, scrollStates = tileUtil("States")
+local positionState, scrollStates = util("States")
 
-local scrollVelocity, onReverseScroll, onScrollSkipping = tileUtil("Scroll")
+local scrollVelocity, onReverseScroll, onScrollSkipping = util("Scroll")
 
 
 -- 1. Setup the behaviour for the tiled sprites.
@@ -117,7 +115,7 @@ local Sprite = beat4sprite.Sprite {
 
     OnCommand=function(self)
 
-        self:init(builder):initSprite()           initStates(self)          self:queueCommands(Commands)
+        self:init(builder):initSprite()     initStates(self)    self:queueCommands(Commands)
 
     end,
 
@@ -174,11 +172,7 @@ local Sprite = beat4sprite.Sprite {
 
     end,
 
-    QuadCommand=function(self)
-        
-        if isComposed then return end        onQuad(self)
-    
-    end
+    QuadCommand=function(self) if Quad == true then onQuad(self) end end
 
 }
 
@@ -189,15 +183,7 @@ local Sprite1 = builder.Sprite or {}
 
 Sprite = Actor.commands( Sprite )           Actor.merge( Sprite, Sprite1 )
 
-
-local Sprite2 = builder.Composition or {}
-
-if builder.Composition and isString(Texture) then Texture = { Texture } end
-
-Sprite2.ComposeCommand = Sprite2.InitCommand            Sprite2.InitCommand = nil
-
-
-local Sprite3 = builder.Output or {}
+local Sprite2 = Composition or {}           local Sprite3 = builder.Output or {}
 
 
 local input = {
@@ -229,7 +215,7 @@ local function onPreload()
 
     for i,v in ipairs(planeAxes) do
 
-        if isOdd( Matrix[v] ) and Matrix[v] then Matrix[v] = Matrix[v] + 1 end
+        local x = Matrix[v]         if isOdd(x) and x then Matrix[v] = x + 1 end
     
     end
 
@@ -260,140 +246,40 @@ end
 
 local function queueTile(self) self:GetParent():queuecommand("Tile") end
 
+local function FinishCommand(self)
+
+    self:playcommand("CreateTexture")       input.Texture = self:GetTexture()        queueTile(self)
+
+end
+
 local function Composition()
 
     local Actor = Def.Actor { ComposeCommand = queueTile }
 
-    -- Returns an ActorFrameTexture that composes static textures together from different files.
+    if not Composition then return Actor end
 
-    if not isComposed then return Actor end
+    local Sprite = beat4sprite.Sprite {
 
-    local function direction(component)
+        Texture = Texture,
 
-        local direction = Display[component]            if direction ~= 0 then return 1 end
+        OnCommand=function(self) self:init(builder):initSprite()    initStates(self) end,
 
-        if not isZero(Display) then return 0 end
+        ComposeCommand=function(self)
 
+            local AFT = self:GetParent()
 
-        local max = maxComponent(screenSize)            return max.key == component and 1 or 0
+            local size = self:GetSize()         self:setPos( size * 0.5 )
 
-    end
-
-
-    local function Sprite(input) return beat4sprite.Sprite(input) .. { ComposeCommand = onQuad } end
-
-
-    -- First texture.
-
-    local function firstInit(self)
-
-        self.beat4sprite = builder        initStates(self)
-
-        local filter = beat4sprite.Filter or false          self:SetTextureFiltering(filter)
-                
-        self:onGameplay():initSprite():setupEffect()
-
-    end
-
-    local t = beat4sprite.ActorFrame {
-
-        Sprite {
-
-            Texture = Texture[1],
-
-            OnCommand=function(self) self:init(builder) end,
-
-            ComposeCommand=function(self)
-
-                local p = self:GetParent()          local AFT = p:GetParent()
-
-                local size = self:GetSize()         p:setPos( size * 0.5 )
-
-                AFT:setSizeVector(size)             firstInit(self)
-
-            end
-
-        } .. Sprite2
-
-    }
-
-
-    -- Add the following textures in the display direction.
-
-    for i,v in ipairs(Texture) do for _, component in ipairs(planeAxes) do
-
-        
-        if #Texture == 1 then break end
-
-        local direction = direction(component)              local condition = direction ~= 0 and i > 1
-
-
-        local a = beat4sprite.ActorFrame {}         t[#t+1] = a
-
-        a[#a+1] = Sprite {
-
-            Texture = v,        Condition = condition,
-
-            ComposeCommand=function(self)
-
-                local p = self:GetParent()              local AFT = p:GetParent():GetParent()
-
-                local size = self:GetSize()             size = componentVector( size, component )
-
-
-                local newSize = AFT:GetSize() + size         AFT:setSizeVector(newSize)
-
-
-                newSize = componentVector( newSize, component )
-
-                local pos = newSize - size           p:setPos(pos)
-
-            end
-
-        }
-        
-
-        -- Add the textures in the missing spots followed by their sequence.
-
-        condition = condition and not isZero(Display) and component == 'y'
-
-        for j = 1, #Texture - 1 do
-
-            local i = i + j - 1         i = i % #Texture + 1
-
-            a[#a+1] = Sprite {
             
-                Texture = Texture[i],        Condition = condition,
+            if Quad == true then onQuad(self) end
 
-                ComposeCommand=function(self)
-
-                    local w = self:GetWidth()        self:x( w * j )
-
-                end
-            
-            }
+            AFT:setSizeVector(size):queuecommand("Finish")
 
         end
 
+    } .. Sprite2
 
-    end end
-
-
-    local Composition = t
-
-    return ActorFrameTexture {
-        
-        Composition,            ComposeCommand=function(self) self:queuecommand("Finish") end,
-
-        FinishCommand=function(self)
-
-            self:playcommand("CreateTexture")           input.Texture = self:GetTexture()
-            
-            queueTile(self)
-
-        end
-
-    }
+    return ActorFrameTexture { Sprite, FinishCommand = FinishCommand }
 
 end
 
@@ -404,9 +290,9 @@ local AFT, Zoom, RenderedSize, OffsetSize
 
 local childPath = beat4sprite.Path .. "Scripts/Tile/Child.lua"
 
-return beat4sprite.ActorFrame {
+local Main = beat4sprite.ActorFrame {
 
-    OnCommand=function(self) self:queuecommand("Compose") end,              Composition(),
+    OnCommand=function(self) self:queuecommand("Compose") end,      Composition(),
 
     ActorFrameTexture {
 
@@ -414,9 +300,9 @@ return beat4sprite.ActorFrame {
 
             -- if AFT then self:queuecommand("Init") return end     -- It would be good if this worked? States don't work.
             
-            self:RemoveAllChildren()        AFT = self
+            self:RemoveAllChildren()            AFT = self
 
-            beat4sprite.Arguments = input     self:AddChildFromPath(childPath)      beat4sprite.Arguments = nil
+            beat4sprite.Arguments = input       self:AddChildFromPath(childPath)      beat4sprite.Arguments = nil
 
             RenderedSize = Renderer:GetZoomedSize()
 
@@ -517,8 +403,8 @@ return beat4sprite.ActorFrame {
     
         end
     
-    } .. Sprite3,
-
-    quadActor()
+    } .. Sprite3
     
 }
+
+return beat4sprite.ActorFrame { Main, quadActor() }

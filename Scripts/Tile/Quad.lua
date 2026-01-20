@@ -1,31 +1,29 @@
 
-local astro = Astro.Table           local Builder = beat4sprite.Builder
+local astro = Astro.Table               local Builder = beat4sprite.Builder
 
-local builder = ...                 local Quad = builder.Quad           local isQuad = Quad == true
+local builder = ...                     local Quad = builder.Quad
+
+local deepCopy = astro.Copy.deep        local deepMerge = tapLua.deepMerge
 
 
 local function quadActor()
 
-    if not Quad or isQuad then return end
+    if not Quad or Quad == true then return end
 
+    local builder = builder:merge { Quad = true,        States = {} }
 
-    local input = builder:input()           local copy = astro.Copy.deep( input )
+    return builder:merge(Quad):Load()
     
-    copy.States = nil                       copy.Quad = true
-
-
-    input = astro.merge( Quad, copy )       return Builder(input):Load()
-
 end
 
 
 local path = THEME:GetPathG( '', "_white" )
 
 local function onQuad(self)
-            
-    if not isQuad then return end               local size = self:GetSize()
 
-    self:Load(path):setSizeVector(size)
+    if Quad ~= true then return end               local size = self:GetSize()
+
+    self:LoadBy(path):setSizeVector(size)
 
 end
 

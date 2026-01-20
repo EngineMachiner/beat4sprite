@@ -166,7 +166,7 @@ local function Square(path)
 
 	return beat4sprite.Sprite {
 
-		InitCommand=function(self) self:Load( path, "stretch" ):queuecommand("Post") end,
+		InitCommand=function(self) self:LoadBy( path, "stretch" ):queuecommand("Post") end,
 
         PostCommand=function(self) local h = self:GetHeight()       self:SetWidth(h) end
 

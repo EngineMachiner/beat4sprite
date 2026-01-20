@@ -5,10 +5,16 @@ local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
 
 local builder = ...                     local Type = builder.Type or 2
 
-local directions = { Vector(1), Vector { y = 1 } }              local direction = directions[Type]
+
+local directions = { Vector(1), Vector { y = 1 } }
+
+local direction = directions[Type]
 
 
-local Texture
+local Texture = builder.Texture
+
+local Background = beat4sprite.Builder.Background(Texture):Load()
+
 
 local ActorFrameTexture = tapLua.ActorFrameTexture {
 
@@ -24,7 +30,7 @@ local ActorFrameTexture = tapLua.ActorFrameTexture {
     
     end,
 
-    beat4sprite.Builder.Background( builder.Texture ):Load()
+    Background
 
 }
 
@@ -32,13 +38,13 @@ if tapLua.shadersEnabled() then
 
     builder.Frag = "Shaders/stretch.frag"
 
-    local t = beat4sprite.Load( "Morph/Shaders/Load" )( builder ) .. Sprite
+    local Shader = beat4sprite.Load( "Morph/Shaders/Load" )( builder ) .. Sprite
 
     return beat4sprite.ActorFrame {
         
         ActorFrameTexture,
 
-        t .. {
+        Shader .. {
             
             OnCommand=function(self)
                 
@@ -57,7 +63,7 @@ end
 
 local scroll, pos
 
-local t = beat4sprite.ActorFrame {
+local Morphing = beat4sprite.ActorFrame {
 
     OnCommand=function(self) self:Center() end,
 
@@ -93,13 +99,13 @@ local t = beat4sprite.ActorFrame {
 
         OnCommand=function(self)
             
-            local texture = self:GetTexture()
+            local hadTexture = self:GetTexture()
 
             self:SetTexture( Texture ):invertedMaskDest()               self:init(builder):initSprite():setAlpha()
 
             local rectangle = Vector( 1, 1 ) - direction                self:customtexturerect( 0, 0, rectangle:unpack() )
 
-            scroll = direction * 0.25 / self:periodRate()               if not texture then self:texcoordvelocity( scroll:unpack() ) end
+            scroll = direction * 0.25 / self:periodRate()               if not hadTexture then self:texcoordvelocity( scroll:unpack() ) end
         
             self:SetTextureFiltering(false)
 
@@ -115,8 +121,4 @@ local t = beat4sprite.ActorFrame {
 
 }
 
-return beat4sprite.ActorFrame {
-    
-    beat4sprite.Builder.Background( builder.Texture ):Load(),       t
-
-}
+return beat4sprite.ActorFrame { Background,       Morphing }
