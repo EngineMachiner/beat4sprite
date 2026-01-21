@@ -1,6 +1,8 @@
 
 local builder = ...             builder.Quantity = builder.Quantity or 9
 
+local Group = builder.Group or {}           local Sprite = builder.Sprite or {}
+
 
 local Path = "Particles/Depth/Actors"
 
@@ -36,9 +38,9 @@ for i = 1, n do
     }
 
 
-    MainFrame[i] = ActorFrame(i) .. {
+    local Frame = ActorFrame(i) .. {
 
-        Particle,
+        Particle .. Sprite,
 
         PrepareCommand=function(self)
             
@@ -49,6 +51,8 @@ for i = 1, n do
         end
 
     }
+
+    return Frame .. Group
 
 end
 

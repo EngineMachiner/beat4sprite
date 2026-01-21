@@ -2,7 +2,7 @@
 local reverse = Astro.Table.Array.reverse           local z = beat4sprite.Config.Depth.Range
 
 
-local builder = ...                         local Sprite = builder.Sprite or {}
+local builder = ...
 
 local FOV = builder.FOV                     local Texture = builder.Texture
 
@@ -138,7 +138,7 @@ local function Particle( i, state )
         
         OnCommand=function(self) self.Index = i         self:initParticle( builder, state ) end
 
-    } .. Sprite
+    }
 
 end
 

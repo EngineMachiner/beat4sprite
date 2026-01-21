@@ -2,9 +2,11 @@
 local Vector = Astro.Vector
 
 
-local builder = ...             local Sprite = builder.Sprite or {}
+local builder = ...
 
 local Wise = builder.CounterWise and -1 or 1             builder.Centered = true
+
+local Group = builder.Group or {}           local Sprite = builder.Sprite or {}
 
 
 local Display = builder.Display or function() return false end
@@ -65,7 +67,7 @@ local function Particle( i, s )
 
     return Frame {
 
-        _Particle( i, s ),
+        _Particle( i, s ) .. Sprite,
         
         OnCommand=function(self)
 
@@ -87,7 +89,6 @@ local i, s = 0, 0           n = n * Waves
 for x = 1, n do
 
     i = i + 1       s = States(s)       local angle = angle(i) + angleOffset
-
 
     local ActorFrame = ActorFrame(i)            MainFrame[i] = ActorFrame
 
