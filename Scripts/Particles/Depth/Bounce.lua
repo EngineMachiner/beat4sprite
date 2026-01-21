@@ -52,7 +52,7 @@ for i = 1, n do
 
     }
 
-    return Frame .. Group
+    MainFrame[i] = Frame .. Group
 
 end
 
