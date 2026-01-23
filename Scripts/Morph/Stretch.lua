@@ -101,7 +101,7 @@ local Morphing = beat4sprite.ActorFrame {
             
             local hadTexture = self:GetTexture()
 
-            self:SetTexture( Texture ):invertedMaskDest()               self:init(builder):initSprite()
+            self:SetTexture( Texture ):invertedMaskDest()               self:init(builder):initSprite():setAlpha()
 
             local rectangle = Vector( 1, 1 ) - direction                self:customtexturerect( 0, 0, rectangle:unpack() )
 

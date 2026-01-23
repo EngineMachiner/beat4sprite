@@ -357,8 +357,8 @@ local Main = beat4sprite.ActorFrame {
             
             -- Use customtexturerect() to reset texture coords if using addimagecoords().
 
-            self:Center()           self:init(builder):initSprite()
-            
+            self:Center()           self:init(builder):initSprite():setAlpha()
+        
             if Blend then self:blend(Blend) end
 
         end,
