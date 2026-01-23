@@ -1,7 +1,7 @@
 
 local function rainbowBlink( timer, self )
 
-    local color = tapLua.Color.random()         self:diffuse(color)         timer.Time = 0
+    local color = tapLua.Color.random()         self:diffuse(color):setAlpha()         timer.Time = 0
 
 end
 
@@ -30,9 +30,9 @@ local function updateRainbow(self)
     Effect.updateTime = time + rate * 15
 
 
-    local hue = time % 360          local color = HSV( hue, 1, 1 )
+    local hue = time % 360              local color = HSV( hue, 1, 1 )
 
-    self:diffuse(color)             return self
+    self:diffuse(color):setAlpha()      return self
 
 end
 
