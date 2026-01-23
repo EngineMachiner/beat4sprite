@@ -38,22 +38,26 @@ local Direction = Scroll.Direction
 if Direction then Scroll.Direction = Vector.unit( Direction ) end
 
 
-local Texture = builder.Texture         local States = builder.States
+local Texture = builder.Texture             local States = builder.States
 
-local TextureScale = builder.TextureScale or 1
+local Display = builder.Display             local Spiral = builder.Spiral
+
+local Quad = builder.Quad                   local Composition = builder.Composition
 
 
-local Quad = builder.Quad               local Composition = builder.Composition
+local Output = builder.Output or {}
 
-local Display = builder.Display         local Spiral = builder.Spiral
+local __OutputIndex = { Scale = 1,      Offset = true }
+
+setmetatable( Output, { __index = __OutputIndex } )
 
 
 local Rotation = builder.Rotation or Vector()
 
-local Blend = builder.Blend             local Colors = builder.Colors
+local Blend = builder.Blend                 local Colors = builder.Colors
 
 
-local Mirror = builder.Mirror           local Zoom = builder:zoom()
+local Mirror = builder.Mirror               local Zoom = builder:zoom()
 
 if Mirror == true then Mirror = { x = true, y = true } end
 
@@ -371,7 +375,7 @@ local Main = beat4sprite.ActorFrame {
 
         RectCommand=function(self)
 
-            local scale = 0.5 / TextureScale
+            local scale = 0.5 / Output.Scale            self.TileSize = OffsetSize
 
             local size = self:GetZoomedSize()           self.ScrollSize = size
 
@@ -387,9 +391,11 @@ local Main = beat4sprite.ActorFrame {
 
                 for i,v in ipairs(planeAxes) do rect[v] = rect[v] * scale / size[v] end
 
-                local w, h = screenSize:unpack()        local x, y = rect:unpack()
+                local w, h = screenSize:unpack()            local x, y = rect:unpack()
 
-                self:scaletoclipped( w, h ):customtexturerect( -x, -y, x, y ):moveTextureBy( OffsetSize / 2 )
+                self:scaletoclipped( w, h ):customtexturerect( -x, -y, x, y )
+                
+                if Output.Offset then self:moveTextureBy( OffsetSize / 2 ) end
 
             end
 
