@@ -1,12 +1,12 @@
 
-local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
+local Vector = Astro.Vector                     local planeAxes = Vector.planeAxes
 
-local normSqr = Vector.normSqr          local config = beat4sprite.Config
+local normSqr = Vector.normSqr                  local config = beat4sprite.Config
 
-local builder = ...                     local Scroll = builder.Scroll
+local builder = ...                             local Scroll = builder.Scroll
 
 
-local orientation = 1                   local skippedTime = 0
+local speed = SCREEN_HEIGHT / 720               local skippedTime = 0
 
 local function scrollSpeed()
 
@@ -14,7 +14,7 @@ local function scrollSpeed()
     
     local options = playerState:GetCurrentPlayerOptions()
 
-    return options:ScrollSpeed() * 96 * orientation
+    return options:ScrollSpeed() * 96 * speed
 
 end
 
@@ -30,11 +30,11 @@ local function scrollVelocity( self, isSkip )
     if scrollSync then return velocity * scrollSpeed() end
 
 
-    velocity = velocity * 2 / self:tweenRate()          return velocity * 120 * orientation
+    velocity = velocity * 2 / self:tweenRate()          return velocity * 120 * speed
 
 end
 
-local function invertScroll(self) orientation = - orientation end
+local function invertScroll(self) speed = - speed end
 
 local function reverseTime( self, isSkip )
 
