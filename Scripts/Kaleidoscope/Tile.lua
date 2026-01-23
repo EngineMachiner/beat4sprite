@@ -74,7 +74,7 @@ return beat4sprite.ActorFrame {
 
         LoadHexagonCommand=function(self)
 
-            self:init(builder):setAlpha()
+            self:init(builder)
 
             beat4sprite.Arguments = beat4sprite.Builder { Texture = Texture,        Zoom = 0.375,       Filter = false }
 

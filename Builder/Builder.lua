@@ -126,13 +126,6 @@ local function morphBackground(self)
 
 end
 
-local textureScripts = {
-    
-    "Kaleidoscope/Tile.lua",        "Kaleidoscope/Triangle.lua",
-    "Morph/Stretch.lua",            "Tile/Tile.lua"
-
-}
-
 function Builder:Load()
 
     if not self.Load then return Load(self) end -- If Builder.Load(builders) happens.
@@ -147,15 +140,7 @@ function Builder:Load()
 
     local Alpha = Builder.Alpha
 
-    local function isValid( k, v ) return Script:match(v) end
-
-    local isTexture = astro.contains( textureScripts, isValid )
-
-    Main = Def.ActorFrame {
-        
-        Main,       OnCommand=function(self) if not isTexture then self:diffusealpha(Alpha) end end
-    
-    }
+    Main = Def.ActorFrame { Main,       OnCommand=function(self) self:diffusealpha(Alpha) end }
 
 
     return beat4sprite.BaseFrame {

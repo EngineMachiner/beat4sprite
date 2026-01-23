@@ -79,7 +79,7 @@ return beat4sprite.ActorFrame {
 
             self:SetTexture(subTexture)             self:init(builder):scaleToScreen():invertedMaskDest()
         
-            self:setAlpha():SetTextureFiltering(false)
+            self:SetTextureFiltering(false)
 
         end
     
