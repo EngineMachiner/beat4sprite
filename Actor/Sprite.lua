@@ -72,17 +72,20 @@ local function initSprite(self)
 
     local n = self:GetNumStates()           if n < 2 then self.statesDelay = 1 return self end
 
-    if self:hasAnimationType("Idle") then self:animate(false) end           self.statesDelay = 1 / n
-
-    return self
+    if self:hasAnimationType("Idle") then self:animate(false) end
+    
+    
+    local delay = 1 / n             if self:hasAnimationType("PingPong") then delay = delay * 2 end
+    
+    self.statesDelay = delay        return self
     
 end
 
 local function initParticle( self, builder, i )
 
-    local zoom = builder:zoom()                         self:init(builder):initSprite():zoom(zoom)
+    local zoom = builder:zoom()                         self:init(builder):zoom(zoom)
 
-    local properties = statesProperties(self)           self:SetStateProperties(properties)
+    local properties = statesProperties(self)           self:SetStateProperties(properties):initSprite()
 
     if not self:hasAnimationType("Position") then return self end
     

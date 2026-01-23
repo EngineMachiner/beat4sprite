@@ -119,7 +119,7 @@ local Sprite = beat4sprite.Sprite {
 
     OnCommand=function(self)
 
-        self:init(builder):initSprite()     initStates(self)    self:queueCommands(Commands)
+        self:init(builder)     initStates(self)    self:initSprite():queueCommands(Commands)
 
     end,
 
