@@ -6,7 +6,10 @@ local normSqr = Vector.normSqr                  local config = beat4sprite.Confi
 local builder = ...                             local Scroll = builder.Scroll
 
 
+local Reversed = Scroll.Reverse                 if Reversed == true then Reversed = 1 end
+
 local speed = SCREEN_HEIGHT / 720               local skippedTime = 0
+
 
 local function scrollSpeed()
 
@@ -42,13 +45,13 @@ local function reverseTime( self, isSkip )
     
     for i,v in ipairs(planeAxes) do velocity[v] = math.abs( velocity[v] ) end
 
-    local max = math.max( velocity:unpack() )           return 1 / max
+    local max = math.max( velocity:unpack() )           return Reversed / max
 
 end
 
 local function onReverseScroll(self)
 
-    if not Scroll.Reverse then return end           invertScroll(self)
+    if not Reversed then return end           invertScroll(self)
 
     local time = reverseTime(self)          self:sleep(time):queuecommand("Scroll")
 
@@ -56,7 +59,7 @@ end
 
 local function onReverseSkip( self, time )
 
-    if not Scroll.Reverse then return end           skippedTime = skippedTime + time
+    if not Reversed then return end           skippedTime = skippedTime + time
 
     if skippedTime < reverseTime( self, true ) then return end
     
