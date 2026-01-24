@@ -99,7 +99,7 @@ end
 
 local function initStates(self)
 
-    if self:GetNumStates() < 2 then return end          setRandomState(self)
+    if self:GetNumStates() < 2 then return end
 
 
     local properties = self:statesProperties()
@@ -119,7 +119,9 @@ local Sprite = beat4sprite.Sprite {
 
     OnCommand=function(self)
 
-        self:init(builder)     initStates(self)    self:initSprite():queueCommands(Commands)
+        self:init(builder)      initStates(self)
+        
+        self:initSprite()       setRandomState(self)        self:queueCommands(Commands)
 
     end,
 
