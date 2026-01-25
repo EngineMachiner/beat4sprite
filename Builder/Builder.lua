@@ -10,7 +10,7 @@ local astro = Astro.Table               local deepCopy = astro.Copy.deep
 local setIndex = astro.Meta.setIndex
 
 
-local Builder = {}          local stackLevel = 2
+local Builder = {}
 
 local function isSingle(tbl) local key = next(tbl)        return not isNumber(key) end
 
@@ -66,7 +66,7 @@ local function __call( Builder, input )
 
     for i,v in ipairs(wrap) do wrap[i] = Builder.init(v) end
 
-    stackLevel = 2          return isSingle(input) and wrap[1] or wrap
+    return isSingle(input) and wrap[1] or wrap
 
 end
 
@@ -97,7 +97,7 @@ Builder.init = function( input )
 
     local builder = deepMerge( defaults(), input )
 
-    local meta = { __index = metaBuilder, input = input, Builder = Builder, stackLevel = stackLevel }
+    local meta = { __index = metaBuilder, input = input, Builder = Builder }
 
     setmetatable( builder, meta )
 
@@ -135,7 +135,7 @@ local textureScripts = {
 
 function Builder:Load()
 
-    if not self.Load then stackLevel = 3        return Load(self) end -- If Builder.Load(builders) happens.
+    if not self.Load then return Load(self) end -- If Builder.Load(builders) happens.
 
     if not self.Texture then error("Missing texture!") end          morphBackground(self)
 
@@ -195,11 +195,6 @@ function Builder:hasAnimationType(name)
     local types = self.States.Types         return astro.contains( types, name )
 
 end
-
-
-function Builder:stackLevel() return getmetatable(self).stackLevel end
-
-function Builder:addStackLevel(n) getmetatable(self).stackLevel = self:stackLevel() + n end
 
 
 beat4sprite.Builder = Builder

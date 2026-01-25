@@ -1,10 +1,10 @@
 
-local astro = Astro.Type                        local isTable = astro.isTable
+local astro = Astro.Type            local isTable = astro.isTable
 
-local isObject = tapLua.Type.isObject           local resolve = tapLua.resolvePath
+local isObject = tapLua.Type.isObject
 
 
-local Builder = beat4sprite.Builder         local stackLevel
+local Builder = beat4sprite.Builder
 
 local function path( table, key, directory )
 
@@ -15,11 +15,6 @@ local function path( table, key, directory )
 
     if isAbsolute then return path end
 
-
-    local isRelative = astro:startsWith("%.")
-
-    if isRelative then return resolve( path, stackLevel + 3 ) end
-    
 
     return beat4sprite.Path .. directory  .. path
 
@@ -49,8 +44,8 @@ end
 
 function Builder:setPaths()
 
-    stackLevel = self:stackLevel()                  wrapScriptPath(self)
+    wrapScriptPath(self)            setPath( self, "Texture", "Resources" )        setPath( self, "Script" )
     
-    setPath( self, "Texture", "Resources" )         setPath( self, "Script" )           return self
+    return self
 
 end
