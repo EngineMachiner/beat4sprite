@@ -3,6 +3,7 @@
 
 uniform sampler2D sampler0;
 varying vec2 textureCoord;
+varying vec4 color;
 uniform float beat;
 
 uniform float type;
@@ -24,6 +25,6 @@ void main() {
     if ( type == 1 && uv.x < mask ) { uv.x /= stretch;        uv.x += mask - mask / stretch; }
     if ( type == 2 && uv.y < mask ) { uv.y /= stretch;        uv.y += mask - mask / stretch; }
 
-    gl_FragColor = texture2D( sampler0, uv );
+    gl_FragColor = texture2D( sampler0, uv ) * color;
 
 }

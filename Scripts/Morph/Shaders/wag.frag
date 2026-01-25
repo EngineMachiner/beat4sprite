@@ -3,6 +3,7 @@
 
 uniform sampler2D sampler0;
 varying vec2 textureCoord;
+varying vec4 color;
 uniform float beat;
 
 uniform vec3 magnitude;
@@ -37,6 +38,6 @@ void main() {
     uv.x = center.x * x - center.y * y;
     uv.y = center.x * y + center.y * x;         uv += 0.5;
 
-    gl_FragColor = texture2D( sampler0, uv );
+    gl_FragColor = texture2D( sampler0, uv ) * color;
 
 }

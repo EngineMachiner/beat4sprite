@@ -3,6 +3,7 @@
 
 uniform sampler2D sampler0;
 varying vec2 textureCoord;
+varying vec4 color;
 uniform float beat;
 
 uniform float period;
@@ -24,6 +25,6 @@ void main() {
 
     float phase = t * 2 * pi / period;        uv.x += direction * cos(phase) / 300;
 
-    gl_FragColor = texture2D( sampler0, uv );
+    gl_FragColor = texture2D( sampler0, uv ) * color;
 
 }

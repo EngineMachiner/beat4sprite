@@ -3,6 +3,7 @@
 
 uniform sampler2D sampler0;
 varying vec2 textureCoord;
+varying vec4 color;
 uniform float beat;
 
 uniform vec2 magnitude;
@@ -34,6 +35,6 @@ void main() {
 
     float zoom = 1 + r * abs(phase);        uv = center / zoom + 0.5;
 
-    gl_FragColor = texture2D( sampler0, uv );
+    gl_FragColor = texture2D( sampler0, uv ) * color;
 
 }

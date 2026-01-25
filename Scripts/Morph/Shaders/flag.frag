@@ -3,6 +3,7 @@
 
 uniform sampler2D sampler0;
 varying vec2 textureCoord;
+varying vec4 color;
 uniform float beat;
 
 uniform bool bob;
@@ -38,6 +39,6 @@ void main() {
     uv += vec2( x, y );
     
 
-    gl_FragColor = texture2D( sampler0, uv );
+    gl_FragColor = texture2D( sampler0, uv ) * color;
 
 }

@@ -7,6 +7,7 @@
 
 uniform sampler2D sampler0;
 varying vec2 textureCoord;
+varying vec4 color;
 
 void main() {
 
@@ -19,6 +20,6 @@ void main() {
     if ( modTile.x > 0.5 ) uv.x = 1 - uv.x;
     if ( modTile.y > 0.5 ) uv.y = 1 - uv.y;
 
-    gl_FragColor = texture2D( sampler0, uv );
+    gl_FragColor = texture2D( sampler0, uv ) * color;
 
 }
