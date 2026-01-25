@@ -11,7 +11,7 @@ local Retro = { Load = function(input) return Builder.Retro(input):Load() end }
 
 Retro.init = function( input )
     
-    local builder = Builder.init( input )
+    local builder = Builder.init( input )       input:addStackLevel(1)
 
     
     local scale = SCREEN_HEIGHT / 240
