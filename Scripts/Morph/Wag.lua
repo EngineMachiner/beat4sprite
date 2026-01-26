@@ -29,19 +29,17 @@ for i = 1, Layers do
 
 		OnCommand=function(self)
 
-			self:init(builder):fitInScreen()        self.Index = i
+			self:init(builder):fitInScreen()        self.Index = i          local i = i ^ 1.75 * 6 / Layers
             
             self:fadeHorizontally(Fade):fadeVertically(Fade)
             self:cropHorizontally(crop):cropVertically(crop)
 
 
-            local Effect = self.Effect          local magnitude = Vector { z = i * 0.833 }
+            local Effect = self.Effect          local scale = self:aspectRatio() * self:GetZoom()
 
-			local aspectRatio = self:GetZoomedWidth() / self:GetZoomedHeight()
-
-            Effect.Magnitude = Effect.Magnitude + magnitude / aspectRatio
+            local magnitude = Effect.Magnitude + Vector { z = i }       Effect.Magnitude = magnitude / scale
             
-            Effect.Offset = Effect.Offset - 0.25            self:setEffect("wag")
+            self:setEffect("wag")
 
 		end
 

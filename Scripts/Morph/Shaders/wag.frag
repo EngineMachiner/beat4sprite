@@ -23,9 +23,7 @@ void main() {
     vec3 mag = magnitude + 1;
 
 
-    float x = abs( center.x );          float y = abs( center.y );
-
-    float length = max( x, y ) * 2;
+    float length = length(center) * 2;
 
 
     float step = 1 - smoothstep( 0, 1, length );        float r = mag.z * step * 0.75;
@@ -33,7 +31,7 @@ void main() {
     float phase = t * 2 * pi / period;          phase = cos(phase);
 
 
-    x = cos(r * phase );            y = sin( r * phase );
+    float x = cos(r * phase );            float y = sin( r * phase );
 
     uv.x = center.x * x - center.y * y;
     uv.y = center.x * y + center.y * x;         uv += 0.5;

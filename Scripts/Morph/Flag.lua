@@ -17,7 +17,7 @@ local types = {
 
 local Magnitude = types[Type].Magnitude
 
-local cropVector = Vector( Magnitude.y, Magnitude.x )
+local cropVector = Bob and Magnitude or Vector( Magnitude.y, Magnitude.x )
 
 
 if tapLua.shadersEnabled() then
@@ -53,6 +53,8 @@ if tapLua.shadersEnabled() then
 end
 
 
+local scale = SCREEN_HEIGHT / 720
+
 local crop = tapLua.Load( "Sprite/Crop", "Matrix" )
 
 local function cos(a) a = math.rad(a)       return math.cos(a) end
@@ -62,7 +64,7 @@ local matrix = cropVector * ( Layers - 1 ) + Vector(1,1)
 
 local fade = 0.03           local fadeVector = cropVector * fade
 
-local t = beat4sprite.ActorFrame {}         local radius = 30
+local t = beat4sprite.ActorFrame {}         local radius = 30 * scale
 
 for i = 1, Layers do
 
@@ -92,14 +94,16 @@ for i = 1, Layers do
 
         BobCommand=function(self)
 
-            local Effect = self.Effect
+            local Effect = self.Effect          local scale = self:aspectRatio() * self:GetZoom()
 
-            Effect.Magnitude = Effect.Magnitude + Magnitude * 32 / self:aspectRatio()
+            local magnitude = Effect.Magnitude + Magnitude * 40
+
+            Effect.Magnitude = magnitude / scale
 
             
-            local i = i / Layers            i = i * 0.75
+            local i = i / Layers
 
-            Effect.Offset = Effect.Offset + i - 0.25            self:setEffect("bob")
+            Effect.Offset = Effect.Offset + i           self:setEffect("bob")
 
         end,
 
@@ -121,7 +125,10 @@ for i = 1, Layers do
 
         UpdateFunctionCommand=function(self)
 
-            local delta = self:GetEffectDelta() * 362.5 / self:periodRate()
+            if Bob then return end
+
+
+            local delta = self:GetEffectDelta() * 360 / self:periodRate()
 
             angle = angle + delta         angle = angle % 360
             

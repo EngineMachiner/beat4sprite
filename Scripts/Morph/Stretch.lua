@@ -8,7 +8,7 @@ local builder = ...                     local Type = builder.Type or 2
 
 local directions = { Vector(1), Vector { y = 1 } }
 
-local direction = directions[Type]
+local direction = directions[Type]          local screenSize = tapLua.screenSize()
 
 
 local Texture = builder.Texture
@@ -20,13 +20,9 @@ local ActorFrameTexture = tapLua.ActorFrameTexture {
 
     OnCommand=function(self) 
         
-        if self:GetTexture() then return end
+        if self:GetTexture() then return end            self:setSizeVector(screenSize)
 
-        self:setSizeVector( tapLua.screenSize() )
-
-        self:EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()
-
-        Texture = self:GetTexture()
+        self:EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()           Texture = self:GetTexture()
     
     end,
 
@@ -48,9 +44,7 @@ if tapLua.shadersEnabled() then
             
             OnCommand=function(self)
                 
-                self:SetTexture( Texture ):fitInScreen()
-                
-                self:GetShader():uniform1f( "type", Type )
+                self:SetTexture( Texture ):fitInScreen()        self:GetShader():uniform1f( "type", Type )
             
             end
         
@@ -71,7 +65,7 @@ local Morphing = beat4sprite.ActorFrame {
 
         OnCommand=function(self)
             
-            pos = - tapLua.screenSize()           pos = Vector.componentProduct( pos, direction )
+            pos = - screenSize           pos = Vector.componentProduct( pos, direction )
 
             self:init(builder):MaskSource(true):setPos(pos):queuecommand("Cycle")
 
@@ -121,4 +115,6 @@ local Morphing = beat4sprite.ActorFrame {
 
 }
 
-return beat4sprite.ActorFrame { Background,       Morphing }
+local Background = beat4sprite.Builder.Background(Texture):Load()
+
+return beat4sprite.ActorFrame { Background, Morphing }

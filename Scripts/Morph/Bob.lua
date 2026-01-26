@@ -56,11 +56,13 @@ for i = 1, Layers do
             local crop = cropVector * crop          self:cropHorizontally( crop.x ):cropVertically( crop.y )
         
 
-            local Effect = self.Effect          local magnitude = selected.Magnitude * i * 1.333
+            local Effect = self.Effect
+            
+            local magnitude = selected.Magnitude * i * 1.4              magnitude = Effect.Magnitude + magnitude
+            
+            local scale = self:aspectRatio() * self:GetZoom()           Effect.Magnitude = magnitude / scale
 
-            Effect.Magnitude = Effect.Magnitude + magnitude / self:aspectRatio()
-
-            Effect.Offset = Effect.Offset - 0.25        self:setEffect("bob")
+            self:setEffect("bob")
 
 		end
 

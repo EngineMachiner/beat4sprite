@@ -37,37 +37,37 @@ for i = 1, Layers do
 
     local moveBy = isEven(i) and - moveBy or moveBy
 
-	t[i] = beat4sprite.Sprite {
+	t[i] = beat4sprite.ActorFrame {
+        
+        CycleCommand=function(self)
 
-        Texture = Texture,
+            local time = self:periodRate() * 0.5
 
-		OnCommand=function(self)
-
-            self.Index = i          self:init(builder):scaleToScreen()
-            
-            
-            self:fadeHorizontally(fade):fadeVertically(fade)
-
-            local pos = cropVector * ( i - 1 ) + Vector(1,1)            local crop = crop( matrix, pos, fade / 16 ).x
-
-            self:croptop( crop[1] ):cropbottom( crop[2] )
-
+            self:linear(time):setPos( moveBy ):smooth(time):setPos( - moveBy )
 
             self:queuecommand("Cycle")
 
-		end,
+        end,
 
-		CycleCommand=function(self)
+        beat4sprite.Sprite {
 
-			local time = self:periodRate() * 0.5
+            Texture = Texture,
 
-			self:linear(time):setPos( moveBy ):smooth(time):setPos( - moveBy )
+            OnCommand=function(self)
 
-			self:queuecommand("Cycle")
+                self.Index = i          self:init(builder):scaleToScreen()
 
-		end
+                local pos = cropVector * ( i - 1 ) + Vector(1,1)            local crop = crop( matrix, pos, fade / 16 ).x
 
-	} .. Sprite
+                self:croptop( crop[1] ):cropbottom( crop[2] ):fadeHorizontally(fade):fadeVertically(fade)
+
+                self:GetParent():init(builder):queuecommand("Cycle")
+
+            end
+
+        } .. Sprite
+
+    }
 	
 end
 
