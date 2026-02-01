@@ -68,3 +68,4 @@ local directories = { "Builder", "Modules" }
 for i,v in ipairs(directories) do FILEMAN.LoadDirectory( path .. v .. '/' ) end
 
 FILEMAN.LoadModule( "beat4sprite/Actor/Actor.lua" )
+FILEMAN.LoadModule( "beat4sprite/BPMTracking.lua" )

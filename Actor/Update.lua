@@ -37,34 +37,6 @@ local function updateRainbow(self)
 end
 
 
-local function isValid( bpm, current )
-
-    if not bpm then return true end
-
-    local difference = math.abs( current - bpm )            return difference >= 50
-
-end
-
-local function queue_BPM_Commands(self) -- Trigger command on next 4th beat.
-
-    local b = GAMESTATE:GetSongBeat()           local s = 4 * math.ceil( b / 4 )        s = s - b
-
-    self:stoptweening():queuecommand("BPMChange"):sleep(s):queuecommand("BPMChange2")
-
-end
-
-local function trackBPM(self)
-
-    local currentBPM = tapLua.currentBPM()              local beat4sprite = self.beat4sprite
-    
-    local BPM = beat4sprite.BPM                         local isValid = isValid( BPM, currentBPM )
-    
-    if not isValid then return self end                 if BPM then queue_BPM_Commands(self) end
-    
-    beat4sprite.BPM = currentBPM                        return self
-
-end
-
-local merge = { setupTimers = setupTimers, updateRainbow = updateRainbow, trackBPM = trackBPM }
+local merge = { setupTimers = setupTimers, updateRainbow = updateRainbow }
 
 Astro.Table.merge( beat4sprite.Actor, merge )

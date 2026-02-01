@@ -135,14 +135,18 @@ local textureScripts = {
 
 function Builder:Load()
 
+    local Script = self.Script
+
     if not self.Load then return Load(self) end -- If Builder.Load(builders) happens.
 
-    if not self.Texture then error("Missing texture!") end          morphBackground(self)
+    if not self.Texture and not Script:match("Cycle") then error("Missing texture!") end
+    
+    morphBackground(self)
 
 
-    local Builder = self                    local Layers = Builder.Layers
-
-    local Script = Builder.Script           local Main = loadfile(Script)(Builder)
+    local Builder = self
+    
+    local Layers = Builder.Layers           local Main = loadfile(Script)(Builder)
 
 
     local Alpha = Builder.Alpha

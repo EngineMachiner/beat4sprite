@@ -43,11 +43,7 @@ local function actor( beat4sprite, input )
 
         InitCommand = InitCommand( beat4sprite ),
         
-        UpdateFunctionCommand=function(self)
-            
-            self:runTimers()    if not self.beat4sprite then return end     self:trackBPM()
-        
-        end
+        UpdateFunctionCommand=function(self) self:runTimers() end
 
     }
 
