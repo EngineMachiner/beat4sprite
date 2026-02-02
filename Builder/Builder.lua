@@ -162,6 +162,8 @@ function Builder:Load()
     }
 
 
+    Layers.Back = Def.ActorFrame { Layers.Back } -- Fix for { nil, Actor, Actor? } scenario and iteration.
+
     return beat4sprite.BaseFrame {
 
         InitCommand=function(self)
