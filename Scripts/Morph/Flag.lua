@@ -94,9 +94,9 @@ for i = 1, Layers do
 
         BobCommand=function(self)
 
-            local Effect = self.Effect          local scale = self:aspectRatio() * self:GetZoom()
+            local Effect = self.Effect          local scale = self:aspectRatio() / self:GetZoom()
 
-            local magnitude = Effect.Magnitude + Magnitude * 40
+            local magnitude = Effect.Magnitude + Magnitude * 12
 
             Effect.Magnitude = magnitude / scale
 

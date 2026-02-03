@@ -9,7 +9,7 @@ local Layers = Effect.Layers or defaultLayers           local Fade = 0.015      
 local crop = tapLua.Load( "Sprite/Crop", "Centered" )
 
 
-if tapLua.shadersEnabled() then
+if tapLua.shadersEnabled() and false then
 
     builder.Frag = "Shaders/pulse.frag"
 
@@ -37,7 +37,7 @@ for i = 1, Layers do
 
             local Effect = self.Effect
 
-            local scale = self:aspectRatio() * self:GetZoom()           local y = i ^ 1.5 * 0.2 / Layers
+            local scale = self:aspectRatio() / self:GetZoom()           local y = i ^ 1.5 * 0.035 / Layers
 
             Effect.Magnitude = Vector( 1, 1 ) + Vector { y = y / scale }
 

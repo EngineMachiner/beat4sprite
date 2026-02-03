@@ -58,9 +58,9 @@ for i = 1, Layers do
 
             local Effect = self.Effect
             
-            local magnitude = selected.Magnitude * i * 1.4              magnitude = Effect.Magnitude + magnitude
+            local magnitude = selected.Magnitude * i * 0.4              magnitude = Effect.Magnitude + magnitude
             
-            local scale = self:aspectRatio() * self:GetZoom()           Effect.Magnitude = magnitude / scale
+            local scale = self:aspectRatio() / self:GetZoom()           Effect.Magnitude = magnitude / scale
 
             self:setEffect("bob")
 

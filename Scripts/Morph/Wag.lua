@@ -8,7 +8,7 @@ local Layers = Effect.Layers or defaultLayers           local Fade = 0.03       
 local crop = tapLua.Load( "Sprite/Crop", "Centered" )
 
 
-if tapLua.shadersEnabled() then
+if tapLua.shadersEnabled() and false then
 
     builder.Frag = "Shaders/wag.frag"
 
@@ -35,9 +35,9 @@ for i = 1, Layers do
             self:cropHorizontally(crop):cropVertically(crop)
 
 
-            local Effect = self.Effect          local scale = self:aspectRatio() * self:GetZoom()
+            local Effect = self.Effect          local scale = self:aspectRatio() / self:GetZoom()
 
-            local magnitude = Effect.Magnitude + Vector { z = i }       Effect.Magnitude = magnitude / scale
+            local magnitude = Effect.Magnitude + Vector { z = i * 0.2 }       Effect.Magnitude = magnitude / scale
             
             self:setEffect("wag")
 
