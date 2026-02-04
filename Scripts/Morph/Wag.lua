@@ -8,7 +8,7 @@ local Layers = Effect.Layers or defaultLayers           local Fade = 0.03       
 local crop = tapLua.Load( "Sprite/Crop", "Centered" )
 
 
-if tapLua.shadersEnabled() and false then
+if tapLua.shadersEnabled() then
 
     builder.Frag = "Shaders/wag.frag"
 
