@@ -36,6 +36,8 @@ if tapLua.shadersEnabled() then
 
             shader:uniform1f( "type", Type )            shader:uniform1f( "bob", Bob and 1 or 0 )
 
+            self:fadeHorizontally(0.0625)
+
         end,
 
         SkipCommand=function(self)
