@@ -143,7 +143,7 @@ local function init( self, builder )
     
     local filter = beat4sprite.Filter               self:SetTextureFiltering(filter)
 
-    self:setupTimers():onGameplay(self)             setupEffect(self):periodSetup()             queueCommands(self)
+    self:onGameplay(self)       setupEffect(self):periodSetup()     queueCommands(self)
     
     return self
 

@@ -3,17 +3,11 @@ local function rainbowBlink( timer, self )
 
     local color = tapLua.Color.random()         self:diffuse(color):setAlpha()         timer.Time = 0
 
-end
-
-local function setupTimers(self)
-    
-    local beat4sprite = self.beat4sprite            local colors = beat4sprite.Colors
-
-    if colors.Type == "RainbowBlink" then self:timer( 2, rainbowBlink ) end
-
     return self
-    
+
 end
+
+local function setupRainbowBlink(self) return self:timer( 2, rainbowBlink ) end
 
 
 -- Update functions.
@@ -37,6 +31,6 @@ local function updateRainbow(self)
 end
 
 
-local merge = { setupTimers = setupTimers, updateRainbow = updateRainbow }
+local merge = { setupRainbowBlink = setupRainbowBlink, updateRainbow = updateRainbow }
 
 Astro.Table.merge( beat4sprite.Actor, merge )
