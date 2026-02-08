@@ -16,9 +16,11 @@ return beat4sprite.ActorFrame {
             
             OnCommand=function(self)
                 
+                local zoom = SCREEN_HEIGHT / self:GetHeight()
+
                 local p = self:GetParent()          local size = tapLua.screenSize()
 
-                self:scale_or_crop_background():SetTextureFiltering(false)
+                self:Center():zoom(zoom):SetTextureFiltering(false)
                 
                 p:setSizeVector(size):EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()
 
