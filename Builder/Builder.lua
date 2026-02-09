@@ -23,7 +23,7 @@ local function Load( builders )
 
     if not builders.Load then builders = Builder(builders) end
 
-    local wrap = wrap(builders)        local t = beat4sprite.ActorFrame {}
+    local wrap = wrap(builders)        local t = beat4sprite.ActorFrame { Builder = builders }
 
     for i,v in ipairs(wrap) do t[#t+1] = v:Load() end
 

@@ -10,17 +10,15 @@ return beat4sprite.ActorFrame {
     
     tapLua.ActorFrameTexture {
 
-        Def.Sprite {
+        tapLua.Sprite {
 
             Texture = builder.Texture,          Frag = Path .. "/Tile/shader.frag",
             
             OnCommand=function(self)
                 
-                local zoom = SCREEN_HEIGHT / self:GetHeight()
-
                 local p = self:GetParent()          local size = tapLua.screenSize()
 
-                self:Center():zoom(zoom):SetTextureFiltering(false)
+                self:scale_or_crop_background():SetTextureFiltering(false)
                 
                 p:setSizeVector(size):EnableAlphaBuffer(true):EnableDepthBuffer(true):Create()
 
