@@ -72,12 +72,7 @@ local function onScrollSkipping(self)
     if not Scroll.Skip then return end
 
 
-    local size = self:GetZoomedSize()
-
-    for i,v in ipairs(planeAxes) do size[v] = math.min( size[v], 80 ) end
-    
-    
-    local direction = Scroll.Direction * orientation
+    local size = self.ScrollSize        local direction = Scroll.Direction * speed
     
     local offset = Vector.componentProduct( direction, size )
 

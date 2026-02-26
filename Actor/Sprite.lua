@@ -15,7 +15,7 @@ end
 -- To get the smallest path matrix number use math.min( Vector:unpack() ).
 
 
-local function defaultStyle(self)
+local function properties(self)
 
     local states = self.beat4sprite.States          local first, last = states.First, states.Last
 
@@ -28,29 +28,29 @@ local function defaultStyle(self)
 
 end
 
-local Styles = {
+local Properties = {
 
     PingPong = function(self)
     
-        local p = defaultStyle(self)            local reversed = Array.reverse(p)
+        local p = properties(self)            local reversed = Array.reverse(p)
     
-        Array.add( p, reversed )                return p
+        Array.add( p, reversed )              return p
 
     end
 
 }
 
-local function statesProperties(self)
+local function defaultStateProperties(self)
 
     local states = self.beat4sprite.States          local types = states.Types
 
     for i,v in ipairs(types) do
     
-        local style = Styles[v]         if style then return style(self) end
+        local p = Properties[v]         if p then return p(self) end
     
     end
 
-    return defaultStyle(self)
+    return properties(self)
 
 end
 
@@ -83,9 +83,9 @@ end
 
 local function initParticle( self, builder, i )
 
-    local zoom = builder:zoom()                         self:init(builder):zoom(zoom)
+    local zoom = builder:zoom()                             self:init(builder):zoom(zoom)
 
-    local properties = statesProperties(self)           self:SetStateProperties(properties):initSprite()
+    local properties = defaultStateProperties(self)         self:setStateProperties(properties):initSprite()
 
     if not self:hasAnimationType("Position") then return self end
     
@@ -119,9 +119,9 @@ local merge = {
     
     hasAnimationType = hasAnimationType,        initSprite = initSprite,            initParticle = initParticle,
 
-    pathMatrix = pathMatrix,          updateStateDelay = updateStateDelay,          statesProperties = statesProperties,
+    pathMatrix = pathMatrix,          updateStateDelay = updateStateDelay,          defaultStateProperties = defaultStateProperties,
 
-    setInitialState = setInitialState,          statesRate = statesRate,             cycleState = cycleState
+    setInitialState = setInitialState,          statesRate = statesRate,            cycleState = cycleState
 
 }
 
