@@ -101,7 +101,7 @@ local function initStates(self)
 
     if self:GetNumStates() < 2 then return end          local properties = self:defaultStateProperties()
 
-    self:setStateProperties(properties)                 self:positionState()
+    self:SetStateProperties(properties)                 self:positionState()
 
 end
 

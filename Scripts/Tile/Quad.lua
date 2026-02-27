@@ -23,7 +23,7 @@ local function onQuad(self)
 
     if Quad ~= true then return end               local size = self:GetSize()
 
-    self:LoadBy(path):setSizeVector(size)
+    self:Load(path):setSizeVector(size)
 
 end
 

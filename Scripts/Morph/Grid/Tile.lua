@@ -1,5 +1,5 @@
 
-local builder = beat4sprite.Arguments           local Builder = beat4sprite.Builder
+local builder = beat4sprite.Arguments
 
 local Sprite = builder.Sprite                   local OnCommand = Sprite and Sprite.OnCommand
 
@@ -19,14 +19,14 @@ builder = builder:merge {
 
             local size = self:GetSize()
 
-            self:LoadBy(Texture):animate(false):setSizeVector(size)
+            self:Load(Texture):animate(false):setSizeVector(size)
             
-            self:setStateProperties(States):setstate( self.Index - 1 )
+            self:SetStateProperties(States):setstate( self.Index - 1 )
 
             
             local States = self:scrollStates()
             
-            if States then self:setStateProperties(States) end          if OnCommand then OnCommand(self) end
+            if States then self:SetStateProperties(States) end          if OnCommand then OnCommand(self) end
 
         end
     
@@ -34,4 +34,6 @@ builder = builder:merge {
 
 }
 
-return Builder.Load(builder) .. { InitCommand=function(self) self:queuecommand("On") end }
+builder.Scale = SCREEN_HEIGHT * 3 / 720
+
+return builder:Load() .. { InitCommand=function(self) self:queuecommand("On") end }

@@ -85,7 +85,7 @@ local function initParticle( self, builder, i )
 
     local zoom = builder:zoom()                             self:init(builder):zoom(zoom)
 
-    local properties = defaultStateProperties(self)         self:setStateProperties(properties):initSprite()
+    local properties = defaultStateProperties(self)         self:SetStateProperties(properties):initSprite()
 
     if not self:hasAnimationType("Position") then return self end
     
