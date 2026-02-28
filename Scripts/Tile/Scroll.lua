@@ -1,7 +1,8 @@
 
 local Vector = Astro.Vector                     local planeAxes = Vector.planeAxes
 
-local normSqr = Vector.normSqr                  local config = beat4sprite.Config
+local config = beat4sprite.Config
+
 
 local builder = ...                             local Scroll = builder.Scroll
 

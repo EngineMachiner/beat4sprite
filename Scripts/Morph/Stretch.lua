@@ -1,7 +1,7 @@
 
 -- This effect is an example of clock inaccuracy?
 
-local Vector = Astro.Vector             local planeAxes = Vector.planeAxes
+local Vector = Astro.Vector
 
 local builder = ...                     local Type = builder.Type or 2
 

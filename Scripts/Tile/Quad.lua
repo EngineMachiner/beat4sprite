@@ -1,9 +1,5 @@
 
-local astro = Astro.Table               local Builder = beat4sprite.Builder
-
-local builder = ...                     local Quad = builder.Quad
-
-local deepCopy = astro.Copy.deep        local deepMerge = tapLua.deepMerge
+local builder = ...             local Quad = builder.Quad
 
 
 local function quadActor()

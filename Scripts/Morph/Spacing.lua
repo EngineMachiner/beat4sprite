@@ -23,13 +23,11 @@ if tapLua.shadersEnabled() then
 end
 
 
-local cropVector = Vector(1)
+local cropVector = Vector(1)            local fade = 0.015
 
 local crop = tapLua.Load( "Sprite/Crop", "Matrix" )
 
 local matrix = cropVector * ( Layers - 1 ) + Vector(1,1)
-
-local fade = 0.015           local fadeVector = cropVector * fade
 
 local t = beat4sprite.ActorFrame { OnCommand=function(self) self:Center() end }
 

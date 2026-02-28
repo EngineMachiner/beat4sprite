@@ -1,22 +1,9 @@
 
-local astro = Astro.Type                local isOdd = Astro.Math.isOdd
+local Vector = Astro.Vector                 local planeAxes = Vector.planeAxes
 
-local isTable = astro.isTable           local isString = astro.isString
+local isVector = Vector.isVector            local isOdd = Astro.Math.isOdd
 
-
-local astro = Astro.Table
-
-local Vector = Astro.Vector             local isVector = Vector.isVector
-
-local isZero = Vector.isZero            local planeAxes = Vector.planeAxes
-
-
-local maxComponent = Vector.maxComponent
-
-local componentVector = Vector.componentVector
-
-
-local Actor = tapLua.Actor              local screenSize = tapLua.screenSize()
+local Actor = tapLua.Actor                  local screenSize = tapLua.screenSize()
 
 
 -- It's an advanced tiling script using the tapLua Tile.lua script.
@@ -40,9 +27,9 @@ if Direction then Scroll.Direction = Vector.unit( Direction ) end
 
 local Texture = builder.Texture             local States = builder.States
 
-local Display = builder.Display             local Spiral = builder.Spiral
-
 local Quad = builder.Quad                   local Composition = builder.Composition
+
+local Spiral = builder.Spiral
 
 
 local Output = builder.Output or {}
@@ -85,11 +72,9 @@ local scrollVelocity, onReverseScroll, onScrollSkipping = util("Scroll")
 
 local function setRandomState(self)
 
-    local states = self.beat4sprite.States
-
     if not self:hasAnimationType("Random") then return end
 
-    states = self:GetNumStates()        local state = math.random(states) - 1
+    local states = self:GetNumStates()        local state = math.random(states) - 1
     
     self:setstate(state)        local rate = math.random( 500, 1500 ) * 0.001
 

@@ -1,7 +1,5 @@
 
-local Vector = Astro.Vector         local depth = beat4sprite.Config.Depth.Range
-
-local depthOffset = tapLua.depthOffset
+local depth = beat4sprite.Config.Depth.Range        local depthOffset = tapLua.depthOffset
 
 
 local builder = ...                 local Texture = builder.Texture                 local Sprite = builder.Sprite or {}
@@ -36,7 +34,7 @@ for i = 1, n do
 
         ScatterCommand=function(self)
 
-            local size = self:GetZoomedSize() * 0.5         local w, h = size:unpack()
+            local size = self:GetZoomedSize() * 0.5
 
             local rotation = Rotation and math.random( 0, 360 ) or 0            self:rotationz(rotation)
 

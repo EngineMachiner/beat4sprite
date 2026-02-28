@@ -1,7 +1,7 @@
 
 -- A builder to create retro animations.
 
-local deepMerge = tapLua.deepMerge          local Vector = Astro.Vector
+local deepMerge = tapLua.deepMerge
 
 local Builder = beat4sprite.Builder         local Meta = getmetatable(Builder)
 
