@@ -76,9 +76,9 @@ local function setRandomState(self)
 
     local states = self:GetNumStates()        local state = math.random(states) - 1
     
-    self:setstate(state)        local rate = math.random( 500, 1500 ) * 0.001
+    self:setstate(state)        local rate = math.random( 750, 1250 ) * 0.001
 
-    self.statesDelay = self.statesDelay * rate * 2
+    self.statesDelay = self.statesDelay * rate
 
 end
 
@@ -364,7 +364,9 @@ local Main = beat4sprite.ActorFrame {
 
             local scale = 0.5 / Output.Scale            self.TileSize = OffsetSize
 
-            local size = self:GetZoomedSize()           self.ScrollSize = size
+            self.ScrollSize = self.ScrollSize or self:GetZoomedSize()
+
+            local size = self.ScrollSize
 
             if Dynamic then
             
