@@ -23,9 +23,7 @@ local function onGameplay(self)
 
     if not self:isOnGameplay() then return self end
 
-    self:effectclock('beat'):set_tween_uses_effect_delta(true)
-
-    return self
+    return self:effectclock('beat'):set_tween_uses_effect_delta(true)
 
 end
 
@@ -94,29 +92,20 @@ local function setEffect( self, effectKey )
 
     if #Colors < 2 then return self end          local color1, color2 = Colors[1], Colors[2]
 
-    self:effectcolor1(color1):effectcolor2(color2)
-
-
-    return self
+    return self:effectcolor1(color1):effectcolor2(color2)
 
 end
 
 local function setEffectOffset( self, vector )
 
-    self.Effect.Offset = - vector.x + vector.y            return self
+    self.Effect.Offset = vector.y - vector.x            return self
 
 end
 
 
--- Get the delay time based off a vector.
--- This is used if there's an initial sleep to set a pattern on the planned sequence of tweens.
-
-local function delayFromVector( self, vector ) return vector.x + vector.y end
-
-
 local function scaleToScreen(self)
 
-    local scale = SCREEN_HEIGHT / self:GetHeight()          self:zoom(scale)            return self
+    local scale = SCREEN_HEIGHT / self:GetHeight()          return self:zoom(scale)
 
 end
 
@@ -125,15 +114,13 @@ local function fitInScreen(self) return scaleToScreen(self):Center() end
 
 local function queueCommands(self)
 
-    local commands = self.beat4sprite.Commands          self:queueCommands(commands)
+    local commands = self.beat4sprite.Commands          return self:queueCommands(commands)
 
 end
 
 local function setAlpha(self)
 
-    local alpha = self.beat4sprite.Alpha            self:diffusealpha(alpha)
-
-    return self
+    local alpha = self.beat4sprite.Alpha            return self:diffusealpha(alpha)
 
 end
 
@@ -143,9 +130,7 @@ local function init( self, builder )
     
     local filter = beat4sprite.Filter               self:SetTextureFiltering(filter)
 
-    self:onGameplay(self)       setupEffect(self):periodSetup()     queueCommands(self)
-    
-    return self
+    self:onGameplay(self)       setupEffect(self):periodSetup()     return queueCommands(self)
 
 end
 
@@ -158,7 +143,7 @@ local merge = {
     
     setupEffect = setupEffect,      setEffect = setEffect,      setEffectOffset = setEffectOffset,
 
-    scaleToScreen = scaleToScreen,          fitInScreen = fitInScreen,              delayFromVector = delayFromVector,
+    scaleToScreen = scaleToScreen,          fitInScreen = fitInScreen,
     
     statesRate = statesRate,      tweenRate = tweenRate,        freeRate = freeRate,
     

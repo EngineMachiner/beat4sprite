@@ -96,9 +96,9 @@ for j = 1, 3 do for i = 1, 4 do
             direction = direction * d * x * scale * 500
 
             
-            self.pos = self:GetPos()            local pos = self:GetPos() + direction
+            self.pos = self:GetPos()                    local pos = self:GetPos() + direction
             
-            self:setPos(pos)    onBounds(self)      if Skip then self:sleep( rate * 0.5 ) end
+            self:setPos(pos)    onBounds(self)          if Skip then self:sleep( rate * 0.5 ) end
 
         end
 

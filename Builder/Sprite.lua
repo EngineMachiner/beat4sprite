@@ -26,14 +26,12 @@ local function stateTypes(self)
 
     local states = self.States          local types = states.Types
 
-    if not isString(types) then return end          states.Types = { types }
+    if not isString(types) then return end          states.Types = { types }        return self
 
 end
 
 function Builder:setSpriteStates()
 
-    onStatesNumber(self)    substract(self)     stateTypes(self)
-    
-    return self
+    onStatesNumber(self)    substract(self)     return stateTypes(self)
 
 end

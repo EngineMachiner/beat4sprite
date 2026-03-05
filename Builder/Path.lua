@@ -44,8 +44,8 @@ end
 
 function Builder:setPaths()
 
-    wrapScriptPath(self)            setPath( self, "Texture", "Resources" )        setPath( self, "Script" )
+    wrapScriptPath(self)
     
-    return self
+    setPath( self, "Texture", "Resources" )        setPath( self, "Script" )        return self
 
 end

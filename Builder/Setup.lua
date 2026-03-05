@@ -111,15 +111,13 @@ end
 
 local function wasSetup(self) return getmetatable(self).setup end
 
-local function finishSetup(self) getmetatable(self).setup = true end
+local function finishSetup(self) getmetatable(self).setup = true        return self end
 
 
 function Builder:setup()
 
     if wasSetup(self) then return self end          self:setPaths():setSpriteStates()
 
-    self:setColors():setBlend():setFilter()         self:onDepth()      finishSetup(self)
-
-    return self
+    self:setColors():setBlend():setFilter()         self:onDepth()      return finishSetup(self)
 
 end

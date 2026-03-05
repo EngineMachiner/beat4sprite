@@ -89,7 +89,7 @@ local function initParticle( self, builder, i )
 
     if not self:hasAnimationType("Position") then return self end
     
-    local s = self:cycleState(i)            self:setstate(s)            return self
+    local s = self:cycleState(i)            return self:setstate(s)
     
 end
 
@@ -98,17 +98,17 @@ end
 
 local function updateStateDelay(self)
 
-    local isIdle = self:hasAnimationType("Idle")          if isIdle then return self end
+    local isIdle = self:hasAnimationType("Idle")            if isIdle then return self end
 
-    local n = self:GetNumStates()		        if n <= 1 then return self end
+    local n = self:GetNumStates()		                    if n <= 1 then return self end
 
 
-    local last = self.lastStatesDelay           local current = self:statesRate()
+    local last = self.lastStatesDelay               local current = self:statesRate()
 
     if last == current then return self end
         
 
-    self:SetAllStateDelays(current)         self.lastStatesDelay = current
+    self.lastStatesDelay = current                  return self:SetAllStateDelays(current)
     
 end
 
