@@ -71,7 +71,7 @@ for i = 1, n do
             
             local y = SCREEN_CENTER_X + h         y = depthOffset( y, z, verticalFOV )            y = random(y)
             
-            self:xyz( x, y, z )
+            self:xy( x, y )         self:GetParent():z(z)
 
 
             local percent = 1 - percent(z)
