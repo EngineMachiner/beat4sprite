@@ -10,7 +10,7 @@ local function SpinX(self)
 
     for i,v in ipairs(degrees) do self:linear(time):rotationy(v) end
 
-    self:queuecommand( "Spin" )
+    self:queuecommand("Spin")
 
 end
 
@@ -20,7 +20,7 @@ local function SpinY(self)
 
     for i,v in ipairs(degrees) do self:linear(time):rotationx(v) end
 
-    self:queuecommand( "Spin" )
+    self:queuecommand("Spin")
 
 end
 
@@ -31,7 +31,7 @@ local function SpinXY(self)
     for i,v in ipairs(degrees) do self:linear(time):rotationy(v) end
     for i,v in ipairs(degrees) do self:linear(time):rotationx(v) end
 
-    self:queuecommand( "Spin" )
+    self:queuecommand("Spin")
 
 end
 
@@ -61,10 +61,21 @@ local function Alpha(self)
 end
 
 
+local function Alpha2(self)
+
+    local time = self:tweenRate()           local alpha = self:GetDiffuseAlpha()
+
+    self:sleep(time):diffusealpha(0):sleep(time):diffusealpha(alpha)
+    
+    self:queuecommand("Alpha")
+
+end
+
+
 beat4sprite.Actor.Commands = {
     
     SpinX = SpinX,      SpinY = SpinY,      SpinXY = SpinXY,            Pulse1 = Pulse1,    Pulse2 = Pulse2,
 
-    Alpha = Alpha
+    Alpha = Alpha,      Alpha2 = Alpha2
 
 }

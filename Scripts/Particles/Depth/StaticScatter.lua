@@ -34,8 +34,6 @@ for i = 1, n do
 
         ScatterCommand=function(self)
 
-            local size = self:GetZoomedSize() * 0.5
-
             local rotation = Rotation and math.random( 0, 360 ) or 0            self:rotationz(rotation)
 
 
