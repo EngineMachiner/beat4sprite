@@ -1,12 +1,12 @@
 
 local Vector = Astro.Vector         local isNumber = Astro.Type.isNumber
 
-local builder = ...                 builder.Quantity = builder.Quantity or 8 -- Quantity per group.
+local builder = ...                 builder.Quantity = builder.Quantity or 8
 
 local Group = builder.Group or {}           local Sprite = builder.Sprite or {}
 
 
-local Quantity2 = builder.Quantity2 or function() return math.random( 2, 5 ) end
+local Quantity2 = builder.Quantity2 or function() return math.random( 2, 5 ) end -- Quantity per group.
 
 if isNumber(Quantity2) then
 

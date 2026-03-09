@@ -88,7 +88,7 @@ local i, s = 0, 0           n = n * Waves
 
 for x = 1, n do
 
-    i = i + 1       s = States(s)       local angle = angle(i) + angleOffset
+    i = i + 1       s = States(s)       local angle = angle( i + angleOffset )
 
     local ActorFrame = ActorFrame(i)            MainFrame[i] = ActorFrame
 
