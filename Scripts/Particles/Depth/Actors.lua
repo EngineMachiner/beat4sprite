@@ -1,4 +1,6 @@
 
+-- Consider if freeRate() or tweenRate() is best.
+
 local reverse = Astro.Table.Array.reverse           local z = beat4sprite.Config.Depth.Range
 
 
@@ -85,7 +87,7 @@ local function draw(self)
 end
 
 
-local sleep, depth
+local depth
 
 local function ActorFrame(i)
 
@@ -99,14 +101,14 @@ local function ActorFrame(i)
         
         PostCommand=function(self)
 
-            sleep = self.Sleep or 1             depth = self.Depth or 0
-
-            if Reversed then depth = - depth end
+            local offset = self.Sleep2 or 0         local sleep = self.Sleep or 1
+            
+            depth = self.Depth or 0                 if Reversed then depth = - depth end
 
 
             local rate = self:freeRate() * 2
             
-            local i = i - 1         i = i * sleep         i = rate * i / n
+            local i = i - 1 + offset         i = i * sleep         i = rate * i / n
 
             self:queuecommand("Prepare"):sleep(i):queuecommand("Motion"):queuecommand("Draw")
 
