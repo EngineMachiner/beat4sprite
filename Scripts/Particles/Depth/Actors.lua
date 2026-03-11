@@ -61,8 +61,10 @@ local function drawParticle(self)
     if not self.Rainbow then self:diffuse(color) end
 
 
-    local alpha = alpha(z)              alpha = math.max( 0, alpha )            alpha = math.min( Alpha, alpha )
-
+    local parentAlpha = self:GetParent():GetDiffuseAlpha()          local alpha = alpha(z)
+    
+    alpha = math.max( 0, alpha )        alpha = math.min( Alpha, alpha )        alpha = alpha * parentAlpha
+    
     self:diffusealpha(alpha)
 
     
