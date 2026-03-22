@@ -166,6 +166,8 @@ function Builder:Load()
 
     return beat4sprite.BaseFrame {
 
+        Builder = self,
+
         InitCommand=function(self)
 
             local update = function() self:playcommand("UpdateFunction") end
