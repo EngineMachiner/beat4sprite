@@ -5,7 +5,13 @@ local function rainbowBlink( timer, self )
 
 end
 
-local function setupRainbowBlink(self) return self:timer( 2, rainbowBlink ) end
+local function setupRainbowBlink( self, limit )
+    
+    limit = limit or 2          local timer = self:timer( limit, rainbowBlink )
+    
+    rainbowBlink( timer, self )         return timer
+
+end
 
 
 -- Update functions.
