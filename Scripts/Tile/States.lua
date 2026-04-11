@@ -34,7 +34,7 @@ local function scrollStates(self)
 
         for i,v in ipairs(planeAxes) do
             
-            local x = pos[v] + Scroll[v] * step             scroll[v] = x % matrix[v]
+            local x = pos[v] - Scroll[v] * step             scroll[v] = x % matrix[v]
         
         end
 
