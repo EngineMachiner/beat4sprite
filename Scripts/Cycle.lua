@@ -35,6 +35,8 @@ for i,v in ipairs(Actors) do
     
     t[i] = v .. {
 
+        OnCommand=function(self) self.beat4sprite.Cycle = builder end,
+
         CycleSetup1Command=function(self)
 
             local timeLeft = self:GetTweenTimeLeft()                times[i] = timeLeft
