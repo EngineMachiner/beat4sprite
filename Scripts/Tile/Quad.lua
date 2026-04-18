@@ -8,7 +8,7 @@ local function quadActor()
 
     local builder = builder:merge { Quad = true,        States = {} }
 
-    builder.Layers = {}         return builder:merge(Quad):Load()
+    builder:input().Layers = {}         return builder:merge(Quad):Load()
     
 end
 
