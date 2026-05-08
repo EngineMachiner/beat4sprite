@@ -84,6 +84,8 @@ end
 
 local function initStates(self)
 
+    self.positionState = positionState                  self.scrollStates = scrollStates
+
     if self:GetNumStates() < 2 then return end          local properties = self:defaultStateProperties()
 
     self:SetStateProperties(properties)                 self:positionState()
@@ -94,13 +96,7 @@ Commands = { "Visible", "States" }
 
 local Sprite = beat4sprite.Sprite {
 
-    InitCommand=function(self)
-        
-        self.positionState = positionState          self.scrollStates = scrollStates
-
-        self:queuecommand("On")
-    
-    end,
+    InitCommand=function(self) self:queuecommand("On") end,
 
     OnCommand=function(self)
 

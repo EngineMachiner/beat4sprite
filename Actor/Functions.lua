@@ -120,7 +120,9 @@ end
 
 local function setAlpha(self)
 
-    local alpha = self.beat4sprite.Alpha            return self:diffusealpha(alpha)
+    local builder = self.beat4sprite                if not builder then return end
+
+    local alpha = builder.Alpha                     return self:diffusealpha(alpha)
 
 end
 
