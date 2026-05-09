@@ -13,6 +13,9 @@ return beat4sprite.ActorFrame {
             
             OnCommand=function(self)
 
+                if p:GetTexture() then return end
+
+
                 local p = self:GetParent()
                 
                 local size = Vector(320, 240)           size = componentDivision( size, Matrix )
