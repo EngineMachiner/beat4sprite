@@ -1,4 +1,6 @@
 
+-- Maybe this is not necessary at all. Check 5th071.
+
 local path = beat4sprite.Path .. "Scripts/Morph/Grid/Tile.lua"
 
 local Vector = Astro.Vector         local componentDivision = Vector.componentDivision
