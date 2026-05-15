@@ -322,6 +322,8 @@ local Main = beat4sprite.ActorFrame {
                 self:SetTexture(Texture):setPos( size / 2 ):setSizeVector(size):SetTextureFiltering(false)
 
 
+                local Matrix = input.__Matrix
+
                 OffsetSize = Vector.componentDivision( size, Matrix )
 
                 AFT = self:GetParent()              AFT:setSizeVector(size)
