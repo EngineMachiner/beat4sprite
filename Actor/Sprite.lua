@@ -81,11 +81,19 @@ local function initSprite(self)
     
 end
 
+local function setDefaultStateProperties(self)
+
+    if self.statesDelay then return self end
+
+    local properties = defaultStateProperties(self)         return self:SetStateProperties(properties)
+
+end
+
 local function initParticle( self, builder, i )
 
-    local zoom = builder:zoom()                             self:init(builder):zoom(zoom)
-
-    local properties = defaultStateProperties(self)         self:SetStateProperties(properties):initSprite()
+    local zoom = builder:zoom()
+    
+    self:init(builder):zoom(zoom)           setDefaultStateProperties(self):initSprite()
 
     if not self:hasAnimationType("Position") then return self end
     
