@@ -37,7 +37,7 @@ end
 
 local function randomAnimation()
     
-    local animations = FILEMAN:GetDirListing( animationsDirectory, true )
+    local animations = FILEMAN:GetDirListing( animationsDirectory, true, false )
 
     local path = astro.random(animations)         path = animationPath(path)         return loadfile(path)()
 
