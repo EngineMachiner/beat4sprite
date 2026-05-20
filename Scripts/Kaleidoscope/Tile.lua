@@ -6,7 +6,7 @@ local builder = ...             builder.Sides = 6
 
 builder.Scroll = builder.Scroll or Vector("UpRight")          builder.Zoom = 0.25
 
-if tapLua.shadersEnabled() and false then
+if tapLua.shadersEnabled() then
     
     builder.Tiles = 3       builder.Zoom = 0.5          return beat4sprite.Load( "Kaleidoscope/Shader" )( builder )
 

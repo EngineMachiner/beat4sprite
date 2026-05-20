@@ -1,7 +1,7 @@
 
 local builder = ...             builder.Sides = builder.Sides or 8              local Sides = builder.Sides
 
-if tapLua.shadersEnabled() and false then return beat4sprite.Load( "Kaleidoscope/Shader" )( builder ) end
+if tapLua.shadersEnabled() then return beat4sprite.Load( "Kaleidoscope/Shader" )( builder ) end
 
 if Sides < 3 then error("More than 2 sides supported only!") end
 
