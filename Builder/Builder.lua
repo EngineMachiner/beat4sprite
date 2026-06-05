@@ -155,7 +155,7 @@ function Builder:Load()
 
     local isTexture = astro.contains( textureScripts, isValid )
 
-    Main = Def.ActorFrame {
+    Main = beat4sprite.ActorFrame {
         
         Main,       OnCommand=function(self) if not isTexture then self:diffusealpha(Alpha) end end
     

@@ -6,14 +6,22 @@ local time, times
 
 local t = beat4sprite.ActorFrame {
     
-    OnCommand=function(self)
+    OnCommand=function(self) self:playcommand("CycleInit"):queuecommand("CycleOn") end,
 
-        time, times = 0, {}         self:init(builder)
+    CycleInitCommand=function(self)
+
+        if self.__cycleInit then return end         self:init(builder)
+        
+        self.__cycleInit = true         self:playcommand("CalculateTimes")
+
+    end,
+
+    CalculateTimesCommand=function(self)
+
+        time, times = 0, {}
 
         self:queuecommand("CycleSetup"):queuecommand("CycleSetup1"):queuecommand("CycleSetup2")
-        
-        self:queuecommand("CycleOn")
-    
+
     end
 
 }
@@ -23,9 +31,7 @@ local function cycleTimeLeft(i)
 
     local t = 0          local a = i + 1         local b = #times
     
-    for i = a, b do if times[i] then t = t + times[i] end end
-
-    return t
+    for i = a, b do if times[i] then t = t + times[i] end end           return t
 
 end
 
@@ -34,6 +40,8 @@ for i,v in ipairs(Actors) do
     local sleep = {}        if Reversed then i = #Actors - i + 1 end
     
     t[i] = v .. {
+
+        InitCommand=function(self) self.Index = self.Index or i end,
 
         OnCommand=function(self) self.beat4sprite.Cycle = builder end,
 
@@ -47,8 +55,7 @@ for i,v in ipairs(Actors) do
 
         CycleSetup2Command=function(self)
 
-            sleep[2] = cycleTimeLeft(i)         self.CycleTimes = sleep             self.Index = i
-
+            sleep[2] = cycleTimeLeft(i)         self.CycleTimes = sleep
 
             local isZero = sleep[1] == 0 and sleep[2] == 0
 
