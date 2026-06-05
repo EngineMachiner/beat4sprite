@@ -360,11 +360,11 @@ local Main = beat4sprite.ActorFrame {
 
         RectCommand=function(self)
 
-            local scale = 0.5 / Output.Scale            self.TileSize = OffsetSize
-
-            self.ScrollSize = self.ScrollSize or self:GetZoomedSize()
-
-            local size = self.ScrollSize
+            local scale = 0.5 / Output.Scale                local size = self:GetZoomedSize()
+            
+            self.TileSize = OffsetSize                      self.ScrollSize = self.ScrollSize or size
+            
+            self.TextureSize = tapLua.isLegacy() and AFT:GetZoomedSize() / 2 or size
 
             if Dynamic then
             
