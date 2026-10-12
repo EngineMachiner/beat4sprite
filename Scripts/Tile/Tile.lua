@@ -366,6 +366,8 @@ local Main = beat4sprite.ActorFrame {
             
             self.TextureSize = tapLua.isLegacy() and AFT:GetZoomedSize() / 2 or size
 
+            size = self.ScrollSize
+            
             if Dynamic then
             
                 local x = scale * 2         self:customtexturerect( 0, 0, x, x )
